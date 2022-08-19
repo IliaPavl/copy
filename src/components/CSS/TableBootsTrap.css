@@ -1,0 +1,12 @@
+.gain-center {
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.gain-center:hover {
+    transform: scale(1.2);
+}
+
+.radius{
+    border-radius: 30px/25px;
+}

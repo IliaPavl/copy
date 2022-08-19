@@ -1,0 +1,7 @@
+export const LOGIN_ROUTE = '/login'
+export const REGISTRATION_ROUTE = '/registration'
+export const HOME_PAGE = '/'
+export const USER_LIST = '/userList'
+export const BOOK_LIST = '/bookList'
+export const BOOK_ADD = '/bookAdd'
+export const ERROR = '/error'
