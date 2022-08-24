@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import {Link} from "react-router-dom";
-import OffcanvasUser from "./OffcanvasUser";
+import { Link } from "react-router-dom";
+import { COMPANY_ADD, COMPANY_LIST, COMPANY_PROFILE, LOGIN_ROUTE, USER_ADD, USER_LIST, USER_PROFILE } from "../../utils/const.js";
 import SearchLable from "../SearchForm/SearchLable";
 import Switch from "../Theme/switch";
+import OffcanvasUser from "./OffcanvasUser";
+
 
 
 const NavigationBar = () => {
@@ -39,16 +41,20 @@ const NavigationBar = () => {
                             </Offcanvas.Header>
                             <Offcanvas.Body>
                                 <Nav className="flex-grow-1 pe-3 justify-content-start">
-                                    <Link to={"/bookAdd"} className={"nav-link"} onClick={handleClose}> Add </Link>
-                                    <Link to={"/bookList"} className={"nav-link"} onClick={handleClose}> Lists </Link>
-                                    <Link to={"/login"} className={"nav-link"} onClick={handleClose}> Auth </Link>
+                                    <Link to={USER_ADD} className={"nav-link"} onClick={handleClose}> Users add </Link>
+                                    <Link to={USER_LIST} className={"nav-link"} onClick={handleClose}> Users list </Link>
+                                    <Link to={COMPANY_ADD} className={"nav-link"} onClick={handleClose}> Company Add </Link>
+                                    <Link to={COMPANY_LIST} className={"nav-link"} onClick={handleClose}> Company List </Link>
+                                    <Link to={LOGIN_ROUTE} className={"nav-link"} onClick={handleClose}> Auth </Link>
+                                    <Link to={USER_PROFILE} className={"nav-link"} onClick={handleClose}> User Profile </Link>
+                                    <Link to={COMPANY_PROFILE} className={"nav-link"} onClick={handleClose}> Company Profile </Link>
                                 </Nav>
-                                <OffcanvasUser close={handleClose}/>
+                                <OffcanvasUser close={handleClose} />
                             </Offcanvas.Body>
                         </Navbar.Offcanvas>
-                        <Switch/>
-                        <SearchLable backSearch={search}/>
-                        <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} onClick={toggleShow}/>
+                        <Switch />
+                        <SearchLable backSearch={search} />
+                        <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} onClick={toggleShow} />
                     </Container>
                 </Navbar>
             ))}

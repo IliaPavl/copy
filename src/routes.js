@@ -1,11 +1,15 @@
-import {BOOK_ADD, BOOK_LIST, ERROR, HOME_PAGE, LOGIN_ROUTE, REGISTRATION_ROUTE, USER_LIST} from "./utils/const";
+import {USER_ADD, USER_LIST, ERROR, HOME_PAGE, LOGIN_ROUTE, REGISTRATION_ROUTE, COMPANY_LIST,COMPANY_ADD, USER_PROFILE, COMPANY_PROFILE} from "./utils/const";
 import LoginPage from "./pages/Authorization/loginPage";
 import RegistrationPage from "./pages/Authorization/registrationPage";
-import UsersList from "./pages/Users/userList";
-import BookList from "./pages/Book/bookList";
+import CompanyLIst from "./pages/Company/companyList";
+import UserList from "./pages/User/userList";
 import HomePage from "./pages/start";
-import BookAdd from "./pages/Book/bookAdd";
+import UserAdd from "./pages/User/userAdd";
 import Error from "./pages/Errors/error";
+import CompanyAdd from "./pages/Company/companyCreate";
+import userProfilePage from "./pages/User/userProfilePage";
+import UserProfile from "./components/Users/UserProfile";
+
 
 export const authRoutes = []
 
@@ -23,19 +27,31 @@ export const publicRoutes = [
         Component: HomePage
     },
     {
-        path: BOOK_LIST,
-        Component: BookList
-    },
-    {
         path: USER_LIST,
-        Component: UsersList
+        Component: UserList
     },
     {
-        path: BOOK_ADD,
-        Component: BookAdd
+        path: COMPANY_LIST,
+        Component: CompanyLIst
+    },
+    {
+        path: USER_ADD,
+        Component: UserAdd
     },
     {
         path: ERROR,
         Component: Error
+    },
+    {
+        path: COMPANY_ADD,
+        Component: CompanyAdd
+    },
+    {
+        path: USER_PROFILE,
+        Component: UserProfile
+    },
+    {
+        path: COMPANY_PROFILE,
+        Component: CompanyAdd
     },
 ]

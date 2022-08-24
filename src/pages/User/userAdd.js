@@ -1,11 +1,12 @@
 import React from 'react';
-import Add from "../../components/Books/Add";
-import {Container} from "react-bootstrap";
+import Add from "../../components/Users/Add";
+
+import { Container } from "react-bootstrap";
 
 const BookAdd = () => {
     return (
         <Container>
-            <Add/>
+            <Add />
         </Container>
     );
 };

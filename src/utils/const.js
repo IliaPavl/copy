@@ -1,7 +1,11 @@
 export const LOGIN_ROUTE = '/login'
 export const REGISTRATION_ROUTE = '/registration'
 export const HOME_PAGE = '/'
+export const COMPANY_LIST = '/companyList'
 export const USER_LIST = '/userList'
-export const BOOK_LIST = '/bookList'
-export const BOOK_ADD = '/bookAdd'
+export const USER_ADD = '/userAdd'
 export const ERROR = '/error'
+export const COMPANY_ADD = '/companyAdd'
+export const USER_PROFILE = '/userProfilePage'
+export const COMPANY_PROFILE = '/companyAdd'
+

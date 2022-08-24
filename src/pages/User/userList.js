@@ -1,11 +1,10 @@
 import React from 'react';
-import ListBook from "../../components/Books/ListBook";
-import {Container} from "react-bootstrap";
+import ListUser from "../../components/Users/userList";
 
 const BookList = () => {
     return (
         <div>
-            <ListBook/>
+            <ListUser/>
         </div>
     );
 };

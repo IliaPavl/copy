@@ -1,10 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {Card} from "react-bootstrap";
+import React, { useEffect, useState } from 'react';
+import { Card } from "react-bootstrap";
 import TableBootsTrap from "../BootstratTable/TableBootsTrap";
 
 const ListBook = () => {
     let [headerTable, setHeaderTable] = useState([
-        {title: 'id'},
+        { title: 'id' },
+        { title: 'Title' },
+        { title: 'Author' },
+        { title: 'ISBN' },
+        { title: 'Price' },
+        { title: 'Language' },
+        { title: 'Genre' },
+        { title: 'Actions' },
     ])
     let [rowsTable, setRowsTable] = useState([
         {
@@ -62,14 +69,14 @@ const ListBook = () => {
     async function switchData(data) {
         if (data === "Users") {
             setHeaderTable([
-                {title: 'id'},
-                {title: 'Title'},
-                {title: 'Author'},
-                {title: 'ISBN'},
-                {title: 'Price'},
-                {title: 'Language'},
-                {title: 'Genre'},
-                {title: 'Actions'},
+                { title: 'id' },
+                { title: 'Title' },
+                { title: 'Author' },
+                { title: 'ISBN' },
+                { title: 'Price' },
+                { title: 'Language' },
+                { title: 'Genre' },
+                { title: 'Actions' },
             ])
             setRowsTable([
                 {
@@ -123,11 +130,11 @@ const ListBook = () => {
                     Actions: 'actions2'
                 },
             ]);
-        } else if (data === "Orders"){
+        } else if (data === "Clients") {
             setHeaderTable([
-                {title: 'id'},
-                {title: 'Title1'},
-                {title: 'Author'},
+                { title: 'id' },
+                { title: 'Title1' },
+                { title: 'Author' },
 
             ])
             setRowsTable([
@@ -151,19 +158,20 @@ const ListBook = () => {
     }
 
     useEffect(() => {
+        setHeaderTable(headerTable)
         setRowsTable(rowsTable)
-    }, [rowsTable]);
+    }, [rowsTable,headerTable]);
 
     return (
         <Card className={"border-1 m-1"}>
             <Card.Header>
-                <div style={{float: "left"}}>
+                <div style={{ float: "left" }}>
                     List
                 </div>
             </Card.Header>
             <Card.Body>
-                <TableBootsTrap head={headerTable} rows={rowsTable} switchData={switchData}/>
-                <br/>
+                <TableBootsTrap head={headerTable} rows={rowsTable} switchData={switchData} />
+                <br />
             </Card.Body>
         </Card>
     );

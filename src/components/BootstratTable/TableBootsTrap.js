@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Container, Table, Col, Row, Button} from 'react-bootstrap';
 import TableRow from './TableRow';
 import TableHead from './TableHead';
@@ -60,7 +60,7 @@ const TableBootsTrap = ({head, rows, switchData}) => {
             <Col>
                 <Col>
                     <Button className="m-1 radius" onClick={() => switchData("Users")}>Пользователи</Button>
-                    <Button className="m-1 radius" onClick={() => switchData("Orders")}>Заказы</Button>
+                    <Button className="m-1 radius" onClick={() => switchData("Clients")}>Клиенты</Button>
                 </Col>
                 <Row>
                     <Col><SearchWithButton backSearch={search}/></Col>
