@@ -1,5 +1,5 @@
-import NavigationBar from "./components/NavigationBar/NavigationBar";
-import Footer from "./components/NavigationBar/Footer";
+import NavigationBar from "./components/UI/NavigationBar/NavigationBar";
+import Footer from "./components/UI/NavigationBar/Footer";
 import {BrowserRouter} from "react-router-dom";
 import './App.css';
 import AppRouter from "./components/Routers/AppRouter";

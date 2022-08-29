@@ -11,21 +11,7 @@ import userProfilePage from "./pages/User/userProfilePage";
 import UserProfile from "./components/Users/UserProfile";
 
 
-export const authRoutes = []
-
-export const publicRoutes = [
-    {
-        path: LOGIN_ROUTE,
-        Component: LoginPage
-    },
-    {
-        path: REGISTRATION_ROUTE,
-        Component: RegistrationPage
-    },
-    {
-        path: HOME_PAGE,
-        Component: HomePage
-    },
+export const authRoutes = [,
     {
         path: USER_LIST,
         Component: UserList
@@ -53,5 +39,19 @@ export const publicRoutes = [
     {
         path: COMPANY_PROFILE,
         Component: CompanyAdd
+    },]
+
+export const publicRoutes = [
+    {
+        path: HOME_PAGE,
+        Component: HomePage
     },
+    {
+        path: LOGIN_ROUTE,
+        Component: LoginPage
+    },
+    {
+        path: REGISTRATION_ROUTE,
+        Component: RegistrationPage
+    }
 ]

@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link } from "react-router-dom";
-import { COMPANY_ADD, COMPANY_LIST, COMPANY_PROFILE, LOGIN_ROUTE, USER_ADD, USER_LIST, USER_PROFILE } from "../../utils/const.js";
+import { COMPANY_ADD, COMPANY_LIST, COMPANY_PROFILE, LOGIN_ROUTE, USER_ADD, USER_LIST, USER_PROFILE } from "../../../utils/const.js";
 import SearchLable from "../SearchForm/SearchLable";
 import Switch from "../Theme/switch";
 import OffcanvasUser from "./OffcanvasUser";

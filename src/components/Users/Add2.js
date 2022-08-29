@@ -1,25 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Button, Card, Form, Pagination, Row, Col } from "react-bootstrap";
-import DropDownCompany from '../DropDown/DropDownOutSucses';
+import { Button, Card, Col, Form, Pagination, Row } from "react-bootstrap";
+import UserServise from '../../servise/funtionService/UserServise';
+import UserHttpServise from '../../servise/httpServise/UserHttpServise';
+import DropDownOutSucses from '../UI/DropDown/DropDownOutSucses';
 
-const Add = () => {
-    let [companys, setCompanys] = useState([
-        { item: 'Company1' },
-        { item: 'Company2' },
-        { item: 'Company3' },
-        { item: 'Company4' }
-    ])
-    let [reng, setReng] = useState()
+const Add2 = () => {
+    let [status, setStatus] = useState([])
+    let [clients, setClients] = useState('')
+    let [renj, setReng] = useState()
 
-    function getValueReng() {
+    async function getValueReng() {
         let value = document.getElementById("r1");
         setReng(value.value)
     }
 
+    async function setAxiosClients() {
+        UserHttpServise.getClientUser().then((respons) => {
+            setStatus(UserServise.setClientUser(respons))
+        }).catch((error) => { alert(error) })
+    }
+
+    async function createUsers(event) {
+        event.preventDefault()
+        UserHttpServise.createUsers(clients,renj).then((respons) => {
+            alert(respons.data)
+        }).catch((error) => { alert(error) })
+    }
+
     useEffect(() => {
+        setAxiosClients()
         getValueReng()
-    }, []);
+    }, [clients]);
 
     return (
         <Card className={"border-1 m-1"}>
@@ -29,13 +41,13 @@ const Add = () => {
                 </div>
             </Card.Header>
             <Card.Body>
-                <Form>
+                <Form onSubmit={event => createUsers(event)}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Company</Form.Label>
                         <Form.Group>
                             <Row sm={3}>
                                 <Col>
-                                    <DropDownCompany values={companys}/>
+                                    <DropDownOutSucses values={status} setEnabledStatus={setClients} enabledStatus={null}/>
                                 </Col>
                             </Row>
                         </Form.Group>
@@ -48,8 +60,8 @@ const Add = () => {
                         <Form.Label>How create users</Form.Label>
                         <Form.Range onChange={() => getValueReng()} id="r1" />
                         <Pagination>
-                            <Pagination.Item key={reng} >
-                                {reng}
+                            <Pagination.Item key={renj} >
+                                {renj}
                             </Pagination.Item>
                         </Pagination>
                     </Form.Group>
@@ -63,4 +75,4 @@ const Add = () => {
     );
 };
 
-export default Add;
+export default Add2;

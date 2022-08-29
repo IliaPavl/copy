@@ -3,7 +3,7 @@ import { Dropdown, NavLink } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Link } from "react-router-dom";
-import {USER_ADD, USER_LIST, LOGIN_ROUTE,COMPANY_ADD, COMPANY_LIST, REGISTRATION_ROUTE, USER_PROFILE, COMPANY_PROFILE} from "../../utils/const.js";
+import {USER_ADD, USER_LIST, LOGIN_ROUTE,COMPANY_ADD, COMPANY_LIST, REGISTRATION_ROUTE, USER_PROFILE, COMPANY_PROFILE} from "../../../utils/const.js";
 
 const OffcanvasUser = ({ close }) => {
     const [show, setShow] = useState(false);

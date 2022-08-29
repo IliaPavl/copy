@@ -1,166 +1,83 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from "react-bootstrap";
-import TableBootsTrap from "../BootstratTable/TableBootsTrap";
+import ClientServise from '../../servise/funtionService/ClientServise';
+import UserServise from '../../servise/funtionService/UserServise';
+import ClientHttpServise from '../../servise/httpServise/ClientHttpServise';
+import UserHttpServise from '../../servise/httpServise/UserHttpServise';
+import { COMPANY_LIST, USER_LIST } from '../../utils/const';
+import TableBootsTrap from "../UI/BootstratTable/TableBootsTrap";
 
 const ListBook = () => {
-    let [headerTable, setHeaderTable] = useState([
-        { title: 'id' },
-        { title: 'Title' },
-        { title: 'Author' },
-        { title: 'ISBN' },
-        { title: 'Price' },
-        { title: 'Language' },
-        { title: 'Genre' },
-        { title: 'Actions' },
-    ])
-    let [rowsTable, setRowsTable] = useState([
-        {
-            id: 1,
-            Title: "abra",
-            Author: 'email1',
-            ISBN: 'isbn1',
-            Price: 'price1',
-            Language: 'RUS',
-            Genre: 'chem',
-            Actions: 'actions2'
-        },
-        {
-            id: 2,
-            Title: "cadabra",
-            Author: 'email2',
-            ISBN: 'isbn2',
-            Price: 'price2',
-            Language: 'RUS',
-            Genre: 'chem2',
-            Actions: 'actions1'
-        },
-        {
-            id: 5,
-            Title: "cadabra",
-            Author: 'email2',
-            ISBN: 'isbn2',
-            Price: 'price2',
-            Language: 'RUS',
-            Genre: 'chem2',
-            Actions: 'actions1'
-        },
-        {
-            id: 3,
-            Title: "cadabra",
-            Author: 'email2',
-            ISBN: 'isbn2',
-            Price: 'price2',
-            Language: 'RUS',
-            Genre: 'chem2',
-            Actions: 'actions1'
-        },
-        {
-            id: 0,
-            Title: "abra",
-            Author: 'email1',
-            ISBN: 'isbn1',
-            Price: 'price1',
-            Language: 'RUS',
-            Genre: 'chem',
-            Actions: 'actions2'
-        },
-    ])
+    let [headerTable, setHeaderTable] = useState([])
+    let [rowsTable, setRowsTable] = useState([])
+    let [sortV, setSortV] = useState('');
+
 
     async function switchData(data) {
-        if (data === "Users") {
-            setHeaderTable([
-                { title: 'id' },
-                { title: 'Title' },
-                { title: 'Author' },
-                { title: 'ISBN' },
-                { title: 'Price' },
-                { title: 'Language' },
-                { title: 'Genre' },
-                { title: 'Actions' },
-            ])
-            setRowsTable([
-                {
-                    id: 1,
-                    Title: "abra",
-                    Author: 'email1',
-                    ISBN: 'isbn1',
-                    Price: 'price1',
-                    Language: 'RUS',
-                    Genre: 'chem',
-                    Actions: 'actions2'
-                },
-                {
-                    id: 2,
-                    Title: "cadabra",
-                    Author: 'email2',
-                    ISBN: 'isbn2',
-                    Price: 'price2',
-                    Language: 'RUS',
-                    Genre: 'chem2',
-                    Actions: 'actions1'
-                },
-                {
-                    id: 5,
-                    Title: "cadabra",
-                    Author: 'email2',
-                    ISBN: 'isbn2',
-                    Price: 'price2',
-                    Language: 'RUS',
-                    Genre: 'chem2',
-                    Actions: 'actions1'
-                },
-                {
-                    id: 3,
-                    Title: "cadabra",
-                    Author: 'email2',
-                    ISBN: 'isbn2',
-                    Price: 'price2',
-                    Language: 'RUS',
-                    Genre: 'chem2',
-                    Actions: 'actions1'
-                },
-                {
-                    id: 0,
-                    Title: "abra",
-                    Author: 'email1',
-                    ISBN: 'isbn1',
-                    Price: 'price1',
-                    Language: 'RUS',
-                    Genre: 'chem',
-                    Actions: 'actions2'
-                },
-            ]);
-        } else if (data === "Clients") {
-            setHeaderTable([
-                { title: 'id' },
-                { title: 'Title1' },
-                { title: 'Author' },
 
-            ])
-            setRowsTable([
-                {
-                    id: 1,
-                    Title1: "abra3",
-                    Author: 'email1',
-                },
-                {
-                    id: 13,
-                    Title1: "abra1",
-                    Author: 'email1',
-                },
-                {
-                    id: 8,
-                    Title1: "abra7",
-                    Author: 'email1',
-                },
-            ])
+        if (data === "Users") {
+            setTableUsers()
+        } else if (data === "Clients") {
+            setTableClients()
         }
+
     }
 
+    async function loadData() {
+        if (window.location.pathname === USER_LIST) {
+            setTableUsers()
+        } else if (window.location.pathname === COMPANY_LIST) {
+            setTableClients()
+        }
+
+    }
+
+    async function setTableUsers() {
+        UserHttpServise.getAllUsers().then((respons) => {
+            setHeaderTable(UserServise.setHeadUsers())
+            setRowsTable(UserServise.setRowsUsers(respons.data))
+        }).catch((error) => { console.log(error) })
+    }
+
+    async function setTableClients() {
+        ClientHttpServise.getAllClients().then((respons) => {
+            setHeaderTable(ClientServise.setHeadClients())
+            setRowsTable(ClientServise.setRowsClients(respons.data))
+        }).catch((error) => { console.log(error) })
+    }
+
+    const sorting = (sortValue) => {
+        setSortV(sortValue)
+        if (sortV === sortValue) {
+            setRowsTable([...rowsTable].sort(function (a, b) {
+                if (b[sortValue] > a[sortValue]) {
+                    return 1;
+                }
+                if (b[sortValue] < a[sortValue]) {
+                    return -1;
+                }
+                return 0;
+            }))
+            setSortV(sortValue + '1')
+        } else {
+            setRowsTable([...rowsTable].sort(function (a, b) {
+                if (a[sortValue] > b[sortValue]) {
+                    return 1;
+                }
+                if (a[sortValue] < b[sortValue]) {
+                    return -1;
+                }
+                return 0;
+            }))
+        }
+    };
+
     useEffect(() => {
-        setHeaderTable(headerTable)
-        setRowsTable(rowsTable)
-    }, [rowsTable,headerTable]);
+        loadData()
+    }, []);
+
+    useEffect(() => {
+    }, [sortV]);
 
     return (
         <Card className={"border-1 m-1"}>
@@ -170,7 +87,7 @@ const ListBook = () => {
                 </div>
             </Card.Header>
             <Card.Body>
-                <TableBootsTrap head={headerTable} rows={rowsTable} switchData={switchData} />
+                <TableBootsTrap head={headerTable} rows={rowsTable} switchData={switchData} sorting={sorting} />
                 <br />
             </Card.Body>
         </Card>

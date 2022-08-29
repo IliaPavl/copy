@@ -1,17 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {Container, Table, Col, Row, Button} from 'react-bootstrap';
-import TableRow from './TableRow';
-import TableHead from './TableHead';
+import React from 'react';
+import { Button, Col, Container, Row, Table } from 'react-bootstrap';
+import '../CSS/componentCss.css';
 import SearchWithButton from '../SearchForm/SearchWithButton';
-import '../CSS/componentCss.css'
+import TableHead from './TableHead';
+import TableRow from './TableRow';
 
-const TableBootsTrap = ({head, rows, switchData}) => {
-
-    let [table, setTable] = useState([])
-
-    useEffect(() => {
-        setTable(rows)
-    }, [rows]);
+const TableBootsTrap = ({ head, rows, switchData, sorting }) => {
 
     let massiv = []
 
@@ -43,10 +37,6 @@ const TableBootsTrap = ({head, rows, switchData}) => {
             massiv.push(value)
     };
 
-    const sorting = (sortValue) => {
-        setTable([...table].sort((a, b) => a[sortValue].toString().localeCompare(b[sortValue].toString())))
-    };
-
     const search = (seachMessege) => {
         console.log(seachMessege)
     };
@@ -63,7 +53,7 @@ const TableBootsTrap = ({head, rows, switchData}) => {
                     <Button className="m-1 radius" onClick={() => switchData("Clients")}>Клиенты</Button>
                 </Col>
                 <Row>
-                    <Col><SearchWithButton backSearch={search}/></Col>
+                    <Col><SearchWithButton backSearch={search} /></Col>
                 </Row>
                 <Col>
                     <Button className="m-1 radius" onClick={() => uncheck()}>uncheck</Button>
@@ -72,11 +62,11 @@ const TableBootsTrap = ({head, rows, switchData}) => {
                 </Col>
                 <Row className={'scrollTable'}>
                     <Table variant='table-bordered table-hover'>
-                        <TableHead values={head} sorting={sorting}/>
-                        {table.length ?
-                            table.map((type) => (
-                                <TableRow key={type.id} value={type} updateData={updateData}/>
-                            )) : <p> Нету значений</p>}
+                        <TableHead values={head} sorting={sorting} />
+                        {rows.length ?
+                            rows.map((type) => (
+                                <TableRow key={type.id} value={type} updateData={updateData} />
+                            )) : <tbody><tr><td>Нету значений</td></tr></tbody>}
                     </Table>
                 </Row>
             </Col>

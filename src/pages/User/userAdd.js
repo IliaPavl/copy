@@ -1,14 +1,14 @@
 import React from 'react';
-import Add from "../../components/Users/Add";
+import Add2 from "../../components/Users/Add2";
 
 import { Container } from "react-bootstrap";
 
-const BookAdd = () => {
+const AddUser = () => {
     return (
         <Container>
-            <Add />
+            <Add2 />
         </Container>
     );
 };
 
-export default BookAdd;
+export default AddUser;

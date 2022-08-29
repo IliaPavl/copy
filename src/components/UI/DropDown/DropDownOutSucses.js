@@ -2,20 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { Dropdown } from "react-bootstrap";
 
 
-const DropDownCompany = ({values}) => {
+const DropDownCompany = ({values,setEnabledStatus,enabledStatus}) => {
     let [head, setHead] = useState()
 
-    useEffect(() => {
-        hederSet(null)
-    },[]);
-
-    function hederSet(nameCompany){
-        if(nameCompany==null){
+    function hederSet(enabledStatus){
+        if(enabledStatus==null){
             setHead("Not selected")
         }else{
-            setHead(nameCompany)
+            setHead(enabledStatus)
         }
+        setEnabledStatus(enabledStatus)
     }
+
+    useEffect(() => {
+        hederSet(enabledStatus)
+    },[enabledStatus]);
 
     return (
         <Dropdown className="d-grid gap-2">
