@@ -1,7 +1,21 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
+import { COMPANY_LIST, COMPANY_PROFILE, USER_LIST, USER_PROFILE } from '../../../utils/const';
 
 const TableRow = ({ value, updateData }) => {
+
+    async function cheakUrl() {
+       
+        let url = window.location.pathname.split('/');
+        console.log(url[1])
+        if ('/'+url[1] === USER_LIST) {
+            window.location.assign(USER_PROFILE + '/' + value.id);
+        } else if ('/'+url[1] === COMPANY_LIST) {
+            window.location.assign(COMPANY_PROFILE + '/' + value.id);
+        }
+
+    }
+
     return (
         <tbody className="table-light">
             <tr>
@@ -14,9 +28,11 @@ const TableRow = ({ value, updateData }) => {
                         }}
                     />
                 </td>
+
                 {Object.entries(value).map((data) => (
-                    <td key={data[1]}>{data[1]}</td>
+                    <td key={data[1]} onClick={() => { cheakUrl() }}>{data[1]}</td>
                 ))}
+
             </tr>
         </tbody>
     );

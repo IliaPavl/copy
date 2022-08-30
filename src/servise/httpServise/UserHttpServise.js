@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN, AUTHRIZATION_WORD, URL_ADD_USER, URL_ALL_USER, URL_EDIT_USER, URL_ROLE_USER, URL_STATUS_USER } from "../../utils/const";
+import { ACCESS_TOKEN, AUTHRIZATION_WORD, URL_ADD_USER, URL_ALL_USER, URL_EDIT_USER, URL_ROLE_USER, URL_SEARCH_USER, URL_STATUS_USER } from "../../utils/const";
 import api from "./api";
 
 class UserHttpServise {
@@ -71,19 +71,33 @@ class UserHttpServise {
     }
 
     updateUser(login,fioUser,email,password,roleE,statusE,companyE,url){
+        roleE = roleE.toString()
         const u = {
-            companyName: companyName,
-            howUsers: howUsers,
+            login: login,
+            company: companyE,
+            fio: fioUser,
+            password: password,
+            email: email,
+            role: roleE,
+            status: statusE
         };
-        //доделать
-        return api.get(url, {
+        return api.post(url, u,{
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`
             }
         });
     }
-
-
+    findUsers(seachMessege){
+        const u = {
+            searchValue: seachMessege,
+        };
+        return api.post(URL_SEARCH_USER, u, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`
+            }
+        });
+    }
 }
 export default new UserHttpServise();

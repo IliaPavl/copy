@@ -4,6 +4,8 @@ import { Button, Card, Col, Form, Pagination, Row } from "react-bootstrap";
 import UserServise from '../../servise/funtionService/UserServise';
 import UserHttpServise from '../../servise/httpServise/UserHttpServise';
 import DropDownOutSucses from '../UI/DropDown/DropDownOutSucses';
+import {  toast } from 'react-toastify';
+
 
 const Add2 = () => {
     let [status, setStatus] = useState([])
@@ -18,14 +20,20 @@ const Add2 = () => {
     async function setAxiosClients() {
         UserHttpServise.getClientUser().then((respons) => {
             setStatus(UserServise.setClientUser(respons))
-        }).catch((error) => { alert(error) })
+        }).catch((error) => {
+            let message = error.request.responseText.split('"');
+            toast.error(message[3]);
+        })
     }
 
     async function createUsers(event) {
         event.preventDefault()
-        UserHttpServise.createUsers(clients,renj).then((respons) => {
-            alert(respons.data)
-        }).catch((error) => { alert(error) })
+        UserHttpServise.createUsers(clients, renj).then((respons) => {
+            toast.success(respons.data)
+        }).catch((error) => {
+            let message = error.request.responseText.split('"');
+            toast.error(message[3]);
+        })
     }
 
     useEffect(() => {
@@ -47,7 +55,7 @@ const Add2 = () => {
                         <Form.Group>
                             <Row sm={3}>
                                 <Col>
-                                    <DropDownOutSucses values={status} setEnabledStatus={setClients} enabledStatus={null}/>
+                                    <DropDownOutSucses values={status} setEnabledStatus={setClients} enabledStatus={null} />
                                 </Col>
                             </Row>
                         </Form.Group>

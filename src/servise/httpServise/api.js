@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from 'react-toastify';
 import { AUTHRIZATION_WORD, URL_BASE, URL_LOGIN, URL_REFRESH } from "../../utils/const";
 import LocalServise from "./LocalServise";
 const instance = axios.create({
@@ -39,6 +40,9 @@ instance.interceptors.response.use(
         } catch (_error) {
           return Promise.reject(_error);
         }
+      }
+      if (err.response.status === 403){
+        toast("You are not logged in or do not have access rights!")
       }
     }
     return Promise.reject(err);

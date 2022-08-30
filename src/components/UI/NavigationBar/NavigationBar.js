@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link } from "react-router-dom";
-import { COMPANY_ADD, COMPANY_LIST, COMPANY_PROFILE, LOGIN_ROUTE, USER_ADD, USER_LIST, USER_PROFILE } from "../../../utils/const.js";
 import SearchLable from "../SearchForm/SearchLable";
 import Switch from "../Theme/switch";
 import OffcanvasUser from "./OffcanvasUser";
@@ -40,15 +38,7 @@ const NavigationBar = () => {
                                 </Offcanvas.Title>
                             </Offcanvas.Header>
                             <Offcanvas.Body>
-                                <Nav className="flex-grow-1 pe-3 justify-content-start">
-                                    <Link to={USER_ADD} className={"nav-link"} onClick={handleClose}> Users add </Link>
-                                    <Link to={USER_LIST} className={"nav-link"} onClick={handleClose}> Users list </Link>
-                                    <Link to={COMPANY_ADD} className={"nav-link"} onClick={handleClose}> Company Add </Link>
-                                    <Link to={COMPANY_LIST} className={"nav-link"} onClick={handleClose}> Company List </Link>
-                                    <Link to={LOGIN_ROUTE} className={"nav-link"} onClick={handleClose}> Auth </Link>
-                                    <Link to={USER_PROFILE} className={"nav-link"} onClick={handleClose}> User Profile </Link>
-                                    <Link to={COMPANY_PROFILE} className={"nav-link"} onClick={handleClose}> Company Profile </Link>
-                                </Nav>
+                              
                                 <OffcanvasUser close={handleClose} />
                             </Offcanvas.Body>
                         </Navbar.Offcanvas>

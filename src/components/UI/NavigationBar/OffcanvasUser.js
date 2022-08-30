@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dropdown, NavLink } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Link } from "react-router-dom";
-import {USER_ADD, USER_LIST, LOGIN_ROUTE,COMPANY_ADD, COMPANY_LIST, REGISTRATION_ROUTE, USER_PROFILE, COMPANY_PROFILE} from "../../../utils/const.js";
+import LocalServise from '../../../servise/httpServise/LocalServise.js';
+import { COMPANY_ADD, COMPANY_LIST, LOGIN_ROUTE, REGISTRATION_ROUTE, USER_ADD, USER_LIST } from "../../../utils/const.js";
 
 const OffcanvasUser = ({ close }) => {
+    const [username,setUsername] =useState('');
     const [show, setShow] = useState(false);
     const handleClose = () => {
         setShow(false);
@@ -13,26 +15,35 @@ const OffcanvasUser = ({ close }) => {
     };
     const toggleShow = () => setShow((s) => !s)
 
+    async function Logout() {
+        LocalServise.logoutUser();
+    }
+    async function loadUsername(){
+        setUsername(LocalServise.getUserName());
+    }
+
+    useEffect(()=>{
+        loadUsername()
+    })
+
 
     return (
         <Nav className="flex-grow-1 pe-3 justify-content-end">
-            <NavLink onClick={toggleShow} className={"nav-link"}> UserName</NavLink>
+            <NavLink onClick={toggleShow} className={"nav-link"}> {username}</NavLink>
             <Offcanvas show={show} onHide={handleClose} scroll={true} backdrop={false}
                 className="justify-content-end" placement="end">
                 <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>UserName</Offcanvas.Title>
+                    <Offcanvas.Title>Menu</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     <Link to={USER_ADD} className={"nav-link"} onClick={handleClose}> Users add </Link>
                     <Link to={USER_LIST} className={"nav-link"} onClick={handleClose}> Users list </Link>
-                    <Link to={COMPANY_ADD} className={"nav-link"} onClick={handleClose}> Company Add </Link>
+                    <Link to={COMPANY_ADD} className={"nav-link"} onClick={handleClose}> Company add</Link>
                     <Link to={COMPANY_LIST} className={"nav-link"} onClick={handleClose}> Company List </Link>
                     <Link to={LOGIN_ROUTE} className={"nav-link"} onClick={handleClose}> Login </Link>
-                    <Link to={REGISTRATION_ROUTE} className={"nav-link"} onClick={handleClose}> Registration </Link>
-                    <Link to={USER_PROFILE} className={"nav-link"} onClick={handleClose}> User Profile </Link>
-                    <Link to={COMPANY_PROFILE} className={"nav-link"} onClick={handleClose}> Company Profile </Link>
+                    <Link to={REGISTRATION_ROUTE} className={"nav-link"} onClick={handleClose}> Registration admin </Link>
                     <Dropdown.Divider />
-                    <Link to={"/"} className={"nav-link"} onClick={handleClose}> Выйти</Link>
+                    <Link to={LOGIN_ROUTE} className={"nav-link"} onClick={Logout}> Logout </Link>
                 </Offcanvas.Body>
             </Offcanvas>
         </Nav>

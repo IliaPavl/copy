@@ -1,17 +1,17 @@
-import {USER_ADD, USER_LIST, ERROR, HOME_PAGE, LOGIN_ROUTE, REGISTRATION_ROUTE, COMPANY_LIST,COMPANY_ADD, USER_PROFILE, COMPANY_PROFILE} from "./utils/const";
+import UserProfile from "./components/Users/UserProfile";
 import LoginPage from "./pages/Authorization/loginPage";
 import RegistrationPage from "./pages/Authorization/registrationPage";
+import companyEdit from "./pages/Company/companyEdit";
+import CompanyAdd from "./pages/Company/companyCreate";
 import CompanyLIst from "./pages/Company/companyList";
-import UserList from "./pages/User/userList";
+import Error from "./pages/Errors/error";
 import HomePage from "./pages/start";
 import UserAdd from "./pages/User/userAdd";
-import Error from "./pages/Errors/error";
-import CompanyAdd from "./pages/Company/companyCreate";
-import userProfilePage from "./pages/User/userProfilePage";
-import UserProfile from "./components/Users/UserProfile";
+import UserList from "./pages/User/userList";
+import { COMPANY_ADD, COMPANY_LIST, COMPANY_PROFILE, ERROR, HOME_PAGE, LOGIN_ROUTE, REGISTRATION_ROUTE, USER_ADD, USER_LIST, USER_PROFILE } from "./utils/const";
 
 
-export const authRoutes = [,
+export const authRoutes = [
     {
         path: USER_LIST,
         Component: UserList
@@ -33,12 +33,12 @@ export const authRoutes = [,
         Component: CompanyAdd
     },
     {
-        path: USER_PROFILE,
+        path: USER_PROFILE+"/:searchValue",
         Component: UserProfile
     },
     {
-        path: COMPANY_PROFILE,
-        Component: CompanyAdd
+        path: COMPANY_PROFILE+"/:searchValue",
+        Component: companyEdit
     },]
 
 export const publicRoutes = [

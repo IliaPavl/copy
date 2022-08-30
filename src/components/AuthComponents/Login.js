@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
+import '../../components/UI/CSS/Auth.css';
 import AuthHttpServise from '../../servise/httpServise/AuthHttpServise';
 import LocalServise from '../../servise/httpServise/LocalServise';
-import { AUTH, USER_LIST } from '../../utils/const';
-import '../CSS/Auth.css';
-
+import {  toast } from 'react-toastify';
+import { HOME_PAGE } from '../../utils/const';
 const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -22,12 +22,12 @@ const Login = () => {
 
     const getResponse = (username, password) => {
         AuthHttpServise.logining(username, password).then((respons) => {
-            console.log(respons)
             LocalServise.saveTokens(respons)
-            window.location.assign(USER_LIST)
-            localStorage.setItem(AUTH,true)
-        }).catch((error) => { 
-            alert(error.request.responseText)
+            LocalServise.saveUserName(username);
+            window.location.assign(HOME_PAGE)
+        }).catch((error) => {
+            let message = error.request.responseText.split('"');
+            toast.error(message[3]);
         })
     }
 
@@ -35,7 +35,7 @@ const Login = () => {
         <Container className="d-flex justify-content-center align-items-center mt-5">
             <Card className="p-5 loginForm">
                 <h2 className="m-auto"> Авторизация </h2>
-                <Form className="d-flex flex-column" onSubmit={event => click(event)}>
+                <Form className="d-flex flex-column">
                     <Form.Control
                         className="mt-3"
                         placeholder="Введите логин ..."
@@ -53,6 +53,7 @@ const Login = () => {
                         <Col className={"d-grid"}>
                             <Button
                                 variant={"outline-success"}
+                                onClick={event => click(event)}
                             >
                                 Login
                             </Button>
@@ -62,7 +63,9 @@ const Login = () => {
                                 Зарегистрируйтесь! </Link>
                         </Col>
                     </Row>
+
                 </Form>
+
             </Card>
         </Container>
     );

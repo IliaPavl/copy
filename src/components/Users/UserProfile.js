@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import UserServise from '../../servise/funtionService/UserServise';
 import UserHttpServise from '../../servise/httpServise/UserHttpServise';
-import { URL_EDIT_USER } from '../../utils/const';
+import { URL_EDIT_USER, USER_PROFILE } from '../../utils/const';
 import DropDownOutSucses from '../UI/DropDown/DropDownOutSucses';
 import DropDownOutSucsesCheked from '../UI/DropDown/DropDownOutSucsesCheked';
+import {  toast } from 'react-toastify';
+
+
 const UserProfile = () => {
     let [status, setStatus] = useState([])
     let [company, setCompany] = useState([])
@@ -17,13 +20,13 @@ const UserProfile = () => {
     async function setAxiosClients() {
         UserHttpServise.getClientUser().then((respons) => {
             setCompany(UserServise.setClientUser(respons))
-        }).catch((error) => { alert(error) })
+        }).catch((error) => { toast.error(error) })
     }
 
     async function setAxiosStatusUser() {
         UserHttpServise.getStatusUser().then((respons) => {
             setStatus(UserServise.setStatusUser(respons))
-        }).catch((error) => { console.log(error) })
+        }).catch((error) => { toast.error(error) })
     }
 
     async function setRoleUser(values) {
@@ -33,7 +36,7 @@ const UserProfile = () => {
     async function setAxiosRoleUser() {
         UserHttpServise.getRoleUser().then((respons) => {
             setRole(UserServise.setRoleUser(respons))
-        }).catch((error) => { console.log(error) })
+        }).catch((error) => { toast.error(error) })
     }
 
     
@@ -46,7 +49,8 @@ const UserProfile = () => {
     let [repit, setRepit] = useState()
 
     async function setUserInfo() {
-        UserHttpServise.getUser(URL_EDIT_USER+'/1').then((respons) => {
+        let url = window.location.pathname.split('/');
+        UserHttpServise.getUser(URL_EDIT_USER+'/'+url[2]).then((respons) => {
             setLogin(respons.data.login)
             setFio(respons.data.fio)
             setEmail(respons.data.email)
@@ -57,21 +61,23 @@ const UserProfile = () => {
             let k = respons.data.role.split(',')
             let values =[];
             for(let j in k){
-                if(k[j].trim() != "")
+                if(k[j].trim() !== "")
                 values.push(k[j].trim())
             }
             setRoleE(values)
-        }).catch((error) => { console.log(error) })
+        }).catch((error) => { toast.error(error) })
     }
 
     async function submitForm(event){
         event.preventDefault()
-        if(password != repit){
+        if(password !== repit){
             alert("repeat the password correctly!")
         } else {
-            UserHttpServise.updateUser(login,fioUser,email,password,roleE,statusE,companyE,URL_EDIT_USER+'/1').then((respons) =>{
-                alert(respons)
-            }).catch((error) => { alert(error) })
+            let url = window.location.pathname.split('/');
+            UserHttpServise.updateUser(login,fioUser,email,password,roleE,statusE,companyE,URL_EDIT_USER+'/'+url[2]).then((respons) =>{
+                alert(respons.data)
+                window.location.assign(USER_PROFILE+'/'+url[2])
+            }).catch((error) => { toast.error(error) })
         }
     }
 
@@ -80,7 +86,7 @@ const UserProfile = () => {
         setAxiosStatusUser()
         setAxiosRoleUser()
         setUserInfo()
-    }, [fioUser, email, password, repit])
+    }, [])
 
 
     return (
@@ -96,25 +102,25 @@ const UserProfile = () => {
                         <Row className="mb-3">
                             <Form.Group as={Col} className="mb-3 " controlId="exampleForm.ControlInput1">
                                 <Form.Label>Login</Form.Label>
-                                <Form.Control type="text" placeholder="Login123" value={login} onChange={e => setLogin(e)} />
+                                <Form.Control type="text" placeholder="Login123" value={login} onChange={e => setLogin(e.target.value)} />
                             </Form.Group>
                             <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput2">
                                 <Form.Label>User name</Form.Label>
-                                <Form.Control type="text" placeholder="Surname Firstname Lastname " value={fioUser} onChange={e => setFio(e)} />
+                                <Form.Control type="text" placeholder="Surname Firstname Lastname " value={fioUser} onChange={e => setFio(e.target.value)} />
                             </Form.Group>
                             <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput3">
                                 <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" placeholder="name@example.com" value={email} onChange={e => setEmail(e)} />
+                                <Form.Control type="email" placeholder="name@example.com" value={email} onChange={e => setEmail(e.target.value)} />
                             </Form.Group>
                         </Row>
                         <Row className="mb-3">
                             <Form.Group as={Col} className="mb-3 " controlId="exampleForm.ControlInput4">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="12424235Le" value={password} onChange={e => setPassword(e)} />
+                                <Form.Control type="password" placeholder="12424235Le" value={password} onChange={e => setPassword(e.target.value)} />
                             </Form.Group>
                             <Form.Group as={Col} className="mb-3 " controlId="exampleForm.ControlInput5">
                                 <Form.Label>Repit password</Form.Label>
-                                <Form.Control type="password" placeholder="12424235Le" value={repit} onChange={e => setRepit(e)} />
+                                <Form.Control type="password" placeholder="12424235Le" value={repit} onChange={e => setRepit(e.target.value)} />
                             </Form.Group>
                         </Row>
                         <Row className="mb-3">

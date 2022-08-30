@@ -5,7 +5,7 @@ import SearchWithButton from '../SearchForm/SearchWithButton';
 import TableHead from './TableHead';
 import TableRow from './TableRow';
 
-const TableBootsTrap = ({ head, rows, switchData, sorting }) => {
+const TableBootsTrap = ({ head, rows, switchData, sorting,search }) => {
 
     let massiv = []
 
@@ -37,21 +37,16 @@ const TableBootsTrap = ({ head, rows, switchData, sorting }) => {
             massiv.push(value)
     };
 
-    const search = (seachMessege) => {
-        console.log(seachMessege)
-    };
-
     function getBox() {
         console.log(massiv);
     }
-
+//     <Col>
+//     <Button className="m-1 radius" onClick={() => switchData("Users")}>Пользователи</Button>
+//     <Button className="m-1 radius" onClick={() => switchData("Clients")}>Клиенты</Button>
+// </Col>
     return (
         <Container className='mt-2'>
             <Col>
-                <Col>
-                    <Button className="m-1 radius" onClick={() => switchData("Users")}>Пользователи</Button>
-                    <Button className="m-1 radius" onClick={() => switchData("Clients")}>Клиенты</Button>
-                </Col>
                 <Row>
                     <Col><SearchWithButton backSearch={search} /></Col>
                 </Row>

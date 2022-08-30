@@ -1,33 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Dropdown, Form, Row } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 
 const DropDownOutSucsesCheked = ({ values, setEnabledBox, enabledStatus }) => {
     let [head, setHead] = useState()
-
+    let obj = enabledStatus;
     async function hederSet(role) {
-
-        if (head != null) {
-            let temp = head.slice();
+        if (obj != null) {
+            let temp = obj.slice();
             var myIndex = temp.indexOf(role);
             if (myIndex !== -1) {
-                if (head.length == 1)
-                    setHead([])
+                if (obj.length === 1)
+                    alert("User have at least one role!")
                 else
-                    setHead(head.filter(function (f) { return f !== role }))
+                    obj = obj.filter(function (f) { return f !== role })
             } else {
-                setHead([...head, role]);
+                obj = [...obj, role];
             }
         }
-        setEnabledBox(head)
-    }
-
-    async function enableHead(enabledStatus) {
-        setHead(enabledStatus)
+        setHead(obj)
+        setEnabledBox(obj)
     }
 
     useEffect(() => {
-        enableHead(enabledStatus)
+        setHead(enabledStatus)
     }, [enabledStatus]);
+
+
 
     return (
         <Dropdown className="d-grid gap-2">
@@ -38,24 +36,9 @@ const DropDownOutSucsesCheked = ({ values, setEnabledBox, enabledStatus }) => {
             <Dropdown.Menu >
                 {values.length ?
                     values.map((type) => (
-                        <Form>
-                            <Form.Group>
-                                <Row className='m-1'>
-                                    <Col className='ml-3'>
-                                        <Form.Check
-                                            type={'checkbox'}
-                                            id={type.item}
-                                            onChange={() =>
-                                                hederSet(type.item)
-                                            } />
-                                    </Col>
-                                    <Col>
-                                        <Dropdown.Item size="lg" key={type.item} value={type.item} disabled={true}>{type.item}</Dropdown.Item>
-                                    </Col>
-                                </Row>
-
-                            </Form.Group>
-                        </Form>
+                        <Dropdown.Item size="lg" key={type.item} value={type.item} onClick={() =>
+                            hederSet(type.item)
+                        }>{type.item}</Dropdown.Item>
                     )) : <p> Not one select Item</p>}
             </Dropdown.Menu>
         </Dropdown>
