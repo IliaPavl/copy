@@ -6,7 +6,7 @@ import '../../components/UI/CSS/Auth.css';
 import AuthHttpServise from '../../servise/httpServise/AuthHttpServise';
 import LocalServise from '../../servise/httpServise/LocalServise';
 import {  toast } from 'react-toastify';
-import { HOME_PAGE } from '../../utils/const';
+import { HOME_PAGE, USER_LIST } from '../../utils/const';
 const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -22,9 +22,10 @@ const Login = () => {
 
     const getResponse = (username, password) => {
         AuthHttpServise.logining(username, password).then((respons) => {
+            console.log(respons)
             LocalServise.saveTokens(respons)
             LocalServise.saveUserName(username);
-            window.location.assign(HOME_PAGE)
+            window.location.assign(USER_LIST)
         }).catch((error) => {
             let message = error.request.responseText.split('"');
             toast.error(message[3]);
@@ -58,10 +59,10 @@ const Login = () => {
                                 Login
                             </Button>
                         </Col>
-                        <Col md={"auto"}>
+                        {/* <Col md={"auto"}>
                             <Link to={"/registration"} className={"nav-link"}> У вас нет аккаунта?
                                 Зарегистрируйтесь! </Link>
-                        </Col>
+                        </Col> */}
                     </Row>
 
                 </Form>

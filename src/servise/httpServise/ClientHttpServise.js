@@ -23,7 +23,7 @@ class ClientHttpServise {
 
         const u = {
             companyName: companyName,
-            nameCliet: nameCliet,
+            nameClient: nameCliet,
             phoneNumber: phoneNumber,
             status: status
         };

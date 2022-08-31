@@ -8,6 +8,7 @@ export const ERROR = '/error'
 export const COMPANY_ADD = '/companyAdd'
 export const USER_PROFILE = '/userEdit'
 export const COMPANY_PROFILE = '/companyEdit'
+export const REG_LINK ='/registraration_link/'
 
 export const URL_BASE = 'http://localhost:8080'
 export const URL_LOGIN = URL_BASE+'/app/login'
@@ -27,7 +28,7 @@ export const URL_ADD_CLIENTS = URL_BASE + '/app/client/addClient'
 export const URL_SEARCH_CLIENTS = URL_BASE + '/app/client/search'
 
 
-export const ACCESS_TOKEN = 'accessToken'
+export const ACCESS_TOKEN = 'token'
 export const REFRESH_TOKEN = 'refreshToken'
 export const AUTHRIZATION_WORD = 'Bearer'
 export const AUTHORIZATION = 'Authorization'

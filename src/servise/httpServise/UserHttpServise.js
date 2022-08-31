@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN, AUTHRIZATION_WORD, URL_ADD_USER, URL_ALL_USER, URL_EDIT_USER, URL_ROLE_USER, URL_SEARCH_USER, URL_STATUS_USER } from "../../utils/const";
+import { ACCESS_TOKEN, AUTHRIZATION_WORD, REGISTRATION_ROUTE, URL_ADD_USER, URL_ALL_USER, URL_EDIT_USER, URL_REGISTRATION_ROUTE, URL_ROLE_USER, URL_SEARCH_USER, URL_STATUS_USER } from "../../utils/const";
 import api from "./api";
 
 class UserHttpServise {
@@ -14,6 +14,15 @@ class UserHttpServise {
 
     getClientUser(){
         return api.get(URL_ADD_USER, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`
+            }
+        });
+    }
+
+    getRegistratios(){
+        return api.get(URL_REGISTRATION_ROUTE, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`

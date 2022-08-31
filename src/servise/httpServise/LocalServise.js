@@ -2,8 +2,8 @@ import { ACCESS_TOKEN, AUTH, REFRESH_TOKEN, USERNAME } from "../../utils/const";
 
 class LocalServise  {
     saveTokens(data){
-        const { accessToken, refreshToken } = data.data;
-        localStorage.setItem(ACCESS_TOKEN, accessToken);
+        const { token, refreshToken } = data.data;
+        localStorage.setItem(ACCESS_TOKEN, token);
         localStorage.setItem(AUTH,true);
         localStorage.setItem(REFRESH_TOKEN,refreshToken);
     }

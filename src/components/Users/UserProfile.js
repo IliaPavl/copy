@@ -71,12 +71,11 @@ const UserProfile = () => {
     async function submitForm(event){
         event.preventDefault()
         if(password !== repit){
-            alert("repeat the password correctly!")
+            toast.error("repeat the password correctly!")
         } else {
             let url = window.location.pathname.split('/');
             UserHttpServise.updateUser(login,fioUser,email,password,roleE,statusE,companyE,URL_EDIT_USER+'/'+url[2]).then((respons) =>{
-                alert(respons.data)
-                window.location.assign(USER_PROFILE+'/'+url[2])
+                toast.success(respons.data)
             }).catch((error) => { toast.error(error) })
         }
     }

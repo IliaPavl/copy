@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import '../../components/UI/CSS/Auth.css';
 import AuthHttpServise from '../../servise/httpServise/AuthHttpServise';
 import { HOME_PAGE } from '../../utils/const';
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+import UserHttpServise from '../../servise/httpServise/UserHttpServise';
+import UserServise from '../../servise/funtionService/UserServise';
+import DropDownCompany from '../UI/DropDown/DropDownOutSucses';
 
 
 const Registration = () => {
@@ -12,6 +15,19 @@ const Registration = () => {
     const [password, setPassword] = useState('')
     const [repit, setRepit] = useState('')
     const [login, setLogin] = useState('')
+    const [company, setCompany] = useState([])
+    let [companyE, setCompanyE] = useState()
+
+    async function setAxiosClients() {
+        UserHttpServise.getRegistratios().then((respons) => {
+            setCompany(UserServise.setClientUser(respons))
+        }).catch((error) => { toast.error(error) })
+    }
+
+    
+    useEffect(() => {
+        setAxiosClients()
+    }, [])
 
     const click = async (event) => {
         event.preventDefault()
@@ -20,7 +36,7 @@ const Registration = () => {
         } else if (password === '') {
             toast.warning("password no empty!")
         } else {
-            AuthHttpServise.createAdmin(login, email, password).then((respons) => {
+            AuthHttpServise.createAdmin(login, email, password,companyE).then((respons) => {
                 alert(respons.data.message)
                 window.location.assign(HOME_PAGE)
             }).catch((error) => {
@@ -60,6 +76,10 @@ const Registration = () => {
                         onChange={e => setRepit(e.target.value)}
                         type="password"
                     />
+                    <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput6">
+                        <Form.Label></Form.Label>
+                        <DropDownCompany values={company} setEnabledStatus={setCompanyE} enabledStatus={companyE} />
+                    </Form.Group>
                     <Row className="d-flex justify-content-between mt-3 pl-3 pr-3">
                         <Col className={"d-grid"} >
                             <Button

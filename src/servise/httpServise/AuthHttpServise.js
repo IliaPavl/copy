@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN, AUTHRIZATION_WORD, URL_LOGIN, URL_REGISTRATION_ROUTE } from "../../utils/const";
+import { ACCESS_TOKEN, AUTHRIZATION_WORD, REG_LINK, URL_LOGIN, URL_REGISTRATION_ROUTE } from "../../utils/const";
 import api from "./api";
 
 class AuthHttpServise {
@@ -14,11 +14,13 @@ class AuthHttpServise {
         });
     }
 
-    createAdmin(login,email,password){
+    createAdmin(login, email, password,companyE){
         const u = {
             username: login,
             password: password,
             email: email,
+            nameClient: companyE,
+            link: window.location.href+REG_LINK
         };
         return api.post(URL_REGISTRATION_ROUTE, u,{
             headers: {
