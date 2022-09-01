@@ -1,13 +1,20 @@
 import React from 'react';
-import { Button, Col, Container, Row, Table } from 'react-bootstrap';
+import { Col, Container, Row, Table } from 'react-bootstrap';
 import '../CSS/componentCss.css';
 import SearchWithButton from '../SearchForm/SearchWithButton';
+import ButtonsTable from './ButtonsTable';
 import TableHead from './TableHead';
 import TableRow from './TableRow';
 
-const TableBootsTrap = ({ head, rows, switchData, sorting,search }) => {
-
+const TableBootsTrap = ({ head, rows, switchData, sorting, search, setBox }) => {
     let massiv = []
+    function getBox(event) {
+        const conf = window.confirm(`Are you sure?`);
+        if (conf) {
+            alert(`ok we won't delete it `);
+            setBox(massiv)
+        }
+    }
 
     function uncheck() {
         let uncheck = document.getElementsByTagName('input');
@@ -37,13 +44,6 @@ const TableBootsTrap = ({ head, rows, switchData, sorting,search }) => {
             massiv.push(value)
     };
 
-    function getBox() {
-        console.log(massiv);
-    }
-//     <Col>
-//     <Button className="m-1 radius" onClick={() => switchData("Users")}>Пользователи</Button>
-//     <Button className="m-1 radius" onClick={() => switchData("Clients")}>Клиенты</Button>
-// </Col>
     return (
         <Container className='mt-2'>
             <Col>
@@ -51,9 +51,7 @@ const TableBootsTrap = ({ head, rows, switchData, sorting,search }) => {
                     <Col><SearchWithButton backSearch={search} /></Col>
                 </Row>
                 <Col>
-                    <Button className="m-1 radius" onClick={() => uncheck()}>uncheck</Button>
-                    <Button className="m-1 radius" onClick={() => cheackAll()}>cheackAll</Button>
-                    <Button className="m-1 radius" onClick={() => getBox()}>getBox</Button>
+                    <ButtonsTable uncheck={uncheck} cheackAll={cheackAll} getBox={getBox} />
                 </Col>
                 <Row className={'scrollTable'}>
                     <Table variant='table-bordered table-hover'>

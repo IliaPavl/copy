@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN, AUTHRIZATION_WORD, URL_ADD_CLIENTS, URL_ALL_CLIENTS, URL_SEARCH_CLIENTS } from '../../utils/const';
+import { ACCESS_TOKEN, AUTHRIZATION_WORD, URL_ADD_CLIENTS, URL_ALL_CLIENTS, URL_DELETE_USER, URL_SEARCH_CLIENTS } from '../../utils/const';
 import api from "./api";
 
 
@@ -63,6 +63,18 @@ class ClientHttpServise {
             searchValue: findString,
         };
         return api.post(URL_SEARCH_CLIENTS, u, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`
+            }
+        });
+    }
+
+    deleteUser(box){
+        const u = {
+            idUsers: box
+        };
+        return api.post(URL_DELETE_USER, u, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`

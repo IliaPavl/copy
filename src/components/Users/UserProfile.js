@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import UserServise from '../../servise/funtionService/UserServise';
 import UserHttpServise from '../../servise/httpServise/UserHttpServise';
-import { URL_EDIT_USER, USER_PROFILE } from '../../utils/const';
+import { URL_EDIT_USER } from '../../utils/const';
 import DropDownOutSucses from '../UI/DropDown/DropDownOutSucses';
 import DropDownOutSucsesCheked from '../UI/DropDown/DropDownOutSucsesCheked';
-import {  toast } from 'react-toastify';
 
 
 const UserProfile = () => {
@@ -13,8 +13,8 @@ const UserProfile = () => {
     let [company, setCompany] = useState([])
     let [role, setRole] = useState([])
 
-    let [statusE, setStatusE] = useState()
-    let [companyE, setCompanyE] = useState()
+    let [statusE, setStatusE] = useState('')
+    let [companyE, setCompanyE] = useState('')
     let [roleE, setRoleE] = useState([])
 
     async function setAxiosClients() {
@@ -42,11 +42,11 @@ const UserProfile = () => {
     
 
 
-    let [login, setLogin] = useState()
-    let [fioUser, setFio] = useState()
-    let [email, setEmail] = useState()
-    let [password, setPassword] = useState()
-    let [repit, setRepit] = useState()
+    let [login, setLogin] = useState('')
+    let [fioUser, setFio] = useState('')
+    let [email, setEmail] = useState('')
+    let [password, setPassword] = useState('')
+    let [repit, setRepit] = useState('')
 
     async function setUserInfo() {
         let url = window.location.pathname.split('/');

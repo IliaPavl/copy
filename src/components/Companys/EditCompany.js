@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 
 
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import ClientServise from '../../servise/funtionService/ClientServise';
 import ClientHttpServise from '../../servise/httpServise/ClientHttpServise';
 import { URL_EDIT_CLIENT } from '../../utils/const';

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
-import { Link } from "react-router-dom";
 
+import { toast } from 'react-toastify';
 import '../../components/UI/CSS/Auth.css';
 import AuthHttpServise from '../../servise/httpServise/AuthHttpServise';
 import LocalServise from '../../servise/httpServise/LocalServise';
-import {  toast } from 'react-toastify';
-import { HOME_PAGE, USER_LIST } from '../../utils/const';
+import { USER_LIST } from '../../utils/const';
 const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')

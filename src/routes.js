@@ -8,7 +8,8 @@ import Error from "./pages/Errors/error";
 import HomePage from "./pages/start";
 import UserAdd from "./pages/User/userAdd";
 import UserList from "./pages/User/userList";
-import { COMPANY_ADD, COMPANY_LIST, COMPANY_PROFILE, ERROR, HOME_PAGE, LOGIN_ROUTE, REGISTRATION_ROUTE, USER_ADD, USER_LIST, USER_PROFILE } from "./utils/const";
+import { COMPANY_ADD, COMPANY_LIST, COMPANY_PROFILE, ERROR, HOME_PAGE, INDICATOR_RESULT, LOGIN_ROUTE, REGISTRATION_ROUTE, USER_ADD, USER_LIST, USER_PROFILE } from "./utils/const";
+import IndicatorResult from "./components/IndicatorResult/IndicatorResult";
 
 
 export const authRoutes = [
@@ -39,7 +40,12 @@ export const authRoutes = [
     {
         path: COMPANY_PROFILE+"/:searchValue",
         Component: companyEdit
-    },]
+    },
+    {
+        path: INDICATOR_RESULT,
+        Component: IndicatorResult
+    },
+]
 
 export const publicRoutes = [
     {

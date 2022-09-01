@@ -3,13 +3,13 @@ import { Button, Form, FormControl } from "react-bootstrap";
 
 const SearchWithButton = ({ backSearch }) => {
     const [search, setSearch] = useState('')
-    const clickSearch = (event) => {
-        event.preventDefault()
+    const clickSearch = () => {
         backSearch(search)
+        setSearch('')
     }
     return (
 
-        <Form className="d-flex ml-auto m-1" onSubmit={event => clickSearch(event)}>
+        <Form className="d-flex ml-auto m-1">
             <FormControl
                 type="search"
                 placeholder="Search"
@@ -21,7 +21,7 @@ const SearchWithButton = ({ backSearch }) => {
             <Button
                 className='ml-2'
                 variant="outline-success"
-                onClick={event => clickSearch(event)}
+                onClick={() => clickSearch()}
             >Search</Button>
         </Form>
 

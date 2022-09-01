@@ -14,7 +14,7 @@ const ListBook = () => {
     let [headerTable, setHeaderTable] = useState([])
     let [rowsTable, setRowsTable] = useState([])
     let [sortV, setSortV] = useState('');
-
+    let [box,setBox] = useState([])
 
 
     async function switchData(data) {
@@ -99,8 +99,28 @@ const ListBook = () => {
         }
     }, []);
 
+    async function deleteUser(){
+        if(box.length !== 0)
+        ClientHttpServise.deleteUser(box).then((respons) => {
+            toast.success(respons.data)
+            if (window.location.pathname === USER_LIST) {
+                setTableUsers()
+            } else if (window.location.pathname === COMPANY_LIST) {
+                setTableClients()
+            }
+        }).catch((error) => { 
+            let message = error.request.responseText.split('"');
+            toast.error(message[3]);
+        })
+    }
+
+    useEffect(() => {
+        deleteUser()
+    }, [box]);
+
     useEffect(() => {
     }, [sortV]);
+    
 
 
     return (
@@ -111,7 +131,7 @@ const ListBook = () => {
                 </div>
             </Card.Header>
             <Card.Body>
-                <TableBootsTrap head={headerTable} rows={rowsTable} switchData={switchData} sorting={sorting} search={search} />
+                <TableBootsTrap setBox={setBox} head={headerTable} rows={rowsTable} switchData={switchData} sorting={sorting} search={search} />
                 <br />
             </Card.Body>
         </Card>

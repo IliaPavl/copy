@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import { COMPANY_LIST, COMPANY_PROFILE, USER_LIST, USER_PROFILE } from '../../../utils/const';
 
@@ -15,6 +15,12 @@ const TableRow = ({ value, updateData }) => {
         }
 
     }
+    let number = 1;
+
+    function plus(){
+        number++;
+        return number;
+    }
 
     return (
         <tbody className="table-light">
@@ -30,7 +36,7 @@ const TableRow = ({ value, updateData }) => {
                 </td>
 
                 {Object.entries(value).map((data) => (
-                    <td key={data[1]} onClick={() => { cheakUrl() }}>{data[1]}</td>
+                    <td key={plus()} onClick={() => { cheakUrl() }}>{data[1]}</td>
                 ))}
 
             </tr>
