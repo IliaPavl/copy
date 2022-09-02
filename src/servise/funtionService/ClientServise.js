@@ -10,6 +10,7 @@ class ClientServise {
         }
         return keys;
     }
+    
     setHeadClients() {
         var keys2 = [];
         keys2.push({ title: "id" });

@@ -9,6 +9,7 @@ class ResultServise {
         keys2.push({ title: "ResultComment" });
         return keys2;
     }
+    
     setRows(data){
         var keys3 = [];
         for (let k in data) {
