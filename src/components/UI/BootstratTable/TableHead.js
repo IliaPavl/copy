@@ -19,4 +19,4 @@ const TableHead = ({ values, sorting }) => {
     );
 };
 
-export default TableHead;
+export default React.memo(TableHead);

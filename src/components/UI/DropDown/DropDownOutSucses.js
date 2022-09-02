@@ -37,4 +37,4 @@ const DropDownCompany = ({values,setEnabledStatus,enabledStatus}) => {
     );
 };
 
-export default DropDownCompany;
+export default React.memo(DropDownCompany);

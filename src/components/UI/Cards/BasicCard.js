@@ -16,4 +16,4 @@ const BasicCard = ({ props }) => {
     );
 };
 
-export default BasicCard;
+export default React.memo(BasicCard);

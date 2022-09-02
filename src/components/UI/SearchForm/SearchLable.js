@@ -15,4 +15,4 @@ const SearchLable = ({backSearch}) => {
     );
 };
 
-export default SearchLable;
+export default React.memo(SearchLable);

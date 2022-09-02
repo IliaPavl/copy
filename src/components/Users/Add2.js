@@ -83,4 +83,4 @@ const Add2 = () => {
     );
 };
 
-export default Add2;
+export default React.memo(Add2);

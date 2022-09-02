@@ -44,4 +44,4 @@ const TableRow = ({ value, updateData }) => {
     );
 };
 
-export default TableRow;
+export default React.memo(TableRow);

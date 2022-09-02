@@ -23,4 +23,4 @@ const ButtonsTable = ({ uncheck, cheackAll, getBox }) => {
         }
 };
 
-export default ButtonsTable;
+export default React.memo(ButtonsTable);

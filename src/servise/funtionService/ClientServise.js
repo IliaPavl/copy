@@ -28,7 +28,7 @@ class ClientServise {
                 id: data[k].id,
                 Client_Name: data[k].companyName,
                 Date_add: data[k].data,
-                Full_Name: data[k].nameCliet,
+                Full_Name: data[k].nameClient,
                 Phonenumber: data[k].phoneNumber,
                 Status: data[k].status
             });

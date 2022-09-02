@@ -45,4 +45,4 @@ const DropDownOutSucsesCheked = ({ values, setEnabledBox, enabledStatus }) => {
     );
 };
 
-export default DropDownOutSucsesCheked;
+export default React.memo(DropDownOutSucsesCheked);

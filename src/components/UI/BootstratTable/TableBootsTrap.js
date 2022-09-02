@@ -66,4 +66,4 @@ const TableBootsTrap = ({ head, rows, switchData, sorting, search, setBox }) => 
         </Container>
     );
 };
-export default TableBootsTrap;
+export default React.memo(TableBootsTrap);

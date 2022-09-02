@@ -28,4 +28,4 @@ const SearchWithButton = ({ backSearch }) => {
     );
 };
 
-export default SearchWithButton;
+export default React.memo(SearchWithButton);

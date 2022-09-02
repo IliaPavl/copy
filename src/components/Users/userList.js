@@ -46,8 +46,8 @@ const ListBook = () => {
     };
 
     async function setTableUsers() {
+        setHeaderTable(UserServise.setHeadUsers())
         UserHttpServise.getAllUsers().then((respons) => {
-            setHeaderTable(UserServise.setHeadUsers())
             setRowsTable(UserServise.setRowsUsers(respons.data))
         }).catch((error) => { 
             let message = error.request.responseText.split('"');
@@ -56,8 +56,8 @@ const ListBook = () => {
     }
 
     async function setTableClients() {
+        setHeaderTable(ClientServise.setHeadClients())
         ClientHttpServise.getAllClients().then((respons) => {
-            setHeaderTable(ClientServise.setHeadClients())
             setRowsTable(ClientServise.setRowsClients(respons.data))
         }).catch((error) => { 
             let message = error.request.responseText.split('"');

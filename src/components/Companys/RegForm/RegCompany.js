@@ -87,4 +87,4 @@ const RegCompany = () => {
     );
 };
 
-export default RegCompany;
+export default React.memo(RegCompany);

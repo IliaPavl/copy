@@ -46,7 +46,7 @@ class ClientHttpServise {
     updateCompany(companyName, nameCliet, phoneNumber, enabledStatus,url){
         const u = {
             companyName: companyName,
-            nameCliet: nameCliet,
+            nameClient: nameCliet,
             phoneNumber: phoneNumber,
             status: enabledStatus
         };

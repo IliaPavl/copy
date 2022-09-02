@@ -38,7 +38,7 @@ const EditCompany = () => {
            console.log(respons.data.status);
            setCompanyName(respons.data.companyName);
            setPhoneNumber(respons.data.phoneNumber);
-           setNameCliet(respons.data.nameCliet);
+           setNameCliet(respons.data.nameClient);
            setEnabledStatus(respons.data.status);
         }).catch((error) => {
             let message = error.request.responseText.split('"');
@@ -115,4 +115,4 @@ const EditCompany = () => {
     );
 };
 
-export default EditCompany;
+export default React.memo(EditCompany);

@@ -99,4 +99,4 @@ const IndicatorResult = () => {
 };
 
 
-export default IndicatorResult;
+export default React.memo(IndicatorResult);

@@ -51,4 +51,4 @@ const OffcanvasUser = ({ close }) => {
     );
 };
 
-export default OffcanvasUser;
+export default React.memo(OffcanvasUser);

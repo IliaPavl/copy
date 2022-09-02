@@ -11,4 +11,4 @@ const SetSearch = () => {
     );
 };
 
-export default SetSearch;
+export default React.memo(SetSearch);

@@ -59,4 +59,4 @@ const NavigationBar = () => {
     );
 };
 
-export default NavigationBar;
+export default React.memo(NavigationBar);
