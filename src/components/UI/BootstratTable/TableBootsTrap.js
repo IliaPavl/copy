@@ -11,7 +11,6 @@ const TableBootsTrap = ({ head, rows, switchData, sorting, search, setBox }) => 
     function getBox(event) {
         const conf = window.confirm(`Are you sure?`);
         if (conf) {
-            alert(`ok we won't delete it `);
             setBox(massiv)
         }
     }

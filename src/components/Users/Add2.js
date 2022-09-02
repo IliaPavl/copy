@@ -11,6 +11,7 @@ const Add2 = () => {
     let [status, setStatus] = useState([])
     let [clients, setClients] = useState('')
     let [renj, setReng] = useState()
+    let [clientsE, setClientsE] = useState('')
 
     async function getValueReng() {
         let value = document.getElementById("r1");
@@ -20,6 +21,7 @@ const Add2 = () => {
     async function setAxiosClients() {
         UserHttpServise.getClientUser().then((respons) => {
             setStatus(UserServise.setClientUser(respons))
+            setClientsE(UserServise.setClientUser(respons)[0].item)
         }).catch((error) => {
             let message = error.request.responseText.split('"');
             toast.error(message[3]);
@@ -55,7 +57,7 @@ const Add2 = () => {
                         <Form.Group>
                             <Row sm={3}>
                                 <Col>
-                                    <DropDownOutSucses values={status} setEnabledStatus={setClients} enabledStatus={null} />
+                                    <DropDownOutSucses values={status} setEnabledStatus={setClientsE} enabledStatus={clientsE} />
                                 </Col>
                             </Row>
                         </Form.Group>
