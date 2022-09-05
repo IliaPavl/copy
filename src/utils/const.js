@@ -13,7 +13,7 @@ export const INDICATOR_RESULT ='/indicatorResult'
 
 
 //export const URL_BASE = 'https://kursserv.herokuapp.com'
- export const URL_BASE = 'http://192.168.100.3:1883'
+ export const URL_BASE = 'https://192.168.100.3:1883'
 
 export const URL_LOGIN = URL_BASE+'/app/login'
 export const URL_REGISTRATION_ROUTE = '/app/registration'
