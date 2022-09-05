@@ -66,6 +66,16 @@ class UserServise {
         return keys;
     }
 
+    setRRoleUser(respons) {
+        var keys = [];
+        for (let k in respons.data) {
+            keys.push({
+                item: respons.data[k].role
+            });
+        }
+        return keys;
+    }
+
 
 
 }

@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN, AUTHRIZATION_WORD, URL_ADD_USER, URL_ALL_USER, URL_EDIT_USER, URL_REGISTRATION_ROUTE, URL_ROLE_USER, URL_SEARCH_USER, URL_STATUS_USER } from "../../utils/const";
+import { ACCESS_TOKEN, AUTHRIZATION_WORD, URL_ADD_USER, URL_ALL_USER, URL_EDIT_USER, URL_REGISTRATION_ROUTE, URL_ROLEUSER, URL_ROLE_USER, URL_SEARCH_USER, URL_STATUS_USER } from "../../utils/const";
 import api from "./api";
 
 class UserHttpServise {
@@ -102,6 +102,14 @@ class UserHttpServise {
             searchValue: seachMessege,
         };
         return api.post(URL_SEARCH_USER, u, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`
+            }
+        });
+    }
+    userRole(){
+        return api.get(URL_ROLEUSER, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`

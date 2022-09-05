@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link } from "react-router-dom";
+import { toast } from 'react-toastify';
+import UserServise from '../../../servise/funtionService/UserServise';
+import LocalServise from '../../../servise/httpServise/LocalServise';
+import UserHttpServise from '../../../servise/httpServise/UserHttpServise';
 import { COMPANY_ADD, COMPANY_LIST, INDICATOR_RESULT, LOGIN_ROUTE, REGISTRATION_ROUTE, USER_ADD, USER_LIST } from '../../../utils/const';
 import SearchLable from "../SearchForm/SearchLable";
 import Switch from "../Theme/switch";
@@ -19,6 +23,31 @@ const NavigationBar = () => {
     const search = (seachMessege) => {
         console.log(seachMessege)
     };
+    async function Logout() {
+        LocalServise.logoutUser();
+        window.location.assign(LOGIN_ROUTE)
+    }
+
+    const [c, setC] = useState(false);
+
+    useEffect(() => {
+        if (LocalServise.getAccesToken() !== null)
+            UserHttpServise.userRole().then((respons) => {
+                let k = UserServise.setRRoleUser(respons);
+                for (let i = 0; i < k.length; k++)
+                    if (k[i].item === "Руководитель")
+                        setC(true)
+            }).catch((error) => {
+                let message = error.request.responseText.split('"');
+                toast.error(message[3]);
+            })
+
+    }, [])
+
+    useEffect(() => {
+
+    }, [c])
+
     return (
         <>
             {['md'].map((expand) => (
@@ -38,16 +67,26 @@ const NavigationBar = () => {
                                     Menu
                                 </Offcanvas.Title>
                             </Offcanvas.Header>
-                            <Offcanvas.Body>
-                                <Link to={USER_ADD} className={"nav-link"} onClick={handleClose}> Users add </Link>
-                                <Link to={USER_LIST} className={"nav-link"} onClick={handleClose}> Users list </Link>
-                                <Link to={LOGIN_ROUTE} className={"nav-link"} onClick={handleClose}> Login </Link>
-                                <Link to={INDICATOR_RESULT} className={"nav-link"} onClick={handleClose}> Indicator result </Link>
-                                <Link to={COMPANY_ADD} className={"nav-link"} onClick={handleClose}>(For tests) Company add</Link>
-                                <Link to={COMPANY_LIST} className={"nav-link"} onClick={handleClose}>(For tests) Company List </Link>
-                                <Link to={REGISTRATION_ROUTE} className={"nav-link"} onClick={handleClose}>(For tests) Registration admin </Link>
-                                <OffcanvasUser close={handleClose} />
-                            </Offcanvas.Body>
+                            {c ? (
+                                <Offcanvas.Body>
+                                    <Link to={LOGIN_ROUTE} className={"nav-link"} onClick={handleClose}> Login </Link>
+                                    <Link to={USER_ADD} className={"nav-link"} onClick={handleClose}> Users add </Link>
+                                    <Link to={USER_LIST} className={"nav-link"} onClick={handleClose}> Users list </Link>
+                                    <Link to={INDICATOR_RESULT} className={"nav-link"} onClick={handleClose}> Indicator result </Link>
+                                    <Link to={COMPANY_ADD} className={"nav-link"} onClick={handleClose}>(For tests) Company add</Link>
+                                    <Link to={COMPANY_LIST} className={"nav-link"} onClick={handleClose}>(For tests) Company List </Link>
+                                    <Link to={REGISTRATION_ROUTE} className={"nav-link"} onClick={handleClose}>(For tests) Registration admin </Link>
+                                    <OffcanvasUser close={handleClose} />
+                                    <Link to={LOGIN_ROUTE} className={"nav-link"} onClick={Logout}> Logout </Link>
+                                </Offcanvas.Body>
+                            ) : (
+                                <Offcanvas.Body>
+                                    <Link to={LOGIN_ROUTE} className={"nav-link"} onClick={handleClose}> Login </Link>
+                                    <OffcanvasUser close={handleClose} />
+                                    <Link to={LOGIN_ROUTE} className={"nav-link"} onClick={Logout}> Logout </Link>
+                                </Offcanvas.Body>
+                            )}
+
                         </Navbar.Offcanvas>
                         <Switch />
                         <SearchLable backSearch={search} />
