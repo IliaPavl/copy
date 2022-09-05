@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Dropdown, NavLink } from "react-bootstrap";
+import { NavLink } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Link } from "react-router-dom";
@@ -61,21 +61,17 @@ const OffcanvasUser = ({ close }) => {
                 </Offcanvas.Header>
                 {c ? (
                     <Offcanvas.Body>
-                        <Link to={LOGIN_ROUTE} className={"nav-link"} onClick={handleClose}> Login </Link>
                         <Link to={USER_ADD} className={"nav-link"} onClick={handleClose}> Users add </Link>
                         <Link to={USER_LIST} className={"nav-link"} onClick={handleClose}> Users list </Link>
                         <Link to={INDICATOR_RESULT} className={"nav-link"} onClick={handleClose}> Indicator result </Link>
                         <Link to={COMPANY_ADD} className={"nav-link"} onClick={handleClose}>(For tests) Company add</Link>
                         <Link to={COMPANY_LIST} className={"nav-link"} onClick={handleClose}>(For tests) Company List </Link>
                         <Link to={REGISTRATION_ROUTE} className={"nav-link"} onClick={handleClose}>(For tests) Registration admin </Link>
-                        <OffcanvasUser close={handleClose} />
                         <Link to={LOGIN_ROUTE} className={"nav-link"} onClick={Logout}> Logout </Link>
                     </Offcanvas.Body>
                 ) : (
                     <Offcanvas.Body>
                         <Link to={LOGIN_ROUTE} className={"nav-link"} onClick={handleClose}> Login </Link>
-                        <OffcanvasUser close={handleClose} />
-                        <Link to={LOGIN_ROUTE} className={"nav-link"} onClick={Logout}> Logout </Link>
                     </Offcanvas.Body>
                 )}
             </Offcanvas>

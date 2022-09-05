@@ -12,7 +12,7 @@ instance.interceptors.request.use(
   (config) => {
     const token = LocalServise.getAccesToken();
     if (token) {
-      config.headers["Authorization"] = AUTHRIZATION_WORD+'_' + token;  // for Spring Boot back-end
+      config.headers["Authorization"] = AUTHRIZATION_WORD + '_' + token;  // for Spring Boot back-end
     }
     return config;
   },
@@ -41,9 +41,17 @@ instance.interceptors.response.use(
           return Promise.reject(_error);
         }
       }
-      if (err.response.status === 403){
-        toast("You are not logged in or do not have access rights!")
+      if (err.response.status === 403) {
+        toast.error("You are not logged in or do not have access rights!")
       }
+    }
+    if (err.response.status === 0) {
+      // network error
+      toast.error('Error: Network Error');
+    }
+    if (err.response.status === 503) {
+      // network error
+      toast.error('Error: Server Error');
     }
     return Promise.reject(err);
   }

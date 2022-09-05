@@ -69,7 +69,6 @@ const NavigationBar = () => {
                             </Offcanvas.Header>
                             {c ? (
                                 <Offcanvas.Body>
-                                    <Link to={LOGIN_ROUTE} className={"nav-link"} onClick={handleClose}> Login </Link>
                                     <Link to={USER_ADD} className={"nav-link"} onClick={handleClose}> Users add </Link>
                                     <Link to={USER_LIST} className={"nav-link"} onClick={handleClose}> Users list </Link>
                                     <Link to={INDICATOR_RESULT} className={"nav-link"} onClick={handleClose}> Indicator result </Link>
@@ -77,13 +76,10 @@ const NavigationBar = () => {
                                     <Link to={COMPANY_LIST} className={"nav-link"} onClick={handleClose}>(For tests) Company List </Link>
                                     <Link to={REGISTRATION_ROUTE} className={"nav-link"} onClick={handleClose}>(For tests) Registration admin </Link>
                                     <OffcanvasUser close={handleClose} />
-                                    <Link to={LOGIN_ROUTE} className={"nav-link"} onClick={Logout}> Logout </Link>
                                 </Offcanvas.Body>
                             ) : (
-                                <Offcanvas.Body>
+                                <Offcanvas.Body className="justify-content-end">
                                     <Link to={LOGIN_ROUTE} className={"nav-link"} onClick={handleClose}> Login </Link>
-                                    <OffcanvasUser close={handleClose} />
-                                    <Link to={LOGIN_ROUTE} className={"nav-link"} onClick={Logout}> Logout </Link>
                                 </Offcanvas.Body>
                             )}
 
