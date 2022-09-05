@@ -23,10 +23,6 @@ const NavigationBar = () => {
     const search = (seachMessege) => {
         console.log(seachMessege)
     };
-    async function Logout() {
-        LocalServise.logoutUser();
-        window.location.assign(LOGIN_ROUTE)
-    }
 
     const [c, setC] = useState(false);
 
