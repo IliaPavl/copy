@@ -14,7 +14,7 @@ export const INDICATOR_RESULT ='/indicatorResult'
 
 //export const URL_BASE = 'https://kursserv.herokuapp.com'
  //export const URL_BASE = 'https://192.168.100.3:1883'
- export const URL_BASE = 'https://six-trams-own-37-214-49-202.loca.lt'
+ export const URL_BASE = 'https://0840cce23a3f82.lhrtunnel.link'
 
 export const URL_LOGIN = URL_BASE+'/app/login'
 export const URL_REGISTRATION_ROUTE = '/app/registration'
