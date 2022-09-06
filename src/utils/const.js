@@ -11,12 +11,7 @@ export const COMPANY_PROFILE = '/companyEdit'
 export const REG_LINK ='/registraration_link/'
 export const INDICATOR_RESULT ='/indicatorResult'
 
-
-//export const URL_BASE = 'https://kursserv.herokuapp.com'
-//export const URL_BASE = 'http://192.168.100.3:1884'
 export const URL_BASE = 'https://0840cce23a3f82.lhrtunnel.link'
-//export const URL_BASE = 'https://0210-37-214-49-202.eu.ngrok.io'
-//export const URL_BASE = 'https://6782-37-214-49-202.eu.ngrok.io'
 
 export const URL_LOGIN = URL_BASE+'/app/login'
 export const URL_REGISTRATION_ROUTE = '/app/registration'
