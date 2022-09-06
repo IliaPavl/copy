@@ -3,7 +3,7 @@ import { Dropdown } from "react-bootstrap";
 
 
 const DropDownCompany = ({values,setEnabledStatus,enabledStatus}) => {
-    let [head, setHead] = useState()
+    let [head, setHead] = useState('')
 
     function hederSet(enabledStatus){
         if(enabledStatus==null){
@@ -21,7 +21,7 @@ const DropDownCompany = ({values,setEnabledStatus,enabledStatus}) => {
     return (
         <Dropdown className="d-grid gap-2">
             <Dropdown.Toggle variant="outline-success" >
-                {head}
+                {head === ''? <span>Loading data</span>: head}
             </Dropdown.Toggle>
 
             <Dropdown.Menu >

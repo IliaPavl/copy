@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Dropdown } from "react-bootstrap";
 
 const DropDownOutSucsesCheked = ({ values, setEnabledBox, enabledStatus }) => {
-    let [head, setHead] = useState()
+    let [head, setHead] = useState('')
     let obj = enabledStatus;
     async function hederSet(role) {
         if (obj != null) {
@@ -30,6 +30,7 @@ const DropDownOutSucsesCheked = ({ values, setEnabledBox, enabledStatus }) => {
     return (
         <Dropdown className="d-grid gap-2">
             <Dropdown.Toggle variant="outline-success">
+            {head === ''? <span>Loading data</span>: head + ' '}
                 {head + ' '}
             </Dropdown.Toggle>
 

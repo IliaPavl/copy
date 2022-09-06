@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, Container, Row, Table } from 'react-bootstrap';
 import '../CSS/componentCss.css';
+import Loading from '../Loader/Loading';
 import SearchWithButton from '../SearchForm/SearchWithButton';
 import ButtonsTable from './ButtonsTable';
 import TableHead from './TableHead';
@@ -53,13 +54,17 @@ const TableBootsTrap = ({ head, rows, switchData, sorting, search, setBox }) => 
                     <ButtonsTable uncheck={uncheck} cheackAll={cheackAll} getBox={getBox} />
                 </Col>
                 <Row className={'scrollTable'}>
-                    <Table variant='table-bordered table-hover'>
-                        <TableHead values={head} sorting={sorting} />
-                        {rows.length ?
-                            rows.map((type) => (
+                    {rows.length ?
+                        <Table variant='table-bordered table-hover'>
+                            <TableHead values={head} sorting={sorting} />
+                            {rows.map((type) => (
                                 <TableRow key={type.id} value={type} updateData={updateData} />
-                            )) : <tbody><tr><td>Нету значений</td></tr></tbody>}
-                    </Table>
+                            ))}
+                        </Table> :
+                        <Table variant='table-bordered table-hover'>
+                            <Loading />
+                        </Table>
+                    }
                 </Row>
             </Col>
         </Container>
