@@ -14,7 +14,8 @@ export const INDICATOR_RESULT ='/indicatorResult'
 
 //export const URL_BASE = 'https://kursserv.herokuapp.com'
 //export const URL_BASE = 'http://192.168.100.3:1884'
-export const URL_BASE = 'https://f42d-37-214-49-202.eu.ngrok.io'
+export const URL_BASE = 'https://six-trams-own-37-214-49-202.loca.lt'
+//export const URL_BASE = 'https://6782-37-214-49-202.eu.ngrok.io'
 
 export const URL_LOGIN = URL_BASE+'/app/login'
 export const URL_REGISTRATION_ROUTE = '/app/registration'
@@ -30,7 +31,7 @@ export const URL_SEARCH_USER = URL_BASE + '/app/user/search'
 export const URL_DELETE_USER = URL_BASE + '/app/user/delete'
 export const URL_INDICATOR_RESULT ='/app/user/indicatorResult'
 export const URL_INDICATOR_RESULT_SEARCH ='/app/user/indicatorResult/search';
-export const URL_ROLEUSER ='/app/user/getUserRole'
+export const URL_ROLEUSER ='/app/user/getUserRole/'
 
 export const URL_EDIT_CLIENT = URL_BASE + '/app/client/edit'
 export const URL_ALL_CLIENTS = URL_BASE + '/app/client/all'
