@@ -13,11 +13,13 @@ export const INDICATOR_RESULT ='/indicatorResult'
 
 
 //export const URL_BASE = 'https://kursserv.herokuapp.com'
- export const URL_BASE = 'https://192.168.100.3:1883'
+//export const URL_BASE = 'http://192.168.100.3:1884'
+export const URL_BASE = 'https://f42d-37-214-49-202.eu.ngrok.io'
 
 export const URL_LOGIN = URL_BASE+'/app/login'
 export const URL_REGISTRATION_ROUTE = '/app/registration'
 export const URL_REFRESH = URL_BASE + '/app/refreshtoken'
+
 
 export const URL_ALL_USER = URL_BASE + '/app/user/all'
 export const URL_EDIT_USER = URL_BASE + '/app/user/profile'
