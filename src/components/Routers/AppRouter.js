@@ -10,7 +10,6 @@ const AppRouter = () => {
     let [page, setPage] = useState('');
 
     useEffect(() => {
-        console.log(LocalServise.getAccesToken())
         if (LocalServise.getAccesToken() !== null)
             RoleServise.cheakRole().then(res => setC(res))
     }, [c])
