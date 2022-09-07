@@ -3,6 +3,7 @@ import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 
 import { toast } from 'react-toastify';
 import '../../components/UI/CSS/Auth.css';
+import PageServise from '../../servise/funtionService/PageServise';
 import AuthHttpServise from '../../servise/httpServise/AuthHttpServise';
 import LocalServise from '../../servise/httpServise/LocalServise';
 const Login = () => {
@@ -23,7 +24,7 @@ const Login = () => {
             console.log(respons)
             LocalServise.saveTokens(respons)
             LocalServise.saveUserName(username)
-                
+            PageServise.redirectLastPage();    
         }).catch((error) => {
             let message = error.request.responseText.split('"');
             toast.error(message[3]);
