@@ -74,9 +74,10 @@ const UserProfile = () => {
             toast.error("repeat the password correctly!")
         } else {
             let url = window.location.pathname.split('/');
+            toast.promise(
             UserHttpServise.updateUser(login,fioUser,email,password,roleE,statusE,companyE,URL_EDIT_USER+'/'+url[2]).then((respons) =>{
                 toast.success(respons.data)
-            }).catch((error) => { toast.error(error) })
+            }).catch((error) => { toast.error(error) }),{pending: "Please wait... ",})
         }
     }
 

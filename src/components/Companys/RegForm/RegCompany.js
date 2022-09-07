@@ -32,13 +32,13 @@ const RegCompany = () => {
 
     async function setClient(e) {
         e.preventDefault()
+        toast.promise(
         ClientHttpServise.setNewClient(companyName, nameCliet, phoneNumber, enabledStatus).then((respons) => {
             toast.success(respons.data);
-            //window.location.assign(URL_ADD_CLIENTS)
         }).catch((error) => {
             let message = error.request.responseText.split('"');
             toast.error(message[3]);
-        })
+        }),{pending: "Please wait... ",})
     }
 
 
