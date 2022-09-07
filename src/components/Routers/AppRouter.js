@@ -7,20 +7,24 @@ import LocalServise from '../../servise/httpServise/LocalServise';
 
 const AppRouter = () => {
     const [c, setC] = useState(false);
-    let [page,setPage]  =useState('');
+    let [page, setPage] = useState('');
 
     useEffect(() => {
+        console.log(LocalServise.getAccesToken())
         if (LocalServise.getAccesToken() !== null)
-        RoleServise.cheakRole().then(res => setC(res))
-    },[c])
+            RoleServise.cheakRole().then(res => setC(res))
+    }, [c])
 
     useEffect(() => {
-        if(page === '' )
-        setPage(LocalServise.getLastPage())
-        else
-        {   const url = PageServise.cheakUrl(c);
-            PageServise.redirectLastPage(url);}
-    },[])
+        if (page === '') {
+            if (LocalServise.getAccesToken() !== null)
+                setPage(LocalServise.getLastPage())
+        }
+        else {
+            const url = PageServise.cheakUrl(c);
+            PageServise.redirectLastPage(url);
+        }
+    }, [])
 
     return (
         <Routes>
