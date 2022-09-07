@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { Button, Card, Col, Form, Pagination, Row } from "react-bootstrap";
+import { toast } from 'react-toastify';
 import UserServise from '../../servise/funtionService/UserServise';
 import DropDownOutSucses from '../UI/DropDown/DropDownOutSucses';
 
@@ -25,7 +26,9 @@ const Add2 = () => {
 
     async function createUsers(event) {
         event.preventDefault()
-        UserServise.createUsers(clients, renj);
+        toast.promise(
+            UserServise.createUsers(clients, renj), { pending: "Please wait... ", }
+        );
     }
 
     useEffect(() => {
