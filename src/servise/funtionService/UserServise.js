@@ -100,7 +100,7 @@ class UserServise {
         var keys = [];
         let key2 = [];
         for (let k in respons.data) {
-            key2 = respons.data[k].status;
+            key2 = respons.data.status;
             for (let k1 in key2) {
                 keys.push({
                     item: key2[k1],

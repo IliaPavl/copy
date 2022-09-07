@@ -39,9 +39,6 @@ const UserProfile = () => {
         }).catch((error) => { toast.error(error) })
     }
 
-    
-
-
     let [login, setLogin] = useState('')
     let [fioUser, setFio] = useState('')
     let [email, setEmail] = useState('')
@@ -64,6 +61,7 @@ const UserProfile = () => {
                 if(k[j].trim() !== "")
                 values.push(k[j].trim())
             }
+            console.log(roleE)
             setRoleE(values)
         }).catch((error) => { toast.error(error) })
     }
@@ -80,6 +78,11 @@ const UserProfile = () => {
             }).catch((error) => { toast.error(error) }),{pending: "Please wait... ",})
         }
     }
+
+    async function set(){
+        
+    }
+
 
     useEffect(() => {
         setAxiosClients()

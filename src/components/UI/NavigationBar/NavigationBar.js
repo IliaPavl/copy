@@ -62,12 +62,6 @@ const NavigationBar = () => {
                             </Offcanvas.Header>
                             {c ? (
                                 <Offcanvas.Body>
-                                    <Link to={USER_ADD} className={"nav-link"} onClick={handleClose}> Users add </Link>
-                                    <Link to={USER_LIST} className={"nav-link"} onClick={handleClose}> Users list </Link>
-                                    <Link to={INDICATOR_RESULT} className={"nav-link"} onClick={handleClose}> Indicator result </Link>
-                                    <Link to={COMPANY_ADD} className={"nav-link"} onClick={handleClose}>(For tests) Company add</Link>
-                                    <Link to={COMPANY_LIST} className={"nav-link"} onClick={handleClose}>(For tests) Company List </Link>
-                                    <Link to={REGISTRATION_ROUTE} className={"nav-link"} onClick={handleClose}>(For tests) Registration admin </Link>
                                     <OffcanvasUser close={handleClose} />
                                 </Offcanvas.Body>
                             ) : (
