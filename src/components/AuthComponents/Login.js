@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
-
 import { toast } from 'react-toastify';
 import '../../components/UI/CSS/Auth.css';
 import PageServise from '../../servise/funtionService/PageServise';
@@ -10,8 +9,6 @@ const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-
-
     const click = async (e) => {
         e.preventDefault()
         getResponse(username, password);
@@ -20,15 +17,20 @@ const Login = () => {
     }
 
     const getResponse = (username, password) => {
-        AuthHttpServise.logining(username, password).then((respons) => {
-            console.log(respons)
-            LocalServise.saveTokens(respons)
-            LocalServise.saveUserName(username)
-            PageServise.redirectLastPage();    
-        }).catch((error) => {
-            let message = error.request.responseText.split('"');
-            toast.error(message[3]);
+        toast.promise(
+            AuthHttpServise.logining(username, password).then((respons) => {
+                console.log(respons)
+                LocalServise.saveTokens(respons)
+                LocalServise.saveUserName(username)
+                PageServise.redirectLastPage();
+
+            }).catch((error) => {
+                let message = error.request.responseText.split('"');
+                toast.error(message[3]);
+            }), {
+            pending: "Please wait... ",
         })
+
     }
 
     return (

@@ -28,9 +28,11 @@ const ListBook = () => {
 
     const search = (seachMessege) => {
         if (window.location.pathname === USER_LIST) {
-            UserServise.findUsers(seachMessege).then(res => {if(res.length !== 0 ) setRowsTable(res)})
+            toast.promise(
+            UserServise.findUsers(seachMessege).then(res => {if(res.length !== 0 ) setRowsTable(res)}),{pending: "Please wait... ",})
         } else if (window.location.pathname === COMPANY_LIST) {
-            ClientServise.findCliens(seachMessege).then(res => {if(res.length !== 0 ) setRowsTable(res)})
+            toast.promise(
+            ClientServise.findCliens(seachMessege).then(res => {if(res.length !== 0 ) setRowsTable(res)}),{pending: "Please wait... ",})
         }
     };
 
