@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import '../../components/UI/CSS/Auth.css';
 import AuthHttpServise from '../../servise/httpServise/AuthHttpServise';
 import LocalServise from '../../servise/httpServise/LocalServise';
-import { USER_LIST } from '../../utils/const';
 const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -23,8 +22,8 @@ const Login = () => {
         AuthHttpServise.logining(username, password).then((respons) => {
             console.log(respons)
             LocalServise.saveTokens(respons)
-            LocalServise.saveUserName(username);
-            window.location.assign(USER_LIST)
+            LocalServise.saveUserName(username)
+                
         }).catch((error) => {
             let message = error.request.responseText.split('"');
             toast.error(message[3]);

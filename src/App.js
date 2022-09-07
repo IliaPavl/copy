@@ -1,12 +1,13 @@
-import NavigationBar from "./components/UI/NavigationBar/NavigationBar";
-import Footer from "./components/UI/NavigationBar/Footer";
-import {BrowserRouter} from "react-router-dom";
-import './App.css';
-import AppRouter from "./components/Routers/AppRouter";
+import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './App.css';
+import AppRouter from "./components/Routers/AppRouter";
+import Footer from "./components/UI/NavigationBar/Footer";
+import NavigationBar from "./components/UI/NavigationBar/NavigationBar";
 
 function App() {
+
     return (
         <BrowserRouter>
             <NavigationBar/>

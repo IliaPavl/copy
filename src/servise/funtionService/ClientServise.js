@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+import ClientHttpServise from "../httpServise/ClientHttpServise";
 
 class ClientServise {
 
@@ -22,7 +24,30 @@ class ClientServise {
         return keys2;
     }
 
-    setRowsClients(data) {
+    async findCliens(seachMessege) {
+        return ClientHttpServise.findClient(seachMessege).then((respons) => {
+            let k = this.makeRowsClients(respons.data);
+            if(k.length === 0)
+            toast.warning("No result find clients");
+            return(k)
+        }).catch((error) => {
+            let message = error.request.responseText.split('"');
+            toast.error(message[3]);
+            return this.makeRowsClients(null)
+        })
+    }
+
+    async setRowsClients() {
+        return ClientHttpServise.getAllClients().then((respons) => {
+            return(this.makeRowsClients(respons.data))
+        }).catch((error) => {
+            let message = error.request.responseText.split('"');
+            toast.error(message[3]);
+            return null
+        })
+    }
+
+    makeRowsClients(data) {
         var keys3 = [];
         for(let k in data){
             keys3.push({ 

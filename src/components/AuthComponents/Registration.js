@@ -29,6 +29,8 @@ const Registration = () => {
         setAxiosClients()
     }, [])
 
+    
+
     const click = async (event) => {
         event.preventDefault()
         if (password !== repit) {
@@ -36,8 +38,9 @@ const Registration = () => {
         } else if (password === '') {
             toast.warning("password no empty!")
         } else {
+            const id = toast.loading("Please wait...")
             AuthHttpServise.createAdmin(login, email, password,companyE).then((respons) => {
-                alert(respons.data.message)
+                toast.update(id, { render: respons.data.message, type: "success" });
                 window.location.assign(HOME_PAGE)
             }).catch((error) => {
                 let message = error.request.responseText.split('"');

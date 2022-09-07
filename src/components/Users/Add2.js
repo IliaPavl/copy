@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Button, Card, Col, Form, Pagination, Row } from "react-bootstrap";
 import UserServise from '../../servise/funtionService/UserServise';
-import UserHttpServise from '../../servise/httpServise/UserHttpServise';
 import DropDownOutSucses from '../UI/DropDown/DropDownOutSucses';
-import {  toast } from 'react-toastify';
 
 
 const Add2 = () => {
@@ -19,23 +17,15 @@ const Add2 = () => {
     }
 
     async function setAxiosClients() {
-        UserHttpServise.getClientUser().then((respons) => {
-            setStatus(UserServise.setClientUser(respons))
-            setClientsE(UserServise.setClientUser(respons)[0].item)
-        }).catch((error) => {
-            let message = error.request.responseText.split('"');
-            toast.error(message[3]);
+        UserServise.setAxiosClients().then(res => {
+            setStatus(res)
+            setClientsE(res[0].item)
         })
     }
 
     async function createUsers(event) {
         event.preventDefault()
-        UserHttpServise.createUsers(clients, renj).then((respons) => {
-            toast.success(respons.data)
-        }).catch((error) => {
-            let message = error.request.responseText.split('"');
-            toast.error(message[3]);
-        })
+        UserServise.createUsers(clients, renj);
     }
 
     useEffect(() => {

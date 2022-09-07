@@ -11,7 +11,7 @@ export const COMPANY_PROFILE = '/companyEdit'
 export const REG_LINK ='/registraration_link/'
 export const INDICATOR_RESULT ='/indicatorResult'
 
-export const URL_BASE = 'https://fbfee3675c9371.lhrtunnel.link'
+export const URL_BASE = 'https://481242cbb9b835.lhrtunnel.link'
 
 export const URL_LOGIN = URL_BASE+'/app/login'
 export const URL_REGISTRATION_ROUTE = '/app/registration'
@@ -27,7 +27,7 @@ export const URL_SEARCH_USER = URL_BASE + '/app/user/search'
 export const URL_DELETE_USER = URL_BASE + '/app/user/delete'
 export const URL_INDICATOR_RESULT ='/app/user/indicatorResult'
 export const URL_INDICATOR_RESULT_SEARCH ='/app/user/indicatorResult/search';
-export const URL_ROLEUSER ='/app/user/getUserRole/'
+export const URL_ROLEUSER ='/app/user/getUserRole'
 
 export const URL_EDIT_CLIENT = URL_BASE + '/app/client/edit'
 export const URL_ALL_CLIENTS = URL_BASE + '/app/client/all'
@@ -42,4 +42,5 @@ export const AUTHRIZATION_WORD = 'Bearer'
 export const AUTHORIZATION = 'Authorization'
 export const AUTH = 'auth'
 export const USERNAME = 'username'
+export const LAST_PAGE = 'lastPage'
 

@@ -34,13 +34,10 @@ const NavigationBar = () => {
                     if (k[i].item === "Руководитель")
                         setC(true)
             }).catch((error) => {
+                console.log(error)
                 let message = error.request.responseText.split('"');
                 toast.error(message[3]);
             })
-
-    }, [])
-
-    useEffect(() => {
 
     }, [c])
 

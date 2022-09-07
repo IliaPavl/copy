@@ -45,13 +45,13 @@ export const authRoutes = [
         path: INDICATOR_RESULT,
         Component: IndicatorResult
     },
-]
-
-export const publicRoutes = [
     {
         path: HOME_PAGE,
         Component: HomePage
     },
+]
+
+export const publicRoutes = [
     {
         path: LOGIN_ROUTE,
         Component: LoginPage

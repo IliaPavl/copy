@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN, AUTH, REFRESH_TOKEN, USERNAME } from "../../utils/const";
+import { ACCESS_TOKEN, AUTH, LAST_PAGE, REFRESH_TOKEN, USERNAME } from "../../utils/const";
 
 class LocalServise  {
     saveTokens(data){
@@ -6,6 +6,14 @@ class LocalServise  {
         localStorage.setItem(ACCESS_TOKEN, token);
         localStorage.setItem(AUTH,true);
         localStorage.setItem(REFRESH_TOKEN,refreshToken);
+    }
+
+    setLastPage(page){
+        localStorage.setItem(LAST_PAGE, page);
+    }
+
+    getLastPage(){
+        return localStorage.getItem(LAST_PAGE);
     }
 
     getAccesToken(){

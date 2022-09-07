@@ -41,6 +41,19 @@ instance.interceptors.response.use(
           return Promise.reject(_error);
         }
       }
+      if (err.response.status === 400 && !originalConfig._retry) {
+        originalConfig._retry = true;
+        try {
+          const rs = await instance.post(URL_REFRESH, {
+            refreshToken: LocalServise.getRefreshToken(),
+          });
+          const { accessToken } = rs.data;
+          LocalServise.setAccesToken(accessToken);
+          return instance(originalConfig);
+        } catch (_error) {
+          return Promise.reject(_error);
+        }
+      }
       if (err.response.status === 403) {
         toast.error("You are not logged in or do not have access rights!")
       }

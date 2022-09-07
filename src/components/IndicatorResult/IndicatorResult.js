@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card } from "react-bootstrap";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PageServise from '../../servise/funtionService/PageServise';
 import ResultServise from '../../servise/funtionService/ResultServise';
 import ResultHttpServise from '../../servise/httpServise/ResultHttpServise';
 import TableBootsTrap from "../UI/BootstratTable/TableBootsTrap";
@@ -12,6 +13,7 @@ const IndicatorResult = () => {
     let [sortV, setSortV] = useState('');
     let [box, setBox] = useState([])
 
+    PageServise.setLastPage()
 
     const search = (seachMessege) => {
         ResultHttpServise.searchClientsResult(seachMessege).then((respons) => {

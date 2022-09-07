@@ -1,32 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { authRoutes, publicRoutes } from "../../routes";
-import UserServise from '../../servise/funtionService/UserServise';
-import UserHttpServise from '../../servise/httpServise/UserHttpServise';
-import { toast } from 'react-toastify';
+import PageServise from '../../servise/funtionService/PageServise';
+import RoleServise from '../../servise/funtionService/RoleServise';
 import LocalServise from '../../servise/httpServise/LocalServise';
 
 const AppRouter = () => {
     const [c, setC] = useState(false);
+    let [page,setPage]  =useState('');
 
     useEffect(() => {
         if (LocalServise.getAccesToken() !== null)
-        UserHttpServise.userRole().then((respons) => {
-            let k= UserServise.setRRoleUser(respons);
-            for(let i=0;i<k.length;k++)
-            if(k[i].item === "Руководитель")
-            setC(true)
-        }).catch((error) => {
-            let message = error.request.responseText.split('"');
-            toast.error(message[3]);
-        })
-
-    },[])
+        RoleServise.cheakRole().then(res => setC(res))
+    },[c])
 
     useEffect(() => {
-
-    }, [c])
-
+        if(page === '' )
+        setPage(LocalServise.getLastPage())
+        else
+        {   const url = PageServise.cheakUrl(c);
+            PageServise.redirectLastPage(url);}
+    },[])
 
     return (
         <Routes>

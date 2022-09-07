@@ -1,3 +1,6 @@
+import { toast } from "react-toastify";
+import UserHttpServise from "../httpServise/UserHttpServise";
+
 class UserServise {
 
     setHeadUsers() {
@@ -13,7 +16,48 @@ class UserServise {
         return keys2;
     }
 
-    setRowsUsers(data) {
+    async setRowsUsers() {
+        return UserHttpServise.getAllUsers().then((respons) => {
+            return(this.makeRowsUsers(respons.data))
+        }).catch((error) => {
+            let message = error.request.responseText.split('"');
+            toast.error(message[3]);
+            return null
+        })
+    }
+
+    async createUsers(clients, renj){
+        UserHttpServise.createUsers(clients, renj).then((respons) => {
+            toast.success(respons.data)
+        }).catch((error) => {
+            let message = error.request.responseText.split('"');
+            toast.error(message[3]);
+        })
+    }
+
+    async findUsers(seachMessege) {
+        return UserHttpServise.findUsers(seachMessege).then((respons) => {
+            let k = this.makeRowsUsers(respons.data);
+            if(k.length === 0)
+            toast.warning("No result find users");
+            return(k)
+        }).catch((error) => {
+            let message = error.request.responseText.split('"');
+            toast.error(message[3]);
+            return this.makeRowsUsers(null)
+        })
+    }
+
+    async setAxiosClients() {
+        return UserHttpServise.getClientUser().then((respons) => {
+            return this.setClientUser(respons);
+        }).catch((error) => {
+            let message = error.request.responseText.split('"');
+            toast.error(message[3]);
+        })
+    }
+
+    makeRowsUsers(data) {
         var keys3 = [];
         for (let k in data) {
             keys3.push({
@@ -75,8 +119,5 @@ class UserServise {
         }
         return keys;
     }
-
-
-
 }
 export default new UserServise();

@@ -1,13 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Card } from "react-bootstrap";
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ClientServise from '../../servise/funtionService/ClientServise';
 import UserServise from '../../servise/funtionService/UserServise';
 import ClientHttpServise from '../../servise/httpServise/ClientHttpServise';
-import UserHttpServise from '../../servise/httpServise/UserHttpServise';
 import { COMPANY_LIST, USER_LIST } from '../../utils/const';
 import TableBootsTrap from "../UI/BootstratTable/TableBootsTrap";
-import { toast } from 'react-toastify';
 
 
 const ListBook = () => {
@@ -29,40 +28,20 @@ const ListBook = () => {
 
     const search = (seachMessege) => {
         if (window.location.pathname === USER_LIST) {
-            UserHttpServise.findUsers(seachMessege).then((respons) => {
-                setRowsTable(UserServise.setRowsUsers(respons.data))
-            }).catch((error) => {
-                let message = error.request.responseText.split('"');
-                toast.error(message[3]);
-            })
+            UserServise.findUsers(seachMessege).then(res => {if(res.length !== 0 ) setRowsTable(res)})
         } else if (window.location.pathname === COMPANY_LIST) {
-            ClientHttpServise.findClient(seachMessege).then((respons) => {
-                setRowsTable(ClientServise.setRowsClients(respons.data))
-            }).catch((error) => {
-                let message = error.request.responseText.split('"');
-                toast.error(message[3]);
-            })
+            ClientServise.findCliens(seachMessege).then(res => {if(res.length !== 0 ) setRowsTable(res)})
         }
     };
 
     async function setTableUsers() {
         setHeaderTable(UserServise.setHeadUsers())
-        UserHttpServise.getAllUsers().then((respons) => {
-            setRowsTable(UserServise.setRowsUsers(respons.data))
-        }).catch((error) => {
-            let message = error.request.responseText.split('"');
-            toast.error(message[3]);
-        })
+        UserServise.setRowsUsers().then(res => setRowsTable(res))
     }
 
     async function setTableClients() {
         setHeaderTable(ClientServise.setHeadClients())
-        ClientHttpServise.getAllClients().then((respons) => {
-            setRowsTable(ClientServise.setRowsClients(respons.data))
-        }).catch((error) => {
-            let message = error.request.responseText.split('"');
-            toast.error(message[3]);
-        })
+        ClientServise.setRowsClients().then(res => setRowsTable(res))
     }
 
     const sorting = (sortValue) => {
@@ -103,7 +82,6 @@ const ListBook = () => {
         console.log(box)
         if (box.length !== 0) {
             ClientHttpServise.deleteUser(box).then((respons) => {
-                console.log(box.length)
                 toast.success(respons.data)
                 if (window.location.pathname === USER_LIST) {
                     setTableUsers()
