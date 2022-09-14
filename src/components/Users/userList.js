@@ -81,7 +81,11 @@ const ListBook = () => {
     }, []);
 
     async function deleteUsers(box) {
-        console.log(box)
+        toast.promise(
+            d(box), { pending: "Please wait... ", }
+        );
+    }
+    async function d(box){
         if (box.length !== 0) {
             ClientHttpServise.deleteUser(box).then((respons) => {
                 toast.success(respons.data)

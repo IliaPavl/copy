@@ -10,3 +10,9 @@
 .radius{
     border-radius: 30px/25px;
 }
+
+.linkRow{
+    text-decoration: none;
+    list-style-type: none;
+    color: black;
+}

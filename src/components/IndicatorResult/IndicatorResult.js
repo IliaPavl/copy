@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Card } from "react-bootstrap";
+import { Card, Col, Container, Row, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PageServise from '../../servise/funtionService/PageServise';
 import ResultServise from '../../servise/funtionService/ResultServise';
 import ResultHttpServise from '../../servise/httpServise/ResultHttpServise';
 import TableBootsTrap from "../UI/BootstratTable/TableBootsTrap";
+import LineChart from '../UI/Charts/LineChart';
 
 const IndicatorResult = () => {
     let [headerTable, setHeaderTable] = useState([])
@@ -17,8 +18,8 @@ const IndicatorResult = () => {
 
     const search = (seachMessege) => {
         ResultHttpServise.searchClientsResult(seachMessege).then((respons) => {
-            let k=ResultServise.setRows(respons.data)
-            if(k.length === 0){
+            let k = ResultServise.setRows(respons.data)
+            if (k.length === 0) {
                 toast.warning("No one indicator none exist");
             }
             setRowsTable(k)
@@ -31,8 +32,8 @@ const IndicatorResult = () => {
     async function setTableResult() {
         setHeaderTable(ResultServise.setHeader())
         ResultHttpServise.getAllClientsResult().then((respons) => {
-            let k=ResultServise.setRows(respons.data)
-            if(k.length === 0){
+            let k = ResultServise.setRows(respons.data)
+            if (k.length === 0) {
                 toast.warning("No one indicator none exist");
             }
             setRowsTable(k)
@@ -72,12 +73,8 @@ const IndicatorResult = () => {
         setTableResult();
     }, []);
 
-    async function deleteUser() {
-
-    }
 
     useEffect(() => {
-        deleteUser()
     }, [box]);
 
     useEffect(() => {
@@ -86,17 +83,42 @@ const IndicatorResult = () => {
 
 
     return (
-        <Card className={"border-1 m-1"}>
-            <Card.Header>
-                <div style={{ float: "left" }}>
-                    IndicatorResult
-                </div>
-            </Card.Header>
-            <Card.Body>
-                <TableBootsTrap setBox={setBox} head={headerTable} rows={rowsTable} sorting={sorting} search={search} />
-                <br />
-            </Card.Body>
-        </Card>
+        <Container>
+            <Card className={"border-1 m-1"} >
+                <Card.Header>
+                    <div style={{ float: "right" }}>
+                        Chart
+                    </div>
+                </Card.Header>
+                <Card.Body >
+                    <Row>
+                        <LineChart data={rowsTable} />
+                    </Row>
+                    <Row>
+                        <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+                            <ToggleButton id="tbg-radio-1" value={1} variant='outline-primary'>
+                                Line
+                            </ToggleButton>
+                            <ToggleButton id="tbg-radio-2" value={2} variant='outline-primary'>
+                                Bar
+                            </ToggleButton>
+                        </ToggleButtonGroup>
+                    </Row>
+                </Card.Body>
+            </Card>
+            <Card className={"border-1 m-1"}>
+                <Card.Header>
+                    <div style={{ float: "right" }}>
+                        IndicatorResult
+                    </div>
+                </Card.Header>
+                <Card.Body>
+                    <TableBootsTrap setBox={setBox} head={headerTable} rows={rowsTable} sorting={sorting} search={search} />
+                    <br />
+                </Card.Body>
+            </Card>
+        </Container>
+
     );
 };
 

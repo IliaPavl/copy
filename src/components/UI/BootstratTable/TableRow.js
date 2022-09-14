@@ -1,21 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { COMPANY_LIST, COMPANY_PROFILE, USER_LIST, USER_PROFILE } from '../../../utils/const';
+import '../CSS/componentCss.css';
 
 const TableRow = ({ value, updateData }) => {
 
+    const [url,setUrl] =useState('')
     async function cheakUrl() {
-       
         let url = window.location.pathname.split('/');
         console.log(url[1])
         if ('/'+url[1] === USER_LIST) {
-            window.location.assign(USER_PROFILE + '/' + value.id);
+            setUrl(USER_PROFILE + '/' + value.id);
         } else if ('/'+url[1] === COMPANY_LIST) {
-            window.location.assign(COMPANY_PROFILE + '/' + value.id);
+            setUrl(COMPANY_PROFILE + '/' + value.id);
         }
-
     }
     let number = 1;
+
+    useEffect(()=>{
+        cheakUrl();
+    })
 
     function plus(){
         number++;
@@ -36,7 +41,7 @@ const TableRow = ({ value, updateData }) => {
                 </td>
 
                 {Object.entries(value).map((data) => (
-                    <td key={plus()} onClick={() => { cheakUrl() }}>{data[1]}</td>
+                    <td key={plus()}><Link to={url} className="linkRow"> {data[1]}</Link></td>
                 ))}
 
             </tr>
