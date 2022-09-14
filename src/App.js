@@ -3,17 +3,18 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import AppRouter from "./components/Routers/AppRouter";
-import Footer from "./components/UI/NavigationBar/Footer";
-import NavigationBar from "./components/UI/NavigationBar/NavigationBar";
+import Bars from "./components/UI/NavigationBar/Bars";
+import Footer from "./components/UI/NavigationBar/NavBar/Footer";
 
 function App() {
 
+
     return (
         <BrowserRouter>
-            <NavigationBar/>
+            <Bars />
             <ToastContainer />
-            <AppRouter/>
-            <Footer/>
+            <AppRouter />
+            <Footer />
         </BrowserRouter>
     );
 }

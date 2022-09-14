@@ -11,7 +11,7 @@ export const COMPANY_PROFILE = '/companyEdit'
 export const REG_LINK ='/registraration_link/'
 export const INDICATOR_RESULT ='/indicatorResult'
 
-export const URL_BASE = 'https://8450d1570b288a.lhrtunnel.link'
+export const URL_BASE = 'https://547d9209869414.lhrtunnel.link'
 
 export const URL_LOGIN = URL_BASE+'/app/login'
 export const URL_REGISTRATION_ROUTE = '/app/registration'

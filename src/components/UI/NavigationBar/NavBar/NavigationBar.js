@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { NavItem } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
-import UserServise from '../../../servise/funtionService/UserServise';
-import LocalServise from '../../../servise/httpServise/LocalServise';
-import UserHttpServise from '../../../servise/httpServise/UserHttpServise';
-import { COMPANY_ADD, COMPANY_LIST, INDICATOR_RESULT, LOGIN_ROUTE, REGISTRATION_ROUTE, USER_ADD, USER_LIST } from '../../../utils/const';
-import SearchLable from "../SearchForm/SearchLable";
-import Switch from "../Theme/switch";
-import OffcanvasUser from "./OffcanvasUser";
+import UserServise from '../../../../servise/funtionService/UserServise';
+import LocalServise from '../../../../servise/httpServise/LocalServise';
+import UserHttpServise from '../../../../servise/httpServise/UserHttpServise';
+import { LOGIN_ROUTE } from '../../../../utils/const';
+import SearchLable from "../../SearchForm/SearchLable";
+import Switch from "../../Theme/switch";
+import "./NavBarCss.css";
 
 
-
-const NavigationBar = () => {
+const NavigationBar = ({showBurger}) => {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -41,43 +42,44 @@ const NavigationBar = () => {
 
     }, [c])
 
+    const [username, setUsername] = useState('');
+    async function loadUsername() {
+        setUsername(LocalServise.getUserName());
+    }
+    useEffect(() => {
+        loadUsername()
+    })
+
     return (
-        <>
-            {['md'].map((expand) => (
-                <Navbar key={expand} bg="light" expand={expand} className="mb-3">
-                    <Container fluid>
-                        <Link to={"/"} className={"navbar-brand"}>Home page</Link>
+                <Navbar key={'md'} expand={'md'} className="nav">
+                    <Container fluid >
+                        <GiHamburgerMenu className='hamburger' onClick={() => showBurger()}/>
+                        
                         <Navbar.Offcanvas
-                            id={`offcanvasNavbar-expand-${expand}`}
-                            aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
+                            id={`offcanvasNavbar-expand-md`}
+                            aria-labelledby={`offcanvasNavbarLabel-expand-md`}
                             placement="end"
                             show={show}
                             onHide={handleClose}
                             scroll={true}
                         >
                             <Offcanvas.Header closeButton>
-                                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
+                                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-md`}>
                                     Menu
                                 </Offcanvas.Title>
                             </Offcanvas.Header>
-                            {c ? (
-                                <Offcanvas.Body>
-                                    <OffcanvasUser close={handleClose} />
-                                </Offcanvas.Body>
-                            ) : (
+                            {c ?  <Offcanvas.Body className="justify-content-end"><NavItem onClick={() => showBurger()} className={"navbar-brand"}><span className='textNav'> {username} </span></NavItem></Offcanvas.Body>: (
                                 <Offcanvas.Body className="justify-content-end">
-                                    <Link to={LOGIN_ROUTE} className={"nav-link"} onClick={handleClose}> Login </Link>
+                                    <Link to={LOGIN_ROUTE} className={"navbar-brand"} onClick={handleClose}> <span className='textNav'>Login</span></Link>
                                 </Offcanvas.Body>
                             )}
 
                         </Navbar.Offcanvas>
                         <Switch />
                         <SearchLable backSearch={search} />
-                        <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} onClick={toggleShow} />
+                        <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} onClick={toggleShow} />
                     </Container>
                 </Navbar>
-            ))}
-        </>
     );
 };
 

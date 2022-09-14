@@ -9,6 +9,7 @@ class RoleServise {
             for(let i=0;i<k.length;k++)
             if(k[i].item === "Руководитель")
             return true;
+            return false;
         }).catch((error) => {
             let message = error.request.responseText.split('"');
             toast.error(message[3]);

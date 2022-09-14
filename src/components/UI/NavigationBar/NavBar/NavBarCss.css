@@ -1,0 +1,19 @@
+.nav{
+    background-color: darkslateblue;
+}
+
+.textNav {
+    color: aliceblue;
+}
+
+.hamburger{
+    color: rgb(223, 234, 244);
+    font-size: 35px;
+    border-radius: 6px;
+}
+
+.hamburger:hover{
+    color: rgb(169, 204, 248);
+    transition: all 0.1s;
+    font-size: 36px;
+}

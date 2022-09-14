@@ -5,7 +5,7 @@ const Footer = () => {
     let year = new Date().getFullYear();
     return (
         <Navbar fixed={"bottom"} bg="light">
-            <Container>
+            <Container >
                 <Col className={"text-center"}>
                     <div>
                         Created by ILIA in - {year}

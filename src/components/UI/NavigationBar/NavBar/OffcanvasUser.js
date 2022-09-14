@@ -4,10 +4,11 @@ import Nav from "react-bootstrap/Nav";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
-import UserServise from '../../../servise/funtionService/UserServise.js';
-import LocalServise from '../../../servise/httpServise/LocalServise.js';
-import UserHttpServise from '../../../servise/httpServise/UserHttpServise.js';
-import { COMPANY_ADD, COMPANY_LIST, INDICATOR_RESULT, LOGIN_ROUTE, REGISTRATION_ROUTE, USER_ADD, USER_LIST } from "../../../utils/const.js";
+import UserServise from '../../../../servise/funtionService/UserServise.js';
+import LocalServise from '../../../../servise/httpServise/LocalServise.js';
+import UserHttpServise from '../../../../servise/httpServise/UserHttpServise.js';
+
+import { COMPANY_ADD, COMPANY_LIST, INDICATOR_RESULT, LOGIN_ROUTE, REGISTRATION_ROUTE, USER_ADD, USER_LIST } from "../../../../utils/const.js";
 
 const OffcanvasUser = ({ close }) => {
     const [username, setUsername] = useState('');
@@ -53,7 +54,7 @@ const OffcanvasUser = ({ close }) => {
 
     return (
         <Nav className="flex-grow-1 pe-3 justify-content-end">
-            <NavLink onClick={toggleShow} className={"nav-link"}> {username}</NavLink>
+            <NavLink onClick={toggleShow} className={"navbar-brand"}><span className='textNav'> {username} </span></NavLink>
             <Offcanvas show={show} onHide={handleClose} scroll={true} backdrop={false}
                 className="justify-content-end" placement="end">
                 <Offcanvas.Header closeButton>
