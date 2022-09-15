@@ -12,7 +12,7 @@ export const REG_LINK ='/registraration_link/'
 export const INDICATOR_RESULT ='/indicatorResult'
 
 
-export const URL_BASE = 'https://796fdbe89bb4f9.lhrtunnel.link'
+export const URL_BASE = 'https://ee8e50c59ce347.lhrtunnel.link'
 
 export const URL_LOGIN = URL_BASE+'/app/login'
 export const URL_REGISTRATION_ROUTE = '/app/registration'

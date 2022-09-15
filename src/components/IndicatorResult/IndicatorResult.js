@@ -80,7 +80,11 @@ const IndicatorResult = () => {
     useEffect(() => {
     }, [sortV]);
 
+    const [chartL,setL] =useState(true)
 
+    async function sw(){
+        setL(!chartL)
+    }
 
     return (
         <Container>
@@ -92,14 +96,14 @@ const IndicatorResult = () => {
                 </Card.Header>
                 <Card.Body >
                     <Row>
-                        <LineChart data={rowsTable} />
+                        <LineChart data={rowsTable} sw={chartL}/>
                     </Row>
                     <Row>
                         <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                            <ToggleButton id="tbg-radio-1" value={1} variant='outline-primary'>
+                            <ToggleButton id="tbg-radio-1" value={1} variant='outline-primary' onClick={() => sw()}>
                                 Line
                             </ToggleButton>
-                            <ToggleButton id="tbg-radio-2" value={2} variant='outline-primary'>
+                            <ToggleButton id="tbg-radio-2" value={2} variant='outline-primary' onClick={() => sw()}>
                                 Bar
                             </ToggleButton>
                         </ToggleButtonGroup>
