@@ -42,7 +42,7 @@ export const authRoutes = [
         Component: companyEdit
     },
     {
-        path: INDICATOR_RESULT,
+        path: INDICATOR_RESULT+"/:searchValue",
         Component: IndicatorResult
     },
     {

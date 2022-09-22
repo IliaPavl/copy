@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { RiChatPollLine, RiCustomerService2Line, RiHome2Line, RiLineChartLine, RiLogoutBoxRLine, RiMenuUnfoldFill, RiTeamFill, RiUser2Fill, RiUserAddLine, RiUserFollowFill } from "react-icons/ri";
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import UserServise from '../../../../servise/funtionService/UserServise';
 import LocalServise from '../../../../servise/httpServise/LocalServise';
-import UserHttpServise from '../../../../servise/httpServise/UserHttpServise';
 import { COMPANY_ADD, COMPANY_LIST, INDICATOR_RESULT, LOGIN_ROUTE, REGISTRATION_ROUTE, USER_ADD, USER_LIST } from '../../../../utils/const';
+import SearchLable from '../../SearchForm/SearchLable';
 import "./SideBarCSs.css";
 
-const SideBar = ({ show }) => {
+const SideBar = ({ show, isRoleAdmin, resultName }) => {
     async function Logout() {
         LocalServise.logoutUser();
         window.location.assign(LOGIN_ROUTE)
@@ -29,28 +27,23 @@ const SideBar = ({ show }) => {
     async function showHelp() {
         setHelp(!help);
     }
+    const search = (seachMessege) => {
+        console.log(seachMessege)
+    };
 
-    const [c, setC] = useState(false);
+    let number = 1;
 
-    useEffect(() => {
-        if (LocalServise.getAccesToken() !== null)
-            UserHttpServise.userRole().then((respons) => {
-                let k = UserServise.setRRoleUser(respons);
-                for (let i = 0; i < k.length; k++)
-                    if (k[i].item === "Руководитель")
-                        setC(true)
-            }).catch((error) => {
-                console.log(error)
-                let message = error.request.responseText.split('"');
-                toast.error(message[3]);
-            })
-
-    }, [c])
-
+    function plus() {
+        number++;
+        return number;
+    }
     return (
 
         <Col sm={2} className={show ? 'SideNav active' : 'SideNav'}>
             <ul>
+                <li>
+                    <SearchLable backSearch={search} />
+                </li>
                 <li>
                     <Link to={"/"} className='Link'>
                         <span className='textNav ' >
@@ -65,7 +58,7 @@ const SideBar = ({ show }) => {
                         </span>
                     </Link>
                 </li>
-                {c ?
+                {isRoleAdmin ?
                     <>
                         <li>
                             <Link to={"/"} className='Link'>
@@ -127,7 +120,6 @@ const SideBar = ({ show }) => {
 
                             : <></>}
                         <li>
-
                             <span className='textNav ' onClick={() => showResultLink()} >
                                 <Row>
                                     <Col sm={10}>
@@ -138,40 +130,25 @@ const SideBar = ({ show }) => {
                                     </Col>
                                 </Row>
                             </span>
-
-
                         </li>
                         {resultLink ?
                             <ul>
-                                <li>
-                                    <Link to={INDICATOR_RESULT} className='Link'>
-                                        <span className='textNav ' >
-                                            <Row>
-                                                <Col sm={9}>
-                                                    Indicator result
-                                                </Col>
-                                                <Col sm={3}>
-                                                    <RiChatPollLine className='icon LinkHiden menu' />
-                                                </Col>
-                                            </Row>
-                                        </span>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to={INDICATOR_RESULT} className='Link'>
-                                        <span className='textNav ' >
-                                            <Row>
-                                                <Col sm={9}>
-                                                    Indicator result #2
-                                                </Col>
-                                                <Col sm={3}>
-                                                    <RiChatPollLine className='icon LinkHiden menu' />
-                                                    2
-                                                </Col>
-                                            </Row>
-                                        </span>
-                                    </Link>
-                                </li>
+                                {Object.entries(resultName).map((data) => (
+                                    <li key={plus()}>
+                                        <Link to={INDICATOR_RESULT.split('/')[1] + '/' + data[0]} onClick={() => window.location.refresh()} className='Link'>
+                                            <span className='textNav ' >
+                                                <Row>
+                                                    <Col sm={9}>
+                                                        {data[1]}
+                                                    </Col>
+                                                    <Col sm={3}>
+                                                        <RiChatPollLine className='icon LinkHiden menu' />
+                                                    </Col>
+                                                </Row>
+                                            </span>
+                                        </Link>
+                                    </li>
+                                ))}
                             </ul>
 
                             : <></>}

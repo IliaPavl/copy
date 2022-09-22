@@ -44,6 +44,12 @@ const TableBootsTrap = ({ head, rows, switchData, sorting, search, setBox }) => 
             massiv.push(value)
     };
 
+    let number = 1;
+
+    function plus() {
+        number++;
+        return number;
+    }
     return (
         <Container className='mt-2'>
             <Col>
@@ -58,12 +64,10 @@ const TableBootsTrap = ({ head, rows, switchData, sorting, search, setBox }) => 
                         <Table variant='table-bordered table-hover'>
                             <TableHead values={head} sorting={sorting} />
                             {rows.map((type) => (
-                                <TableRow key={type.id} value={type} updateData={updateData} />
+                                <TableRow key={plus()} value={type} updateData={updateData} />
                             ))}
                         </Table> :
-                        <Table variant='table-bordered table-hover'>
-                            <Loading />
-                        </Table>
+                        <Loading />
                     }
                 </Row>
             </Col>

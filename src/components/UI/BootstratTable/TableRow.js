@@ -9,18 +9,19 @@ const TableRow = ({ value, updateData }) => {
     const [url,setUrl] =useState('')
     async function cheakUrl() {
         let url = window.location.pathname.split('/');
-        console.log(url[1])
         if ('/'+url[1] === USER_LIST) {
             setUrl(USER_PROFILE + '/' + value.id);
         } else if ('/'+url[1] === COMPANY_LIST) {
             setUrl(COMPANY_PROFILE + '/' + value.id);
         }
     }
-    let number = 1;
+
 
     useEffect(()=>{
         cheakUrl();
     })
+
+    let number = 1;
 
     function plus(){
         number++;

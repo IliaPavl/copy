@@ -1,33 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import { Bar, Line } from 'react-chartjs-2';
+import SetDataChart from './SetDataChart';
 
-const LineChart = ({ data, sw }) => {
+const LineChart = ({ data, sw ,title}) => {
 
     let chart1 = [];
     let chart2 = [];
     let chart3 = [];
     let chart4 = [];
 
-    data = data.sort((a, b) => { return new Date(a.ResultDate) - new Date(b.ResultDate) });
 
-    async function chartList() {
+
+    data = data.sort((a, b) => {
+        let d = a.ResultDate.split('-');
+        let f = b.ResultDate.split('-');
+        return new Date(d[2], d[1], d[0]) - new Date(f[2], f[1], f[0])
+    });
+
+    async function chartList(data) {
         chart1 = [];
         chart2 = [];
         chart3 = [];
         chart4 = [];
         let listData = data.map((d) => d.ResultDate);
-        console.log(listData)
         for (let i = 0; i < listData.length; i++) {
             data.map((d) => {
                 if (listData[i] === d.ResultDate) {
                     if (d.ResultComment === null)
-                        chart1.push(d.IndResult);
+                        chart1.push(Number(d.IndResult));
                     else if (d.ResultComment === '1')
-                        chart2.push(d.IndResult);
+                        chart2.push(Number(d.IndResult));
                     else if (d.ResultComment === '2')
-                        chart3.push(d.IndResult);
+                        chart3.push(Number(d.IndResult));
                     else if (d.ResultComment === '3')
-                        chart4.push(d.IndResult);
+                        chart4.push(Number(d.IndResult));
                 }
             })
             if (chart1.length !== i + 1) {
@@ -43,81 +48,23 @@ const LineChart = ({ data, sw }) => {
                 chart4.push(null);
             }
         }
-    }
-
-    const [chartData, setChartData] = useState({
-        labels: str(),
-        datasets: [
-            {
-                label: "Indicator result NULL",
-                data: chart1,
-                backgroundColor: 'rgb(255, 85, 0)'
-            },
-            {
-                label: "Indicator result ALL",
-                data: chart2,
-                backgroundColor: 'rgb(0, 128, 255)'
-            }, {
-                label: "Indicator result SUM",
-                data: chart3,
-                backgroundColor: 'rgb(183, 0, 255)'
-            }, {
-                label: "Indicator result AVG",
-                data: chart4,
-                backgroundColor: 'rgb(255, 0, 0)'
-            }
-        ]
-    });
-
-
-    function str() {
-        let m = []
-        for (let n in data) {
-            let month = new Date(data[n].ResultDate).getUTCMonth() + 1;
-            m.push(new Date(data[n].ResultDate).getFullYear() + ":" + month)
+        let outData = []
+        for (let k = 0; k < listData.length; k++) {
+            outData.push({ day: listData[k], first: chart1[k], all: chart2[k], summ: chart3[k], avg: chart4[k], });
         }
-        return m;
+
+        return outData;
     }
 
-    async function setChart() {
-        chartList().then(() =>
-            setChartData({
-                labels: str(),
-                datasets: [
-                    {
-                        label: "Indicator result NULL",
-                        data: chart1.map((d) => d),
-                        backgroundColor: 'rgb(255, 85, 0)'
-                    },
-                    {
-                        label: "Indicator result ALL",
-                        data: chart2.map((d) => d),
-                        backgroundColor: 'rgb(0, 128, 255)'
-                    }, {
-                        label: "Indicator result SUM",
-                        data: chart3.map((d) => d),
-                        backgroundColor: 'rgb(183, 0, 255)'
-                    }, {
-                        label: "Indicator result AVG",
-                        data: chart4.map((d) => d),
-                        backgroundColor: 'rgb(255, 0, 0)'
-                    }
-                ]
-            })
-        );
-    }
+    let [charts, setCharts] = useState([]);
 
     useEffect(() => {
-        if (chartData.labels.length === 0) {
-            setChart()
-            console.log(data.length)
-        }
-    }, [chartData])
-
+        chartList(data).then((obj) => { setCharts(obj); })
+    }, [data])
 
     return (
         <>
-            {sw ? <Line data={chartData} /> : <Bar data={chartData} />}
+            <SetDataChart chartData={charts} titleChart={title}/>
         </>
 
     );

@@ -43,7 +43,11 @@ class LocalServise  {
     }
 
     getUserName(){
-        return localStorage.getItem(USERNAME);
+        let name = localStorage.getItem(USERNAME)
+        if(name !== null)
+        return name;
+        else
+        return "error";
     }
 };
 

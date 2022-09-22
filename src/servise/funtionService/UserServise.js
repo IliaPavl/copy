@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import ResultHttpServise from "../httpServise/ResultHttpServise";
 import UserHttpServise from "../httpServise/UserHttpServise";
 
 class UserServise {
@@ -18,7 +19,7 @@ class UserServise {
 
     async setRowsUsers() {
         return UserHttpServise.getAllUsers().then((respons) => {
-            return(this.makeRowsUsers(respons.data))
+            return (this.makeRowsUsers(respons.data))
         }).catch((error) => {
             let message = error.request.responseText.split('"');
             toast.error(message[3]);
@@ -26,7 +27,7 @@ class UserServise {
         })
     }
 
-    async createUsers(clients, renj){
+    async createUsers(clients, renj) {
         UserHttpServise.createUsers(clients, renj).then((respons) => {
             toast.success(respons.data)
         }).catch((error) => {
@@ -38,13 +39,36 @@ class UserServise {
     async findUsers(seachMessege) {
         return UserHttpServise.findUsers(seachMessege).then((respons) => {
             let k = this.makeRowsUsers(respons.data);
-            if(k.length === 0)
-            toast.warning("No result find users");
-            return(k)
+            if (k.length === 0)
+                toast.warning("No result find users");
+            return (k)
         }).catch((error) => {
             let message = error.request.responseText.split('"');
             toast.error(message[3]);
             return this.makeRowsUsers(null)
+        })
+    }
+
+    async bars() {
+        return UserHttpServise.userRole().then((respons) => {
+            let k = this.setRRoleUser(respons);
+            for (let i = 0; i < k.length; k++)
+                if (k[i].item === "Руководитель")
+                    return this.getBarComponents().then((obj) => { return ({ names: obj, isAdmin: true }); })
+        }).catch((error) => {
+            let message = error.request.responseText.split('"');
+            toast.error(message[3]);
+            return (null)
+        })
+    }
+
+    async getBarComponents() {
+        return ResultHttpServise.getNameResult().then((respons) => {
+            return respons.data.nameResult;
+        }).catch((error) => {
+            let message = error.request.responseText.split('"');
+            toast.error(message[3]);
+            return (null)
         })
     }
 
@@ -94,19 +118,18 @@ class UserServise {
         }
         return keys;
     }
-    
-    setRoleUser(respons) {
 
+    setRoleUser(respons) {
         var keys = [];
         let key2 = [];
-        for (let k in respons.data) {
+        // for (let k in respons.data) {
             key2 = respons.data.status;
             for (let k1 in key2) {
                 keys.push({
                     item: key2[k1],
                 });
             }
-        }
+        // }
         return keys;
     }
 

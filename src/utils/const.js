@@ -11,8 +11,7 @@ export const COMPANY_PROFILE = '/companyEdit'
 export const REG_LINK ='/registraration_link/'
 export const INDICATOR_RESULT ='/indicatorResult'
 
-
-export const URL_BASE = 'https://ee8e50c59ce347.lhrtunnel.link'
+export const URL_BASE = 'https://localhost:8080'
 
 export const URL_LOGIN = URL_BASE+'/app/login'
 export const URL_REGISTRATION_ROUTE = '/app/registration'
@@ -28,6 +27,7 @@ export const URL_SEARCH_USER = URL_BASE + '/app/user/search'
 export const URL_DELETE_USER = URL_BASE + '/app/user/delete'
 export const URL_INDICATOR_RESULT ='/app/user/indicatorResult'
 export const URL_INDICATOR_RESULT_SEARCH ='/app/user/indicatorResult/search';
+export const URL_INDICATOR_RESULT_NAME ='/app/user/indicatorResult/name';
 export const URL_ROLEUSER ='/app/user/getUserRole'
 
 export const URL_EDIT_CLIENT = URL_BASE + '/app/client/edit'

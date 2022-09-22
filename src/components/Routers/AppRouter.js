@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { authRoutes, publicRoutes } from "../../routes";
 import PageServise from '../../servise/funtionService/PageServise';
@@ -6,23 +6,39 @@ import RoleServise from '../../servise/funtionService/RoleServise';
 import LocalServise from '../../servise/httpServise/LocalServise';
 
 const AppRouter = () => {
-    const [c, setC] = useState(false);
+    let [c, setC] = useState(false);
     let [page, setPage] = useState('');
 
-    useEffect(() => {
-        if (LocalServise.getAccesToken() !== null)
-            RoleServise.cheakRole().then(res => setC(res))
-    }, [c])
+    const findC = useMemo(() => {
+        if(LocalServise.getUserName()!== "error")
+        return RoleServise.cheakRole();
+        else 
+        return false;
+    }, [])
+
+    const findP = useMemo(() => {
+        return LocalServise.getLastPage();
+    }, [])
 
     useEffect(() => {
-        if (page === '') {
+        setC(findC);
+    }, [findC])
+
+    useEffect(() => {
+        setPage(findP);
+    }, [findP])
+
+    useEffect(() => {
+        if(LocalServise.getUserName()!== "error")
+        {
+            if (page === '') {
             if (LocalServise.getAccesToken() !== null)
                 setPage(LocalServise.getLastPage())
         }
         else {
-            const url = PageServise.cheakUrl(c);
+            const url = PageServise.cheakUrl(c,page);
             PageServise.redirectLastPage(url);
-        }
+        }}
     }, [])
 
     return (
@@ -37,4 +53,4 @@ const AppRouter = () => {
     );
 };
 
-export default AppRouter;
+export default React.memo(AppRouter);
