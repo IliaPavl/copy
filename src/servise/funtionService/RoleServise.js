@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import { ROLE_VLADELTC } from "../../utils/const";
 import UserHttpServise from "../httpServise/UserHttpServise";
 import UserServise from "./UserServise";
 
@@ -7,7 +8,7 @@ class RoleServise {
         return UserHttpServise.userRole().then((respons) => {
             let k= UserServise.setRRoleUser(respons);
             for(let i=0;i<k.length;k++)
-            if(k[i].item === "Руководитель")
+            if(k[i].item === ROLE_VLADELTC)
             return true;
             return false;
         }).catch((error) => {

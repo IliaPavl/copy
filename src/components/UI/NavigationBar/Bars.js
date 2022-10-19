@@ -5,36 +5,40 @@ import NavigationBar from './NavBar/NavigationBar';
 import SideBar from './SideBar/SideBar';
 
 const Bars = () => {
-    const [sideBurger, setSide] = useState(false)
+    const [sideBurger, setSide] = useState(true)
     async function showBurger() {
         setSide(!sideBurger);
     }
 
     const [isRoleAdmin, setIsAdmin] = useState(false);
-    const [resultName, setResulName] = useState([]);
+    const [monitors, setMonitors] = useState([]);
+    const [links, setLinks] = useState([]);
 
 
     useEffect(() => {
-        if(LocalServise.getUserName()!== "error")
-        if (resultName !== [])
-            UserServise.bars().then((data) => {
-                if (data.isAdmin === null) {
+        if (LocalServise.getUserName() !== "error")
+            if (monitors !== [])
+                UserServise.bars().then((data) => {
+                    if (data.isAdmin === null) {
+                        setIsAdmin(false);
+                        setMonitors([]);
+                        setLinks([]);
+                    } else {
+                        setMonitors(data.monitorLevel);
+                        setLinks(data.linkMonitors);
+                        setIsAdmin(data.isAdmin);
+                    }
+                }).catch(() => {
                     setIsAdmin(false);
-                    setResulName([]);
-                } else{
-                setIsAdmin(data.isAdmin);
-                setResulName(data.names);
-            }
-            }).catch(() => {
-                setIsAdmin(false);
-                setResulName([]);
-            });
+                    setMonitors([]);
+                    setLinks([]);
+                });
     }, [isRoleAdmin])
 
     return (
         <>
             <NavigationBar showBurger={showBurger} isRoleAdmin={isRoleAdmin} />
-            <SideBar show={sideBurger} isRoleAdmin={isRoleAdmin} resultName={resultName} />
+            <SideBar show={sideBurger} isRoleAdmin={isRoleAdmin} monitors={monitors} links={links} />
         </>
     );
 };

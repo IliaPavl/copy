@@ -1,15 +1,16 @@
-import UserProfile from "./components/Users/UserProfile";
+import IndicatorResult from "./components/IndicatorResult/IndicatorResult";
+import UserProfileEdit from "./components/Users/UserProfileEdit";
 import LoginPage from "./pages/Authorization/loginPage";
 import RegistrationPage from "./pages/Authorization/registrationPage";
-import companyEdit from "./pages/Company/companyEdit";
 import CompanyAdd from "./pages/Company/companyCreate";
+import companyEdit from "./pages/Company/companyEdit";
 import CompanyLIst from "./pages/Company/companyList";
 import Error from "./pages/Errors/error";
 import HomePage from "./pages/start";
+import profilePage from "./pages/User/profilePage";
 import UserAdd from "./pages/User/userAdd";
 import UserList from "./pages/User/userList";
-import { COMPANY_ADD, COMPANY_LIST, COMPANY_PROFILE, ERROR, HOME_PAGE, INDICATOR_RESULT, LOGIN_ROUTE, REGISTRATION_ROUTE, USER_ADD, USER_LIST, USER_PROFILE } from "./utils/const";
-import IndicatorResult from "./components/IndicatorResult/IndicatorResult";
+import { COMPANY_ADD, COMPANY_LIST, COMPANY_PROFILE, ERROR, HOME_PAGE, INDICATOR_RESULT, LOGIN_ROUTE, REGISTRATION_ROUTE, USER_ADD, USER_EDIT, USER_LIST, USER_PROFILE } from "./utils/const";
 
 
 export const authRoutes = [
@@ -34,20 +35,24 @@ export const authRoutes = [
         Component: CompanyAdd
     },
     {
-        path: USER_PROFILE+"/:searchValue",
-        Component: UserProfile
+        path: USER_EDIT + "/:searchValue",
+        Component: UserProfileEdit
     },
     {
-        path: COMPANY_PROFILE+"/:searchValue",
+        path: COMPANY_PROFILE + "/:searchValue",
         Component: companyEdit
     },
     {
-        path: INDICATOR_RESULT+"/:searchValue",
+        path: INDICATOR_RESULT + "/:searchValue",
         Component: IndicatorResult
     },
     {
         path: HOME_PAGE,
         Component: HomePage
+    },
+    {
+        path: USER_PROFILE,
+        Component: profilePage
     },
 ]
 

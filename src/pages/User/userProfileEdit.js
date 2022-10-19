@@ -1,13 +1,13 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import UserProfile from '../../components/Users/UserProfile';
+import UserProfileEdit from '../../components/Users/UserProfileEdit';
 import PageServise from '../../servise/funtionService/PageServise';
 
 const userProfilePage = () => {
     PageServise.setLastPage()
     return (
         <Container>
-            <UserProfile/>
+            <UserProfileEdit/>
         </Container>
     );
 };

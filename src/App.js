@@ -7,8 +7,6 @@ import Bars from "./components/UI/NavigationBar/Bars";
 import Footer from "./components/UI/NavigationBar/NavBar/Footer";
 
 function App() {
-
-
     return (
         <BrowserRouter>
             <Bars />

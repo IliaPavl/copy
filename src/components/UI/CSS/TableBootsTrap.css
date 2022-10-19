@@ -16,3 +16,6 @@
     list-style-type: none;
     color: black;
 }
+.MyTable{
+    overflow:auto; 
+}

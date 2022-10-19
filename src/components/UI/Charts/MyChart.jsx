@@ -1,22 +1,22 @@
 import * as agCharts from 'ag-charts-community';
 import { AgChartsReact } from 'ag-charts-react';
 import React, { useEffect, useState } from 'react';
+import Loading from '../Loader/Loading';
 import "./Wrapper.css";
 
-const MyChart = ({ enableTypeChart, title, data ,navigatorChange,series,subTitle}) => {
-
+const MyChart = ({ enableTypeChart, title, data, navigatorChange, series, subTitle }) => {
     let state = {
         options: {
             autoSize: true,
             title: {
                 text: title,
-                fontSize: 18,
+                fontSize: 12,
             },
             subtitle: {
                 text: subTitle,
             },
             theme: {
-                
+
                 overrides: {
                     cartesian: {
                         series: {
@@ -43,17 +43,15 @@ const MyChart = ({ enableTypeChart, title, data ,navigatorChange,series,subTitle
                 {
                     type: 'number',
                     position: 'left',
-                    title: {
-                        text: '$',
-                    },
                     nice: true,
                 },
             ],
             legend: {
-                position: 'bottom',
-                item: {
-                    paddingY: 15,
-                },
+                enabled: false,
+                // position: 'bottom',
+                // item: {
+                //     paddingY: 15,
+                // },
             },
             padding: {
                 bottom: 30,
@@ -66,26 +64,9 @@ const MyChart = ({ enableTypeChart, title, data ,navigatorChange,series,subTitle
     };
     let [optionsChart, setOptions] = useState(state.options)
 
-    useEffect(()=>{
-    },[])
-
-    useEffect(()=>{
+    useEffect(() => {
         setOptions(state.options);
-    },[series])
-
-    useEffect(() => {
-        setOptions(state.options)
-    }, [data])
-    useEffect(() => {
-        setOptions(state.options)
-    }, [subTitle])
-
-    useEffect(() => {
-        setOptions(state.options)
-    }, [navigatorChange])
-    useEffect(() => {
-        setOptions(state.options)
-    }, [enableTypeChart])
+    }, [series,data,subTitle,title,navigatorChange,enableTypeChart])
 
     return (
         <>

@@ -1,16 +1,27 @@
 .SideNav {
     background-color: darkslateblue;
     height: 100%;
+    min-height: 200%;
+    max-height: 200%;
     position: absolute;
     transition: all 0.6s;
     padding-left: 15px;
     padding-right: 13px;
-    left: -100%;
+    left: 0;
     z-index: 999;
 }
 
+.color2{
+    background-color: rgb(118, 106, 195);
+}
+
+.color3{
+    background-color: rgb(98, 86, 171);
+}
+
+
 .SideNav.active {
-    left: 0%;
+    left: -100%;
 }
 
 .SideNavMenu:hover{

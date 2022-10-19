@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Dropdown } from "react-bootstrap";
 
-
-const DropDownCompany = ({values,setEnabledStatus,enabledStatus}) => {
+const DropDownPrimary = ({values,setEnabledStatus,enabledStatus,noSelectValue}) => {
     let [head, setHead] = useState('')
 
     function hederSet(enabledStatus){
         if(enabledStatus==null){
-            setHead("Not selected")
+            setHead(noSelectValue)
         }else{
             setHead(enabledStatus)
         }
-        
         setEnabledStatus(enabledStatus)
     }
 
@@ -21,7 +19,7 @@ const DropDownCompany = ({values,setEnabledStatus,enabledStatus}) => {
 
     return (
         <Dropdown className="d-grid gap-2">
-            <Dropdown.Toggle variant="outline-success" >
+            <Dropdown.Toggle variant="primary" >
                 {head === ''? <span>Loading data</span>: head}
             </Dropdown.Toggle>
 
@@ -38,4 +36,4 @@ const DropDownCompany = ({values,setEnabledStatus,enabledStatus}) => {
     );
 };
 
-export default React.memo(DropDownCompany);
+export default DropDownPrimary;

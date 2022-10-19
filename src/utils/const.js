@@ -6,12 +6,13 @@ export const USER_LIST = '/userList'
 export const USER_ADD = '/userAdd'
 export const ERROR = '/error'
 export const COMPANY_ADD = '/companyAdd'
-export const USER_PROFILE = '/userEdit'
+export const USER_EDIT = '/userEdit'
+export const USER_PROFILE = '/userProfile'
 export const COMPANY_PROFILE = '/companyEdit'
 export const REG_LINK ='/registraration_link/'
 export const INDICATOR_RESULT ='/indicatorResult'
 
-export const URL_BASE = 'https://localhost:8080'
+export const URL_BASE = 'http://77.74.35.5:30823'
 
 export const URL_LOGIN = URL_BASE+'/app/login'
 export const URL_REGISTRATION_ROUTE = '/app/registration'
@@ -19,8 +20,9 @@ export const URL_REFRESH = URL_BASE + '/app/refreshtoken'
 
 
 export const URL_ALL_USER = URL_BASE + '/app/user/all'
-export const URL_EDIT_USER = URL_BASE + '/app/user/profile'
+export const URL_EDIT_USER = URL_BASE + '/app/user/editUser'
 export const URL_ADD_USER = URL_BASE + '/app/user/addUsers'
+export const URL_NEW_USER = URL_BASE + '/app/user/addNewUser'
 export const URL_STATUS_USER = URL_BASE + '/app/user/status'
 export const URL_ROLE_USER = URL_BASE + '/app/user/role'
 export const URL_SEARCH_USER = URL_BASE + '/app/user/search'
@@ -29,6 +31,7 @@ export const URL_INDICATOR_RESULT ='/app/user/indicatorResult'
 export const URL_INDICATOR_RESULT_SEARCH ='/app/user/indicatorResult/search';
 export const URL_INDICATOR_RESULT_NAME ='/app/user/indicatorResult/name';
 export const URL_ROLEUSER ='/app/user/getUserRole'
+export const URL_PROFILE ='/app/user/profile'
 
 export const URL_EDIT_CLIENT = URL_BASE + '/app/client/edit'
 export const URL_ALL_CLIENTS = URL_BASE + '/app/client/all'
@@ -45,3 +48,7 @@ export const AUTH = 'auth'
 export const USERNAME = 'username'
 export const LAST_PAGE = 'lastPage'
 
+
+export const ROLE_VLADELTC = 'Владелец'
+export const ROLE_USER = 'Пользователь'
+export const ROLE_RUKOVOD = 'Руководитель'

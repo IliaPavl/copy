@@ -31,7 +31,6 @@ const DropDownOutSucsesCheked = ({ values, setEnabledBox, enabledStatus }) => {
         <Dropdown className="d-grid gap-2">
             <Dropdown.Toggle variant="outline-success">
             {head === ''? <span>Loading data</span>: head + ' '}
-                {head + ' '}
             </Dropdown.Toggle>
 
             <Dropdown.Menu >

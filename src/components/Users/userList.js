@@ -5,16 +5,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import ClientServise from '../../servise/funtionService/ClientServise';
 import UserServise from '../../servise/funtionService/UserServise';
 import ClientHttpServise from '../../servise/httpServise/ClientHttpServise';
-import { COMPANY_LIST, USER_LIST } from '../../utils/const';
+import { COMPANY_LIST, USER_LIST, USER_PROFILE } from '../../utils/const';
 import TableBootsTrap from "../UI/BootstratTable/TableBootsTrap";
 
-
-const ListBook = () => {
+const ListBook = ({update}) => {
     let [headerTable, setHeaderTable] = useState([])
     let [rowsTable, setRowsTable] = useState([])
     let [sortV, setSortV] = useState('');
     let [box, setBox] = useState([])
-
 
     async function switchData(data) {
 
@@ -27,13 +25,8 @@ const ListBook = () => {
     }
 
     const search = (seachMessege) => {
-        if (window.location.pathname === USER_LIST) {
             toast.promise(
-            UserServise.findUsers(seachMessege).then(res => {if(res.length !== 0 ) setRowsTable(res)}),{pending: "Please wait... ",})
-        } else if (window.location.pathname === COMPANY_LIST) {
-            toast.promise(
-            ClientServise.findCliens(seachMessege).then(res => {if(res.length !== 0 ) setRowsTable(res)}),{pending: "Please wait... ",})
-        }
+                UserServise.findUsers(seachMessege).then(res => { if (res.length !== 0) setRowsTable(res) }), { pending: "Please wait... ", })
     };
 
     async function setTableUsers() {
@@ -72,12 +65,13 @@ const ListBook = () => {
         }
     };
 
-    useEffect(() => {
-        if (window.location.pathname === USER_LIST) {
+    useEffect(()=>{
+        if(update)
             setTableUsers()
-        } else if (window.location.pathname === COMPANY_LIST) {
-            setTableClients()
-        }
+    },[update])
+
+    useEffect(() => {
+            setTableUsers()
     }, []);
 
     async function deleteUsers(box) {
@@ -85,15 +79,11 @@ const ListBook = () => {
             d(box), { pending: "Please wait... ", }
         );
     }
-    async function d(box){
+    async function d(box) {
         if (box.length !== 0) {
             ClientHttpServise.deleteUser(box).then((respons) => {
                 toast.success(respons.data)
-                if (window.location.pathname === USER_LIST) {
-                    setTableUsers()
-                } else if (window.location.pathname === COMPANY_LIST) {
-                    setTableClients()
-                }
+                setTableUsers()
             }).catch((error) => {
                 let message = error.request.responseText.split('"');
                 toast.error(message[3]);
@@ -104,7 +94,7 @@ const ListBook = () => {
 
     useMemo(() => {
 
-    }, [box,rowsTable]);
+    }, [box, rowsTable]);
 
     useEffect(() => {
     }, [sortV]);
@@ -112,17 +102,9 @@ const ListBook = () => {
 
 
     return (
-        <Card className={"border-1 m-1"}>
-            <Card.Header>
-                <div style={{ float: "left" }}>
-                    List
-                </div>
-            </Card.Header>
-            <Card.Body>
-                <TableBootsTrap setBox={deleteUsers} head={headerTable} rows={rowsTable} switchData={switchData} sorting={sorting} search={search} />
-                <br />
-            </Card.Body>
-        </Card>
+        <div>
+        <TableBootsTrap withCheack={true} withSearch={true} setBox={deleteUsers} head={headerTable} rows={rowsTable} switchData={switchData} sorting={sorting} search={search} />
+        </div>
     );
 };
 

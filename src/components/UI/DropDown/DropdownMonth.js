@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
 
-const DropdownMonth = ({setEnable}) => {
-    let [head, setHead] = useState("Not select")
+const DropdownMonth = ({setEnable, noSelectValue ,isSelect}) => {
+    let [head, setHead] = useState(noSelectValue)
     const [month,setMonth] = useState([
         {
             text: "Январь",
@@ -62,10 +62,18 @@ const DropdownMonth = ({setEnable}) => {
     useEffect(()=>{
 
     },[head]);
+    useEffect(()=>{
+        if(isSelect){
+
+        }else{
+            setEnable("")
+            setHead(noSelectValue);
+        }
+    },[isSelect])
 
     return (
-        <Dropdown className="d-grid gap-2">
-            <Dropdown.Toggle variant="outline-success" >
+        <Dropdown className="d-grid gap-2" size="lg">
+            <Dropdown.Toggle variant="primary" >
                 {head === '' ? <span>Loading data</span> : head}
             </Dropdown.Toggle>
 

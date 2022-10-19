@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import { ROLE_VLADELTC } from "../../utils/const";
 import ResultHttpServise from "../httpServise/ResultHttpServise";
 import UserHttpServise from "../httpServise/UserHttpServise";
 
@@ -53,8 +54,10 @@ class UserServise {
         return UserHttpServise.userRole().then((respons) => {
             let k = this.setRRoleUser(respons);
             for (let i = 0; i < k.length; k++)
-                if (k[i].item === "Руководитель")
-                    return this.getBarComponents().then((obj) => { return ({ names: obj, isAdmin: true }); })
+                if (k[i].item === ROLE_VLADELTC)
+                    return this.getBarComponents().then((obj) => { 
+                        return ({ linkMonitors: obj.linkMonitors, monitorLevel: obj.monitorLevels, isAdmin: true }); 
+                    })
         }).catch((error) => {
             let message = error.request.responseText.split('"');
             toast.error(message[3]);
@@ -64,7 +67,7 @@ class UserServise {
 
     async getBarComponents() {
         return ResultHttpServise.getNameResult().then((respons) => {
-            return respons.data.nameResult;
+            return respons.data;
         }).catch((error) => {
             let message = error.request.responseText.split('"');
             toast.error(message[3]);
@@ -141,6 +144,15 @@ class UserServise {
             });
         }
         return keys;
+    }
+
+    async setUserProfile(){
+        return UserHttpServise.getUserProfile().then((respons) => {
+            return (respons);
+        }).catch((error) => {
+            let message = error.request.responseText.split('"');
+            toast.error(message[3]);
+        })
     }
 }
 export default new UserServise();

@@ -1,11 +1,14 @@
 import React from 'react';
 import '../CSS/TableBootsTrap.css';
 
-const TableHead = ({ values, sorting }) => {
+const TableHead = ({ values, sorting, withCheack }) => {
     return (
         <thead className="thead-dark ">
             <tr>
-                <th></th>
+                {withCheack ?
+                    <th></th>
+                    : <></>
+                }
                 {values.length ?
                     values.map((value) => (
                         <th

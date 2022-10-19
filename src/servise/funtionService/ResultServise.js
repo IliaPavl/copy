@@ -8,21 +8,11 @@ class ResultServise {
     }
     
     setRows(data){
-        var keys3 = [];
-        for (let k in data) {
-            let d= new Date(data[k].resultDate);
-            let day = d.getDay();
-            let month = d.getMonth()+1;
-            let year = d.getFullYear();
-
-            keys3.push({
-                IndResult: data[k].indResult,
-                ResultDate: day+'-'+month+'-'+year,
-                ResultComment: data[k].resultComment
-            });
-        }
-
-        return keys3;
+        var rows = [];
+        data.tableData.forEach(element => {
+            rows.push({IndResult: element.dateCreate, ResultDate: element.dateSumma})
+        });
+        return rows;
     }
 };
 

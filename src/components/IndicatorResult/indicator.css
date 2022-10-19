@@ -1,0 +1,25 @@
+.Navigate{
+    background-color: rgb(162, 152, 220);
+}
+
+.Link{
+    text-decoration: none;
+}
+
+.Link:hover {
+    text-decoration: none;
+    background-color: rgb(196, 193, 217);
+    color: aliceblue;
+}
+
+.Link:active {
+    background-color: aliceblue;
+}
+.icon {
+    border-radius: 20px;
+    color: aliceblue;
+}
+
+.icon:hover {
+    color: rgb(181, 220, 255);;
+}

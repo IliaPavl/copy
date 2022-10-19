@@ -7,7 +7,7 @@ import ButtonsTable from './ButtonsTable';
 import TableHead from './TableHead';
 import TableRow from './TableRow';
 
-const TableBootsTrap = ({ head, rows, switchData, sorting, search, setBox }) => {
+const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withCheack }) => {
     let massiv = []
     function getBox(event) {
         const conf = window.confirm(`Are you sure?`);
@@ -53,18 +53,21 @@ const TableBootsTrap = ({ head, rows, switchData, sorting, search, setBox }) => 
     return (
         <Container className='mt-2'>
             <Col>
-                <Row>
-                    <Col><SearchWithButton backSearch={search} /></Col>
-                </Row>
-                <Col>
-                    <ButtonsTable uncheck={uncheck} cheackAll={cheackAll} getBox={getBox} />
-                </Col>
+                {withSearch ?
+                    <Row>
+                        <Col><SearchWithButton backSearch={search} /></Col>
+                    </Row> : <></>}
+                {withCheack ?
+                    <Col>
+                        <ButtonsTable uncheck={uncheck} cheackAll={cheackAll} getBox={getBox} />
+                    </Col> : <></>}
+
                 <Row className={'scrollTable'}>
                     {rows.length ?
-                        <Table variant='table-bordered table-hover'>
-                            <TableHead values={head} sorting={sorting} />
+                        <Table variant='table-bordered table-hover'  style={{height: 70}} className={"scrollTable"}>
+                            <TableHead values={head} sorting={sorting} withCheack={withCheack}/>
                             {rows.map((type) => (
-                                <TableRow key={plus()} value={type} updateData={updateData} />
+                                <TableRow key={plus()} value={type} updateData={updateData} withCheack={withCheack} />
                             ))}
                         </Table> :
                         <Loading />
