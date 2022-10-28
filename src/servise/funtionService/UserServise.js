@@ -51,18 +51,10 @@ class UserServise {
     }
 
     async bars() {
-        return UserHttpServise.userRole().then((respons) => {
-            let k = this.setRRoleUser(respons);
-            for (let i = 0; i < k.length; k++)
-                if (k[i].item === ROLE_VLADELTC)
-                    return this.getBarComponents().then((obj) => { 
-                        return ({ linkMonitors: obj.linkMonitors, monitorLevel: obj.monitorLevels, isAdmin: true }); 
-                    })
-        }).catch((error) => {
-            let message = error.request.responseText.split('"');
-            toast.error(message[3]);
-            return (null)
+        return this.getBarComponents().then((obj) => {
+            return ({ linkMonitors: obj.linkMonitors, monitorLevel: obj.monitorLevels, isAdmin: true });
         })
+
     }
 
     async getBarComponents() {
@@ -126,12 +118,12 @@ class UserServise {
         var keys = [];
         let key2 = [];
         // for (let k in respons.data) {
-            key2 = respons.data.status;
-            for (let k1 in key2) {
-                keys.push({
-                    item: key2[k1],
-                });
-            }
+        key2 = respons.data.status;
+        for (let k1 in key2) {
+            keys.push({
+                item: key2[k1],
+            });
+        }
         // }
         return keys;
     }
@@ -146,7 +138,7 @@ class UserServise {
         return keys;
     }
 
-    async setUserProfile(){
+    async setUserProfile() {
         return UserHttpServise.getUserProfile().then((respons) => {
             return (respons);
         }).catch((error) => {

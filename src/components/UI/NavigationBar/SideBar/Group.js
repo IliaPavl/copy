@@ -28,7 +28,6 @@ const Group = ({ menu }) => {
     },[linkName])
 
     async function showResultLink(data) {
-
         if (data.links.length !== 0) {
             menu.forEach(menu =>
                 data.links.forEach(link => {
@@ -52,7 +51,6 @@ const Group = ({ menu }) => {
             setShow(s)
             setMenu(menu);
         }
-
     }, [menu])
 
     useEffect(() => {

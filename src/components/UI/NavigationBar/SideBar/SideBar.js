@@ -8,7 +8,7 @@ import SearchLable from '../../SearchForm/SearchLable';
 import Group from './Group';
 import "./SideBarCSs.css";
 
-const SideBar = ({ show, isRoleAdmin, monitors, links }) => {
+const SideBar = ({ show, monitors, links }) => {
     async function Logout() {
         LocalServise.logoutUser();
         window.location.assign(LOGIN_ROUTE)
@@ -32,14 +32,13 @@ const SideBar = ({ show, isRoleAdmin, monitors, links }) => {
         for (let i in monitors) {
             showMonitors.push({ name: monitors[i].monitorLevel, value: false, })
             localLinks = [];
-
             for (let k in links) {
                 if (monitors[i].monitorLevel === links[k].nameMonitor) {
                     localLinks.push(links[k]);
                 }
             }
             if (monitor.length !== 0) {
-
+                
                 if (monitor[monitor.length - 1].level === monitors[i].level) {
                     monitor.push({
                         level: monitors[i].level,
