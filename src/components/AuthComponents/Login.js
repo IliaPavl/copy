@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import '../../components/UI/CSS/Auth.css';
 import PageServise from '../../servise/funtionService/PageServise';
 import AuthHttpServise from '../../servise/httpServise/AuthHttpServise';
 import LocalServise from '../../servise/httpServise/LocalServise';
+import { FORGOT_PASSWPRD } from '../../utils/const';
 const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -60,14 +62,14 @@ const Login = () => {
                                 Login
                             </Button>
                         </Col>
-                        {/* <Col md={"auto"}>
-                            <Link to={"/registration"} className={"nav-link"}> У вас нет аккаунта?
-                                Зарегистрируйтесь! </Link>
-                        </Col> */}
+
                     </Row>
-
+                    <Row >
+                        <Col md={"auto"} className={'mt-2'}>
+                            <Link to={FORGOT_PASSWPRD}>Forgot password ?</Link>
+                        </Col>
+                    </Row>
                 </Form>
-
             </Card>
         </Container>
     );

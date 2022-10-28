@@ -10,7 +10,7 @@ import Switch from "../../Theme/switch";
 import "./NavBarCss.css";
 
 
-const NavigationBar = ({ showBurger, isRoleAdmin }) => {
+const NavigationBar = ({ showBurger, isUser }) => {
     const [username, setUsername] = useState('');
     useEffect(() => {
         setUsername(LocalServise.getUserName());
@@ -23,7 +23,7 @@ const NavigationBar = ({ showBurger, isRoleAdmin }) => {
                     <GiHamburgerMenu className='hamburger' onClick={() => showBurger()} />
                 </Nav>
                 <Nav >
-                    {isRoleAdmin ?
+                    {isUser ?
 
                         <NavItem onClick={() => showBurger()} className={"navbar-brand justify-content-end d-flex"}>
                             <span className='textNav'> {username} </span>

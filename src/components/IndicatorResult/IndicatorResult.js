@@ -221,8 +221,9 @@ const IndicatorResult = () => {
                     if (data.isAdmin) {
                         let dataL = data.linkMonitors;
                         for (let i in dataL) {
+                            
                             if (u === dataL[i].idResult) {
-
+                                console.log(dataL[i].idResult);
                                 let h = [];
                                 h.push(dataL[i].nameResult + ' ' + dataL[i].typeResult + ',');
                                 setE(h);

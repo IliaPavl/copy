@@ -1,10 +1,9 @@
-import { render } from '@testing-library/react';
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { RiCustomerService2Line, RiHome2Line, RiLineChartLine, RiLogoutBoxRLine, RiMenuUnfoldFill, RiTeamFill, RiUser2Fill, RiUserAddLine, RiUserFollowFill, } from "react-icons/ri";
+import { RiLineChartLine, RiLogoutBoxRLine, RiUser2Fill } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 import LocalServise from '../../../../servise/httpServise/LocalServise';
-import { COMPANY_ADD, COMPANY_LIST, LOGIN_ROUTE, REGISTRATION_ROUTE, USER_ADD, USER_LIST, USER_PROFILE } from '../../../../utils/const';
+import { LOGIN_ROUTE, USER_PROFILE } from '../../../../utils/const';
 import SearchLable from '../../SearchForm/SearchLable';
 import Group from './Group';
 import "./SideBarCSs.css";
@@ -15,30 +14,14 @@ const SideBar = ({ show, isRoleAdmin, monitors, links }) => {
         window.location.assign(LOGIN_ROUTE)
     }
 
-    const [accountLink, setAccountLink] = useState(false)
-    async function showAccountLink() {
-        setAccountLink(!accountLink);
-    }
-
     const [resultLink, setResultLink] = useState(false)
     async function showResultLink() {
         setResultLink(!resultLink);
     }
 
-    const [help, setHelp] = useState(false)
-    async function showHelp() {
-        setHelp(!help);
-    }
     const search = (seachMessege) => {
         console.log(seachMessege)
     };
-
-    let number = 1;
-
-    function plus() {
-        number++;
-        return number;
-    }
 
     const [menu, setMenu] = useState([])
 
@@ -99,43 +82,38 @@ const SideBar = ({ show, isRoleAdmin, monitors, links }) => {
                 <li>
                     <SearchLable backSearch={search} />
                 </li>
-                {isRoleAdmin ?
-                    <>
-                        <li>
-                            <Link to={USER_PROFILE} className='Link'>
-                                <span className='textNav ' >
-                                    <Row>
-                                        <Col sm={10}>
-                                            Profile
-                                        </Col>
-                                        <Col sm={1}>
-                                            <RiUser2Fill className='icon LinkHiden' />
-                                        </Col>
-                                    </Row>
-                                </span>
-                            </Link>
-                        </li>
-                        <li>
-                            <span className='textNav ' onClick={() => showResultLink()} >
-                                <Row>
-                                    <Col sm={10}>
-                                        Monitors
-                                    </Col>
-                                    <Col sm={1}>
-                                        <RiLineChartLine className='icon LinkHiden' />
-                                    </Col>
-                                </Row>
-                            </span>
-                        </li>
-                        {resultLink ?
-                            <li>
-                                <Group menu={menu}></Group>
-                            </li>
-                            : <></>}
-
-                    </>
-                    : <></>
-                }
+                <li>
+                    <Link to={USER_PROFILE} className='Link'>
+                        <span className='textNav ' >
+                            <Row>
+                                <Col sm={10}>
+                                    Profile
+                                </Col>
+                                <Col sm={1}>
+                                    <RiUser2Fill className='icon LinkHiden' />
+                                </Col>
+                            </Row>
+                        </span>
+                    </Link>
+                </li>
+                <li>
+                    <span className='textNav ' onClick={() => showResultLink()} >
+                        <Row>
+                            <Col sm={10}>
+                                Monitors
+                            </Col>
+                            <Col sm={1}>
+                                <RiLineChartLine className='icon LinkHiden' />
+                            </Col>
+                        </Row>
+                    </span>
+                </li>
+                {resultLink ?
+                    <li>
+                        <Group menu={menu}></Group>
+                    </li>
+                    :
+                    <></>}
                 <li>
                     <Link to={LOGIN_ROUTE} className='Link' onClick={Logout}>
                         <span className='textNav ' >

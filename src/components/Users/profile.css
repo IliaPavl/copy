@@ -1,10 +1,29 @@
 .ov{
     overflow: auto;
+    height: 150px;
+}
+.accessCardOv{
+    height: 230px;
+    overflow: auto;
+}
+
+.accessOv{
+    overflow: auto;
+}
+
+.access{
+    overflow: auto;
 }
 
 .agentCard{
     width: 400px;
     height: 150px;
+    overflow: auto;
+}
+
+.accessCard{
+    width: 400px;
+    height: 130px;
     overflow: auto;
 }
 

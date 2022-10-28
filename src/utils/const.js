@@ -11,17 +11,22 @@ export const USER_PROFILE = '/userProfile'
 export const COMPANY_PROFILE = '/companyEdit'
 export const REG_LINK ='/registraration_link/'
 export const INDICATOR_RESULT ='/indicatorResult'
+export const NEW_PASSWORD = '/newPassword'
+export const ACTIVATION = '/activate'
+export const FORGOT_PASSWPRD = '/forgotPassword'
 
-export const URL_BASE = 'http://77.74.35.5:30823'
+export const URL_BASE = 'https://localhost:8080'
 
 export const URL_LOGIN = URL_BASE+'/app/login'
 export const URL_REGISTRATION_ROUTE = '/app/registration'
 export const URL_REFRESH = URL_BASE + '/app/refreshtoken'
-
+export const URL_FORGOT_PASSWPRD = URL_BASE + '/app/forgot'
+export const URL_NEW_PASSWORD = URL_BASE + '/app/newPassword'
+export const URL_ACTIVATION = URL_BASE + '/app/activate'
 
 export const URL_ALL_USER = URL_BASE + '/app/user/all'
 export const URL_EDIT_USER = URL_BASE + '/app/user/editUser'
-export const URL_ADD_USER = URL_BASE + '/app/user/addUsers'
+export const URL_USER_COMPANYNAME = URL_BASE + '/app/user/userCompanyName'
 export const URL_NEW_USER = URL_BASE + '/app/user/addNewUser'
 export const URL_STATUS_USER = URL_BASE + '/app/user/status'
 export const URL_ROLE_USER = URL_BASE + '/app/user/role'
@@ -47,6 +52,7 @@ export const AUTHORIZATION = 'Authorization'
 export const AUTH = 'auth'
 export const USERNAME = 'username'
 export const LAST_PAGE = 'lastPage'
+export const REMEMBER_MY = 'remembermy'
 
 
 export const ROLE_VLADELTC = 'Владелец'

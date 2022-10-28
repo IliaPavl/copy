@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { COMPANY_LIST, COMPANY_PROFILE, USER_LIST, USER_EDIT, USER_PROFILE } from '../../../utils/const';
 import '../CSS/componentCss.css';
 
-const TableRow = ({ value, updateData, withCheack }) => {
+const TableRow = ({ value, updateData, withCheack, variant }) => {
 
     const [url, setUrl] = useState('')
     async function cheakUrl() {
@@ -15,7 +15,6 @@ const TableRow = ({ value, updateData, withCheack }) => {
             setUrl(COMPANY_PROFILE + '/' + value.id);
         }
     }
-
 
     useEffect(() => {
         cheakUrl();
@@ -33,13 +32,22 @@ const TableRow = ({ value, updateData, withCheack }) => {
             <tr>
                 {withCheack ?
                     <td>
-                        <Form.Check
-                            type={'checkbox'}
-                            id={value.id}
-                            onClick={() => {
-                                updateData(value.id)
-                            }}
-                        />
+                        {variant === "switch" ?
+                            <Form.Check
+                                type={'switch'}
+                                id={value.id}
+                                onClick={() => {
+                                    updateData(value.id)
+                                }}
+                            /> :
+                            <Form.Check
+                                type={'checkbox'}
+                                id={value.id}
+                                onClick={() => {
+                                    updateData(value.id)
+                                }}
+                            />
+                        }
                     </td>
                     : <></>
                 }

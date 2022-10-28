@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Accordion, Button, Card, Col, Container, Form, ListGroup, Offcanvas, Row, Stack } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import UserServise from '../../servise/funtionService/UserServise';
+import { FORGOT_PASSWPRD } from '../../utils/const';
 import "./profile.css";
 import ListBook from './userList';
 import UserProfileEdit from './UserProfileEdit';
@@ -9,7 +11,9 @@ const ProfileUser = () => {
     const [showSettings, setShowSettings] = useState(false);
     const handleShow = () => setShowSettings(!showSettings);
     let [company, setSompany] = useState({});
+    const [isAdmin, setIsAdmin] = useState(false);
     let [agents, setAgents] = useState([]);
+    let [access, setAccess] = useState([]);
     let [userInfo, setUserInfo] = useState([]);
     let [roles, setRolse] = useState('');
     let [status, setStatus] = useState('');
@@ -21,8 +25,7 @@ const ProfileUser = () => {
         else
             setIsPfone(false)
     };
-    async function update(){
-        console.log("Use")
+    async function update() {
         return true;
     }
 
@@ -31,17 +34,23 @@ const ProfileUser = () => {
             setSompany(obj.data[1])
             setAgents(obj.data[0]);
             setUserInfo(obj.data[2]);
+            setAccess(obj.data[3])
         })
         if (window.innerWidth < 780)
             setIsPfone(true)
         else
             setIsPfone(false)
     }, [])
+    useEffect(()=>{},[isAdmin])
 
     useEffect(() => {
         if (userInfo.length !== 0) {
             let r = '';
-            userInfo.roles.forEach(role => { r += (role.name.split('_')[1] + ", ") })
+            userInfo.roles.forEach(role => {
+                if (role.name === "ROLE_Владелец")
+                    setIsAdmin(true);
+                r += (role.name.split('_')[1] + ", ")
+            })
             setRolse(r);
             setStatus(userInfo.userStatus.userStatus.split('_')[1]);
         }
@@ -73,31 +82,54 @@ const ProfileUser = () => {
                                         <br />
                                         <br />
                                     </ListGroup.Item>
-                                    <ListGroup.Item key={"2332y827y8hgeirhi"} className='ov'>
+                                    <ListGroup.Item key={"2332y827y8hgeirhi"} >
                                         <span><h5>Agents info</h5></span>
-
-                                        {agents.map(agent =>
-                                            <Card className={'agentCard'}>
-                                                <Card.Body>
-                                                    <div key={agent.idAgent} >
-                                                        <span> Name agent : {agent.nameAgent}</span>
-                                                        <br />
-                                                        <span> Status : {agent.status}</span>
-                                                        <br />
-                                                        <span> ID : {agent.idAgent}</span>
-                                                        <br />
-                                                        <span> Last date work : {agent.lastDateWork}</span>
-                                                        <br />
-                                                    </div>
-                                                </Card.Body>
-                                            </Card>
-                                        )}
+                                        <div className='ov'>
+                                            {agents.map(agent =>
+                                                <Card className={'agentCard'}>
+                                                    <Card.Body>
+                                                        <div key={agent.idAgent} >
+                                                            <span> Name agent : {agent.nameAgent}</span>
+                                                            <br />
+                                                            <span> Status : {agent.status}</span>
+                                                            <br />
+                                                            <span> ID : {agent.idAgent}</span>
+                                                            <br />
+                                                            <span> Last date work : {agent.lastDateWork}</span>
+                                                            <br />
+                                                        </div>
+                                                    </Card.Body>
+                                                </Card>
+                                            )}
+                                        </div>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item key={"2332y827y8eewqi"}>
+                                        <span><h5>Access monitors</h5></span>
+                                        <div className='accessCardOv'>
+                                            {access.map(access =>
+                                                <Card className={'accessCard'}>
+                                                    <Card.Body>
+                                                        <div key={access.idResult} >
+                                                            <span> Monitor : {access.previosMonitor}</span>
+                                                            <br />
+                                                            <span> Group : {access.nameMonitor}</span>
+                                                            <br />
+                                                            <span> Name monitor : {access.nameResult}</span>
+                                                            <br />
+                                                            <span> type : {access.typeResult}</span>
+                                                            <br />
+                                                        </div>
+                                                    </Card.Body>
+                                                </Card>
+                                            )}
+                                        </div>
                                     </ListGroup.Item>
                                 </ListGroup>
                             </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>
-                    <Accordion>
+                    
+                    <Accordion defaultActiveKey={"0"}>
                         <Accordion.Item eventKey="0">
                             <Accordion.Header><span>User information</span></Accordion.Header>
                             <Accordion.Body>
@@ -113,12 +145,11 @@ const ProfileUser = () => {
                                         </Stack>
                                         <Stack direction="horizontal" gap={2}>
                                             <Form.Label>Email</Form.Label>
-                                            <Form.Control type="email" placeholder="123@mail.ru" value={userInfo.email} />
+                                            <Form.Control type="email" placeholder="123@mail.ru" value={userInfo.email} disabled={true}/>
                                         </Stack>
                                     </Col>
                                     <Row className="mb-3">
-                                        <Form.Control className={'m-1'} type="password" placeholder="password" />
-                                        <Form.Control className={'m-1'} type="password" placeholder="repit" />
+                                        <Link to={FORGOT_PASSWPRD}>Change password</Link>
                                     </Row>
                                     <Row className="mb-3">
                                         <Stack direction="horizontal" gap={2} className={'mb-2'}>
@@ -138,8 +169,13 @@ const ProfileUser = () => {
                             </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>
-                    <Button variant="info" className='m-1 mt-2' onClick={handleShow}>Add new user +</Button>
-                    <ListBook update={update}/>
+                    {isAdmin ?
+                        <>
+                            <Button variant="info" className='m-1 mt-2' onClick={handleShow}>Add new user +</Button>
+                            <ListBook update={update} />
+                        </>
+                        : <></>
+                    }
                 </Card>
                 :
                 <Container className='mt-2 mb-5' >
@@ -172,25 +208,47 @@ const ProfileUser = () => {
                                                     <br />
                                                     <br />
                                                 </ListGroup.Item>
-                                                <ListGroup.Item key={"2332y827y8hgeirhi"} className='ov'>
+                                                <ListGroup.Item key={"2332y827y8hgeirhi"} >
                                                     <span><h5>Agents info</h5></span>
-
-                                                    {agents.map(agent =>
-                                                        <Card className={'agentCard'}>
-                                                            <Card.Body>
-                                                                <div key={agent.idAgent} >
-                                                                    <span> Name agent : {agent.nameAgent}</span>
-                                                                    <br />
-                                                                    <span> Status : {agent.status}</span>
-                                                                    <br />
-                                                                    <span> ID : {agent.idAgent}</span>
-                                                                    <br />
-                                                                    <span> Last date work : {agent.lastDateWork}</span>
-                                                                    <br />
-                                                                </div>
-                                                            </Card.Body>
-                                                        </Card>
-                                                    )}
+                                                    <div className='ov'>
+                                                        {agents.map(agent =>
+                                                            <Card className={'agentCard'}>
+                                                                <Card.Body>
+                                                                    <div key={agent.idAgent} >
+                                                                        <span> Name agent : {agent.nameAgent}</span>
+                                                                        <br />
+                                                                        <span> Status : {agent.status}</span>
+                                                                        <br />
+                                                                        <span> ID : {agent.idAgent}</span>
+                                                                        <br />
+                                                                        <span> Last date work : {agent.lastDateWork}</span>
+                                                                        <br />
+                                                                    </div>
+                                                                </Card.Body>
+                                                            </Card>
+                                                        )}
+                                                    </div>
+                                                </ListGroup.Item>
+                                                <ListGroup.Item key={"2332y827y8eewqi"}>
+                                                    <span><h5>Access monitors</h5></span>
+                                                    <div className='accessCardOv'>
+                                                        {access.map(access =>
+                                                            <Card className={'accessCard'}>
+                                                                <Card.Body>
+                                                                    <div key={access.idResult} >
+                                                                        <span> Monitor : {access.previosMonitor}</span>
+                                                                        <br />
+                                                                        <span> Group : {access.nameMonitor}</span>
+                                                                        <br />
+                                                                        <span> Name monitor : {access.nameResult}</span>
+                                                                        <br />
+                                                                        <span> type : {access.typeResult}</span>
+                                                                        <br />
+                                                                    </div>
+                                                                </Card.Body>
+                                                            </Card>
+                                                        )}
+                                                    </div>
                                                 </ListGroup.Item>
                                             </ListGroup>
                                         </Card.Body>
@@ -215,16 +273,11 @@ const ProfileUser = () => {
                                                     </Stack>
                                                     <Stack direction="horizontal" gap={2}>
                                                         <Form.Label>Email</Form.Label>
-                                                        <Form.Control type="email" placeholder="sumsing@mail.ru" value={userInfo.email} />
+                                                        <Form.Control type="email" placeholder="sumsing@mail.ru" value={userInfo.email} disabled={true} />
                                                     </Stack>
                                                 </Col>
                                                 <Row className="mb-3">
-                                                    <Stack direction="horizontal" gap={4} className={'mb-2'}>
-                                                        <Form.Label>Password</Form.Label>
-                                                        <Form.Control type="password" placeholder="12424235Le" />
-                                                        <Form.Label>Repit</Form.Label>
-                                                        <Form.Control type="password" placeholder="12424235Le" />
-                                                    </Stack>
+                                                    <Link to={FORGOT_PASSWPRD}>Change password</Link>
                                                 </Row>
                                                 <Row className="mb-3">
                                                     <Stack direction="horizontal" gap={4} className={'mb-2'}>
@@ -241,12 +294,17 @@ const ProfileUser = () => {
                                             </Form>
                                         </Card.Body>
                                     </Row>
-                                    <Row >
-                                        <Button variant="info" onClick={handleShow}>Add new user +</Button>
-                                    </Row>
-                                    <Row >
-                                        <ListBook update={update}/>
-                                    </Row>
+                                    {isAdmin ?
+                                        <>
+                                            <Row >
+                                                <Button variant="info" onClick={handleShow}>Add new user +</Button>
+                                            </Row>
+                                            <Row >
+                                                <ListBook update={update} />
+                                            </Row>
+                                        </> : <></>
+                                    }
+
                                 </Col>
 
                             </Row>
@@ -260,7 +318,7 @@ const ProfileUser = () => {
                     <Offcanvas.Title>Chart settings</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    <UserProfileEdit isNew={true} update={update}/>
+                    <UserProfileEdit isNew={true} update={update} />
                 </Offcanvas.Body>
             </Offcanvas>
         </Container>

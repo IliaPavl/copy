@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN, AUTHRIZATION_WORD, URL_ADD_USER, URL_ALL_USER, URL_EDIT_USER, URL_PROFILE, URL_REGISTRATION_ROUTE, URL_ROLEUSER, URL_ROLE_USER, URL_SEARCH_USER, URL_STATUS_USER } from "../../utils/const";
+import { ACCESS_TOKEN, AUTHRIZATION_WORD, URL_ALL_USER, URL_EDIT_USER, URL_PROFILE, URL_REGISTRATION_ROUTE, URL_ROLEUSER, URL_ROLE_USER, URL_SEARCH_USER, URL_STATUS_USER, URL_USER_COMPANYNAME } from "../../utils/const";
 import api from "./api";
 
 class UserHttpServise {
@@ -13,7 +13,7 @@ class UserHttpServise {
     }
 
     getClientUser(){
-        return api.get(URL_ADD_USER, {
+        return api.get(URL_USER_COMPANYNAME, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`
@@ -23,19 +23,6 @@ class UserHttpServise {
 
     getRegistratios(){
         return api.get(URL_REGISTRATION_ROUTE, {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`
-            }
-        });
-    }
-
-    createUsers(companyName,howUsers){
-        const u = {
-            companyName: companyName,
-            howUsers: howUsers,
-        };
-        return api.post(URL_ADD_USER,u, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`
@@ -79,7 +66,7 @@ class UserHttpServise {
         });
     }
 
-    updateUser(login,fioUser,email,password,roleE,statusE,companyE,url){
+    updateUser(login,fioUser,email,password,roleE,statusE,companyE,url,links){
         roleE = roleE.toString()
         const u = {
             login: login,
@@ -88,7 +75,8 @@ class UserHttpServise {
             password: password,
             email: email,
             role: roleE,
-            status: statusE
+            status: statusE,
+            accessUserInCompany: links
         };
         return api.post(url, u,{
             headers: {
@@ -125,5 +113,6 @@ class UserHttpServise {
             }
         });
     }
+
 }
 export default new UserHttpServise();
