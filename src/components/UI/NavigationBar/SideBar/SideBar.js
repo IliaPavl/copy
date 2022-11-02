@@ -70,10 +70,6 @@ const SideBar = ({ show, monitors, links }) => {
         setMenu(monitor)
     }, [monitors])
 
-    useEffect(() => {
-
-    }, [])
-
     return (
 
         <Col sm={2} className={show ? 'SideNav active' : 'SideNav'}>

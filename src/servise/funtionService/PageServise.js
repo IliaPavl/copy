@@ -1,4 +1,4 @@
-import { authRoutes, publicRoutes } from '../../routes';
+import { authRoutes, publicRoutes } from '../../components/Routers/routes';
 import { HOME_PAGE } from '../../utils/const';
 import LocalServise from '../httpServise/LocalServise';
 

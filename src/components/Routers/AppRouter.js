@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { authRoutes, publicRoutes } from "../../routes";
+import { authRoutes, publicRoutes } from "./routes";
 import PageServise from '../../servise/funtionService/PageServise';
 import RoleServise from '../../servise/funtionService/RoleServise';
 import LocalServise from '../../servise/httpServise/LocalServise';

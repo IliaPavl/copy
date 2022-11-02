@@ -41,9 +41,6 @@ const IndicatorResult = () => {
         else
             setIsPfone(false)
     };
-
-    PageServise.setLastPage()
-
     const sorting = (sortValue) => {
         setSortV(sortValue)
         if (sortV === sortValue) {
@@ -223,7 +220,6 @@ const IndicatorResult = () => {
                         for (let i in dataL) {
                             
                             if (u === dataL[i].idResult) {
-                                console.log(dataL[i].idResult);
                                 let h = [];
                                 h.push(dataL[i].nameResult + ' ' + dataL[i].typeResult + ',');
                                 setE(h);

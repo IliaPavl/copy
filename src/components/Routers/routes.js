@@ -1,19 +1,19 @@
-import IndicatorResult from "./components/IndicatorResult/IndicatorResult";
-import UserProfileEdit from "./components/Users/UserProfileEdit";
-import LoginPage from "./pages/Authorization/loginPage";
-import RegistrationPage from "./pages/Authorization/registrationPage";
-import CompanyAdd from "./pages/Company/companyCreate";
-import companyEdit from "./pages/Company/companyEdit";
-import CompanyLIst from "./pages/Company/companyList";
-import Error from "./pages/Errors/error";
-import HomePage from "./pages/start";
-import profilePage from "./pages/User/profilePage";
-import newPassword from "./pages/User/newPasswordPage";
-import activate from "./pages/User/activateAccauntPage";
-import UserAdd from "./pages/User/userAdd";
-import UserList from "./pages/User/userList";
-import { ACTIVATION, COMPANY_ADD, COMPANY_LIST, COMPANY_PROFILE, ERROR, FORGOT_PASSWPRD, HOME_PAGE, INDICATOR_RESULT, LOGIN_ROUTE, NEW_PASSWORD, REGISTRATION_ROUTE, USER_ADD, USER_EDIT, USER_LIST, USER_PROFILE } from "./utils/const";
-import forgotPassword from "./pages/User/forgotPassword";
+import IndicatorResult from "../IndicatorResult/IndicatorResult";
+import UserProfileEdit from "../Users/UserProfileEdit";
+import LoginPage from "../../pages/Authorization/loginPage";
+import RegistrationPage from "../../pages/Authorization/registrationPage";
+import CompanyAdd from "../../pages/Company/companyCreate";
+import companyEdit from "../../pages/Company/companyEdit";
+import CompanyLIst from "../../pages/Company/companyList";
+import Error from "../../pages/Errors/error";
+import HomePage from "../../pages/start";
+import profilePage from "../../pages/User/profilePage";
+import newPassword from "../../pages/User/newPasswordPage";
+import activate from "../../pages/User/activateAccauntPage";
+import UserAdd from "../../pages/User/userAdd";
+import UserList from "../../pages/User/userList";
+import { ACTIVATION, COMPANY_ADD, COMPANY_LIST, COMPANY_PROFILE, ERROR, FORGOT_PASSWPRD, HOME_PAGE, INDICATOR_RESULT, LOGIN_ROUTE, NEW_PASSWORD, REGISTRATION_ROUTE, USER_ADD, USER_EDIT, USER_LIST, USER_PROFILE } from "../../utils/const";
+import forgotPassword from "../../pages/User/forgotPassword";
 
 
 export const authRoutes = [

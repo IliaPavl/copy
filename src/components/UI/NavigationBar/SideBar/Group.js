@@ -3,12 +3,14 @@ import { Col, Row } from 'react-bootstrap';
 import { INDICATOR_RESULT } from '../../../../utils/const';
 import "./../SideBar/SideBarCSs.css";
 import { v4 as uuidv4 } from 'uuid';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 
 const Group = ({ menu }) => {
     const [show, setShow] = useState([])
     const [menuLocal, setMenu] = useState([]);
     const [linkName, setLinkName] = useState([]);
+    const navigate =useNavigate();
+    const goToLink =(link) => navigate(INDICATOR_RESULT + "/" + link.idResult)
     
     useEffect(() => {
         if (menuLocal.length !== 0) {
@@ -25,14 +27,18 @@ const Group = ({ menu }) => {
     
     useEffect(()=>{
 
-    },[linkName])
+    },[linkName,show])
+
+    
 
     async function showResultLink(data) {
+        console.log(data)
         if (data.links.length !== 0) {
             menu.forEach(menu =>
                 data.links.forEach(link => {
                     if (menu.level === link.previosMonitor && menu.monitorName === link.nameMonitor)
-                        window.location.assign(INDICATOR_RESULT + "/" + link.idResult);
+                    goToLink(link);
+                    //window.location.assign(INDICATOR_RESULT + "/" + link.idResult);
                 })
             )
         }
@@ -42,7 +48,8 @@ const Group = ({ menu }) => {
 
 
     useEffect(() => {
-        if (menu.length !== 0) {
+        console.log(menuLocal)
+        if (menu.length !== 0 ) {
             let s = []
             if (menu.length !== 1)
                 menu.forEach((data) => { s.push({ show: false, name: data.monitorName }) });
@@ -51,11 +58,7 @@ const Group = ({ menu }) => {
             setShow(s)
             setMenu(menu);
         }
-    }, [menu])
-
-    useEffect(() => {
-
-    }, [show])
+    }, [])
 
     return (
         <>
@@ -86,4 +89,4 @@ const Group = ({ menu }) => {
 
 };
 
-export default Group;
+export default React.memo(Group);
