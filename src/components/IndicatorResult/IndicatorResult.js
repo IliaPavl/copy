@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Accordion, ButtonGroup, Card, Container, Nav, Navbar, Offcanvas, Row } from "react-bootstrap";
 import { RiSettings3Line } from "react-icons/ri";
+import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { v4 as uuidv4 } from 'uuid';
-import PageServise from '../../servise/funtionService/PageServise';
 import ResultServise from '../../servise/funtionService/ResultServise';
 import UserServise from '../../servise/funtionService/UserServise';
 import LocalServise from '../../servise/httpServise/LocalServise';
@@ -17,6 +17,7 @@ import './indicator.css';
 
 
 const IndicatorResult = () => {
+    let location = useLocation();
     let [headerTable, setHeaderTable] = useState([])
     let [rowsTable, setRowsTable] = useState([])
     let [sortV, setSortV] = useState('');
@@ -66,6 +67,8 @@ const IndicatorResult = () => {
             }))
         }
     };
+
+
 
     const search = (seachMessege) => {
     };
@@ -207,18 +210,16 @@ const IndicatorResult = () => {
         })
     }
 
-
     useEffect(() => {
         let u = window.location.pathname.split('/')[2];
         setPage(u);
         //__________________________________________________________________________    
         if (LocalServise.getUserName() !== "error")
-            if (links.length === 0)
                 UserServise.bars().then((data) => {
                     if (data.isAdmin) {
                         let dataL = data.linkMonitors;
                         for (let i in dataL) {
-                            
+
                             if (u === dataL[i].idResult) {
                                 let h = [];
                                 h.push(dataL[i].nameResult + ' ' + dataL[i].typeResult + ',');
@@ -251,7 +252,7 @@ const IndicatorResult = () => {
         else
             setIsPfone(false)
 
-    }, []);
+    }, [location]);
 
     useEffect(() => {
         if (groupLinks.length !== 0) {

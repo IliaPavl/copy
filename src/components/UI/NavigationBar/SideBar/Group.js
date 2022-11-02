@@ -32,7 +32,6 @@ const Group = ({ menu }) => {
     
 
     async function showResultLink(data) {
-        console.log(data)
         if (data.links.length !== 0) {
             menu.forEach(menu =>
                 data.links.forEach(link => {
@@ -48,7 +47,6 @@ const Group = ({ menu }) => {
 
 
     useEffect(() => {
-        console.log(menuLocal)
         if (menu.length !== 0 ) {
             let s = []
             if (menu.length !== 1)
