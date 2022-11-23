@@ -9,7 +9,7 @@ import TableHead from '../UI/BootstratTable/TableHead';
 import './GroupTrend.css';
 import ModalSettings from './ModalSettings';
 
-const GroupTrend = ({ ingroup,reload }) => {
+const GroupTrend = ({ ingroup, reload }) => {
     let [statusV, setV] = useState(false);
     let [planV, setP] = useState(false);
     const [head, setHead] = useState([
@@ -33,8 +33,8 @@ const GroupTrend = ({ ingroup,reload }) => {
     const handleShow = () => setShowAccess(true);
     const handl = () => { setShowAccess(!showAccess) };
 
-    async function saveChenge(links,redRange,greenRange,planRange,periodEnable,typeChart,idIndicator) {
-        const settings = {links: links,redRange: redRange,greenRange: greenRange,planRange: planRange,periodEnable: periodEnable,typeChart: typeChart,idIndicator:idIndicator};     
+    async function saveChenge(links, redRange, greenRange, planRange, periodEnable, typeChart, idIndicator) {
+        const settings = { links: links, redRange: redRange, greenRange: greenRange, planRange: planRange, periodEnable: periodEnable, typeChart: typeChart, idIndicator: idIndicator };
         console.log(settings)
         toast.promise(
             ResultHttpServise.changeSettins(settings).then((respons) => {
@@ -90,7 +90,7 @@ const GroupTrend = ({ ingroup,reload }) => {
         }
     }, [ingroup])
 
-    
+
 
     return (
         <>
@@ -114,7 +114,7 @@ const GroupTrend = ({ ingroup,reload }) => {
                                             <td onClick={() => goToLink(links.idResult)}>
                                                 {links.indStatus === "1" ?
                                                     <div className="notification-container">
-                                                        <span className="notification-container__text_Green">{links.indStatusPercent}</span>
+                                                        <span className="notification-container__text_Red">{links.indStatusPercent}</span>
                                                     </div> : <></>}
                                                 {links.indStatus === "2" ?
                                                     <div className="notification-container">
@@ -122,7 +122,7 @@ const GroupTrend = ({ ingroup,reload }) => {
                                                     </div> : <></>}
                                                 {links.indStatus === "3" ?
                                                     <div className="notification-container">
-                                                        <span className="notification-container__text_Red">{links.indStatusPercent}</span>
+                                                        <span className="notification-container__text_Green">{links.indStatusPercent}</span>
                                                     </div> : <></>}
                                             </td >
                                             <td onClick={() => goToLink(links.idResult)}>{links.indFact}</td>
