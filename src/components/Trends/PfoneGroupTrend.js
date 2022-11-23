@@ -132,7 +132,7 @@ const PfoneGroupTrend = ({ ingroup,reload }) => {
                                             <td onClick={() => goToLink(links.idResult)}>{links.maxDate.slice(0, 10)}</td>
                                             <td onClick={() => goToLink(links.idResult)}>{links.typeResult}</td>
                                             <td onClick={() => s(links)} className={"settingItem"}>
-                                                <ModalSettings show={showAccess} handleClose={handl} saveChenge={saveChenge} data={dataLinks} isAdmin={group.admin} />
+                                                <ModalSettings show={showAccess} handleClose={handl} saveChenge={saveChenge} data={dataLinks} isAdmin={group.admin}  />
                                                 <div className="notification-container ">
                                                     <span className="notification-container__text_Gear "><RiSettings3Line onClick={() => handleShow()} className='chartSVG gearSVG' /></span>
                                                 </div>

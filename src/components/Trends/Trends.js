@@ -38,7 +38,7 @@ const Trends = () => {
     };
     return (
         <>
-        {cards.length !== 0 ? 
+        {cards !== null ? 
             cards.map(firstGroup =>
                 !firstGroup.null ?
                     !isPfone ?

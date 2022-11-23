@@ -11,11 +11,11 @@ import { toast } from 'react-toastify';
 const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
     let red = 0;
     let green = 100;
-    
+
     let [l, setL] = useState([]);
     let [planRange, setPlan] = useState(data.indPlan)
-    const [minValue, set_minValue] = useState(0);
-    const [maxValue, set_maxValue] = useState(100);
+    const [minValue, set_minValue] = useState();
+    const [maxValue, set_maxValue] = useState();
     let [periodEnable, setPeriodEnable] = useState("Month")
     let [listPeriod, setListPeriod] = useState([{ id: 3, title: "Month" }, { id: 1, title: "Day" }, { id: 2, title: "Week" }, { id: 4, title: "Quarter" }, { id: 5, title: "Year" }])
     let [typeChart, setTypeChart] = useState(data.typeChart)
@@ -56,16 +56,21 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                 setPlan(data2.data.indPlan);
                 setTypeChart(data2.data.diagType_ID);
                 setPeriodEnable(data2.data.periodType);
-            }).catch((error) => { toast.error(error)});
-            setL(data.userAccessList);
+                setL(data.userAccessList);
+            }).catch((error) => { toast.error(error) });
+
+        } else {
+            set_minValue(null);
+            set_maxValue(null);
+            setPlan(null);
+            setTypeChart(null);
+            setPeriodEnable(null);
+            setL([]);
         }
     }, [show])
-    const [min,setMin] =useState(0);
-    const [max,setMax] =useState(100);
+    const [min, setMin] = useState(0);
+    const [max, setMax] = useState(100);
     const handleInput = (e) => {
-        if(e.maxValue - e.minValue <=12){
-            console.log("!")
-        }
         set_minValue(e.minValue);
         set_maxValue(e.maxValue);
     };
@@ -86,6 +91,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                                             Range status values
                                         </Form.Label>
                                         <div className='mt-3'>
+                                            {minValue !== null ? 
                                             <MultiRangeSlider
                                                 min={min}
                                                 max={max}
@@ -99,7 +105,22 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                                                 onInput={(e) => {
                                                     handleInput(e);
                                                 }}
-                                            />
+                                            /> : 
+                                            <MultiRangeSlider
+                                                min={0}
+                                                max={100}
+                                                ruler={false}
+                                                barLeftColor='red'
+                                                step={12}
+                                                barRightColor='green'
+                                                barInnerColor='yellow'
+                                                minValue={0}
+                                                maxValue={100}
+                                                onInput={(e) => {
+                                                    handleInput(e);
+                                                }}
+                                            />}
+
                                         </div>
                                     </ListGroup.Item>
                                     <ListGroup.Item className='accordionItem'>
