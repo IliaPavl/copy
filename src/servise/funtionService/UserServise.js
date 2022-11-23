@@ -50,15 +50,25 @@ class UserServise {
         })
     }
 
-    async bars() {
-        return this.getBarComponents().then((obj) => {
-            return ({ linkMonitors: obj.linkMonitors, monitorLevel: obj.monitorLevels, isAdmin: true });
+    async bars(url) {
+        return this.getBarComponents(url).then((obj) => {
+            return ({ linkMonitors: obj,  isAdmin: true });
         })
 
     }
 
-    async getBarComponents() {
+    async trends() {
         return ResultHttpServise.getNameResult().then((respons) => {
+            return respons.data;
+        }).catch((error) => {
+            let message = error.request.responseText.split('"');
+            toast.error(message[3]);
+            return (null)
+        })
+    }
+
+    async getBarComponents(url) {
+        return ResultHttpServise.getLinksResult(url).then((respons) => {
             return respons.data;
         }).catch((error) => {
             let message = error.request.responseText.split('"');

@@ -14,7 +14,7 @@ const TableHead = ({ values, sorting, withCheack }) => {
                         <th
                             key={value.title}
                             onClick={() => { sorting(value.title) }}
-                        ><p className='gain-center'>{value.title}</p></th>
+                        ><p>{value.title}</p></th>
                     )) :
                     <th>Нету значений</th>}
             </tr>

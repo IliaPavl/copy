@@ -5,8 +5,12 @@ import ClientServise from '../../servise/funtionService/ClientServise';
 import UserServise from '../../servise/funtionService/UserServise';
 import ClientHttpServise from '../../servise/httpServise/ClientHttpServise';
 import TableBootsTrap from "../UI/BootstratTable/TableBootsTrap";
+import { Button, Offcanvas, Container } from 'react-bootstrap';
+import UserProfileEdit from './UserProfileEdit';
 
-const ListBook = ({update}) => {
+
+
+const ListBook = ({ update }) => {
     let [headerTable, setHeaderTable] = useState([])
     let [rowsTable, setRowsTable] = useState([])
     let [sortV, setSortV] = useState('');
@@ -23,8 +27,8 @@ const ListBook = ({update}) => {
     }
 
     const search = (seachMessege) => {
-            toast.promise(
-                UserServise.findUsers(seachMessege).then(res => { if (res.length !== 0) setRowsTable(res) }), { pending: "Please wait... ", })
+        toast.promise(
+            UserServise.findUsers(seachMessege).then(res => { if (res.length !== 0) setRowsTable(res) }), { pending: "Please wait... ", })
     };
 
     async function setTableUsers() {
@@ -63,13 +67,13 @@ const ListBook = ({update}) => {
         }
     };
 
-    useEffect(()=>{
-        if(update)
+    useEffect(() => {
+        if (update)
             setTableUsers()
-    },[update])
+    }, [update])
 
     useEffect(() => {
-            setTableUsers()
+        setTableUsers()
     }, []);
 
     async function deleteUsers(box) {
@@ -96,13 +100,26 @@ const ListBook = ({update}) => {
 
     useEffect(() => {
     }, [sortV]);
+    const [showSettings, setShowSettings] = useState(false);
+    const handleShow = () => setShowSettings(!showSettings);
 
-
-
+    async function updateProfile() {
+        return true;
+    }
+    
     return (
-        <div>
-        <TableBootsTrap withCheack={true} withSearch={true} setBox={deleteUsers} head={headerTable} rows={rowsTable} switchData={switchData} sorting={sorting} search={search} />
-        </div>
+        <Container>
+            <Button variant="info" className='m-1 mt-2' onClick={handleShow}>Add new user +</Button>
+            <TableBootsTrap withCheack={true} withSearch={true} setBox={deleteUsers} head={headerTable} rows={rowsTable} switchData={switchData} sorting={sorting} search={search} />
+            <Offcanvas show={showSettings} onHide={handleShow} placement={'end'}>
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title>Add new user</Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                    <UserProfileEdit isNew={true} update={updateProfile} />
+                </Offcanvas.Body>
+            </Offcanvas>
+        </Container>
     );
 };
 

@@ -29,11 +29,10 @@ const IndicatorResult = () => {
     const [links, setLinks] = useState([]);
     const [showSettings, setShowSettings] = useState(false);
     const handleShow = () => setShowSettings(!showSettings);
-    const types = [{ item: 'line' }, { item: 'column' }, { item: 'scatter' }, { item: 'area' }];
+    const types = [{ id: 1, item: 'line' }, {id: 2, item: 'column' }, {id: 3, item: 'scatter' }, {id: 4, item: 'area' }];
     let [enableTypeChart, setEnableType] = useState('line');
-    let [optionChart, setOptionChart] = useState('line');
+    let [settigsChart,setSettings] =useState([])
     let [results, setResults] = useState([]);
-    let [pathname, setPathName] = useState(window.location.pathname);
 
     let [isPfone, setIsPfone] = useState(true)
     window.onresize = function (event) {
@@ -67,7 +66,6 @@ const IndicatorResult = () => {
             }))
         }
     };
-
 
 
     const search = (seachMessege) => {
@@ -210,17 +208,29 @@ const IndicatorResult = () => {
         })
     }
 
+
+    let [typeChart, setTypeChart] = useState()
+
     useEffect(() => {
         let u = window.location.pathname.split('/')[2];
         setPage(u);
         //__________________________________________________________________________    
         if (LocalServise.getUserName() !== "error")
-                UserServise.bars().then((data) => {
+                UserServise.bars(u).then((data) => {
+                    console.log(data);
                     if (data.isAdmin) {
                         let dataL = data.linkMonitors;
                         for (let i in dataL) {
-
                             if (u === dataL[i].idResult) {
+                                ResultHttpServise.getIndicatorSettings(dataL[i].idResult).then((data2) => {
+                                    setTypeChart(data2.data.diagType_ID);
+                                    types.forEach(type => {
+                                        console.log(type.id+"|"+ data2.data.diagType_ID)
+                                        if(type.id === data2.data.diagType_ID)
+                                        setEnableType(type.item);
+                                    })
+                                }).catch((error) => { toast.error(error)});
+
                                 let h = [];
                                 h.push(dataL[i].nameResult + ' ' + dataL[i].typeResult + ',');
                                 setE(h);

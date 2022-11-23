@@ -74,6 +74,12 @@ const UserProfile = ({ isNew, update }) => {
         }).catch((error) => { toast.error(error) })
     }
 
+    async function getAccessList() {
+        UserServise.setUserProfile().then(obj => {
+            setLinks(obj.data[3])
+        }).catch((error) => { toast.error(error) })
+    }
+
     async function submitForm(event) {
         event.preventDefault()
         if (password !== repit) {
@@ -82,12 +88,12 @@ const UserProfile = ({ isNew, update }) => {
             let url = window.location.pathname.split('/');
             if (!isNewUser)
                 toast.promise(
-                    UserHttpServise.updateUser(login, fioUser, email, password, roleE, statusE, companyE, URL_EDIT_USER + '/' + url[2],links).then((respons) => {
+                    UserHttpServise.updateUser(login, fioUser, email, password, roleE, statusE, companyE, URL_EDIT_USER + '/' + url[2], links).then((respons) => {
                         toast.success(respons.data)
                     }).catch((error) => { toast.error(error) }), { pending: "Please wait... ", })
             else {
                 toast.promise(
-                    UserHttpServise.updateUser(login, fioUser, email, password, roleE, statusE, companyE, URL_NEW_USER,links).then((respons) => {
+                    UserHttpServise.updateUser(login, fioUser, email, password, roleE, statusE, companyE, URL_NEW_USER, links).then((respons) => {
                         toast.success(respons.data)
                         update();
                     }).catch((error) => { toast.error(error) }), { pending: "Please wait... ", })
@@ -103,10 +109,10 @@ const UserProfile = ({ isNew, update }) => {
             setIsPfone(false)
     };
 
-    useEffect(()=>{
-        console.log(links)
-    },[links])
-  
+    useEffect(() => {
+
+    }, [links])
+
 
     useEffect(() => {
 
@@ -120,8 +126,11 @@ const UserProfile = ({ isNew, update }) => {
         setAxiosClients()
         setAxiosStatusUser()
         setAxiosRoleUser()
+        console.log(isNewUser);
         if (!isNewUser)
             setUserInfo()
+        else
+            getAccessList()
     }, [])
 
     useEffect(() => {
@@ -149,7 +158,7 @@ const UserProfile = ({ isNew, update }) => {
             setIsPfone(true);
     }, [isNewUser])
 
-    async function saveChenge(links){
+    async function saveChenge(links) {
         setLinks(links)
     }
 
@@ -211,7 +220,7 @@ const UserProfile = ({ isNew, update }) => {
                                         </Button>
                                     </Row>
                                 </Row>
-                                <Access show={showAccess} handleClose={handleClose} links={links} saveChenge ={saveChenge}/>
+                                <Access show={showAccess} handleClose={handleClose} links={links} saveChenge={saveChenge} />
                             </Row>
                             <Row>
                                 <Form.Group as={Col} className="mb-3 " controlId="exampleForm.ControlInput4">
@@ -225,7 +234,7 @@ const UserProfile = ({ isNew, update }) => {
                                     <Form.Control type="password" placeholder="12424235Le" value={repit} onChange={e => setRepit(e.target.value)} />
                                 </Form.Group>
                             </Row>
-                            
+
 
                             <Form.Group as={Row} xs={3} className="mb-3 d-flex justify-content-center">
                                 <Button variant="primary" type="submit">
@@ -298,7 +307,7 @@ const UserProfile = ({ isNew, update }) => {
                                                 </Button>
                                             </Row>
                                         </Row>
-                                        <Access show={showAccess} handleClose={handleClose} links={links} saveChenge={saveChenge}/>
+                                        <Access show={showAccess} handleClose={handleClose} links={links} saveChenge={saveChenge} />
                                     </Row>
                                 </Col>
                             </Row>

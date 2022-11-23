@@ -5,8 +5,11 @@ import '../UI/CSS/componentCss.css';
 import "./profile.css";
 
 const Access = ({ show, handleClose, links, saveChenge }) => {
-    let [l, setL] = useState([])
-    const [head, setHead] = useState([{ title: "monitorName" }, { title: "groupName" }, { title: "name" }, { title: "type" }])
+    let [l, setL] = useState([]);
+    const title = { title: "Path" };
+    const monitor = { title: "Monitor" };
+    const type = { title: "Type" };
+    const [head, setHead] = useState([])
     async function click() {
         saveChenge(l);
         handleClose();
@@ -19,6 +22,14 @@ const Access = ({ show, handleClose, links, saveChenge }) => {
 
 
     useEffect(() => {
+        let maxValue = 0;
+        let header=[];
+        links.forEach(link => { if(link.path.length>maxValue) {maxValue=link.path.length}})
+        for(let i = 0;i<maxValue;i++)
+        header.push(title);
+        header.push(monitor);
+        header.push(type);
+        setHead(header);
         setL(links);
     }, [links])
 
@@ -75,7 +86,7 @@ const Access = ({ show, handleClose, links, saveChenge }) => {
     };
 
     return (
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
             <Modal.Header closeButton>
                 <Modal.Title>Access monitors for user</Modal.Title>
             </Modal.Header>
@@ -86,7 +97,6 @@ const Access = ({ show, handleClose, links, saveChenge }) => {
                             <TableHead values={head} withCheack={true} sorting={sorting} />
                             <tbody className="table-light">
                                 {l.map(value => (
-
                                     <tr>
                                         <td>
                                             {value.checked === 1 ?
@@ -106,8 +116,7 @@ const Access = ({ show, handleClose, links, saveChenge }) => {
                                                     }}
                                                 />}
                                         </td>
-                                        <td >{value.monitorName}</td>
-                                        <td >{value.groupName}</td>
+                                        {value.path.map(value => <td >{value}</td>)}
                                         <td >{value.name}</td>
                                         <td >{value.type}</td>
                                     </tr>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import UserServise from '../../../servise/funtionService/UserServise';
 import LocalServise from '../../../servise/httpServise/LocalServise';
+import UserHttpServise from '../../../servise/httpServise/UserHttpServise';
 import NavigationBar from './NavBar/NavigationBar';
 import SideBar from './SideBar/SideBar';
 
@@ -17,25 +17,18 @@ const Bars = () => {
 
     useEffect(() => {
         if (LocalServise.getUserName() !== "error") {
-            if (monitors !== [])
-                UserServise.bars().then((data) => {
-                    setMonitors(data.monitorLevel);
-                    setLinks(data.linkMonitors);
-                    setIsAdmin(data.isAdmin);
-                }).catch(() => {
-                    setIsAdmin(false);
-                    setMonitors([]);
-                    setLinks([]);
-                });
+            UserHttpServise.isAdmin().then(response => {
+                setIsAdmin(response.data.body);
+            })
             setIsUser(true);
         }
-    }, [isRoleAdmin, isUser])
+    }, [])
     useEffect(() => { }, [isUser])
 
     return (
         <>
             <NavigationBar showBurger={showBurger} isUser={isUser} />
-            <SideBar show={sideBurger} monitors={monitors} links={links} />
+            <SideBar show={sideBurger} monitors={monitors} links={links} isRoleAdmin={isRoleAdmin}/>
         </>
     );
 };

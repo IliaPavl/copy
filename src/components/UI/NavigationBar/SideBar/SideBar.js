@@ -1,74 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { RiLineChartLine, RiLogoutBoxRLine, RiUser2Fill } from "react-icons/ri";
+import { RiLineChartLine, RiLogoutBoxRLine, RiTeamLine, RiUser2Fill } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 import LocalServise from '../../../../servise/httpServise/LocalServise';
-import { LOGIN_ROUTE, USER_PROFILE } from '../../../../utils/const';
+import { HOME_PAGE, LOGIN_ROUTE, USER_LIST, USER_PROFILE } from '../../../../utils/const';
 import SearchLable from '../../SearchForm/SearchLable';
-import Group from './Group';
 import "./SideBarCSs.css";
 
-const SideBar = ({ show, monitors, links }) => {
+const SideBar = ({ show, monitors, links, isRoleAdmin }) => {
     async function Logout() {
         LocalServise.logoutUser();
         window.location.assign(LOGIN_ROUTE)
-    }
-
-    const [resultLink, setResultLink] = useState(false)
-    async function showResultLink() {
-        setResultLink(!resultLink);
     }
 
     const search = (seachMessege) => {
         console.log(seachMessege)
     };
 
-    const [menu, setMenu] = useState([])
-
-    useEffect(() => {
-        let monitor = [];
-        let showMonitors = [];
-        let localLinks = [];
-        for (let i in monitors) {
-            showMonitors.push({ name: monitors[i].monitorLevel, value: false, })
-            localLinks = [];
-            for (let k in links) {
-                if (monitors[i].monitorLevel === links[k].nameMonitor) {
-                    localLinks.push(links[k]);
-                }
-            }
-            if (monitor.length !== 0) {
-                
-                if (monitor[monitor.length - 1].level === monitors[i].level) {
-                    monitor.push({
-                        level: monitors[i].level,
-                        monitorName: monitors[i].monitorLevel,
-                        inMonitor: [],
-                        links: [],
-                    })
-                    if (monitor[monitor.length - 1].monitorName === monitors[i].monitorLevel)
-                        monitor[monitor.length - 1].links = localLinks;
-                }
-                else {
-                    let inMonitor = {
-                        level: monitors[i].level,
-                        monitorName: monitors[i].monitorLevel,
-                        inMonitor: [],
-                        links: localLinks,
-                    }
-                    monitor[monitor.length - 1].inMonitor.push(inMonitor);
-                }
-            } else {
-                monitor.push({
-                    level: monitors[i].level,
-                    monitorName: monitors[i].monitorLevel,
-                    inMonitor: [],
-                    links: [],
-                })
-            }
-        }
-        setMenu(monitor)
-    }, [monitors])
 
     return (
 
@@ -91,24 +39,35 @@ const SideBar = ({ show, monitors, links }) => {
                         </span>
                     </Link>
                 </li>
+                {isRoleAdmin === true ? <li>
+                    <Link to={USER_LIST} className='Link'>
+                        <span className='textNav ' >
+                            <Row>
+                                <Col sm={10}>
+                                    Users
+                                </Col>
+                                <Col sm={1}>
+                                    <RiTeamLine className='icon LinkHiden' />
+                                </Col>
+                            </Row>
+                        </span>
+                    </Link>
+                </li> : <></>}
+
                 <li>
-                    <span className='textNav ' onClick={() => showResultLink()} >
-                        <Row>
-                            <Col sm={10}>
-                                Monitors
-                            </Col>
-                            <Col sm={1}>
-                                <RiLineChartLine className='icon LinkHiden' />
-                            </Col>
-                        </Row>
-                    </span>
+                    <Link to={HOME_PAGE} className='Link'>
+                        <span className='textNav ' >
+                            <Row>
+                                <Col sm={10}>
+                                    Monitors
+                                </Col>
+                                <Col sm={1}>
+                                    <RiLineChartLine className='icon LinkHiden' />
+                                </Col>
+                            </Row>
+                        </span>
+                    </Link>
                 </li>
-                {resultLink ?
-                    <li>
-                        <Group menu={menu}></Group>
-                    </li>
-                    :
-                    <></>}
                 <li>
                     <Link to={LOGIN_ROUTE} className='Link' onClick={Logout}>
                         <span className='textNav ' >

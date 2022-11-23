@@ -1,13 +1,12 @@
 import React from 'react';
-import PageServise from '../servise/funtionService/PageServise';
+import Trends from '../../components/Trends/Trends';
+import PageServise from '../../servise/funtionService/PageServise';
 
 const Start = () => {
     PageServise.setLastPage()
     return (
         <div>
-            Welcome
-            <br/>
-            
+            <Trends/>
         </div>
     );
 };

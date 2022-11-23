@@ -6,7 +6,7 @@ import CompanyAdd from "../../pages/Company/companyCreate";
 import companyEdit from "../../pages/Company/companyEdit";
 import CompanyLIst from "../../pages/Company/companyList";
 import Error from "../../pages/Errors/error";
-import HomePage from "../../pages/start";
+import TrendsPage from "../../pages/Trends/start";
 import profilePage from "../../pages/User/profilePage";
 import newPassword from "../../pages/User/newPasswordPage";
 import activate from "../../pages/User/activateAccauntPage";
@@ -51,7 +51,7 @@ export const authRoutes = [
     },
     {
         path: HOME_PAGE,
-        Component: HomePage
+        Component: TrendsPage
     },
     {
         path: USER_PROFILE,
