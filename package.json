@@ -31,7 +31,9 @@
     "test": "set HTTPS=true&&set SSL_CRT_FILE=cert.crt&&set SSL_KEY_FILE=cert.key&&react-scripts start",
     "start": "set PORT=30824 && react-scripts start",
     "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "install-windows-service": "winser -i",
+    "uninstall-windows-service": "winser -r"
   },
   "eslintConfig": {
     "extends": [
