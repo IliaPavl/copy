@@ -1,11 +1,13 @@
 import { ACCESS_TOKEN, AUTHRIZATION_WORD, REG_LINK, URL_ACTIVATION, URL_FORGOT_PASSWPRD, URL_LOGIN, URL_NEW_PASSWORD, URL_REGISTRATION_ROUTE } from "../../utils/const";
 import api from "./api";
+import LocalServise from "./LocalServise";
 
 class AuthHttpServise {
     logining(username, password) {
         const u = {
             username: username,
-            password: password
+            password: password,
+            refreshToken: LocalServise.getRefreshToken()
         };
         return api.post(URL_LOGIN, u, {
             headers: {

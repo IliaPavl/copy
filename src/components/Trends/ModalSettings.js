@@ -17,7 +17,8 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
     const [minValue, set_minValue] = useState();
     const [maxValue, set_maxValue] = useState();
     let [periodEnable, setPeriodEnable] = useState("Month")
-    let [listPeriod, setListPeriod] = useState([{ id: 3, title: "Month" }, { id: 1, title: "Day" }, { id: 2, title: "Week" }, { id: 4, title: "Quarter" }, { id: 5, title: "Year" }])
+    //let [listPeriod, setListPeriod] = useState([ { id: 1, title: "Day" }, { id: 2, title: "Week" }, { id: 4, title: "Quarter" },{ id: 3, title: "Month" }, { id: 5, title: "Year" }])
+    let [listPeriod, setListPeriod] = useState([{ id: 3, title: "Month" }])
     let [typeChart, setTypeChart] = useState(data.typeChart)
 
     async function click() {
@@ -49,7 +50,6 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
 
     useEffect(() => {
         if (show === true) {
-            console.log(data.idResult);
             ResultHttpServise.getIndicatorSettings(data.idResult).then((data2) => {
                 set_minValue(data2.data.percentRed);
                 set_maxValue(data2.data.percentGreen);
@@ -77,84 +77,76 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
     return (
         <Modal show={show} onHide={() => handleClose()} >
             <Modal.Header closeButton>
-                <Modal.Title>Access monitors for user</Modal.Title>
+                <Modal.Title>Настройки</Modal.Title>
             </Modal.Header>
             <Modal.Body className='accessOv accordionItem'>
                 {data.length !== 0 ?
                     <Container>
                         <ListGroup variant="flush" >
-                            <ListGroup.Item key={data.idResult + "3"} className={'accordionItem'}>
-                                <span><h5>Indicator settings</h5></span>
+                            <ListGroup.Item key={data.idResult + "3"} className={'accordionItem'} >
+                                <span><h5>Настройки индикатора {data.nameResult}</h5></span>
                                 <ListGroup>
-                                    <ListGroup.Item className='containerSlider'>
+                                    <ListGroup.Item className='containerSlider listBorderNone'>
                                         <Form.Label>
-                                            Range status values
+                                            Границы статуса
                                         </Form.Label>
                                         <div className='mt-3'>
-                                            {minValue !== null ? 
-                                            <MultiRangeSlider
-                                                min={min}
-                                                max={max}
-                                                ruler={false}
-                                                barLeftColor='red'
-                                                step={12}
-                                                barRightColor='green'
-                                                barInnerColor='yellow'
-                                                minValue={minValue}
-                                                maxValue={maxValue}
-                                                onInput={(e) => {
-                                                    handleInput(e);
-                                                }}
-                                            /> : 
-                                            <MultiRangeSlider
-                                                min={0}
-                                                max={100}
-                                                ruler={false}
-                                                barLeftColor='red'
-                                                step={12}
-                                                barRightColor='green'
-                                                barInnerColor='yellow'
-                                                minValue={0}
-                                                maxValue={100}
-                                                onInput={(e) => {
-                                                    handleInput(e);
-                                                }}
-                                            />}
+                                            {minValue !== null ?
+                                                <MultiRangeSlider
+                                                    min={min}
+                                                    max={max}
+                                                    ruler={false}
+                                                    barLeftColor='red'
+                                                    step={1}
+                                                    barRightColor='green'
+                                                    barInnerColor='yellow'
+                                                    minValue={minValue}
+                                                    maxValue={maxValue}
+                                                    onInput={(e) => {
+                                                        handleInput(e);
+                                                    }}
+                                                /> :
+                                                <MultiRangeSlider
+                                                    min={0}
+                                                    max={100}
+                                                    ruler={false}
+                                                    barLeftColor='red'
+                                                    step={1}
+                                                    barRightColor='green'
+                                                    barInnerColor='yellow'
+                                                    minValue={0}
+                                                    maxValue={100}
+                                                    onInput={(e) => {
+                                                        handleInput(e);
+                                                    }}
+                                                />}
 
                                         </div>
                                     </ListGroup.Item>
-                                    <ListGroup.Item className='accordionItem'>
-                                        <Form.Group controlId="formBasicPlan">
-                                            <Form.Label className='textAccordionItem'>
-                                                Plan for your indicator
-                                            </Form.Label>
-                                            <InputGroup >
-                                                <InputGroup.Text id="basic-addon1">Plan</InputGroup.Text>
-                                                <InputGroup.Text>{data.typeResult}</InputGroup.Text>
-                                                <Form.Control
-                                                    placeholder=""
-                                                    aria-label=""
-                                                    aria-describedby="basic-addon1"
-                                                    value={planRange}
-                                                    onChange={(e) => { setPlan(e.target.value) }}
-                                                />
-                                            </InputGroup>
-                                        </Form.Group>
-                                    </ListGroup.Item>
-                                    <ListGroup.Item className='accordionItem'>
-                                        <Form.Group controlId="formBasicEmail">
-                                            <Form.Label className='textAccordionItem'>
-                                                Calculation period <RiArrowRightUpLine />
-                                            </Form.Label>
+                                    <ListGroup.Item className='accordionItem listBorderNone'>
+                                        <InputGroup >
+                                            <InputGroup.Text className={"withP"}>План инкатора :  </InputGroup.Text>
+                                            <Form.Control
+                                                placeholder=""
+                                                aria-label=""
+                                                aria-describedby="basic-addon1"
+                                                value={planRange}
+                                                onChange={(e) => { setPlan(e.target.value) }}
+                                            />
+                                            <InputGroup.Text>{data.typeResult}</InputGroup.Text>
+                                        </InputGroup>
+                                        <InputGroup className='mb-3'>
+                                            <InputGroup.Text className={"withP"}>Переуд расчета :</InputGroup.Text>
                                             <Form.Select aria-label="Floating label select example" onChange={(e) => setPeriodEnable(e.target.value)}>
                                                 {listPeriod.map(period => <option value={period.id}>{period.title} </option>)}
                                             </Form.Select>
-                                        </Form.Group>
+
+                                        </InputGroup>
                                     </ListGroup.Item>
                                 </ListGroup>
                             </ListGroup.Item>
                             <ListGroup.Item key={data.idResult + "1"} className={'accordionItem'}>
-                                <span><h5>Chart settings</h5></span>
+                                <span><h5>Настройки графика</h5></span>
                                 <Row className='m-3 '>
                                     {typeChart === 1 ? <AiOutlineLineChart className='chartSVGSettingsSet' /> : <AiOutlineLineChart onClick={() => setTypeChart(1)} className='chartSVGSettings' />}
                                     {typeChart === 2 ? <AiOutlineBarChart className='chartSVGSettingsSet' /> : <AiOutlineBarChart onClick={() => setTypeChart(2)} className='chartSVGSettings' />}
@@ -162,9 +154,9 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                                     {typeChart === 4 ? <AiOutlineAreaChart className='chartSVGSettingsSet' /> : <AiOutlineAreaChart onClick={() => setTypeChart(4)} className='chartSVGSettings' />}
                                 </Row>
                             </ListGroup.Item>
-                            {isAdmin === true ?
+                            {isAdmin === true && l.length !== 0 ?
                                 <ListGroup.Item key={data.idResult + "2"} className={'accordionItem'}>
-                                    <span><h5>Users settings</h5></span>
+                                    <span><h5>Настройки доступа</h5></span>
                                     <Form>
                                         <Col>
                                             <Table variant='table-bordered table-hover' style={{ height: 70 }}>
@@ -192,7 +184,6 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                                 :
                                 <></>
                             }
-
                         </ListGroup>
                     </Container>
                     : <></>}

@@ -29,9 +29,9 @@ const IndicatorResult = () => {
     const [links, setLinks] = useState([]);
     const [showSettings, setShowSettings] = useState(false);
     const handleShow = () => setShowSettings(!showSettings);
-    const types = [{ id: 1, item: 'line' }, {id: 2, item: 'column' }, {id: 3, item: 'scatter' }, {id: 4, item: 'area' }];
+    const types = [{ id: 1, item: 'line' }, { id: 2, item: 'column' }, { id: 3, item: 'scatter' }, { id: 4, item: 'area' }];
     let [enableTypeChart, setEnableType] = useState('line');
-    let [settigsChart,setSettings] =useState([])
+    let [settigsChart, setSettings] = useState([])
     let [results, setResults] = useState([]);
 
     let [isPfone, setIsPfone] = useState(true)
@@ -216,46 +216,46 @@ const IndicatorResult = () => {
         setPage(u);
         //__________________________________________________________________________    
         if (LocalServise.getUserName() !== "error")
-                UserServise.bars(u).then((data) => {
-                    console.log(data);
-                    if (data.isAdmin) {
-                        let dataL = data.linkMonitors;
-                        for (let i in dataL) {
-                            if (u === dataL[i].idResult) {
-                                ResultHttpServise.getIndicatorSettings(dataL[i].idResult).then((data2) => {
-                                    setTypeChart(data2.data.diagType_ID);
-                                    types.forEach(type => {
-                                        console.log(type.id+"|"+ data2.data.diagType_ID)
-                                        if(type.id === data2.data.diagType_ID)
+            UserServise.bars(u).then((data) => {
+                console.log(data);
+                if (data.isAdmin) {
+                    let dataL = data.linkMonitors;
+                    for (let i in dataL) {
+                        if (u === dataL[i].idResult) {
+                            ResultHttpServise.getIndicatorSettings(dataL[i].idResult).then((data2) => {
+                                setTypeChart(data2.data.diagType_ID);
+                                types.forEach(type => {
+                                    console.log(type.id + "|" + data2.data.diagType_ID)
+                                    if (type.id === data2.data.diagType_ID)
                                         setEnableType(type.item);
-                                    })
-                                }).catch((error) => { toast.error(error)});
-
-                                let h = [];
-                                h.push(dataL[i].nameResult + ' ' + dataL[i].typeResult + ',');
-                                setE(h);
-                                let h2 = []
-                                h2.push(dataL[i])
-                                setGroupLinks(h2);
-
-                                let setGroup = dataL[i].previosMonitor;
-                                let setMonitor = dataL[i].nameMonitor;
-                                let links = []
-
-                                dataL.forEach(data => {
-                                    if (setGroup === data.previosMonitor && setMonitor === data.nameMonitor)
-                                        links.push(data)
                                 })
-                                setLinks(links);
-                                break;
-                            }
+                            }).catch((error) => { toast.error(error) });
+
+                            let h = [];
+                            h.push(dataL[i].nameResult + ' ' + dataL[i].typeResult + ',');
+                            setE(h);
+                            let h2 = []
+                            h2.push(dataL[i])
+                            setGroupLinks(h2);
+
+                            let setGroup = dataL[i].previosMonitor;
+                            let setMonitor = dataL[i].nameMonitor;
+                            let links = []
+
+                            dataL.forEach(data => {
+                                if (setGroup === data.previosMonitor && setMonitor === data.nameMonitor)
+                                    links.push(data)
+                            })
+                            setLinks(links);
+                            break;
                         }
-                    } else {
-                        setLinks([]);
                     }
-                }).catch(() => {
+                } else {
                     setLinks([]);
-                });
+                }
+            }).catch(() => {
+                setLinks([]);
+            });
         //__________________________________________________________________________   
         if (window.innerWidth < 535)
             setIsPfone(true)
@@ -292,63 +292,27 @@ const IndicatorResult = () => {
                 setAllResults(page);
         }
     }, [page]);
+    const [tableShow, setTableShow] = useState(false);
+    const showTable = () => { setTableShow(!tableShow) }
 
     return (
         <Container className={"mb-5"}>
             <Card className={"border-1 m-1"} >
                 <Navbar expand="lg" className='Navigate'>
-                    <Container>
-                        <Navbar.Collapse id="basic-navbar-nav mt-2">
-                            <Nav
-                                className='Navigate me-auto justify-content-end'
-                                justify variant="tabs" defaultActiveKey="/home"
-                            >
-                                {/* <Nav.Item key={"tfyghjklKLjhgftyu"} >
-                            <ButtonGroup style={{ height: '100%' }}>
-                                <Nav.Link eventKey={"fgvbhnjkml"} className='Link' onClick={() => groupALL(links)}> Все ссылки</Nav.Link>
-                            </ButtonGroup>
-                        </Nav.Item> */}
-                                {(links).map((data) => (
-                                    <Nav.Item key={uuidv4()} className='L'  >
-                                        <ButtonGroup style={{ height: '100%' }} className='L'>
-                                            <Nav.Link className='L' eventKey={data.nameResult} onClick={() => setEnabled(data)}> {data.nameResult}</Nav.Link>
-                                            {/* <Button variant="info" onClick={() => groupL(data)}>+</Button> */}
-                                        </ButtonGroup>
-                                    </Nav.Item>
-                                ))}
-
-                            </Nav>
-                        </Navbar.Collapse>
-                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                        <Nav><RiSettings3Line className='icon' onClick={handleShow} /></Nav>
-                    </Container>
                 </Navbar>
-                <Card.Body >
-                    <Row>
-                        <SetDataChart chartData={buferRow} titleChart={enable} rowsName={groupLinks} options={enableTypeChart} />
-                    </Row>
-                </Card.Body>
+                <SetDataChart chartData={buferRow} titleChart={enable} rowsName={groupLinks} options={enableTypeChart} showTable={showTable} />
             </Card>
-            <Card className={"border-1 m-1 mb-5"}>
-                <Accordion>
-                    <Accordion.Item eventKey="0">
-                        <Accordion.Header>
-                            <div style={{ float: "right" }}>
-                                IndicatorResult
-                            </div>
-                        </Accordion.Header>
-                        <Accordion.Body>
-                            <Card.Body>
-                                <TableBootsTrap setBox={setBox} head={headerTable} rows={rowsTable} sorting={sorting} search={search} withSearch={false} withCheack={false} />
-                                <br />
-                            </Card.Body>
-                        </Accordion.Body>
-                    </Accordion.Item>
-                </Accordion>
-            </Card>
+            <Offcanvas show={tableShow} onHide={showTable} placement={'end'}>
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title>Таблица результатов</Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                    <TableBootsTrap setBox={setBox} head={headerTable} rows={rowsTable} sorting={sorting} search={search} withSearch={false} withCheack={false} />
+                </Offcanvas.Body>
+            </Offcanvas>
             <Offcanvas show={showSettings} onHide={handleShow} placement={'end'}>
                 <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Chart settings</Offcanvas.Title>
+                    <Offcanvas.Title>Настройки графика</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     <Nav.Item>

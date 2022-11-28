@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Row, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
+import { Button, Col, Form, Row, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import DropdownMonth from '../DropDown/DropdownMonth';
 import Loading from '../Loader/Loading';
 import MyChart from './MyChart';
+import { RiTableLine } from "react-icons/ri";
+import { BsCalendarCheck, BsTable } from "react-icons/bs";
 
-const SetDataChart = ({ chartData, titleChart, rowsName, options }) => {
+
+const SetDataChart = ({ chartData, titleChart, rowsName, options,showTable }) => {
     let [enableTypeChart, setEnableType] = useState('line');
     let [enableCustomData, setEnabled] = useState(false);
     let [buferData, setBuferData] = useState([]);
@@ -183,45 +186,48 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options }) => {
         setChartData();
     }, [chartData])
 
+    const [timeSettings, setTimeSettings] = useState(false);
+    const clickTimeSettings = () => { setTimeSettings(!timeSettings) }
+
+
+
     return (
         <div>
-            {enableCustomData ? <><MyChart enableTypeChart={enableTypeChart} title={title} data={buferData} navigatorChange={navigatorChange} series={series} subTitle={subTitle} /></> : <Loading />}
-            <Row className='mb-2'>
-                {isPfone ?
-                    <Row>
-                        <Row className='m-1'>
-                            <DropdownMonth setEnable={setHotMonth} noSelectValue={"Select month"} isSelect={isSelect} />
-                        </Row>
-                        <Row className='m-1'>
-                            <Button onClick={() => setNavigate(1)} size="lg" variant="primary" >  All time</Button>
-                        </Row>
-                        <Row className='m-1'>
-                            <Button onClick={() => setNavigate(2)} size="lg" variant="primary" className='m-1'>  Last Year</Button>
-                        </Row>
-                        <Row className='m-1'>
-                            <Button onClick={() => lm()} size="lg" variant="primary" className='m-1'>  Last month</Button>
-                        </Row>
-                        <Row className='m-1'>
-                            <Button onClick={() => setNavigate(4)} size="lg" variant="primary" className='m-1'>  Last week</Button>
-                        </Row>
-                    </Row>
-                    :
-                    <ToggleButtonGroup type="checkbox" defaultValue={[1, 5]} className="mb-2">
-                        <DropdownMonth setEnable={setHotMonth} noSelectValue={"Select month"} isSelect={isSelect} />
-                        <ToggleButton id="tbg-check-1" value={2} onClick={() => setNavigate(1)} size="lg">
-                            All time
-                        </ToggleButton>
-                        <ToggleButton id="tbg-check-2" value={3} onClick={() => setNavigate(2)} size="lg">
-                            Last Year
-                        </ToggleButton>
-                        <ToggleButton id="tbg-check-3" value={4} onClick={() => lm()} size="lg">
-                            Last month
-                        </ToggleButton>
-                        <ToggleButton id="tbg-check-3" value={5} onClick={() => setNavigate(4)} size="lg">
-                            Last week
-                        </ToggleButton>
-
-                    </ToggleButtonGroup>}
+            {enableCustomData ?
+                <>
+                    <MyChart enableTypeChart={enableTypeChart} title={title} data={buferData} navigatorChange={navigatorChange} series={series} subTitle={subTitle} />
+                </>
+                : <Loading />}
+            <Row className='mb-2 m-2'>
+                <Row className='settings_Controller'>
+                    <div className='svgImgContainer'>
+                        <BsTable className='svgImg' onClick={() => {showTable()}}/>
+                    </div>
+                    <div className='svgImgContainerLast' onClick={() => { clickTimeSettings() }}>
+                        <BsCalendarCheck className='svgImg' />
+                    </div>
+                    {timeSettings ?
+                        <div >
+                            <Col className='m-2'>
+                                <Row className='buttonContainer'>
+                                    <DropdownMonth  className={"settingsButton"} setEnable={setHotMonth} noSelectValue={"Выберите месяц"} isSelect={isSelect} />
+                                </Row>
+                                <Row className='buttonContainer'>
+                                    <Button className={"settingsButton"} onClick={() => setNavigate(1)} variant="primary" >За все время</Button><br />
+                                </Row>
+                                <Row className='buttonContainer'>
+                                    <Button className={"settingsButton"} onClick={() => setNavigate(2)} variant="primary">За последний год</Button><br />
+                                </Row>
+                                <Row className='buttonContainer'>
+                                    <Button className={"settingsButton"} onClick={() => lm()} variant="primary" >За последний месяц</Button><br />
+                                </Row>
+                                <Row className='buttonContainer'>
+                                    <Button className={"settingsButton"} onClick={() => setNavigate(4)} variant="primary" >За последнюю неделю</Button><br />
+                                </Row>
+                            </Col>
+                        </div>
+                        : <></>}
+                </Row>
             </Row>
         </div>
     );

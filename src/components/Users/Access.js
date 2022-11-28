@@ -6,9 +6,9 @@ import "./profile.css";
 
 const Access = ({ show, handleClose, links, saveChenge }) => {
     let [l, setL] = useState([]);
-    const title = { title: "Path" };
-    const monitor = { title: "Monitor" };
-    const type = { title: "Type" };
+    const title = { title: "Мониторы/группы" };
+    const monitor = { title: "Индикатор" };
+    const type = { title: "Ед." };
     const [head, setHead] = useState([])
     async function click() {
         saveChenge(l);
@@ -88,7 +88,7 @@ const Access = ({ show, handleClose, links, saveChenge }) => {
     return (
         <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
             <Modal.Header closeButton>
-                <Modal.Title>Access monitors for user</Modal.Title>
+                <Modal.Title>Индикаторы пользователя</Modal.Title>
             </Modal.Header>
             <Modal.Body className='accessOv'>
                 <Form>
@@ -129,7 +129,7 @@ const Access = ({ show, handleClose, links, saveChenge }) => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="primary" onClick={() => click()}>
-                    Save Changes
+                    Сохранить
                 </Button>
             </Modal.Footer>
         </Modal>

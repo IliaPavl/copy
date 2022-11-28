@@ -3,8 +3,16 @@
     overflow-y: auto;
 }
 
+.listBorderNone{
+    border: none;
+}
+
 .delBsgutter{
     --bs-gutter-x:1.0rem;
+}
+
+.withP{
+    width: 150px;
 }
 
 .accessOv {
@@ -26,9 +34,19 @@
     margin: 10px 0px 5px 10px;
 }
 
-.tablePfone {
-    width:fit-content;
+.tablePfoneName {
+    width:110px;
 }
+.tablePfoneFact {
+    width:70px;
+}
+.tablePfoneDate {
+    width:80px;
+}
+.tablePfoneUnits {
+    width:40px;
+}
+
 
 .chartSVG {
     height: 30px;

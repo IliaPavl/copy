@@ -13,7 +13,7 @@
 	-khtml-user-select: none; /* Konqueror HTML */
 	-moz-user-select: none; /* Old versions of Firefox */
 	-ms-user-select: none; /* Internet Explorer/Edge */
-	user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge,*/
+	user-select:auto; /* Non-prefixed version, currently supported by Chrome, Edge,*/
 }
 .multi-range-slider .bar {
 	display: flex;
@@ -58,13 +58,13 @@
 	content: '';
 	background-color: inherit;
 	position: absolute;
-	width: 20px;
-	height: 20px;
+	width: 25px;
+	height: 25px;
 	border: solid 1px black;
 	box-shadow: 0px 0px 3px black, inset 0px 0px 5px gray;
 	border-radius: 50%;
 	z-index: 1;
-	margin: -8px -12px;
+	margin: -10px -12px;
 	cursor: pointer;
 }
 .multi-range-slider .input-type-range:focus + .thumb::after {
@@ -119,21 +119,15 @@
 }
 .colorLeft  {
 	margin: -46px -16px ;
-	background-color: rgb(255, 0, 38,0.5);
+	background-color: red;
 }
-.colorLeftMin  {
-	margin: -46px -30px ;
-	background-color: rgb(255, 0, 38,0.5);
-}
+
 
 .colorRight{
 	margin: -46px -16px ;
-	background-color: rgba(0, 255, 89, 0.5);
+	background-color: green;
 }
-.colorRightMin{
-	margin: -46px -2px ;
-	background-color: rgba(0, 255, 89, 0.5);
-}
+
 .multi-range-slider .thumb:active .caption {
 	display: flex;
 }

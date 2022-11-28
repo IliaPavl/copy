@@ -10,8 +10,7 @@ import './GroupTrend.css';
 import ModalSettings from './ModalSettings';
 
 const GroupTrend = ({ ingroup, reload }) => {
-    let [statusV, setV] = useState(false);
-    let [planV, setP] = useState(false);
+
     const [head, setHead] = useState([
         { title: 'Name' },
         { title: 'Trend' },
@@ -56,34 +55,14 @@ const GroupTrend = ({ ingroup, reload }) => {
 
         if (ingroup.length !== 0) {
             let newHead = [];
-            let statusValue = false;
-            let planValue = false;
             newHead.push(
-                { title: 'Name' },
-                { title: 'Trend' },
-            )
-
-            ingroup.linkMonitor.map(group => {
-                if (group.indPlan !== 0) {
-                    setP(true)
-                    planValue = true
-                }
-                if (group.indStatus !== "0") {
-                    setV(true)
-                    statusValue = true
-                }
-            })
-            if (planValue)
-                newHead.push({ title: 'Plan' })
-
-            if (statusValue)
-                newHead.push({ title: 'Status' })
-
-            newHead.push(
-                { title: 'Fact' },
-                { title: 'Date' },
-                { title: 'Units' },
-                { title: '' },
+                { title: 'Название' },
+                { title: 'Факт' },
+                { title: 'План' },
+                { title: 'Статус' },
+                { title: 'Тренд' },
+                { title: 'Дата' },
+                { title: 'ед.' },
             )
             setHead(newHead);
             setGroup(ingroup);
@@ -104,14 +83,12 @@ const GroupTrend = ({ ingroup, reload }) => {
                                 <tbody className="table-light">
                                     {group.linkMonitor.map(links =>
                                         <tr key={plus()}>
-                                            <td onClick={() => goToLink(links.idResult)}>{links.nameResult}</td>
-                                            <td onClick={() => goToLink(links.idResult)}>
-                                                {links.trend === "1" ? <RiArrowRightDownLine className='arrowDown' /> : <></>}
-                                                {links.trend === "2" ? <RiArrowRightLine className='arrowHoriz' /> : <></>}
-                                                {links.trend === "3" ? <RiArrowRightUpLine className='arrowUp' /> : <></>}
+                                            <td  onClick={() => goToLink(links.idResult)} id="name">{links.nameResult}</td>
+                                            <td onClick={() => goToLink(links.idResult)} id="fact">{links.indFact}</td>
+                                            <td onClick={() => goToLink(links.idResult)} id="plan">
+                                                {links.indPlan !== 0 ? <>{links.indPlan}</> : <></>}
                                             </td>
-                                            <td onClick={() => goToLink(links.idResult)}>{links.indPlan}</td>
-                                            <td onClick={() => goToLink(links.idResult)}>
+                                            <td onClick={() => goToLink(links.idResult)} id="status">
                                                 {links.indStatus === "1" ?
                                                     <div className="notification-container">
                                                         <span className="notification-container__text_Red">{links.indStatusPercent}</span>
@@ -125,11 +102,16 @@ const GroupTrend = ({ ingroup, reload }) => {
                                                         <span className="notification-container__text_Green">{links.indStatusPercent}</span>
                                                     </div> : <></>}
                                             </td >
-                                            <td onClick={() => goToLink(links.idResult)}>{links.indFact}</td>
-                                            <td onClick={() => goToLink(links.idResult)}>{links.maxDate.slice(0, 10)}</td>
-                                            <td onClick={() => goToLink(links.idResult)}>{links.typeResult}</td>
+
+                                            <td onClick={() => goToLink(links.idResult)} id="trend">
+                                                {links.trend === "1" ? <RiArrowRightDownLine className='arrowDown' /> : <></>}
+                                                {links.trend === "2" ? <RiArrowRightLine className='arrowHoriz' /> : <></>}
+                                                {links.trend === "3" ? <RiArrowRightUpLine className='arrowUp' /> : <></>}
+                                            </td>
+                                            <td onClick={() => goToLink(links.idResult)} id="date">{links.maxDate.slice(0, 10)}</td>
+                                            <td onClick={() => goToLink(links.idResult)} id="units">{links.typeResult}</td>        
                                             <td onClick={() => s(links)}> <ModalSettings show={showAccess} handleClose={handl} saveChenge={saveChenge} data={dataLinks} isAdmin={group.admin} /><RiSettings3Line onClick={() => handleShow()} className='chartSVG ' /></td>
-                                        </tr>
+                                </tr>
                                     )}
                                 </tbody>
                             </Table>

@@ -282,8 +282,8 @@ const MultiRangeSlider = (props, ref) => {
         }
         else if (e.ctrlKey) {
             val = _maxValue + val;
-            if (val < _minValue + step) {
-                val = _minValue + step;
+            if (val < _minValue + midValue) {
+                val = _minValue + midValue;
             }
             else if (val > max) {
                 val = max;

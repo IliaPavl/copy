@@ -61,29 +61,30 @@ const ProfileUser = () => {
             {isPfone ?
                 <Card border="secondary" >
                     <Card.Header>
-                        <span>Profile Page</span>
+                        <span>Профиль пользователя</span>
                     </Card.Header>
                     <Accordion>
                         <Accordion.Item eventKey="0">
-                            <Accordion.Header><span>Company Info</span></Accordion.Header>
+                            <Accordion.Header><span>Информация о компании</span></Accordion.Header>
                             <Accordion.Body style={{ padding: 0 }}>
                                 <ListGroup variant="flush" >
                                     <ListGroup.Item key={company.idClient}>
-                                        <span><h5>Info about organization</h5></span>
-                                        <span>Name organization:</span><br /><span>{company.nameCompany}</span>
-                                        <br />
-                                        <br />
-                                        <span>ID: </span><br /><span>{company.idClient}</span>
-                                        <br />
-                                        <br />
-                                        <span>Status:{company.status}</span>
-                                        <br />
-                                        <br />
-                                        <span>YHП:{company.ynp}</span>
-                                        <br />
-                                        <br />
+                                        <span ><h5>Информация об организации</h5></span>
+                                        <Row>
+                                            <div className='containerFirst'>Организация:</div> <div className='containerSecond'>{company.nameCompany}</div>
+                                        </Row>
+
+                                        <Row>
+                                            <div className='containerFirst'>Статус: </div><div className='containerSecond'>{company.status}</div>
+                                        </Row>
+                                        <Row>
+                                            <div className='containerFirst'>YHП: </div><div className='containerSecond'>{company.ynp}</div>
+                                        </Row>
+                                        <Row>
+                                            <div className='containerFirst'>ID: </div> <div className='containerSecondPfone '>{company.idClient}</div>
+                                        </Row>
                                     </ListGroup.Item>
-                                    <ListGroup.Item key={"2332y827y8hgeirhi"} >
+                                    {/* <ListGroup.Item key={"2332y827y8hgeirhi"} >
                                         <span><h5>Agents info</h5></span>
                                         <div className='ov'>
                                             {agents.map(agent =>
@@ -103,7 +104,7 @@ const ProfileUser = () => {
                                                 </Card>
                                             )}
                                         </div>
-                                    </ListGroup.Item>
+                                    </ListGroup.Item> */}
                                 </ListGroup>
                             </Accordion.Body>
                         </Accordion.Item>
@@ -111,41 +112,31 @@ const ProfileUser = () => {
 
                     <Accordion defaultActiveKey={"0"}>
                         <Accordion.Item eventKey="0">
-                            <Accordion.Header><span>User information</span></Accordion.Header>
+                            <Accordion.Header><span >Информация о пользователе</span></Accordion.Header>
                             <Accordion.Body>
-                                <Form >
-                                    <Col className="mb-3">
-                                        <Stack direction="horizontal" gap={2} className={'mb-2'}>
-                                            <Form.Label className='ml-2'>Login</Form.Label>
-                                            <Form.Control type="text" placeholder="login" value={userInfo.username} disabled={true} />
-                                        </Stack>
-                                        <Stack direction="horizontal" gap={2} className={'mb-2'}>
-                                            <Form.Label>Name</Form.Label>
-                                            <Form.Control type="text" placeholder="" value={userInfo.userFio} disabled={true} />
-                                        </Stack>
-                                        <Stack direction="horizontal" gap={2}>
-                                            <Form.Label>Email</Form.Label>
-                                            <Form.Control type="email" placeholder="123@mail.ru" value={userInfo.email} disabled={true} />
-                                        </Stack>
-                                    </Col>
-                                    <Row className="mb-3">
-                                        <Link to={FORGOT_PASSWPRD}>Change password</Link>
-                                    </Row>
-                                    <Row className="mb-3">
-                                        <Stack direction="horizontal" gap={2} className={'mb-2'}>
-                                            <Form.Label className={'m-1'}>Company</Form.Label>
-                                            <Form.Control className={'m-1'} type="text" placeholder="Company" disabled={true} value={company.nameCompany} />
-                                        </Stack>
-                                        <Stack direction="horizontal" gap={2} className={'mb-2'}>
-                                            <Form.Label className={'m-1'}>Status</Form.Label>
-                                            <Form.Control className={'m-1'} type="text" placeholder="Status" disabled={true} value={status} />
-                                        </Stack>
-                                        <Stack direction="horizontal" gap={2} className={'mb-2'}>
-                                            <Form.Label className={'m-1'}>Role</Form.Label>
-                                            <Form.Control className={'m-1'} type="text" placeholder="Role" disabled={true} value={roles} />
-                                        </Stack>
-                                    </Row>
-                                </Form>
+                                <Row>
+                                    <div className='containerFirst'>Логин:</div> <div className='containerSecond'>{userInfo.username}</div>
+                                </Row>
+
+                                <Row>
+                                    <div className='containerFirst'>ФИО: </div><div className='containerSecond'>{userInfo.userFio}</div>
+                                </Row>
+                                <Row>
+                                    <div className='containerFirst'>Почта: </div><div className='containerSecond'>{userInfo.email}</div>
+                                </Row>
+                                <Row>
+                                    <div className='containerFirst'>Компании: </div> <div className='containerSecond '>{company.nameCompany}</div>
+                                </Row>
+                                <Row>
+                                    <div className='containerFirst'>Статус: </div> <div className='containerSecond '>{status}</div>
+                                </Row>
+                                <Row>
+                                    <div className='containerFirst'>Роль: </div> <div className='containerSecond '>{roles}</div>
+                                </Row>
+                                <Row className="mb-3">
+                                    <div className='containerFirst'> Пароль</div>
+                                    <div className='containerSecond '><Link to={FORGOT_PASSWPRD}>Новый пароль</Link> </div>
+                                </Row>
                             </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>
@@ -154,33 +145,32 @@ const ProfileUser = () => {
                 <Container className='mt-2 mb-5' >
                     <Card border="secondary" >
                         <Card.Header>
-                            <span>Profile Page</span>
+                            <span>Профиль</span>
                         </Card.Header>
                         <Card.Body>
                             <Row>
                                 <Col>
                                     <Card.Header>
-                                        <span>Company Info</span>
+                                        <span>Информация о компании</span>
                                     </Card.Header>
                                     <Card.Body>
                                         <ListGroup variant="flush" >
                                             <ListGroup.Item key={company.idClient}>
-                                                <span><h5>Info about organization</h5></span>
-                                                <br />
-                                                <span>Name organization: {company.nameCompany}</span>
-                                                <br />
-                                                <br />
-                                                <span>ID: {company.idClient}</span>
-                                                <br />
-                                                <br />
-                                                <span>Status: {company.status}</span>
-                                                <br />
-                                                <br />
-                                                <span>YHП: {company.ynp}</span>
-                                                <br />
-                                                <br />
+                                                <Row>
+                                                    <div className='containerFirst'>Организация:</div> <div className='containerSecond'>{company.nameCompany}</div>
+                                                </Row>
+
+                                                <Row>
+                                                    <div className='containerFirst'>Статус: </div><div className='containerSecond'>{company.status}</div>
+                                                </Row>
+                                                <Row>
+                                                    <div className='containerFirst'>YHП: </div><div className='containerSecond'>{company.ynp}</div>
+                                                </Row>
+                                                <Row>
+                                                    <div className='containerFirst'>ID: </div> <div className='containerSecond'>{company.idClient}</div>
+                                                </Row>
                                             </ListGroup.Item>
-                                            <ListGroup.Item key={"2332y827y8hgeirhi"} >
+                                            {/* <ListGroup.Item key={"2332y827y8hgeirhi"} >
                                                 <span><h5>Agents info</h5></span>
                                                 <div className='ov'>
                                                     {agents.map(agent =>
@@ -200,7 +190,7 @@ const ProfileUser = () => {
                                                         </Card>
                                                     )}
                                                 </div>
-                                            </ListGroup.Item>
+                                            </ListGroup.Item> */}
 
                                         </ListGroup>
                                     </Card.Body>
@@ -208,40 +198,32 @@ const ProfileUser = () => {
 
                                 <Col>
                                     <Card.Header>
-                                        <span>User information</span>
+                                        <span>Информация о пользователе</span>
                                     </Card.Header>
                                     <Card.Body>
-                                        <Form >
-                                            <Col className="mb-3">
-                                                <Stack direction="horizontal" gap={2} className={'mb-2'}>
-                                                    <Form.Label className='ml-2'>Login</Form.Label>
-                                                    <Form.Control type="text" placeholder="login" value={userInfo.username} disabled={true} />
-                                                </Stack>
-                                                <Stack direction="horizontal" gap={2} className={'mb-2'}>
-                                                    <Form.Label>Name</Form.Label>
-                                                    <Form.Control type="text" placeholder="Surname Firstname Lastname" value={userInfo.userFio} disabled={true} />
-                                                </Stack>
-                                                <Stack direction="horizontal" gap={2}>
-                                                    <Form.Label>Email</Form.Label>
-                                                    <Form.Control type="email" placeholder="sumsing@mail.ru" value={userInfo.email} disabled={true} />
-                                                </Stack>
-                                            </Col>
-                                            <Row className="mb-3">
-                                                <Link to={FORGOT_PASSWPRD}>Change password</Link>
-                                            </Row>
-                                            <Row className="mb-3">
-                                                <Stack direction="horizontal" gap={4} className={'mb-2'}>
-                                                    <Form.Label className={'m-1'}>Company</Form.Label>
-                                                    <Form.Control className={'m-1'} type="text" placeholder="Company" disabled={true} value={company.nameCompany} />
-                                                    <Form.Label className={'m-1'}>Status</Form.Label>
-                                                    <Form.Control className={'m-1'} type="text" placeholder="Status" disabled={true} value={status} />
-                                                </Stack>
-                                                <Stack direction="horizontal" gap={2} className={'mb-2'}>
-                                                    <Form.Label className={'m-1'}>Role</Form.Label>
-                                                    <Form.Control className={'m-1'} type="text" placeholder="Roles" disabled={true} value={roles} />
-                                                </Stack>
-                                            </Row>
-                                        </Form>
+                                        <Row>
+                                            <div className='containerFirst'>Логин:</div> <div className='containerSecond'>{userInfo.username}</div>
+                                        </Row>
+
+                                        <Row>
+                                            <div className='containerFirst'>ФИО: </div><div className='containerSecond'>{userInfo.userFio}</div>
+                                        </Row>
+                                        <Row>
+                                            <div className='containerFirst'>Почта: </div><div className='containerSecond'>{userInfo.email}</div>
+                                        </Row>
+                                        <Row>
+                                            <div className='containerFirst'>Компании: </div> <div className='containerSecond '>{company.nameCompany}</div>
+                                        </Row>
+                                        <Row>
+                                            <div className='containerFirst'>Статус: </div> <div className='containerSecond '>{status}</div>
+                                        </Row>
+                                        <Row>
+                                            <div className='containerFirst'>Роль: </div> <div className='containerSecond '>{roles}</div>
+                                        </Row>
+                                        <Row className="mb-3">
+                                            <div className='containerFirst'> Пароль</div>
+                                            <div className='containerSecond '><Link to={FORGOT_PASSWPRD}>Новый пароль</Link> </div>
+                                        </Row>
                                     </Card.Body>
                                 </Col>
                             </Row>

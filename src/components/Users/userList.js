@@ -1,12 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { Container } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ClientServise from '../../servise/funtionService/ClientServise';
 import UserServise from '../../servise/funtionService/UserServise';
 import ClientHttpServise from '../../servise/httpServise/ClientHttpServise';
 import TableBootsTrap from "../UI/BootstratTable/TableBootsTrap";
-import { Button, Offcanvas, Container } from 'react-bootstrap';
-import UserProfileEdit from './UserProfileEdit';
 
 
 
@@ -100,25 +99,10 @@ const ListBook = ({ update }) => {
 
     useEffect(() => {
     }, [sortV]);
-    const [showSettings, setShowSettings] = useState(false);
-    const handleShow = () => setShowSettings(!showSettings);
 
-    async function updateProfile() {
-        return true;
-    }
-    
     return (
         <Container>
-            <Button variant="info" className='m-1 mt-2' onClick={handleShow}>Add new user +</Button>
-            <TableBootsTrap withCheack={true} withSearch={true} setBox={deleteUsers} head={headerTable} rows={rowsTable} switchData={switchData} sorting={sorting} search={search} />
-            <Offcanvas show={showSettings} onHide={handleShow} placement={'end'}>
-                <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Add new user</Offcanvas.Title>
-                </Offcanvas.Header>
-                <Offcanvas.Body>
-                    <UserProfileEdit isNew={true} update={updateProfile} />
-                </Offcanvas.Body>
-            </Offcanvas>
+            <TableBootsTrap withCheack={true} withSearch={true} setBox={deleteUsers} head={headerTable} rows={rowsTable} switchData={switchData} sorting={sorting} search={search} add={true} />
         </Container>
     );
 };

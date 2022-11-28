@@ -1,0 +1,13 @@
+.select{
+    padding: 0;
+    margin: 0;
+    margin-left: -10px;
+    margin-bottom: 2px;
+    color: rgb(255, 245, 240);
+    width: 180px;
+    height: 30px;
+}
+.item{
+    height: 150px;
+    overflow:scroll;
+}

@@ -31,7 +31,7 @@ const NavigationBar = ({ showBurger, isUser }) => {
 
                         :
                         <Link to={LOGIN_ROUTE} className={"navbar-brand justify-content-end d-flex"}>
-                            <span className='textNav'>Login</span>
+                            <span className='textNav'>Логин</span>
                         </Link>
                     }
                 </Nav>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
+import './drop.css';
 
 const DropdownMonth = ({setEnable, noSelectValue ,isSelect}) => {
     let [head, setHead] = useState(noSelectValue)
@@ -72,19 +73,18 @@ const DropdownMonth = ({setEnable, noSelectValue ,isSelect}) => {
     },[isSelect])
 
     return (
-        <Dropdown className="d-grid gap-2" size="lg">
-            <Dropdown.Toggle variant="primary" >
-                {head === '' ? <span>Loading data</span> : head}
+        <Dropdown  >
+            <Dropdown.Toggle variant="primary" className="select">
+                {head === '' ? <span>Загрузка</span> : head}
             </Dropdown.Toggle>
-
-            <Dropdown.Menu >
+            <Dropdown.Menu className="item">
                 <Dropdown.Header>
-                    Not selected
+                    Не выбрано
                 </Dropdown.Header>
                 {month.length ?
                     month.map((type) => (
                         <Dropdown.Item size="lg" key={type.value} value={type.value} onClick={() => set(type)}>{type.text}</Dropdown.Item>
-                    )) : <p> Not one select Item</p>}
+                    )) : <p> Нету айтемов</p>}
             </Dropdown.Menu>
         </Dropdown>
     );

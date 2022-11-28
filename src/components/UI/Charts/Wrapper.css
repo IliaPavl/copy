@@ -1,25 +1,75 @@
 .wrapper {
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .toolPanel {
-    text-align: center;
-    font-size: 12px;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-  }
-  
-  .spacer {
-    display: inline-block;
-    min-width: 20px;
-  }
-  
-  .button--code {
-    font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-      'Courier New', monospace;
-  }
-  
-  #myChart {
-    height: 100%;
-  }
+  margin: 0;
+  padding: 0;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonContainer{
+  margin-left:5px;
+}
+
+.settingsButton{
+  padding: 0;
+  margin: 2px;
+  width: 180px;
+  height: 30px;
+}
+
+.svgImgContainer{
+  margin-right: 10px;
+  height: 49px;
+  width: 49px;
+  border-radius: 50%;
+  border: 5px outset rgb(0, 106, 255,0.6);
+  background-color: rgb(0, 106, 255,0.2);
+  box-shadow: 2px 2px 2px rgb(0, 0, 0, 0.2);
+
+}
+.svgImgContainerLast{
+  height: 49px;
+  width: 49px;
+  border-radius: 50%;
+  border: 5px outset rgb(0, 106, 255,0.6);
+  background-color: rgba(34, 189, 246, 0.2);
+  box-shadow: 2px 2px 2px rgb(0, 0, 0, 0.2);
+}
+
+.settings_Controller{
+  box-shadow: 2px 2px 2px rgb(0, 0, 0, 0.2);
+  width:fit-content;
+  padding: 5px;
+  margin: 10px;
+  border-radius: 40px;
+  background-color: rgba(34, 189, 246, 0.2);
+}
+
+.svgImg{
+  color: black;
+  margin-top: 5px;
+  margin-left: -6px;
+  height: 28px;
+  width: 28px;
+  z-index: 3;
+}
+
+.toolPanel {
+  text-align: center;
+  font-size: 12px;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.spacer {
+  display: inline-block;
+  min-width: 20px;
+}
+
+.button--code {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+}
+
+#myChart {
+  height: 100%;
+}

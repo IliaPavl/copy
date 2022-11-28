@@ -29,18 +29,18 @@ const NewPassword = () => {
     return (
         <Container className="d-flex justify-content-center align-items-center mt-5">
             <Card className="p-5 loginForm">
-                <h2 className="m-auto"> New Password </h2>
+                <h2 className="m-auto"> Новый пароль </h2>
                 <Form className="d-flex flex-column">
                     <Form.Control
                         className="mt-3"
-                        placeholder="New password ..."
+                        placeholder="Введите новый пароль ..."
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                         type="password"
                     />
                     <Form.Control
                         className="mt-3"
-                        placeholder="Repit password ..."
+                        placeholder="Повторите пароль ..."
                         value={passwordRepit}
                         onChange={e => setRepitPassword(e.target.value)}
                         type="password"
@@ -51,7 +51,7 @@ const NewPassword = () => {
                                 variant={"outline-success"}
                                 onClick={() => click()}
                             >
-                                Submit
+                                Отправить
                             </Button>
                         </Col>
                     </Row>

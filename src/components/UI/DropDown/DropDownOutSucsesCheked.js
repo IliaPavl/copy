@@ -30,7 +30,7 @@ const DropDownOutSucsesCheked = ({ values, setEnabledBox, enabledStatus }) => {
     return (
         <Dropdown className="d-grid gap-2">
             <Dropdown.Toggle variant="outline-success">
-            {head === ''? <span>Loading data</span>: head + ' '}
+            {head === ''? <span>Загрузка</span>: head + ' '}
             </Dropdown.Toggle>
 
             <Dropdown.Menu >
@@ -39,7 +39,7 @@ const DropDownOutSucsesCheked = ({ values, setEnabledBox, enabledStatus }) => {
                         <Dropdown.Item size="lg" key={type.item} value={type.item} onClick={() =>
                             hederSet(type.item)
                         }>{type.item}</Dropdown.Item>
-                    )) : <p> Not one select Item</p>}
+                    )) : <p> Нету айтемов</p>}
             </Dropdown.Menu>
         </Dropdown>
     );

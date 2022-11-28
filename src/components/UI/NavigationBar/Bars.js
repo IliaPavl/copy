@@ -19,8 +19,8 @@ const Bars = () => {
         if (LocalServise.getUserName() !== "error") {
             UserHttpServise.isAdmin().then(response => {
                 setIsAdmin(response.data.body);
+                setIsUser(true);
             })
-            setIsUser(true);
         }
     }, [])
     useEffect(() => { }, [isUser])
@@ -28,7 +28,7 @@ const Bars = () => {
     return (
         <>
             <NavigationBar showBurger={showBurger} isUser={isUser} />
-            <SideBar show={sideBurger} monitors={monitors} links={links} isRoleAdmin={isRoleAdmin}/>
+            <SideBar showBurger={showBurger} show={sideBurger} monitors={monitors} links={links} isRoleAdmin={isRoleAdmin} isUser={isUser} />
         </>
     );
 };

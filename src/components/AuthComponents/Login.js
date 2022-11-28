@@ -59,14 +59,14 @@ const Login = () => {
                                 variant={"outline-success"}
                                 onClick={event => click(event)}
                             >
-                                Login
+                                Логин
                             </Button>
                         </Col>
 
                     </Row>
                     <Row >
                         <Col md={"auto"} className={'mt-2'}>
-                            <Link to={FORGOT_PASSWPRD}>Forgot password ?</Link>
+                            <Link to={FORGOT_PASSWPRD}>Забыли пароль ?</Link>
                         </Col>
                     </Row>
                 </Form>

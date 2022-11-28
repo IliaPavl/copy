@@ -4,7 +4,8 @@ import { INDICATOR_RESULT } from '../../../utils/const';
 
 const ButtonsTable = ({ uncheck, cheackAll, getBox }) => {
         let url = window.location.pathname.split('/');
-
+        // <Button className="m-1 radius" onClick={() => uncheck()}>uncheck</Button>
+        // <Button className="m-1 radius" onClick={() => cheackAll()}>cheackAll</Button>
         if ('/' + url[1] === INDICATOR_RESULT) {
             return(
                 <div></div>
@@ -14,9 +15,7 @@ const ButtonsTable = ({ uncheck, cheackAll, getBox }) => {
 
                 return (
                     <div>
-                        <Button className="m-1 radius" onClick={() => uncheck()}>uncheck</Button>
-                        <Button className="m-1 radius" onClick={() => cheackAll()}>cheackAll</Button>
-                        <Button className="m-1 radius" onClick={event => getBox(event)}>delete</Button>
+                        <Button variant="danger" className='m-1 ' onClick={event => getBox(event)}>Удалить</Button>
                     </div>
                 );
             

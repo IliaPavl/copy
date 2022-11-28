@@ -53,7 +53,7 @@ const TableRow = ({ value, updateData, withCheack, variant }) => {
                 }
 
                 {Object.entries(value).map((data) => (
-                    <td key={plus()}><Link to={url} className="linkRow"> {data[1]}</Link></td>
+                    data[0]!== "id"&& data[0]!=="Client" ? <td key={plus()}><Link to={url} className="linkRow"> {data[1]}</Link></td>:<></>
                 ))}
 
             </tr>

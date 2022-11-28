@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Card, Container, Form, Row } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import UserServise from '../../servise/funtionService/UserServise';
 import UserHttpServise from '../../servise/httpServise/UserHttpServise';
 import { URL_EDIT_USER, URL_NEW_USER } from '../../utils/const';
 import DropDownOutSucses from '../UI/DropDown/DropDownOutSucses';
-import DropDownOutSucsesCheked from '../UI/DropDown/DropDownOutSucsesCheked';
 import Access from './Access';
 
 
@@ -36,7 +35,9 @@ const UserProfile = ({ isNew, update }) => {
     }
 
     async function setAxiosRoleUser() {
+
         UserHttpServise.getRoleUser().then((respons) => {
+            console.log(respons)
             setRole(UserServise.setRoleUser(respons))
         }).catch((error) => { toast.error(error) })
     }
@@ -76,6 +77,7 @@ const UserProfile = ({ isNew, update }) => {
 
     async function getAccessList() {
         UserServise.setUserProfile().then(obj => {
+            obj.data[3].map(l => { l.checked = 0 })
             setLinks(obj.data[3])
         }).catch((error) => { toast.error(error) })
     }
@@ -83,7 +85,7 @@ const UserProfile = ({ isNew, update }) => {
     async function submitForm(event) {
         event.preventDefault()
         if (password !== repit) {
-            toast.error("repeat the password correctly!")
+            toast.error("Пароли не совпадают !")
         } else {
             let url = window.location.pathname.split('/');
             if (!isNewUser)
@@ -101,26 +103,9 @@ const UserProfile = ({ isNew, update }) => {
         }
     }
 
-    let [isPfone, setIsPfone] = useState(false)
-    window.onresize = function (event) {
-        if (event.target.innerWidth < 770)
-            setIsPfone(true)
-        else
-            setIsPfone(false)
-    };
-
     useEffect(() => {
 
     }, [links])
-
-
-    useEffect(() => {
-
-        if (window.innerWidth < 770)
-            setIsPfone(true)
-        else
-            setIsPfone(false)
-    }, [])
 
     useEffect(() => {
         setAxiosClients()
@@ -129,8 +114,10 @@ const UserProfile = ({ isNew, update }) => {
         console.log(isNewUser);
         if (!isNewUser)
             setUserInfo()
+
         else
             getAccessList()
+
     }, [])
 
     useEffect(() => {
@@ -153,171 +140,68 @@ const UserProfile = ({ isNew, update }) => {
                 setRoleE(r);
             }
     }, [role, isNewUser])
-    useEffect(() => {
-        if (isNewUser)
-            setIsPfone(true);
-    }, [isNewUser])
+
 
     async function saveChenge(links) {
         setLinks(links)
     }
 
     return (
-        <Container className='mt-5'>
-            <Card className={"border-1 m-1"}>
+        <Container className='mt-5 d-flex justify-content-center align-items-center'>
+            <Card className={"border-1 m-1 cardContainer "} >
                 <Card.Header>
                     <div style={{ float: "left" }}>
-                        Confirm user
+                        Подтвердить пользователя
                     </div>
                 </Card.Header>
-                <Card.Body>
-                    {isPfone ?
-                        <Form onSubmit={event => { submitForm(event) }}>
-                            <Row >
-                                <Form.Group as={Col} className="mb-3 " controlId="exampleForm.ControlInput1">
-                                    <Form.Label>Login</Form.Label>
-                                    <Form.Control type="text" placeholder="Login123" value={login} onChange={e => setLogin(e.target.value)} />
-                                </Form.Group>
-                            </Row>
-                            <Row>
-                                <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput2">
-                                    <Form.Label>User name</Form.Label>
-                                    <Form.Control type="text" placeholder="Surname Firstname Lastname " value={fioUser} onChange={e => setFio(e.target.value)} />
-                                </Form.Group>
-                            </Row>
-                            <Row>
-                                <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput3">
-                                    <Form.Label>Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="name@example.com" value={email} onChange={e => setEmail(e.target.value)} />
-                                </Form.Group>
-                            </Row>
-                            <Row>
-                                <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput6">
-                                    <Form.Label>Company</Form.Label>
-                                    <DropDownOutSucses values={company} setEnabledStatus={setCompanyE} enabledStatus={companyE} />
-                                </Form.Group>
-                            </Row>
-                            <Row>
-                                <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput7">
-                                    <Form.Label>Role</Form.Label>
-                                    <DropDownOutSucsesCheked values={role} setEnabledBox={setRoleUser} enabledStatus={roleE} />
-                                </Form.Group>
-                            </Row>
-                            <Row>
-                                <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput8">
-                                    <Form.Label>Status</Form.Label>
-                                    <DropDownOutSucses values={status} setEnabledStatus={setStatusE} enabledStatus={statusE} />
-                                </Form.Group>
-                            </Row>
-                            <Row sm={1} className='mb-2 d-flex justify-content-center'>
-                                <Row>
-                                    <Row>
-                                        <Form.Label>Access user monitors</Form.Label>
-                                    </Row>
-                                    <Row>
-                                        <Button variant="outline-primary" onClick={handleShow}>
-                                            Access monitors
-                                        </Button>
-                                    </Row>
-                                </Row>
-                                <Access show={showAccess} handleClose={handleClose} links={links} saveChenge={saveChenge} />
-                            </Row>
-                            <Row>
-                                <Form.Group as={Col} className="mb-3 " controlId="exampleForm.ControlInput4">
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" placeholder="12424235Le" value={password} onChange={e => setPassword(e.target.value)} />
-                                </Form.Group>
-                            </Row>
-                            <Row>
-                                <Form.Group as={Col} className="mb-3 " controlId="exampleForm.ControlInput5">
-                                    <Form.Label>Repit password</Form.Label>
-                                    <Form.Control type="password" placeholder="12424235Le" value={repit} onChange={e => setRepit(e.target.value)} />
-                                </Form.Group>
-                            </Row>
+                <Card.Body >
+                    <Form onSubmit={event => { submitForm(event) }}>
+                        <Row >
+                            <div className='containerFirstEdit'>Логин:</div>
+                            <Form.Control className='containerSecondEdit' type="text" placeholder="Введите логин" value={login} onChange={e => setLogin(e.target.value)} />
+                        </Row>
+                        <Row className='mt-2'>
+                            <div className='containerFirstEdit'>ФИО:</div>
+                            <Form.Control className='containerSecondEdit' type="text" placeholder="Введите фио " value={fioUser} onChange={e => setFio(e.target.value)} />
+                        </Row>
+                        <Row className='mt-2'>
+                            <div className='containerFirstEdit'>Почта:</div>
+                            <Form.Control className='containerSecondEdit' type="email" placeholder="Введите почту" value={email} onChange={e => setEmail(e.target.value)} />
+                        </Row>
+                        <Row className='mt-2'>
+                            <div className='containerFirstEdit'>Роль:</div>
+                            <div className='containerSecondEdit_ch'>
+                                <DropDownOutSucses values={role} setEnabledStatus={setRoleUser} enabledStatus={roleE} />
+                            </div>
+                        </Row>
+                        {!isNew ? <Row className='mt-2'>
+                            <div className='containerFirstEdit'>Статус:</div>
+                            <div className='containerSecondEdit_ch'>
+                                <DropDownOutSucses values={status} setEnabledStatus={setStatusE} enabledStatus={statusE} />
+                            </div>
+                        </Row> : <></>}
 
-
-                            <Form.Group as={Row} xs={3} className="mb-3 d-flex justify-content-center">
-                                <Button variant="primary" type="submit">
-                                    Submit
-                                </Button>
-                            </Form.Group>
-                        </Form>
-                        :
-                        <Form onSubmit={event => { submitForm(event) }}>
-                            <Row>
-                                <Col>
-                                    <Row >
-                                        <Form.Group as={Col} className="mb-3 " controlId="exampleForm.ControlInput1">
-                                            <Form.Label>Login</Form.Label>
-                                            <Form.Control type="text" placeholder="Login123" value={login} onChange={e => setLogin(e.target.value)} />
-                                        </Form.Group>
-                                    </Row>
-                                    <Row>
-                                        <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput2">
-                                            <Form.Label>User name</Form.Label>
-                                            <Form.Control type="text" placeholder="Surname Firstname Lastname " value={fioUser} onChange={e => setFio(e.target.value)} />
-                                        </Form.Group>
-                                    </Row>
-                                    <Row>
-                                        <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput3">
-                                            <Form.Label>Email address</Form.Label>
-                                            <Form.Control type="email" placeholder="name@example.com" value={email} onChange={e => setEmail(e.target.value)} />
-                                        </Form.Group>
-                                    </Row>
-                                    <Row>
-                                        <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput6">
-                                            <Form.Label>Company</Form.Label>
-                                            <DropDownOutSucses values={company} setEnabledStatus={setCompanyE} enabledStatus={companyE} />
-                                        </Form.Group>
-                                    </Row>
-                                    <Row>
-                                        <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput7">
-                                            <Form.Label>Role</Form.Label>
-                                            <DropDownOutSucsesCheked values={role} setEnabledBox={setRoleUser} enabledStatus={roleE} />
-                                        </Form.Group>
-                                    </Row>
-                                    <Row>
-                                        <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput8">
-                                            <Form.Label>Status</Form.Label>
-                                            <DropDownOutSucses values={status} setEnabledStatus={setStatusE} enabledStatus={statusE} />
-                                        </Form.Group>
-                                    </Row>
-                                </Col>
-                                <Col>
-                                    <Row>
-                                        <Form.Group as={Col} className="mb-3 " controlId="exampleForm.ControlInput4">
-                                            <Form.Label>Password</Form.Label>
-                                            <Form.Control type="password" placeholder="12424235Le" value={password} onChange={e => setPassword(e.target.value)} />
-                                        </Form.Group>
-                                    </Row>
-                                    <Row>
-                                        <Form.Group as={Col} className="mb-3 " controlId="exampleForm.ControlInput5">
-                                            <Form.Label>Repit password</Form.Label>
-                                            <Form.Control type="password" placeholder="12424235Le" value={repit} onChange={e => setRepit(e.target.value)} />
-                                        </Form.Group>
-                                    </Row>
-                                    <Row className='mb-2 d-flex justify-content-center'>
-                                        <Row>
-                                            <Row>
-                                                <Form.Label>Access user monitors</Form.Label>
-                                            </Row>
-                                            <Row>
-                                                <Button variant="outline-primary" onClick={handleShow}>
-                                                    Access monitors
-                                                </Button>
-                                            </Row>
-                                        </Row>
-                                        <Access show={showAccess} handleClose={handleClose} links={links} saveChenge={saveChenge} />
-                                    </Row>
-                                </Col>
-                            </Row>
-                            <Form.Group as={Row} xs={3} className="mb-3 d-flex justify-content-center">
-                                <Button variant="primary" type="submit">
-                                    Submit
-                                </Button>
-                            </Form.Group>
-                        </Form>
-                    }
+                        <Row className='mt-2'>
+                            <div className='containerFirstEdit'>Индикаторы:</div>
+                            <Button variant="outline-primary containerSecondEdit_b" onClick={handleShow}>
+                                Индикаторы пользователя
+                            </Button>
+                            <Access show={showAccess} handleClose={handleClose} links={links} saveChenge={saveChenge} />
+                        </Row>
+                        <Row className='mt-2'>
+                            <div className='containerFirstEdit'>Пароль:</div>
+                            <Form.Control className='containerSecondEdit' type="password" placeholder="Введите пароль" value={password} onChange={e => setPassword(e.target.value)} />
+                        </Row>
+                        <Row className='mt-2'>
+                            <div className='containerFirstEdit'>Пароль пов. :</div>
+                            <Form.Control className='containerSecondEdit' type="password" placeholder="Повторите пароль" value={repit} onChange={e => setRepit(e.target.value)} />
+                        </Row>
+                        <Form.Group as={Row} xs={3} className="m-3 d-flex justify-content-center">
+                            <Button variant="primary" type="submit">
+                                Отправить
+                            </Button>
+                        </Form.Group>
+                    </Form>
                 </Card.Body>
             </Card>
         </Container>

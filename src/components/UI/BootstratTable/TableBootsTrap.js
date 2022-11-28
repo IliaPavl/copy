@@ -1,5 +1,6 @@
-import React from 'react';
-import { Col, Container, Row, Table } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Container, Offcanvas, Row, Table } from 'react-bootstrap';
+import UserProfileEdit from '../../Users/UserProfileEdit';
 import '../CSS/componentCss.css';
 import Loading from '../Loader/Loading';
 import SearchWithButton from '../SearchForm/SearchWithButton';
@@ -7,14 +8,19 @@ import ButtonsTable from './ButtonsTable';
 import TableHead from './TableHead';
 import TableRow from './TableRow';
 
-const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withCheack }) => {
+const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withCheack, add }) => {
     let massiv = []
+    let [withAdd, setAdd] = useState(false);
     function getBox(event) {
         const conf = window.confirm(`Are you sure?`);
         if (conf) {
             setBox(massiv)
         }
     }
+    useEffect(() => {
+        if (add !== null)
+            setAdd(add);
+    })
 
     function uncheck() {
         let uncheck = document.getElementsByTagName('input');
@@ -50,22 +56,38 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
         number++;
         return number;
     }
+    const [showSettings, setShowSettings] = useState(false);
+    const handleShow = () => setShowSettings(!showSettings);
+    async function updateProfile() {
+        return true;
+    }
     return (
         <Container className='mt-2'>
             <Col>
-                {withSearch ?
-                    <Row>
-                        <Col><SearchWithButton backSearch={search} /></Col>
-                    </Row> : <></>}
-                {withCheack ?
-                    <Col>
-                        <ButtonsTable uncheck={uncheck} cheackAll={cheackAll} getBox={getBox} />
-                    </Col> : <></>}
+                <Row>
+                    {withSearch ?
+                        <Col sm={5}><SearchWithButton backSearch={search} /></Col>
+                        : <></>}
+                    {withAdd ?
+                        <Col sm={3}>
+                            <Button variant="info" className='m-1 ' onClick={handleShow}>Создать нового пользователя +</Button>
+                        </Col> : <></>}
+                    {withCheack ?
+                        <Col sm={1}>
+                            <ButtonsTable uncheck={uncheck} cheackAll={cheackAll} getBox={getBox} />
+                        </Col> : <></>}
 
+                    <Offcanvas responsive={"xl"} show={showSettings} onHide={handleShow} placement={'end'} className={"offcanvas"}>
+                        <Offcanvas.Header closeButton>
+                            <Offcanvas.Title>Создать нового пользователя</Offcanvas.Title>
+                        </Offcanvas.Header>
+                        <UserProfileEdit isNew={true} update={updateProfile} />
+                    </Offcanvas>
+                </Row>
                 <Row className={'scrollTable'}>
                     {rows.length ?
-                        <Table variant='table-bordered table-hover'  style={{height: 70}} className={"scrollTable"}>
-                            <TableHead values={head} sorting={sorting} withCheack={withCheack}/>
+                        <Table variant='table-bordered table-hover' style={{ height: 70 }} className={"scrollTable"}>
+                            <TableHead values={head} sorting={sorting} withCheack={withCheack} />
                             {rows.map((type) => (
                                 <TableRow key={plus()} value={type} updateData={updateData} withCheack={withCheack} />
                             ))}

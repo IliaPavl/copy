@@ -57,20 +57,43 @@ const MyChart = ({ enableTypeChart, title, data, navigatorChange, series, subTit
                 bottom: 30,
             },
             navigator: {
+                enabled: true,
+                height: 50,
                 min: navigatorChange,
-                max: 1
+                max: 1,
+                margin: 20,
+                mask: {
+                    fill: 'blue',
+                    strokeWidth: 1,
+                    fillOpacity: 0.1,
+                },
+                minHandle: {
+                    width: 20,
+                    height: 60,
+                    gripLineGap: 4,
+                    gripLineLength: 30,
+                    strokeWidth: 1,
+                },
+                maxHandle: {
+                    width: 20,
+                    height: 60,
+                    gripLineGap: 4,
+                    gripLineLength: 30,
+                    strokeWidth: 1,
+                },
             },
+
         },
     };
     let [optionsChart, setOptions] = useState(state.options)
 
     useEffect(() => {
         setOptions(state.options);
-    }, [series,data,subTitle,title,navigatorChange,enableTypeChart])
+    }, [series, data, subTitle, title, navigatorChange, enableTypeChart])
 
     return (
         <>
-            <div className="wrapper">
+            <div className="wrapper chart">
                 <AgChartsReact options={optionsChart} />
             </div>
         </>

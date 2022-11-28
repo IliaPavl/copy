@@ -4,6 +4,7 @@ import { authRoutes, publicRoutes } from "./routes";
 import PageServise from '../../servise/funtionService/PageServise';
 import RoleServise from '../../servise/funtionService/RoleServise';
 import LocalServise from '../../servise/httpServise/LocalServise';
+import { HOME_PAGE } from '../../utils/const';
 
 const AppRouter = () => {
     let [c, setC] = useState(false);
@@ -36,8 +37,7 @@ const AppRouter = () => {
                 setPage(LocalServise.getLastPage())
         }
         else {
-            const url = PageServise.cheakUrl(c,page);
-            PageServise.redirectLastPage(url);
+            PageServise.redirectLastPage(HOME_PAGE);
         }}
     }, [])
 

@@ -7,14 +7,11 @@ class UserServise {
 
     setHeadUsers() {
         var keys2 = [];
-        keys2.push({ title: "id" });
-        keys2.push({ title: "Client" });
         keys2.push({ title: "Roles" });
         keys2.push({ title: "Status" });
         keys2.push({ title: "FIO" });
         keys2.push({ title: "Login" });
         keys2.push({ title: "Email" });
-        keys2.push({ title: "RegistrationLink" });
         return keys2;
     }
 
@@ -52,6 +49,7 @@ class UserServise {
 
     async bars(url) {
         return this.getBarComponents(url).then((obj) => {
+            console.log(obj)
             return ({ linkMonitors: obj,  isAdmin: true });
         })
 

@@ -11,10 +11,10 @@ const SearchWithButton = ({ backSearch }) => {
 
         <Form className="d-flex ml-auto m-1">
             <FormControl
-                type="search"
-                placeholder="Search"
+                type="Найти"
+                placeholder="Найти"
                 className="me-2"
-                aria-label="Search"
+                aria-label="Найти"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
             />

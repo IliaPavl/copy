@@ -7,10 +7,11 @@ import { HOME_PAGE, LOGIN_ROUTE, USER_LIST, USER_PROFILE } from '../../../../uti
 import SearchLable from '../../SearchForm/SearchLable';
 import "./SideBarCSs.css";
 
-const SideBar = ({ show, monitors, links, isRoleAdmin }) => {
+const SideBar = ({ show, monitors, links, isRoleAdmin, showBurger,isUser }) => {
     async function Logout() {
         LocalServise.logoutUser();
         window.location.assign(LOGIN_ROUTE)
+        showBurger();
     }
 
     const search = (seachMessege) => {
@@ -25,12 +26,13 @@ const SideBar = ({ show, monitors, links, isRoleAdmin }) => {
                 <li>
                     <SearchLable backSearch={search} />
                 </li>
+                {isUser === true ? 
                 <li>
-                    <Link to={USER_PROFILE} className='Link'>
+                    <Link to={USER_PROFILE} className='Link' onClick={()=> showBurger()}>
                         <span className='textNav ' >
                             <Row>
                                 <Col sm={10}>
-                                    Profile
+                                    Профиль
                                 </Col>
                                 <Col sm={1}>
                                     <RiUser2Fill className='icon LinkHiden' />
@@ -38,13 +40,15 @@ const SideBar = ({ show, monitors, links, isRoleAdmin }) => {
                             </Row>
                         </span>
                     </Link>
-                </li>
-                {isRoleAdmin === true ? <li>
-                    <Link to={USER_LIST} className='Link'>
+                </li>:<></>}
+
+                {isRoleAdmin === true ? 
+                <li>
+                    <Link to={USER_LIST} className='Link' onClick={()=> showBurger()}>
                         <span className='textNav ' >
                             <Row>
                                 <Col sm={10}>
-                                    Users
+                                    Пользователи
                                 </Col>
                                 <Col sm={1}>
                                     <RiTeamLine className='icon LinkHiden' />
@@ -53,13 +57,13 @@ const SideBar = ({ show, monitors, links, isRoleAdmin }) => {
                         </span>
                     </Link>
                 </li> : <></>}
-
+                {isUser === true ?     
                 <li>
-                    <Link to={HOME_PAGE} className='Link'>
+                    <Link to={HOME_PAGE} className='Link' onClick={()=> showBurger()}>
                         <span className='textNav ' >
                             <Row>
                                 <Col sm={10}>
-                                    Monitors
+                                    Мониторы
                                 </Col>
                                 <Col sm={1}>
                                     <RiLineChartLine className='icon LinkHiden' />
@@ -67,13 +71,13 @@ const SideBar = ({ show, monitors, links, isRoleAdmin }) => {
                             </Row>
                         </span>
                     </Link>
-                </li>
+                </li>:<></>}
                 <li>
-                    <Link to={LOGIN_ROUTE} className='Link' onClick={Logout}>
+                    <Link to={LOGIN_ROUTE} className='Link' onClick={Logout} >
                         <span className='textNav ' >
                             <Row>
                                 <Col sm={10}>
-                                    Logout
+                                    Выйти
                                 </Col>
                                 <Col sm={1}>
                                     <RiLogoutBoxRLine className='icon LinkHiden' />
