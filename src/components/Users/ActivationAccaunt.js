@@ -28,7 +28,7 @@ const ActivationAccaunt = () => {
                 <h2 className="m-auto"> Activation </h2>
                 <Card.Body className="m-auto">
                     <Row>
-                        <p> Your accaunt has been : <Link to={LOGIN_ROUTE}><strong>{message}</strong></Link></p>
+                        <p> Выш аккаунт был : <Link to={LOGIN_ROUTE}><strong>{message}</strong></Link></p>
                     </Row>
                 </Card.Body>
             </Card>
