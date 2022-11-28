@@ -52,7 +52,6 @@ const GroupTrend = ({ ingroup, reload }) => {
     }
 
     useEffect(() => {
-
         if (ingroup.length !== 0) {
             let newHead = [];
             newHead.push(
@@ -108,7 +107,7 @@ const GroupTrend = ({ ingroup, reload }) => {
                                                 {links.trend === "2" ? <RiArrowRightLine className='arrowHoriz' /> : <></>}
                                                 {links.trend === "3" ? <RiArrowRightUpLine className='arrowUp' /> : <></>}
                                             </td>
-                                            <td onClick={() => goToLink(links.idResult)} id="date">{links.maxDate.slice(0, 10)}</td>
+                                            <td onClick={() => goToLink(links.idResult)} id="date">{links.parseMaxDate}</td>
                                             <td onClick={() => goToLink(links.idResult)} id="units">{links.typeResult}</td>        
                                             <td onClick={() => s(links)}> <ModalSettings show={showAccess} handleClose={handl} saveChenge={saveChenge} data={dataLinks} isAdmin={group.admin} /><RiSettings3Line onClick={() => handleShow()} className='chartSVG ' /></td>
                                 </tr>
