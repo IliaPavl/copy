@@ -77,19 +77,16 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
     return (
         <Modal show={show} onHide={() => handleClose()} >
             <Modal.Header closeButton>
-                <Modal.Title>Настройки</Modal.Title>
+                <Modal.Title>Настройки "{data.nameResult}" </Modal.Title>
             </Modal.Header>
             <Modal.Body className='accessOv accordionItem'>
                 {data.length !== 0 ?
                     <Container>
                         <ListGroup variant="flush" >
                             <ListGroup.Item key={data.idResult + "3"} className={'accordionItem'} >
-                                <span><h5>Настройки индикатора {data.nameResult}</h5></span>
+                                <span><h5>Границы статуса</h5></span>
                                 <ListGroup>
                                     <ListGroup.Item className='containerSlider listBorderNone'>
-                                        <Form.Label>
-                                            Границы статуса
-                                        </Form.Label>
                                         <div className='mt-3'>
                                             {minValue !== null ?
                                                 <MultiRangeSlider
@@ -125,7 +122,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                                     </ListGroup.Item>
                                     <ListGroup.Item className='accordionItem listBorderNone'>
                                         <InputGroup >
-                                            <InputGroup.Text className={"withP"}>План инкатора :  </InputGroup.Text>
+                                            <InputGroup.Text className={"withP"}>План показателя :  </InputGroup.Text>
                                             <Form.Control
                                                 placeholder=""
                                                 aria-label=""
@@ -136,7 +133,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                                             <InputGroup.Text>{data.typeResult}</InputGroup.Text>
                                         </InputGroup>
                                         <InputGroup className='mb-3'>
-                                            <InputGroup.Text className={"withP"}>Переуд расчета :</InputGroup.Text>
+                                            <InputGroup.Text className={"withP"}>Переуд :</InputGroup.Text>
                                             <Form.Select aria-label="Floating label select example" onChange={(e) => setPeriodEnable(e.target.value)}>
                                                 {listPeriod.map(period => <option value={period.id}>{period.title} </option>)}
                                             </Form.Select>
@@ -146,7 +143,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                                 </ListGroup>
                             </ListGroup.Item>
                             <ListGroup.Item key={data.idResult + "1"} className={'accordionItem'}>
-                                <span><h5>Настройки графика</h5></span>
+                                <span><h5>Вид графика</h5></span>
                                 <Row className='m-3 '>
                                     {typeChart === 1 ? <AiOutlineLineChart className='chartSVGSettingsSet' /> : <AiOutlineLineChart onClick={() => setTypeChart(1)} className='chartSVGSettings' />}
                                     {typeChart === 2 ? <AiOutlineBarChart className='chartSVGSettingsSet' /> : <AiOutlineBarChart onClick={() => setTypeChart(2)} className='chartSVGSettings' />}
@@ -190,7 +187,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="primary" onClick={() => click()}>
-                    Save Changes
+                    Сохранить
                 </Button>
             </Modal.Footer>
         </Modal>

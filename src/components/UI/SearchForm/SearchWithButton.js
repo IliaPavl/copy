@@ -4,8 +4,11 @@ import { Button, Form, FormControl } from "react-bootstrap";
 const SearchWithButton = ({ backSearch }) => {
     const [search, setSearch] = useState('')
     const clickSearch = () => {
+        if(search!==null)
+        if(search!==''){
         backSearch(search)
         setSearch('')
+        }
     }
     return (
 

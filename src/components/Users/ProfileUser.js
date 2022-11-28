@@ -164,7 +164,7 @@ const ProfileUser = () => {
                                                     <div className='containerFirst'>Статус: </div><div className='containerSecond'>{company.status}</div>
                                                 </Row>
                                                 <Row>
-                                                    <div className='containerFirst'>YHП: </div><div className='containerSecond'>{company.ynp}</div>
+                                                    <div className='containerFirst'>УНП: </div><div className='containerSecond'>{company.ynp}</div>
                                                 </Row>
                                                 <Row>
                                                     <div className='containerFirst'>ID: </div> <div className='containerSecond'>{company.idClient}</div>
@@ -202,9 +202,8 @@ const ProfileUser = () => {
                                     </Card.Header>
                                     <Card.Body>
                                         <Row>
-                                            <div className='containerFirst'>Логин:</div> <div className='containerSecond'>{userInfo.username}</div>
+                                            <div className='containerFirst'>Логин: </div><div className='containerSecond'>{userInfo.username}</div>
                                         </Row>
-
                                         <Row>
                                             <div className='containerFirst'>ФИО: </div><div className='containerSecond'>{userInfo.userFio}</div>
                                         </Row>
@@ -212,17 +211,19 @@ const ProfileUser = () => {
                                             <div className='containerFirst'>Почта: </div><div className='containerSecond'>{userInfo.email}</div>
                                         </Row>
                                         <Row>
-                                            <div className='containerFirst'>Компании: </div> <div className='containerSecond '>{company.nameCompany}</div>
+                                            <div className='containerFirst'>Компания: </div> <div className='containerSecond '>{company.nameCompany}</div>
                                         </Row>
                                         <Row>
                                             <div className='containerFirst'>Статус: </div> <div className='containerSecond '>{status}</div>
                                         </Row>
                                         <Row>
-                                            <div className='containerFirst'>Роль: </div> <div className='containerSecond '>{roles}</div>
+                                            <div className='containerFirst'>Роль: </div> <div className='containerSecond '>{roles.split(",")[0]}</div>
                                         </Row>
                                         <Row className="mb-3">
-                                            <div className='containerFirst'> Пароль</div>
-                                            <div className='containerSecond '><Link to={FORGOT_PASSWPRD}>Новый пароль</Link> </div>
+                                            <div className='containerFirst'>Пароль: </div>
+                                            <Button variant="outline-primary  containerSecond_b">
+                                                <Link className='textLink' to={FORGOT_PASSWPRD}>Новый пароль</Link>
+                                            </Button>
                                         </Row>
                                     </Card.Body>
                                 </Col>

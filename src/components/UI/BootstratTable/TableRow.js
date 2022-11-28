@@ -28,8 +28,8 @@ const TableRow = ({ value, updateData, withCheack, variant }) => {
     }
 
     return (
-        <tbody className="table-light">
-            <tr>
+        <tbody className="table-light" key={plus()}>
+            <tr key={plus()}>
                 {withCheack ?
                     <td>
                         {variant === "switch" ?
@@ -53,9 +53,8 @@ const TableRow = ({ value, updateData, withCheack, variant }) => {
                 }
 
                 {Object.entries(value).map((data) => (
-                    data[0]!== "id"&& data[0]!=="Client" ? <td key={plus()}><Link to={url} className="linkRow"> {data[1]}</Link></td>:<></>
+                    data[0]!== "id"&& data[0]!=="Клиент" && data[0]!=="RegistrationLink" ? <td ><Link to={url} className="linkRow"> {data[1]}</Link></td>:<></>
                 ))}
-
             </tr>
         </tbody>
     );

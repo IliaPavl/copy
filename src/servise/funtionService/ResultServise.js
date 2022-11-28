@@ -2,15 +2,16 @@
 class ResultServise {
     setHeader(){
         var keys2 = [];
-        keys2.push({ title: "IndResult" });
-        keys2.push({ title: "ResultDate" });
+        keys2.push({ title: "Результат_показателя" });
+        keys2.push({ title: "Дата_расчета" });
         return keys2;
     }
     
     setRows(data){
         var rows = [];
         data.tableData.forEach(element => {
-            rows.push({IndResult: element.dateCreate, ResultDate: element.dateSumma})
+            console.log(element);
+            rows.push({Результат_показателя: element.dateCreate, Дата_расчета: element.parseDate})
         });
         return rows;
     }

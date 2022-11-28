@@ -6,9 +6,10 @@ import "./profile.css";
 
 const Access = ({ show, handleClose, links, saveChenge }) => {
     let [l, setL] = useState([]);
-    const title = { title: "Мониторы/группы" };
-    const monitor = { title: "Индикатор" };
-    const type = { title: "Ед." };
+    const title = { title: "Монитор" };
+    const group = { title: "Группа" };
+    const monitor = { title: "Показатель" };
+    const type = { title: "Ед.изм." };
     const [head, setHead] = useState([])
     async function click() {
         saveChenge(l);
@@ -20,17 +21,22 @@ const Access = ({ show, handleClose, links, saveChenge }) => {
     useEffect(() => {
     }, [l])
 
-
+    let maxValueList = [];
     useEffect(() => {
+        if(links!==null)
+        if(links.length!==0){
         let maxValue = 0;
-        let header=[];
-        links.forEach(link => { if(link.path.length>maxValue) {maxValue=link.path.length}})
-        for(let i = 0;i<maxValue;i++)
+        let header = [];
         header.push(title);
+        links.forEach(link => { if (link.path.length > maxValue) { maxValue = link.path.length; maxValueList = link.path; } })
+        links.forEach(link => { if (link.path.length < maxValue) { for(let i=0;i<maxValue-link.path.length;i++) link.path.push("") } })
+        for (let i = 1; i < maxValue; i++)
+            header.push(group);
         header.push(monitor);
         header.push(type);
         setHead(header);
         setL(links);
+        }
     }, [links])
 
     function switchCh(value) {
@@ -88,7 +94,7 @@ const Access = ({ show, handleClose, links, saveChenge }) => {
     return (
         <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
             <Modal.Header closeButton>
-                <Modal.Title>Индикаторы пользователя</Modal.Title>
+                <Modal.Title>Показатели</Modal.Title>
             </Modal.Header>
             <Modal.Body className='accessOv'>
                 <Form>
@@ -116,7 +122,7 @@ const Access = ({ show, handleClose, links, saveChenge }) => {
                                                     }}
                                                 />}
                                         </td>
-                                        {value.path.map(value => <td >{value}</td>)}
+                                        {value.path.map(value => value !== null ? <td >{value}</td> : <td ></td>)}
                                         <td >{value.name}</td>
                                         <td >{value.type}</td>
                                     </tr>

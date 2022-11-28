@@ -2,9 +2,15 @@ import React from 'react';
 import '../CSS/TableBootsTrap.css';
 
 const TableHead = ({ values, sorting, withCheack }) => {
+    let number = 1;
+
+    function plus() {
+        number++;
+        return number;
+    }
     return (
         <thead className="thead-dark ">
-            <tr>
+            <tr key={plus()}>
                 {withCheack ?
                     <th></th>
                     : <></>
@@ -12,7 +18,7 @@ const TableHead = ({ values, sorting, withCheack }) => {
                 {values.length ?
                     values.map((value) => (
                         <th
-                            key={value.title}
+                        key={plus()}
                             onClick={() => { sorting(value.title) }}
                         ><p>{value.title}</p></th>
                     )) :

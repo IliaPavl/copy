@@ -75,14 +75,44 @@ const GroupTrend = ({ ingroup, reload }) => {
             <Accordion defaultActiveKey={group.nameMonitor} className={"cradsGroup scrollTable"}>
                 <Accordion.Item eventKey={group.nameMonitor}>
                     <Accordion.Header>{group.nameMonitor} </Accordion.Header>
-                    <Accordion.Body>
+                    <Accordion.Body className={"scrollTable"}>
                         {group.monitor.length === 0 ?
                             <Table variant='table-bordered table-hover' style={{ height: 70 }} className={"scrollTable"} >
-                                <TableHead values={head} withCheack={false} />
+                                <thead className="thead-dark">
+                                    <tr>
+                                        <th >
+                                            <div className='tablePCName'>
+                                                Название
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div className='tablePfoneFact'>
+                                                Факт
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div className='tablePfoneFact'>
+                                                План
+                                            </div>
+                                        </th>
+                                        <th>Статус</th>
+                                        <th>Тренд</th>
+                                        <th>
+                                            <div className='tablePfoneDate'>
+                                                Дата
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div className='tablePfoneUnits'>
+                                                Ед.изм.
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
                                 <tbody className="table-light">
                                     {group.linkMonitor.map(links =>
                                         <tr key={plus()}>
-                                            <td  onClick={() => goToLink(links.idResult)} id="name">{links.nameResult}</td>
+                                            <td onClick={() => goToLink(links.idResult)} id="name">{links.nameResult}</td>
                                             <td onClick={() => goToLink(links.idResult)} id="fact">{links.indFact}</td>
                                             <td onClick={() => goToLink(links.idResult)} id="plan">
                                                 {links.indPlan !== 0 ? <>{links.indPlan}</> : <></>}
@@ -108,9 +138,9 @@ const GroupTrend = ({ ingroup, reload }) => {
                                                 {links.trend === "3" ? <RiArrowRightUpLine className='arrowUp' /> : <></>}
                                             </td>
                                             <td onClick={() => goToLink(links.idResult)} id="date">{links.parseMaxDate}</td>
-                                            <td onClick={() => goToLink(links.idResult)} id="units">{links.typeResult}</td>        
+                                            <td onClick={() => goToLink(links.idResult)} id="units">{links.typeResult}</td>
                                             <td onClick={() => s(links)}> <ModalSettings show={showAccess} handleClose={handl} saveChenge={saveChenge} data={dataLinks} isAdmin={group.admin} /><RiSettings3Line onClick={() => handleShow()} className='chartSVG ' /></td>
-                                </tr>
+                                        </tr>
                                     )}
                                 </tbody>
                             </Table>

@@ -7,11 +7,11 @@ class UserServise {
 
     setHeadUsers() {
         var keys2 = [];
-        keys2.push({ title: "Roles" });
-        keys2.push({ title: "Status" });
-        keys2.push({ title: "FIO" });
-        keys2.push({ title: "Login" });
-        keys2.push({ title: "Email" });
+        keys2.push({ title: "Роль" });
+        keys2.push({ title: "Статус" });
+        keys2.push({ title: "Фио" });
+        keys2.push({ title: "Логин" });
+        keys2.push({ title: "Почта" });
         return keys2;
     }
 
@@ -38,7 +38,7 @@ class UserServise {
         return UserHttpServise.findUsers(seachMessege).then((respons) => {
             let k = this.makeRowsUsers(respons.data);
             if (k.length === 0)
-                toast.warning("No result find users");
+                toast.warning("Таких пользоватей нету");
             return (k)
         }).catch((error) => {
             let message = error.request.responseText.split('"');
@@ -89,12 +89,12 @@ class UserServise {
         for (let k in data) {
             keys3.push({
                 id: data[k].id,
-                Client: data[k].company,
-                Roles: data[k].role,
-                Status: data[k].status,
-                FIO: data[k].fio,
-                Login: data[k].login,
-                Email: data[k].email,
+                Клиент: data[k].company,
+                Роль: data[k].role,
+                Статус: data[k].status,
+                ФИО: data[k].fio,
+                Логин: data[k].login,
+                Почта: data[k].email,
                 RegistrationLink: data[k].link
             });
         }

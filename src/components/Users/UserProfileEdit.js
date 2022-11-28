@@ -77,7 +77,7 @@ const UserProfile = ({ isNew, update }) => {
 
     async function getAccessList() {
         UserServise.setUserProfile().then(obj => {
-            obj.data[3].map(l => { l.checked = 0 })
+            obj.data[3].foreach(l => { l.checked = 0 })
             setLinks(obj.data[3])
         }).catch((error) => { toast.error(error) })
     }
@@ -108,16 +108,17 @@ const UserProfile = ({ isNew, update }) => {
     }, [links])
 
     useEffect(() => {
+        if(isNewUser!== null){
         setAxiosClients()
         setAxiosStatusUser()
         setAxiosRoleUser()
-        console.log(isNewUser);
+        
         if (!isNewUser)
             setUserInfo()
 
         else
             getAccessList()
-
+        }
     }, [])
 
     useEffect(() => {
@@ -151,7 +152,7 @@ const UserProfile = ({ isNew, update }) => {
             <Card className={"border-1 m-1 cardContainer "} >
                 <Card.Header>
                     <div style={{ float: "left" }}>
-                        Подтвердить пользователя
+                        Подтвердить изменения пользователя
                     </div>
                 </Card.Header>
                 <Card.Body >
@@ -182,9 +183,9 @@ const UserProfile = ({ isNew, update }) => {
                         </Row> : <></>}
 
                         <Row className='mt-2'>
-                            <div className='containerFirstEdit'>Индикаторы:</div>
+                            <div className='containerFirstEdit'>Показатели:</div>
                             <Button variant="outline-primary containerSecondEdit_b" onClick={handleShow}>
-                                Индикаторы пользователя
+                                Показатели
                             </Button>
                             <Access show={showAccess} handleClose={handleClose} links={links} saveChenge={saveChenge} />
                         </Row>
@@ -193,12 +194,12 @@ const UserProfile = ({ isNew, update }) => {
                             <Form.Control className='containerSecondEdit' type="password" placeholder="Введите пароль" value={password} onChange={e => setPassword(e.target.value)} />
                         </Row>
                         <Row className='mt-2'>
-                            <div className='containerFirstEdit'>Пароль пов. :</div>
+                            <div className='containerFirstEdit'>Повторите:</div>
                             <Form.Control className='containerSecondEdit' type="password" placeholder="Повторите пароль" value={repit} onChange={e => setRepit(e.target.value)} />
                         </Row>
                         <Form.Group as={Row} xs={3} className="m-3 d-flex justify-content-center">
                             <Button variant="primary" type="submit">
-                                Отправить
+                                Сохранить
                             </Button>
                         </Form.Group>
                     </Form>

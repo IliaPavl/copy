@@ -66,16 +66,26 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
             <Col>
                 <Row>
                     {withSearch ?
-                        <Col sm={5}><SearchWithButton backSearch={search} /></Col>
+                        <Col sm={5}>
+                            <SearchWithButton backSearch={search} />
+                        </Col>
                         : <></>}
-                    {withAdd ?
-                        <Col sm={3}>
-                            <Button variant="info" className='m-1 ' onClick={handleShow}>Создать нового пользователя +</Button>
-                        </Col> : <></>}
-                    {withCheack ?
-                        <Col sm={1}>
-                            <ButtonsTable uncheck={uncheck} cheackAll={cheackAll} getBox={getBox} />
-                        </Col> : <></>}
+
+                    <Col sm={3}>
+                        <Row>
+                            {withAdd ?
+                                <Col >
+                                    <Button  variant="info" className='m-1 ' onClick={handleShow}>Создать</Button>
+                                </Col>
+                                : <></>}
+
+                            {withCheack ?
+                                <Col >
+                                    <ButtonsTable uncheck={uncheck} cheackAll={cheackAll} getBox={getBox} />
+                                </Col>
+                                : <></>}
+                        </Row>
+                    </Col>
 
                     <Offcanvas responsive={"xl"} show={showSettings} onHide={handleShow} placement={'end'} className={"offcanvas"}>
                         <Offcanvas.Header closeButton>
@@ -87,7 +97,7 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
                 <Row className={'scrollTable'}>
                     {rows.length ?
                         <Table variant='table-bordered table-hover' style={{ height: 70 }} className={"scrollTable"}>
-                            <TableHead values={head} sorting={sorting} withCheack={withCheack} />
+                            <TableHead key={plus()} values={head} sorting={sorting} withCheack={withCheack} />
                             {rows.map((type) => (
                                 <TableRow key={plus()} value={type} updateData={updateData} withCheack={withCheack} />
                             ))}

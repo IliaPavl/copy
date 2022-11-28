@@ -37,6 +37,9 @@
 .tablePfoneName {
     width:110px;
 }
+.tablePCName {
+    width:230px;
+}
 .tablePfoneFact {
     width:70px;
 }
@@ -44,7 +47,7 @@
     width:80px;
 }
 .tablePfoneUnits {
-    width:40px;
+    width:60px;
 }
 
 
