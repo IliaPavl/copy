@@ -117,7 +117,6 @@ const PfoneGroupTrend = ({ ingroup, reload }) => {
                                             <td onClick={() => goToLink(links.idResult)} id="date">{links.parseMaxDate}</td>
                                             <td onClick={() => goToLink(links.idResult)} id="units">{links.typeResult}</td>
                                             <td id="settings">
-                                                <ModalSettings show={showAccess} handleClose={handl} saveChenge={saveChenge} data={dataLinks} isAdmin={group.admin} />
                                                 {/* <div className="notification-container ">
                                                     <span className="notification-container__text_Gear "><RiSettings3Line onClick={() => handleShow()} className='chartSVG gearSVG' /></span>
                                                 </div> */}
@@ -125,6 +124,8 @@ const PfoneGroupTrend = ({ ingroup, reload }) => {
                                             </td>
                                         </tr>
                                     )}
+                                    <ModalSettings show={showAccess} handleClose={handl} saveChenge={saveChenge} data={dataLinks} isAdmin={group.admin} />
+
                                 </tbody>
                             </Table>
                             :

@@ -45,8 +45,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
         else
             return true;
     }
-    useEffect(() => {
-    }, [data])
+    
 
     useEffect(() => {
         if (show === true) {

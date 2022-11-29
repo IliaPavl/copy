@@ -32,7 +32,6 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options,showTable }) =>
     };
 
     function setChartData() {
-
         if (chartData.length !== 0 && rowsName.length !== 0) {
             setCustomData(chartData);
             if (hotMonth.length !== 0) {
@@ -41,7 +40,7 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options,showTable }) =>
                     if (element.month === hotMonth.text) {
                         setSubTitle('Данные за ' + hotMonth.text)
                         setBuferData(element.monthChartData);
-                        setSeriesLocal('dateCreate', enableTypeChart);
+                        setSeriesLocal('parseDate', enableTypeChart);
                         setNavigator(0);
                         isMoth = false;
                     }
@@ -91,14 +90,14 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options,showTable }) =>
                 let lastMonth = customData[0].values[customData[0].values.length - 1].monthChartData.length;
                 let value = customData[0].values[customData[0].values.length - 1].monthChartData[lastMonth - 1].monthChartData;
                 setBuferData(value);
-                setSeriesLocal('dateCreate', enableTypeChart);
+                setSeriesLocal('parseDate', enableTypeChart);
                 setNavigator(0);
             } else if (navigate === 4) {
                 setSubTitle('За последнюю неделю')
                 let lastMonth = customData[0].values[customData[0].values.length - 1].monthChartData.length;
                 let value = customData[0].values[customData[0].values.length - 1].monthChartData[lastMonth - 1].monthChartData;
                 setBuferData(value);
-                setSeriesLocal('dateCreate', enableTypeChart);
+                setSeriesLocal('parseDate', enableTypeChart);
                 setNavigator(0);
                 // let lastMonth=customData[0].values[customData[0].values.length - 1].monthChartData.length;
                 // let value =  customData[0].values[customData[0].values.length - 1].monthChartData[lastMonth-1].monthChartData; 
@@ -106,7 +105,7 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options,showTable }) =>
 
                 // setNavigator((1 - (lastMonth / ((customData[0].values[customData[0].values.length - 1].monthChartData.length - 1)))));
                 // setBuferData(customData[0].values[customData[0].values.length - 1].monthChartData)
-                // setSeriesLocal('dateCreate', enableTypeChart);
+                // setSeriesLocal('parseDate', enableTypeChart);
             }
             else setNavigator(0);
     }
@@ -132,7 +131,7 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options,showTable }) =>
                 if (element.month === hotMonth.text) {
                     setSubTitle('Данные за ' + hotMonth.text)
                     setBuferData(element.monthChartData);
-                    setSeriesLocal('dateCreate', enableTypeChart);
+                    setSeriesLocal('parseDate', enableTypeChart);
                     setNavigator(0);
                     isMoth = false;
                 }

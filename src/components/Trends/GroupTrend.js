@@ -138,10 +138,11 @@ const GroupTrend = ({ ingroup, reload }) => {
                                             </td>
                                             <td onClick={() => goToLink(links.idResult)} id="date">{links.parseMaxDate}</td>
                                             <td onClick={() => goToLink(links.idResult)} id="units">{links.typeResult}</td>
-                                            <td onClick={() => s(links)}> <ModalSettings show={showAccess} handleClose={handl} saveChenge={saveChenge} data={dataLinks} isAdmin={group.admin} /><RiSettings3Line onClick={() => handleShow()} className='chartSVG ' /></td>
+                                            <td onClick={() => s(links)}> <RiSettings3Line onClick={() => handleShow()} className='chartSVG ' /></td>
                                         </tr>
                                     )}
                                 </tbody>
+                                <ModalSettings show={showAccess} handleClose={handl} saveChenge={saveChenge} data={dataLinks} isAdmin={group.admin} />
                             </Table>
                             :
                             <GroupTrend group={group.monitor} />
