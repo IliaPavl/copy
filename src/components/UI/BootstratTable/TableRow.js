@@ -22,26 +22,28 @@ const TableRow = ({ value, updateData, withCheack, variant }) => {
 
     let number = 1;
 
-    function plus() {
+    function plus2() {
         number++;
         return number;
     }
 
     return (
-        <tbody className="table-light" key={plus()}>
-            <tr key={plus()}>
+        <tbody className="table-light" key={plus2()}>
+            <tr key={plus2()}>
                 {withCheack ?
-                    <td>
+                    <td key={plus2()}>
                         {variant === "switch" ?
                             <Form.Check
                                 type={'switch'}
                                 id={value.id}
+                                key={"kb"}
                                 onClick={() => {
                                     updateData(value.id)
                                 }}
                             /> :
                             <Form.Check
                                 type={'checkbox'}
+                                key={"kh"}
                                 id={value.id}
                                 onClick={() => {
                                     updateData(value.id)
@@ -53,7 +55,7 @@ const TableRow = ({ value, updateData, withCheack, variant }) => {
                 }
 
                 {Object.entries(value).map((data) => (
-                    data[0]!== "id"&& data[0]!=="Клиент" && data[0]!=="RegistrationLink" ? <td ><Link to={url} className="linkRow"> {data[1]}</Link></td>:<></>
+                    data[0]!== "id"&& data[0]!=="Клиент" && data[0]!=="RegistrationLink" ? <td key={plus2()+"f"}> <Link to={url} className="linkRow" key={plus2()}> {data[1]}</Link></td>:<></>
                 ))}
             </tr>
         </tbody>

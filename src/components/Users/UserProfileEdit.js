@@ -174,7 +174,7 @@ const UserProfile = ({ isNew, update }) => {
                         </Row>
                         <Row className='mt-2'>
                             <div className='containerFirstEdit'>Почта:</div>
-                            <Form.Control className={isPfone ? 'containerSecondAdd':'containerSecondEdit'} type="email" placeholder="Введите почту" value={email} onChange={e => setEmail(e.target.value)} />
+                            <Form.Control className={isPfone ? 'containerSecondAdd':'containerSecondEdit'} type="email" autocomplete="username email" placeholder="Введите почту" value={email} onChange={e => setEmail(e.target.value)} />
                         </Row>
                         <Row className='mt-2'>
                             <div className='containerFirstEdit'>Роль:</div>

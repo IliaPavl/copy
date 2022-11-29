@@ -56,11 +56,7 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
         number++;
         return number;
     }
-    const [showSettings, setShowSettings] = useState(false);
-    const handleShow = () => { console.log(!showSettings); setShowSettings(!showSettings); };
-    async function updateProfile() {
-        return true;
-    }
+
     return (
         <>
             <Container className='mt-2'>
@@ -74,12 +70,6 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
 
                         <Col sm={3}>
                             <Row>
-                                {withAdd ?
-                                    <Col >
-                                        <Button variant="info" className='m-1 ' onClick={handleShow}>Создать</Button>
-                                    </Col>
-                                    : <></>}
-
                                 {withCheack ?
                                     <Col >
                                         <ButtonsTable uncheck={uncheck} cheackAll={cheackAll} getBox={getBox} />
@@ -101,16 +91,6 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
                     </Row>
                 </Col>
             </Container>
-            <Offcanvas responsive={"xl"} show={showSettings} onHide={handleShow} placement={'end'} className={"offcanvas"}>
-                <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Создать нового пользователя</Offcanvas.Title>
-                </Offcanvas.Header>
-                <div className={"scrollTable"}>
-                    <Offcanvas.Body>
-                        <UserProfileEdit isNew={true} update={updateProfile} />
-                    </Offcanvas.Body>
-                </div>
-            </Offcanvas>
         </>
     );
 };

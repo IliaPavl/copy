@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Container } from 'react-bootstrap';
+import { Button, Col, Container, Offcanvas } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ClientServise from '../../servise/funtionService/ClientServise';
 import UserServise from '../../servise/funtionService/UserServise';
 import ClientHttpServise from '../../servise/httpServise/ClientHttpServise';
 import TableBootsTrap from "../UI/BootstratTable/TableBootsTrap";
+import UserProfileEdit from './UserProfileEdit';
 
 
 
@@ -32,7 +33,7 @@ const ListBook = ({ update }) => {
 
     async function setTableUsers() {
         setHeaderTable(UserServise.setHeadUsers())
-        UserServise.setRowsUsers().then(res => { setRowsTable(res);})
+        UserServise.setRowsUsers().then(res => { setRowsTable(res); })
     }
 
     async function setTableClients() {
@@ -99,10 +100,25 @@ const ListBook = ({ update }) => {
 
     useEffect(() => {
     }, [sortV]);
-
+    const [showSettings, setShowSettings] = useState(false);
+    const handleShow = () => {  setShowSettings(!showSettings) };
+    async function updateProfile() {
+        return true;
+    }
     return (
         <Container>
+            <Col >
+                <Button variant="info" className='m-1 ' onClick={() => handleShow()}>Создать</Button>
+            </Col>
             <TableBootsTrap withCheack={true} withSearch={true} setBox={deleteUsers} head={headerTable} rows={rowsTable} switchData={switchData} sorting={sorting} search={search} add={true} />
+            <Offcanvas responsive={"xl"} show={showSettings} onHide={handleShow} placement={'end'} className={"offcanvas"}>
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title>Создать нового пользователя</Offcanvas.Title>
+                </Offcanvas.Header>
+                    <Offcanvas.Body>
+                        <UserProfileEdit isNew={true} update={updateProfile} />
+                    </Offcanvas.Body>
+            </Offcanvas>
         </Container>
     );
 };
