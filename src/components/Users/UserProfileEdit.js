@@ -198,11 +198,11 @@ const UserProfile = ({ isNew, update }) => {
                         </Row>
                         <Row className='mt-2'>
                             <div className='containerFirstEdit'>Пароль:</div>
-                            <Form.Control className={isPfone ? 'containerSecondAdd':'containerSecondEdit'} type="password" placeholder="Введите пароль" value={password} onChange={e => setPassword(e.target.value)} />
+                            <Form.Control className={isPfone ? 'containerSecondAdd':'containerSecondEdit'} type="password" name="password" autocomplete="new-password" placeholder="Введите пароль" value={password} onChange={e => setPassword(e.target.value)} />
                         </Row>
                         <Row className='mt-2'>
                             <div className='containerFirstEdit'>Повторите:</div>
-                            <Form.Control className={isPfone ? 'containerSecondAdd':'containerSecondEdit'} type="password" placeholder="Повторите пароль" value={repit} onChange={e => setRepit(e.target.value)} />
+                            <Form.Control className={isPfone ? 'containerSecondAdd':'containerSecondEdit'} type="password" name="passwordRepit" autocomplete="new-password" placeholder="Повторите пароль" value={repit} onChange={e => setRepit(e.target.value)} />
                         </Row>
                         <Form.Group as={Row} xs={isPfone ? 2:3} className="m-3 d-flex justify-content-center">
                             <Button variant="primary" type="submit">

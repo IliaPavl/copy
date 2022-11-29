@@ -57,7 +57,7 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
         return number;
     }
     const [showSettings, setShowSettings] = useState(false);
-    const handleShow = () => {console.log(!showSettings); setShowSettings(!showSettings); };
+    const handleShow = () => { console.log(!showSettings); setShowSettings(!showSettings); };
     async function updateProfile() {
         return true;
     }
@@ -106,7 +106,9 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
                     <Offcanvas.Title>Создать нового пользователя</Offcanvas.Title>
                 </Offcanvas.Header>
                 <div className={"scrollTable"}>
-                    <UserProfileEdit isNew={true} update={updateProfile} />
+                    <Offcanvas.Body>
+                        <UserProfileEdit isNew={true} update={updateProfile} />
+                    </Offcanvas.Body>
                 </div>
             </Offcanvas>
         </>
