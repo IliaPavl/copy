@@ -106,7 +106,7 @@ const ListBook = ({ update }) => {
         return true;
     }
     return (
-        <Container>
+        <div>
             <Col >
                 <Button variant="info" className='m-1 ' onClick={() => handleShow()}>Создать</Button>
             </Col>
@@ -119,7 +119,7 @@ const ListBook = ({ update }) => {
                         <UserProfileEdit isNew={true} update={updateProfile} />
                     </Offcanvas.Body>
             </Offcanvas>
-        </Container>
+        </div>
     );
 };
 

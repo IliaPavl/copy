@@ -59,7 +59,7 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
 
     return (
         <>
-            <Container className='mt-2'>
+            <div className='mt-2'>
                 <Col>
                     <Row>
                         {withSearch ?
@@ -90,7 +90,7 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
                         }
                     </Row>
                 </Col>
-            </Container>
+            </div>
         </>
     );
 };
