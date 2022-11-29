@@ -57,58 +57,59 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
         return number;
     }
     const [showSettings, setShowSettings] = useState(false);
-    const handleShow = () => setShowSettings(!showSettings);
+    const handleShow = () => {console.log(!showSettings); setShowSettings(!showSettings); };
     async function updateProfile() {
         return true;
     }
     return (
-        <Container className='mt-2'>
-            <Col>
-                <Row>
-                    {withSearch ?
-                        <Col sm={5}>
-                            <SearchWithButton backSearch={search} />
+        <>
+            <Container className='mt-2'>
+                <Col>
+                    <Row>
+                        {withSearch ?
+                            <Col sm={5}>
+                                <SearchWithButton backSearch={search} />
+                            </Col>
+                            : <></>}
+
+                        <Col sm={3}>
+                            <Row>
+                                {withAdd ?
+                                    <Col >
+                                        <Button variant="info" className='m-1 ' onClick={handleShow}>Создать</Button>
+                                    </Col>
+                                    : <></>}
+
+                                {withCheack ?
+                                    <Col >
+                                        <ButtonsTable uncheck={uncheck} cheackAll={cheackAll} getBox={getBox} />
+                                    </Col>
+                                    : <></>}
+                            </Row>
                         </Col>
-                        : <></>}
-
-                    <Col sm={3}>
-                        <Row>
-                            {withAdd ?
-                                <Col >
-                                    <Button  variant="info" className='m-1 ' onClick={handleShow}>Создать</Button>
-                                </Col>
-                                : <></>}
-
-                            {withCheack ?
-                                <Col >
-                                    <ButtonsTable uncheck={uncheck} cheackAll={cheackAll} getBox={getBox} />
-                                </Col>
-                                : <></>}
-                        </Row>
-                    </Col>
-
-                    <Offcanvas responsive={"xl"} show={showSettings} onHide={handleShow} placement={'end'} className={"offcanvas"}>
-                        <Offcanvas.Header closeButton>
-                            <Offcanvas.Title>Создать нового пользователя</Offcanvas.Title>
-                        </Offcanvas.Header>
-                        <div className={"scrollTable"}>
-                        <UserProfileEdit isNew={true} update={updateProfile} />
-                        </div>
-                    </Offcanvas>
-                </Row>
-                <Row className={'scrollTable'}>
-                    {rows.length ?
-                        <Table variant='table-bordered table-hover' style={{ height: 70 }} className={"scrollTable"}>
-                            <TableHead key={plus()} values={head} sorting={sorting} withCheack={withCheack} />
-                            {rows.map((type) => (
-                                <TableRow key={plus()} value={type} updateData={updateData} withCheack={withCheack} />
-                            ))}
-                        </Table> :
-                        <Loading />
-                    }
-                </Row>
-            </Col>
-        </Container>
+                    </Row>
+                    <Row className={'scrollTable'}>
+                        {rows.length ?
+                            <Table variant='table-bordered table-hover' style={{ height: 70 }} className={"scrollTable"}>
+                                <TableHead key={plus()} values={head} sorting={sorting} withCheack={withCheack} />
+                                {rows.map((type) => (
+                                    <TableRow key={plus()} value={type} updateData={updateData} withCheack={withCheack} />
+                                ))}
+                            </Table> :
+                            <Loading />
+                        }
+                    </Row>
+                </Col>
+            </Container>
+            <Offcanvas responsive={"xl"} show={showSettings} onHide={handleShow} placement={'end'} className={"offcanvas"}>
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title>Создать нового пользователя</Offcanvas.Title>
+                </Offcanvas.Header>
+                <div className={"scrollTable"}>
+                    <UserProfileEdit isNew={true} update={updateProfile} />
+                </div>
+            </Offcanvas>
+        </>
     );
 };
 export default React.memo(TableBootsTrap);
