@@ -15,8 +15,8 @@ export const NEW_PASSWORD = '/newPassword'
 export const ACTIVATION = '/activate'
 export const FORGOT_PASSWPRD = '/forgotPassword'
 
-//export const URL_BASE = 'http://77.74.35.5:30823'
-export const URL_BASE = 'https://localhost:8080'
+export const URL_BASE = 'http://77.74.35.5:30823'
+//export const URL_BASE = 'https://localhost:8080'
 
 
 export const URL_LOGIN = URL_BASE+'/app/login'
