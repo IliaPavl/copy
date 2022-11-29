@@ -37,7 +37,6 @@ const UserProfile = ({ isNew, update }) => {
     async function setAxiosRoleUser() {
 
         UserHttpServise.getRoleUser().then((respons) => {
-            console.log(respons)
             setRole(UserServise.setRoleUser(respons))
         }).catch((error) => { toast.error(error) })
     }
@@ -77,7 +76,8 @@ const UserProfile = ({ isNew, update }) => {
 
     async function getAccessList() {
         UserServise.setUserProfile().then(obj => {
-            obj.data[3].foreach(l => { l.checked = 0 })
+            obj.data[3].map(l => { l.checked = 0 })
+            console.log(obj.data[3])
             setLinks(obj.data[3])
         }).catch((error) => { toast.error(error) })
     }
@@ -112,10 +112,9 @@ const UserProfile = ({ isNew, update }) => {
         setAxiosClients()
         setAxiosStatusUser()
         setAxiosRoleUser()
-        
+        console.log(isNewUser)
         if (!isNewUser)
             setUserInfo()
-
         else
             getAccessList()
         }

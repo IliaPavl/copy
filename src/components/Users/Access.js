@@ -23,8 +23,10 @@ const Access = ({ show, handleClose, links, saveChenge }) => {
 
     let maxValueList = [];
     useEffect(() => {
+        console.log(links)
         if(links!==null)
         if(links.length!==0){
+            
         let maxValue = 0;
         let header = [];
         header.push(title);

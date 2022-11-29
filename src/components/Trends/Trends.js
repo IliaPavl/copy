@@ -86,7 +86,7 @@ const Trends = () => {
                                 </Card>
                             </Container>
                             :
-                            <Card className='m-2 mb-5' key={plus()}>
+                            <Card className='m-2 mb-5 ' key={plus()}>
                                 {firstGroup.monitor.length !== 0 ?
                                     <Card.Header>
                                         {firstGroup.nameMonitor}

@@ -48,15 +48,15 @@ const PfoneGroupTrend = ({ ingroup, reload }) => {
     }, [ingroup])
 
     return (
-        <>
+        <div className='textPfone'> 
             <Accordion defaultActiveKey={group.nameMonitor} className={"cradsGroup  "} >
                 <Accordion.Item eventKey={group.nameMonitor} >
-                    <Accordion.Header>{group.nameMonitor} </Accordion.Header>
+                    <Accordion.Header ><span>{group.nameMonitor}</span> </Accordion.Header>
                     <Accordion.Body className='accessOv accordionItem'>
                         {group.monitor.length === 0 ?
                             <Table variant='table-bordered table-hover' style={{ height: 70 }} className={"scrollTable"} >
                                 <thead className="thead-dark">
-                                    <tr>
+                                    <tr >
                                         <th >
                                             <div className='tablePfoneName'>
                                                 Название
@@ -81,7 +81,7 @@ const PfoneGroupTrend = ({ ingroup, reload }) => {
                                         </th>
                                         <th>
                                             <div className='tablePfoneUnits'>
-                                                ед
+                                                Ед.изм.
                                             </div>
                                         </th>
                                     </tr>
@@ -134,7 +134,7 @@ const PfoneGroupTrend = ({ ingroup, reload }) => {
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
-        </>
+        </div>
     );
 };
 
