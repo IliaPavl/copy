@@ -20,7 +20,8 @@
     width: 100px;
     height: 40px;
     padding: 5px;
-    margin: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     margin-left: 20px;
     text-align: start;
 }
@@ -34,6 +35,13 @@
 }
 .userListContainer{
     margin: 20px 60px 50px 60px;
+}
+.userListPfone{
+    margin: 10px;
+}
+.userListModal{
+    margin: 0;
+    padding: 0;
 }
 .containerSecondAdd_ch {
     padding: 0;

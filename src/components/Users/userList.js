@@ -1,12 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Button, Col, Container, Offcanvas } from 'react-bootstrap';
+import { Button, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ClientServise from '../../servise/funtionService/ClientServise';
 import UserServise from '../../servise/funtionService/UserServise';
 import ClientHttpServise from '../../servise/httpServise/ClientHttpServise';
 import TableBootsTrap from "../UI/BootstratTable/TableBootsTrap";
-import UserProfileEdit from './UserProfileEdit';
 import "./profile.css";
 
 
@@ -75,6 +74,10 @@ const ListBook = ({ update }) => {
 
     useEffect(() => {
         setTableUsers()
+        if (window.innerWidth < 900)
+            setIsPfone(true)
+        else
+            setIsPfone(false)
     }, []);
 
     async function deleteUsers(box) {
@@ -102,25 +105,21 @@ const ListBook = ({ update }) => {
     useEffect(() => {
     }, [sortV]);
     const [showSettings, setShowSettings] = useState(false);
-    const handleShow = () => {  setShowSettings(!showSettings) };
+    const handleShow = () => { setShowSettings(!showSettings) };
     async function updateProfile() {
         console.log("new")
         return true;
     }
+    let [isPfone, setIsPfone] = useState(false)
+    window.onresize = function (event) {
+        if (event.target.innerWidth < 900)
+            setIsPfone(true)
+        else
+            setIsPfone(false)
+    };
     return (
-        <div className='userListContainer'>
-            <Col >
-                <Button variant="info" className='m-1 ' onClick={() => handleShow()}>Создать</Button>
-            </Col>
+        <div className={isPfone ? "userListPfone" : 'userListContainer'}>
             <TableBootsTrap withCheack={true} withSearch={true} setBox={deleteUsers} head={headerTable} rows={rowsTable} switchData={switchData} sorting={sorting} search={search} add={true} />
-            <Offcanvas responsive={"xl"} show={showSettings} onHide={handleShow} placement={'end'} className={"offcanvas"}>
-                <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Создать нового пользователя</Offcanvas.Title>
-                </Offcanvas.Header>
-                    <Offcanvas.Body>
-                        <UserProfileEdit isNew={true} update={updateProfile} />
-                    </Offcanvas.Body>
-            </Offcanvas>
         </div>
     );
 };

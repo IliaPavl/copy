@@ -155,7 +155,7 @@ const UserProfile = ({ isNew, update }) => {
             setIsPfone(false)
     };
     return (
-        <Container className='mt-5 d-flex justify-content-center align-items-center'>
+        <div className='d-flex justify-content-center align-items-center'>
             <Card className={"border-1 m-1 cardContainer "} >
                 <Card.Header>
                     <div style={{ float: "left" }}>
@@ -212,7 +212,7 @@ const UserProfile = ({ isNew, update }) => {
                     </Form>
                 </Card.Body>
             </Card>
-        </Container>
+        </div>
     );
 };
 

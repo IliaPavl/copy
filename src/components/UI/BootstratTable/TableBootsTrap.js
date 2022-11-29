@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, Offcanvas, Row, Table } from 'react-bootstrap';
+import { Button, Col, Container, Modal, Offcanvas, Row, Table } from 'react-bootstrap';
 import UserProfileEdit from '../../Users/UserProfileEdit';
 import '../CSS/componentCss.css';
 import Loading from '../Loader/Loading';
@@ -56,10 +56,17 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
         number++;
         return number;
     }
-
+    const [showSettings, setShowSettings] = useState(false);
+    const handleShow = () => { console.log(!showSettings); setShowSettings(!showSettings); };
+    useEffect(()=>{
+        console.log(showSettings);
+    },[showSettings])
+    async function updateProfile() {
+        return true;
+    }
     return (
         <>
-            <div className='mt-2'>
+            <Container className='mt-2'>
                 <Col>
                     <Row>
                         {withSearch ?
@@ -70,6 +77,12 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
 
                         <Col sm={3}>
                             <Row>
+                                {withAdd ?
+                                    <Col >
+                                        <Button variant="info" className='m-1 ' onClick={handleShow}>Создать</Button>
+                                    </Col>
+                                    : <></>}
+
                                 {withCheack ?
                                     <Col >
                                         <ButtonsTable uncheck={uncheck} cheackAll={cheackAll} getBox={getBox} />
@@ -83,13 +96,23 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
                             <Table variant='table-bordered table-hover' style={{ height: 70 }} className={"scrollTable"}>
                                 <TableHead key={plus()} values={head} sorting={sorting} withCheack={withCheack} />
                                 {rows.map((type) => (
-                                    <TableRow key={plus()} value={type} updateData={updateData} withCheack={withCheack} />
+                                    <TableRow key={"fgh"} value={type} updateData={updateData} withCheack={withCheack} />
                                 ))}
                             </Table> :
                             <Loading />
                         }
                     </Row>
                 </Col>
+            </Container>
+            <div className='userListModal'>
+                <Modal show={showSettings} onHide={handleShow} className='userListModal'>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Создать нового пользователя</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className='userListModal'>
+                        <UserProfileEdit isNew={true} update={updateProfile} />
+                    </Modal.Body>
+                </Modal>
             </div>
         </>
     );
