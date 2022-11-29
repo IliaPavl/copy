@@ -32,6 +32,9 @@
     width: 180px;
     margin-bottom: 5px;
 }
+.userListContainer{
+    margin: 20px 60px 50px 60px;
+}
 .containerSecondAdd_ch {
     padding: 0;
     margin: 0;
