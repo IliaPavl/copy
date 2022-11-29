@@ -6,9 +6,9 @@ const SearchLable = ({backSearch}) => {
         <Form className="d-flex ml-auto m-1">
             <FormControl
                 type="search"
-                placeholder="Search"
+                placeholder="Найти"
                 className="me-2"
-                aria-label="Search"
+                aria-label="Найти"
                 onChange={e => backSearch(e.target.value)}
             />
         </Form>

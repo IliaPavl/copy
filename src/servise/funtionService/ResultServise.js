@@ -10,8 +10,7 @@ class ResultServise {
     setRows(data){
         var rows = [];
         data.tableData.forEach(element => {
-            console.log(element);
-            rows.push({Результат_показателя: element.dateCreate, Дата_расчета: element.parseDate})
+            rows.push({Результат_показателя: element.dateSumma, Дата_расчета: element.parseDate})
         });
         return rows;
     }
