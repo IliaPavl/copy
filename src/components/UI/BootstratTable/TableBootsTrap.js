@@ -91,7 +91,9 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
                         <Offcanvas.Header closeButton>
                             <Offcanvas.Title>Создать нового пользователя</Offcanvas.Title>
                         </Offcanvas.Header>
+                        <div className={"scrollTable"}>
                         <UserProfileEdit isNew={true} update={updateProfile} />
+                        </div>
                     </Offcanvas>
                 </Row>
                 <Row className={'scrollTable'}>

@@ -77,7 +77,6 @@ const UserProfile = ({ isNew, update }) => {
     async function getAccessList() {
         UserServise.setUserProfile().then(obj => {
             obj.data[3].map(l => { l.checked = 0 })
-            console.log(obj.data[3])
             setLinks(obj.data[3])
         }).catch((error) => { toast.error(error) })
     }
@@ -112,12 +111,15 @@ const UserProfile = ({ isNew, update }) => {
         setAxiosClients()
         setAxiosStatusUser()
         setAxiosRoleUser()
-        console.log(isNewUser)
         if (!isNewUser)
             setUserInfo()
         else
             getAccessList()
         }
+        if (window.innerWidth < 900)
+            setIsPfone(true)
+        else
+            setIsPfone(false)
     }, [])
 
     useEffect(() => {
@@ -145,7 +147,13 @@ const UserProfile = ({ isNew, update }) => {
     async function saveChenge(links) {
         setLinks(links)
     }
-
+    let [isPfone, setIsPfone] = useState(false)
+    window.onresize = function (event) {
+        if (event.target.innerWidth < 900)
+            setIsPfone(true)
+        else
+            setIsPfone(false)
+    };
     return (
         <Container className='mt-5 d-flex justify-content-center align-items-center'>
             <Card className={"border-1 m-1 cardContainer "} >
@@ -158,45 +166,45 @@ const UserProfile = ({ isNew, update }) => {
                     <Form onSubmit={event => { submitForm(event) }}>
                         <Row >
                             <div className='containerFirstEdit'>Логин:</div>
-                            <Form.Control className='containerSecondEdit' type="text" placeholder="Введите логин" value={login} onChange={e => setLogin(e.target.value)} />
+                            <Form.Control className={isPfone ? 'containerSecondAdd':'containerSecondEdit'}  type="text" placeholder="Введите логин" value={login} onChange={e => setLogin(e.target.value)} />
                         </Row>
                         <Row className='mt-2'>
                             <div className='containerFirstEdit'>ФИО:</div>
-                            <Form.Control className='containerSecondEdit' type="text" placeholder="Введите фио " value={fioUser} onChange={e => setFio(e.target.value)} />
+                            <Form.Control className={isPfone ? 'containerSecondAdd':'containerSecondEdit'} type="text" placeholder="Введите фио " value={fioUser} onChange={e => setFio(e.target.value)} />
                         </Row>
                         <Row className='mt-2'>
                             <div className='containerFirstEdit'>Почта:</div>
-                            <Form.Control className='containerSecondEdit' type="email" placeholder="Введите почту" value={email} onChange={e => setEmail(e.target.value)} />
+                            <Form.Control className={isPfone ? 'containerSecondAdd':'containerSecondEdit'} type="email" placeholder="Введите почту" value={email} onChange={e => setEmail(e.target.value)} />
                         </Row>
                         <Row className='mt-2'>
                             <div className='containerFirstEdit'>Роль:</div>
-                            <div className='containerSecondEdit_ch'>
+                            <div className={isPfone ? 'containerSecondAdd_ch':'containerSecondEdit_ch'}>
                                 <DropDownOutSucses values={role} setEnabledStatus={setRoleUser} enabledStatus={roleE} />
                             </div>
                         </Row>
                         {!isNew ? <Row className='mt-2'>
                             <div className='containerFirstEdit'>Статус:</div>
-                            <div className='containerSecondEdit_ch'>
+                            <div className={isPfone ? 'containerSecondAdd_ch':'containerSecondEdit_ch'}>
                                 <DropDownOutSucses values={status} setEnabledStatus={setStatusE} enabledStatus={statusE} />
                             </div>
                         </Row> : <></>}
 
                         <Row className='mt-2'>
                             <div className='containerFirstEdit'>Показатели:</div>
-                            <Button variant="outline-primary containerSecondEdit_b" onClick={handleShow}>
+                            <Button variant={isPfone ? "outline-primary containerSecondAdd_b":"outline-primary containerSecondEdit_b"} onClick={handleShow}>
                                 Показатели
                             </Button>
                             <Access show={showAccess} handleClose={handleClose} links={links} saveChenge={saveChenge} />
                         </Row>
                         <Row className='mt-2'>
                             <div className='containerFirstEdit'>Пароль:</div>
-                            <Form.Control className='containerSecondEdit' type="password" placeholder="Введите пароль" value={password} onChange={e => setPassword(e.target.value)} />
+                            <Form.Control className={isPfone ? 'containerSecondAdd':'containerSecondEdit'} type="password" placeholder="Введите пароль" value={password} onChange={e => setPassword(e.target.value)} />
                         </Row>
                         <Row className='mt-2'>
                             <div className='containerFirstEdit'>Повторите:</div>
-                            <Form.Control className='containerSecondEdit' type="password" placeholder="Повторите пароль" value={repit} onChange={e => setRepit(e.target.value)} />
+                            <Form.Control className={isPfone ? 'containerSecondAdd':'containerSecondEdit'} type="password" placeholder="Повторите пароль" value={repit} onChange={e => setRepit(e.target.value)} />
                         </Row>
-                        <Form.Group as={Row} xs={3} className="m-3 d-flex justify-content-center">
+                        <Form.Group as={Row} xs={isPfone ? 2:3} className="m-3 d-flex justify-content-center">
                             <Button variant="primary" type="submit">
                                 Сохранить
                             </Button>

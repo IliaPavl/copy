@@ -32,7 +32,7 @@ const ListBook = ({ update }) => {
 
     async function setTableUsers() {
         setHeaderTable(UserServise.setHeadUsers())
-        UserServise.setRowsUsers().then(res => {console.log(res); setRowsTable(res);})
+        UserServise.setRowsUsers().then(res => { setRowsTable(res);})
     }
 
     async function setTableClients() {

@@ -18,13 +18,12 @@ const PfoneGroupTrend = ({ ingroup, reload }) => {
 
     function plus() { number++; return number; }
     const goToLink = (link) => navigate(INDICATOR_RESULT + "/" + link)
-    async function s(links) {console.log("click"); handleShow(); setData(links); }
+    async function s(links) { handleShow(); setData(links); }
     const handleShow = () => setShowAccess(true);
     const handl = () => { setShowAccess(!showAccess) };
 
     async function saveChenge(links, redRange, greenRange, planRange, periodEnable, typeChart, idIndicator) {
         const settings = { links: links, redRange: redRange, greenRange: greenRange, planRange: planRange, periodEnable: periodEnable, typeChart: typeChart, idIndicator: idIndicator };
-        console.log(settings)
         toast.promise(
             ResultHttpServise.changeSettins(settings).then((respons) => {
                 reload();

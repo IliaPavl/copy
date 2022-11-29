@@ -49,7 +49,6 @@ class UserServise {
 
     async bars(url) {
         return this.getBarComponents(url).then((obj) => {
-            console.log(obj)
             return ({ linkMonitors: obj,  isAdmin: true });
         })
 

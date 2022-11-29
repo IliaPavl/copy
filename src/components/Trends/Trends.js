@@ -9,7 +9,7 @@ const Trends = () => {
     let [cards, setcards] = useState([]);
     useEffect(() => {
 
-        UserServise.trends().then((data) => { console.log(data); setcards(data) })
+        UserServise.trends().then((data) => {  setcards(data) })
         if (window.innerWidth < 1000)
             setIsPfone(true)
         else
@@ -19,7 +19,7 @@ const Trends = () => {
         if(cards!==null)
         cards.map(firstGroup => {
             if (firstGroup.monitor.length !== 0 && firstGroup.linkMonitor.length !== 0) {
-                console.log(cards)
+                
             }
         }
         )
@@ -32,7 +32,7 @@ const Trends = () => {
         return number;
     }
     async function reload() {
-        UserServise.trends().then((data) => {console.log(data); setcards(data) })
+        UserServise.trends().then((data) => { setcards(data) })
 
     }
 

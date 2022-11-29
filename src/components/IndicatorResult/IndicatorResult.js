@@ -217,7 +217,6 @@ const IndicatorResult = () => {
         //__________________________________________________________________________    
         if (LocalServise.getUserName() !== "error")
             UserServise.bars(u).then((data) => {
-                console.log(data);
                 if (data.isAdmin) {
                     let dataL = data.linkMonitors;
                     for (let i in dataL) {
@@ -225,7 +224,6 @@ const IndicatorResult = () => {
                             ResultHttpServise.getIndicatorSettings(dataL[i].idResult).then((data2) => {
                                 setTypeChart(data2.data.diagType_ID);
                                 types.forEach(type => {
-                                    console.log(type.id + "|" + data2.data.diagType_ID)
                                     if (type.id === data2.data.diagType_ID)
                                         setEnableType(type.item);
                                 })

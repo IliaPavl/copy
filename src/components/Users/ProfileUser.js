@@ -32,7 +32,6 @@ const ProfileUser = () => {
 
     useEffect(() => {
         UserServise.setUserProfile().then(obj => {
-            console.log(obj);
             setSompany(obj.data[1])
             setAgents(obj.data[0]);
             setUserInfo(obj.data[2]);
@@ -61,7 +60,7 @@ const ProfileUser = () => {
             {isPfone ?
                 <Card border="secondary" >
                     <Card.Header>
-                        <span>Профиль пользователя</span>
+                        <span>Профиль </span>
                     </Card.Header>
                     <Accordion>
                         <Accordion.Item eventKey="0">
@@ -78,7 +77,7 @@ const ProfileUser = () => {
                                             <div className='containerFirst'>Статус: </div><div className='containerSecond'>{company.status}</div>
                                         </Row>
                                         <Row>
-                                            <div className='containerFirst'>YHП: </div><div className='containerSecond'>{company.ynp}</div>
+                                            <div className='containerFirst'>УНП: </div><div className='containerSecond'>{company.ynp}</div>
                                         </Row>
                                         <Row>
                                             <div className='containerFirst'>ID: </div> <div className='containerSecondPfone '>{company.idClient}</div>
@@ -135,7 +134,9 @@ const ProfileUser = () => {
                                 </Row>
                                 <Row className="mb-3">
                                     <div className='containerFirst'> Пароль</div>
-                                    <div className='containerSecond '><Link to={FORGOT_PASSWPRD}>Новый пароль</Link> </div>
+                                    <Button variant="outline-primary  containerSecond_b">
+                                                <Link className='textLink' to={FORGOT_PASSWPRD}>Новый пароль</Link>
+                                    </Button>
                                 </Row>
                             </Accordion.Body>
                         </Accordion.Item>

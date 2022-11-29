@@ -28,6 +28,24 @@
     width: 250px;
     margin-bottom: 5px;
 }
+.containerSecondAdd{
+    width: 180px;
+    margin-bottom: 5px;
+}
+.containerSecondAdd_ch {
+    padding: 0;
+    margin: 0;
+    margin-top: 5px;
+    width: 180px;
+}
+.containerSecondAdd_b {
+    padding: 0;
+    margin: 0;
+    margin-left: 0px;
+    margin-top: 5px;
+    height: 38px;
+    width: 180px;
+}
 .containerSecondEdit_ch {
     padding: 0;
     margin: 0;

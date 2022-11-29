@@ -14,7 +14,6 @@ class PageServise {
             window.location.assign(url)
         } else {
             let href = LocalServise.getLastPage();
-            console.log(href)
             if (href === null)
                 window.location.assign(HOME_PAGE)
             else
