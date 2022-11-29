@@ -25,7 +25,6 @@ const Access = ({ show, handleClose, links, saveChenge }) => {
     useEffect(() => {
         if(links!==null)
         if(links.length!==0){
-            
         let maxValue = 0;
         let header = [];
         header.push(title);
