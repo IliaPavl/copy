@@ -8,15 +8,15 @@ const ButtonsTable = ({ uncheck, cheackAll, getBox }) => {
         // <Button className="m-1 radius" onClick={() => cheackAll()}>cheackAll</Button>
         if ('/' + url[1] === INDICATOR_RESULT) {
             return(
-                <div></div>
+                <></>
             )
 
         } else {
 
                 return (
-                    <div>
+                    
                         <Button variant="danger" className='m-1 ' onClick={event => getBox(event)}>Удалить</Button>
-                    </div>
+                    
                 );
             
         }

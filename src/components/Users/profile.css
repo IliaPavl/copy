@@ -16,6 +16,9 @@
 .cardContainer{
     width: 410px;
 }
+.cardContainerPfone{
+    width: 338px;
+}
 .containerFirstEdit {
     width: 100px;
     height: 40px;

@@ -1,29 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, FloatingLabel, Form, InputGroup, ListGroup, Modal, Row, Table } from 'react-bootstrap';
+import { Button, Col, Container, Form, InputGroup, ListGroup, Modal, Row, Table } from 'react-bootstrap';
 import { AiOutlineAreaChart, AiOutlineBarChart, AiOutlineDotChart, AiOutlineLineChart } from "react-icons/ai";
-import MultiRangeSlider from "../UI/Range/multirangeslider";
-import { RiArrowRightUpLine } from "react-icons/ri";
-import ResultHttpServise from '../../servise/httpServise/ResultHttpServise';
 import { toast } from 'react-toastify';
+import ResultHttpServise from '../../servise/httpServise/ResultHttpServise';
 
 
 
 const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
-    let red = 0;
-    let green = 100;
-
+    let [redPlan, setRedPlan] = useState(0);
+    let [greenPlan, setGreenPlan] = useState(0);
     let [l, setL] = useState([]);
     let [planRange, setPlan] = useState(data.indPlan)
-    const [minValue, set_minValue] = useState();
-    const [maxValue, set_maxValue] = useState();
+    let [minValue, set_minValue] = useState();
+    let [maxValue, set_maxValue] = useState();
     let [periodEnable, setPeriodEnable] = useState("Month")
     //let [listPeriod, setListPeriod] = useState([ { id: 1, title: "Day" }, { id: 2, title: "Week" }, { id: 4, title: "Quarter" },{ id: 3, title: "Month" }, { id: 5, title: "Year" }])
     let [listPeriod, setListPeriod] = useState([{ id: 3, title: "Month" }])
     let [typeChart, setTypeChart] = useState(data.typeChart)
 
     async function click() {
+        if(!warning){
         saveChenge(l, minValue, maxValue, planRange, periodEnable, typeChart, data.idResult);
         handleClose();
+        } else{
+            toast.warning("Проверьте введённые вами данные");
+        }
     }
     let number = 1;
 
@@ -45,11 +46,13 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
         else
             return true;
     }
-    
+
 
     useEffect(() => {
         if (show === true) {
             ResultHttpServise.getIndicatorSettings(data.idResult).then((data2) => {
+                setRedPlan(data2.data.indPlan / 100 * data2.data.percentRed);
+                setGreenPlan(data2.data.indPlan / 100 * data2.data.percentGreen);
                 set_minValue(data2.data.percentRed);
                 set_maxValue(data2.data.percentGreen);
                 setPlan(data2.data.indPlan);
@@ -67,12 +70,32 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
             setL([]);
         }
     }, [show])
-    const [min, setMin] = useState(0);
-    const [max, setMax] = useState(100);
-    const handleInput = (e) => {
-        set_minValue(e.minValue);
-        set_maxValue(e.maxValue);
-    };
+    let [warning,setWarning] =useState(false);
+    async function setMin(value) {
+        if (value !== null)
+            if (value < 0)
+                {toast.warning("Красная граница не может быть меньше 0");setWarning(true);}
+            else if (value > 100)
+                {toast.warning("Красная граница не может быть больше 100");setWarning(true);}
+            else if (value > maxValue)
+                {toast.warning("Красная граница не может быть больше зелёной");setWarning(true);}
+            else if (maxValue - value < 20)
+                {toast.warning("Между зелёной границей и красной должно быть минимум 20%");setWarning(true);}
+            else { setMin(value); setRedPlan(planRange / 100 * value);setWarning(false); }
+    }
+    async function setMax(value) {
+        if (value !== null)
+            if (value < 0)
+                {toast.warning("Зелёная граница не может быть меньше 0");setWarning(true);}
+            else if (value < minValue)
+                {toast.warning("Зелёная граница не может быть меньше красной");setWarning(true);}
+            else if (value - minValue < 20)
+                {toast.warning("Между зелёной границей и красной должно быть минимум 20%");setWarning(true);}
+            else if (value > 100)
+                {toast.warning("Зелёная граница не может быть больше 100");setWarning(true);}
+            else { setMax(value); setGreenPlan(planRange / 100 * value);setWarning(false); }
+    }
+
     return (
         <Modal show={show} onHide={() => handleClose()} >
             <Modal.Header closeButton>
@@ -85,42 +108,33 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                             <ListGroup.Item key={data.idResult + "3"} className={'accordionItem'} >
                                 <span><h5>Границы статуса</h5></span>
                                 <ListGroup>
-                                    <ListGroup.Item className='containerSlider listBorderNone'>
-                                        <div className='mt-3'>
-                                            {minValue !== null ?
-                                                <MultiRangeSlider
-                                                    min={min}
-                                                    max={max}
-                                                    ruler={false}
-                                                    barLeftColor='red'
-                                                    step={1}
-                                                    barRightColor='green'
-                                                    barInnerColor='yellow'
-                                                    minValue={minValue}
-                                                    maxValue={maxValue}
-                                                    onInput={(e) => {
-                                                        handleInput(e);
-                                                    }}
-                                                /> :
-                                                <MultiRangeSlider
-                                                    min={0}
-                                                    max={100}
-                                                    ruler={false}
-                                                    barLeftColor='red'
-                                                    step={1}
-                                                    barRightColor='green'
-                                                    barInnerColor='yellow'
-                                                    minValue={0}
-                                                    maxValue={100}
-                                                    onInput={(e) => {
-                                                        handleInput(e);
-                                                    }}
-                                                />}
-
-                                        </div>
-                                    </ListGroup.Item>
-                                    <ListGroup.Item className='accordionItem listBorderNone'>
+                                    <ListGroup.Item className='accordionItem listBorderNone mb-2'>
                                         <InputGroup >
+                                            <InputGroup.Text className={"withP"}>Красная граница % :  </InputGroup.Text>
+                                            <Form.Control
+                                                placeholder=""
+                                                aria-describedby="basic-addon1"
+                                                defaultValue={minValue}
+                                                className={'modalRed'}
+                                                onChange={(e) => { setMin(e.target.value) }}
+                                            />
+                                            <InputGroup.Text className='modalLastTextSecond'>{redPlan}</InputGroup.Text>
+                                        </InputGroup>
+                                        <InputGroup >
+                                            <InputGroup.Text className={"withP"}>Зелёная граница % :  </InputGroup.Text>
+                                            <Form.Control
+                                                placeholder=""
+                                                aria-describedby="basic-addon1"
+                                                defaultValue={maxValue}
+                                                className={'modalGreen'}
+                                                onChange={(e) => { setMax(e.target.value) }}
+                                            />
+                                            <InputGroup.Text className='modalLastTextSecond'>{greenPlan}</InputGroup.Text>
+                                        </InputGroup>
+                                    </ListGroup.Item>
+
+                                    <ListGroup.Item className='accordionItem listBorderNone'>
+                                        <InputGroup className='mb-2'>
                                             <InputGroup.Text className={"withP"}>План показателя :  </InputGroup.Text>
                                             <Form.Control
                                                 placeholder=""
@@ -129,14 +143,13 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                                                 value={planRange}
                                                 onChange={(e) => { setPlan(e.target.value) }}
                                             />
-                                            <InputGroup.Text>{data.typeResult}</InputGroup.Text>
+                                            <InputGroup.Text className='modalLastTextSecond'>{data.typeResult}</InputGroup.Text>
                                         </InputGroup>
                                         <InputGroup className='mb-3'>
-                                            <InputGroup.Text className={"withP"}>Переуд :</InputGroup.Text>
+                                            <InputGroup.Text className={"withP"}>Период :</InputGroup.Text>
                                             <Form.Select aria-label="Floating label select example" onChange={(e) => setPeriodEnable(e.target.value)}>
                                                 {listPeriod.map(period => <option value={period.id}>{period.title} </option>)}
                                             </Form.Select>
-
                                         </InputGroup>
                                     </ListGroup.Item>
                                 </ListGroup>

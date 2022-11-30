@@ -10,9 +10,18 @@
 .delBsgutter{
     --bs-gutter-x:1.0rem;
 }
+.modalGreen{
+    color: green;
+}
+.modalRed{
+    color: red;
+}
+.modalLastTextSecond{
+    width: 70px;
+}
 
 .withP{
-    width: 150px;
+    width: 165px;
 }
 
 .accessOv {

@@ -156,7 +156,7 @@ const UserProfile = ({ isNew, update }) => {
     };
     return (
         <div className='d-flex justify-content-center align-items-center'>
-            <Card className={"border-1 m-1 cardContainer "} >
+            <Card className={isPfone ?"border-1 m-1 cardContainerPfone ":"border-1 m-1 cardContainer "} >
                 <Card.Header>
                     <div style={{ float: "left" }}>
                         Подтвердить изменения пользователя
@@ -204,7 +204,7 @@ const UserProfile = ({ isNew, update }) => {
                             <div className='containerFirstEdit'>Повторите:</div>
                             <Form.Control className={isPfone ? 'containerSecondAdd':'containerSecondEdit'} type="password" name="passwordRepit" autocomplete="new-password" placeholder="Повторите пароль" value={repit} onChange={e => setRepit(e.target.value)} />
                         </Row>
-                        <Form.Group as={Row} xs={isPfone ? 2:3} className="m-3 d-flex justify-content-center">
+                        <Form.Group as={Row} xs={isPfone ? 2:3} className="m-3 d-flex justify-content-end">
                             <Button variant="primary" type="submit">
                                 Сохранить
                             </Button>

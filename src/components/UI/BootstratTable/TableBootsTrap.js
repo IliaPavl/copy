@@ -58,9 +58,9 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
     }
     const [showSettings, setShowSettings] = useState(false);
     const handleShow = () => { console.log(!showSettings); setShowSettings(!showSettings); };
-    useEffect(()=>{
+    useEffect(() => {
         console.log(showSettings);
-    },[showSettings])
+    }, [showSettings])
     async function updateProfile() {
         return true;
     }
@@ -74,22 +74,6 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
                                 <SearchWithButton backSearch={search} />
                             </Col>
                             : <></>}
-
-                        <Col sm={3}>
-                            <Row>
-                                {withAdd ?
-                                    <Col >
-                                        <Button variant="info" className='m-1 ' onClick={handleShow}>Создать</Button>
-                                    </Col>
-                                    : <></>}
-
-                                {withCheack ?
-                                    <Col >
-                                        <ButtonsTable uncheck={uncheck} cheackAll={cheackAll} getBox={getBox} />
-                                    </Col>
-                                    : <></>}
-                            </Row>
-                        </Col>
                     </Row>
                     <Row className={'scrollTable'}>
                         {rows.length ?
@@ -102,6 +86,17 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
                             <Loading />
                         }
                     </Row>
+                    <Col>
+
+                        {withAdd ?
+                            <Button variant="info" className='m-1 ' onClick={handleShow}>Создать</Button>
+                            : <></>}
+
+                        {withCheack ?
+                            <ButtonsTable uncheck={uncheck} cheackAll={cheackAll} getBox={getBox} />
+                            : <></>}
+
+                    </Col>
                 </Col>
             </Container>
             <div className='userListModal'>
