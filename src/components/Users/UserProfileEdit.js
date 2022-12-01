@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Container, Form, Row } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import InputPatternService from '../../servise/funtionService/InputPatternService';
 import UserServise from '../../servise/funtionService/UserServise';
 import UserHttpServise from '../../servise/httpServise/UserHttpServise';
 import { URL_EDIT_USER, URL_NEW_USER } from '../../utils/const';
@@ -47,6 +48,37 @@ const UserProfile = ({ isNew, update }) => {
     let [password, setPassword] = useState('')
     let [repit, setRepit] = useState('')
 
+    let [errorlogin, setErrorlogin] = useState('');
+    let [errorPass, setErrorPass] = useState('');
+    let [errorEmail, setErrorEmail] = useState('');
+
+
+    function isLogin(value) {
+        setErrorlogin(InputPatternService.loginInput(value));
+        setLogin(value);
+    }
+
+    function isPass(value) {
+        if (isNewUser) {
+            if (value === '' || value === null)
+                setErrorPass('')
+            else
+                setErrorPass(InputPatternService.passwordInput(value));
+        }
+        else
+            setErrorPass(InputPatternService.passwordInput(value));
+        setPassword(value);
+    }
+
+    function isRepit(value) {
+        setRepit(value);
+    }
+
+    function isEmail(value) {
+        setErrorEmail(InputPatternService.emailInput(value));
+        setEmail(value);
+    }
+
 
     const [showAccess, setShowAccess] = useState(false);
 
@@ -83,9 +115,10 @@ const UserProfile = ({ isNew, update }) => {
 
     async function submitForm(event) {
         event.preventDefault()
-        if (password !== repit) {
+        console.log(repit + "|" + password)
+        if (password !== repit)
             toast.error("Пароли не совпадают !")
-        } else {
+        else if (errorlogin === '' && errorPass === '' && errorlogin === '') {
             let url = window.location.pathname.split('/');
             if (!isNewUser)
                 toast.promise(
@@ -100,6 +133,7 @@ const UserProfile = ({ isNew, update }) => {
                     }).catch((error) => { toast.error(error) }), { pending: "Please wait... ", })
             }
         }
+        else toast.warning("Проверьте введённые вами данные");
     }
 
     useEffect(() => {
@@ -107,14 +141,18 @@ const UserProfile = ({ isNew, update }) => {
     }, [links])
 
     useEffect(() => {
-        if(isNewUser!== null){
-        setAxiosClients()
-        setAxiosStatusUser()
-        setAxiosRoleUser()
-        if (!isNewUser)
-            setUserInfo()
-        else
-            getAccessList()
+        if (isNewUser !== null) {
+            setAxiosClients()
+            setAxiosStatusUser()
+            setAxiosRoleUser()
+            if (!isNewUser)
+                setUserInfo()
+            else {
+                getAccessList();
+                isLogin('');
+                isEmail('');
+            }
+
         }
         if (window.innerWidth < 900)
             setIsPfone(true)
@@ -156,7 +194,7 @@ const UserProfile = ({ isNew, update }) => {
     };
     return (
         <div className='d-flex justify-content-center align-items-center'>
-            <Card className={isPfone ?"border-1 m-1 cardContainerPfone ":"border-1 m-1 cardContainer "} >
+            <Card className={isPfone ? "border-1 m-1 cardContainerPfone " : "border-1 m-1 cardContainer "} >
                 <Card.Header>
                     <div style={{ float: "left" }}>
                         Подтвердить изменения пользователя
@@ -166,45 +204,54 @@ const UserProfile = ({ isNew, update }) => {
                     <Form onSubmit={event => { submitForm(event) }}>
                         <Row >
                             <div className='containerFirstEdit'>Логин:</div>
-                            <Form.Control className={isPfone ? 'containerSecondAdd':'containerSecondEdit'}  type="text" placeholder="Введите логин" value={login} onChange={e => setLogin(e.target.value)} />
+                            <Form.Control className={isPfone ? 'containerSecondAdd' : 'containerSecondEdit'} type="text" placeholder="Введите логин" defaultValue={login} onChange={e => isLogin(e.target.value)} />
+                            {errorlogin === '' ? <></> : <Form.Text muted>
+                                <span className='textError'>{errorlogin}</span>
+                            </Form.Text>}
                         </Row>
                         <Row className='mt-2'>
                             <div className='containerFirstEdit'>ФИО:</div>
-                            <Form.Control className={isPfone ? 'containerSecondAdd':'containerSecondEdit'} type="text" placeholder="Введите фио " value={fioUser} onChange={e => setFio(e.target.value)} />
+                            <Form.Control className={isPfone ? 'containerSecondAdd' : 'containerSecondEdit'} type="text" placeholder="Введите фио " value={fioUser} onChange={e => setFio(e.target.value)} />
                         </Row>
                         <Row className='mt-2'>
                             <div className='containerFirstEdit'>Почта:</div>
-                            <Form.Control className={isPfone ? 'containerSecondAdd':'containerSecondEdit'} type="email" autocomplete="username email" placeholder="Введите почту" value={email} onChange={e => setEmail(e.target.value)} />
+                            <Form.Control className={isPfone ? 'containerSecondAdd' : 'containerSecondEdit'} type="email" placeholder="Введите почту" value={email} onChange={e => isEmail(e.target.value)} />
+                            {errorEmail === '' ? <></> : <Form.Text muted>
+                                <span className='textError'>{errorEmail}</span>
+                            </Form.Text>}
                         </Row>
                         <Row className='mt-2'>
                             <div className='containerFirstEdit'>Роль:</div>
-                            <div className={isPfone ? 'containerSecondAdd_ch':'containerSecondEdit_ch'}>
+                            <div className={isPfone ? 'containerSecondAdd_ch' : 'containerSecondEdit_ch'}>
                                 <DropDownOutSucses values={role} setEnabledStatus={setRoleUser} enabledStatus={roleE} />
                             </div>
                         </Row>
                         {!isNew ? <Row className='mt-2'>
                             <div className='containerFirstEdit'>Статус:</div>
-                            <div className={isPfone ? 'containerSecondAdd_ch':'containerSecondEdit_ch'}>
+                            <div className={isPfone ? 'containerSecondAdd_ch' : 'containerSecondEdit_ch'}>
                                 <DropDownOutSucses values={status} setEnabledStatus={setStatusE} enabledStatus={statusE} />
                             </div>
                         </Row> : <></>}
 
                         <Row className='mt-2'>
                             <div className='containerFirstEdit'>Показатели:</div>
-                            <Button variant={isPfone ? "outline-primary containerSecondAdd_b":"outline-primary containerSecondEdit_b"} onClick={handleShow}>
+                            <Button variant={isPfone ? "outline-primary containerSecondAdd_b" : "outline-primary containerSecondEdit_b"} onClick={handleShow}>
                                 Показатели
                             </Button>
                             <Access show={showAccess} handleClose={handleClose} links={links} saveChenge={saveChenge} />
                         </Row>
                         <Row className='mt-2'>
                             <div className='containerFirstEdit'>Пароль:</div>
-                            <Form.Control className={isPfone ? 'containerSecondAdd':'containerSecondEdit'} type="password" name="password" autocomplete="new-password" placeholder="Введите пароль" value={password} onChange={e => setPassword(e.target.value)} />
+                            <Form.Control className={isPfone ? 'containerSecondAdd' : 'containerSecondEdit'} type="password" name="password" placeholder="Введите пароль" defaultValue={password} onChange={e => isPass(e.target.value)} />
+                            {errorPass === '' ? <></> : <Form.Text muted>
+                                <span className='textError'>{errorPass}</span>
+                            </Form.Text>}
                         </Row>
                         <Row className='mt-2'>
                             <div className='containerFirstEdit'>Повторите:</div>
-                            <Form.Control className={isPfone ? 'containerSecondAdd':'containerSecondEdit'} type="password" name="passwordRepit" autocomplete="new-password" placeholder="Повторите пароль" value={repit} onChange={e => setRepit(e.target.value)} />
+                            <Form.Control className={isPfone ? 'containerSecondAdd' : 'containerSecondEdit'} type="password" name="passwordRepit" placeholder="Повторите пароль" defaultValue={repit} onChange={e => isRepit(e.target.value)} />
                         </Row>
-                        <Form.Group as={Row} xs={isPfone ? 2:3} className="m-3 d-flex justify-content-end">
+                        <Form.Group as={Row} xs={isPfone ? 2 : 3} className="m-3 d-flex justify-content-end">
                             <Button variant="primary" type="submit">
                                 Сохранить
                             </Button>

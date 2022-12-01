@@ -3,6 +3,7 @@ import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import '../../components/UI/CSS/Auth.css';
+import InputPatternService from '../../servise/funtionService/InputPatternService';
 import PageServise from '../../servise/funtionService/PageServise';
 import AuthHttpServise from '../../servise/httpServise/AuthHttpServise';
 import LocalServise from '../../servise/httpServise/LocalServise';
@@ -12,10 +13,12 @@ const Login = () => {
     const [password, setPassword] = useState('')
 
     const click = async (e) => {
-        e.preventDefault()
-        getResponse(username, password);
-        setUsername('')
-        setPassword('')
+        if (errorlogin === '' && errorPass === '') {
+            e.preventDefault()
+            getResponse(username, password);
+            setUsername('')
+            setPassword('')
+        } else { toast.warning("Проверьте введённые вами данные") }
     }
 
     const getResponse = (username, password) => {
@@ -32,7 +35,19 @@ const Login = () => {
             }), {
             pending: "Please wait... ",
         })
+    }
 
+    let [errorlogin, setErrorlogin] = useState('');
+    let [errorPass, setErrorPass] = useState('');
+
+    function isPass(value) {
+        setErrorPass(InputPatternService.passwordInput(value));
+        setPassword(value);
+    }
+
+    function isLogin(value) {
+        setErrorlogin(InputPatternService.loginInput(value));
+        setUsername(value);
     }
 
     return (
@@ -43,23 +58,26 @@ const Login = () => {
                     <Form.Control
                         className="mt-3"
                         placeholder="Введите логин ..."
-                        value={username}
-                        onChange={e => setUsername(e.target.value)}
+                        onChange={e => isLogin(e.target.value)}
                     />
+                    {errorlogin === '' ? <></> : <Form.Text muted>
+                        <span className='textError'>{errorlogin}</span>
+                    </Form.Text>}
                     <Form.Control
                         className="mt-3"
                         placeholder="Введите пароль ..."
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
+                        onChange={e => isPass(e.target.value)}
                         type="password"
                     />
+                    {errorPass === '' ? <></> : <Form.Text muted>
+                        <span className='textError'>{errorPass}</span>
+                    </Form.Text>}
                     <Row className="d-flex justify-content-between mt-3 pl-3 pr-3">
                         <Col className={"d-grid"}>
                             <Button
                                 variant={"outline-success"}
                                 onClick={event => click(event)}
-                            >
-                                Логин
+                            >Логин
                             </Button>
                         </Col>
 

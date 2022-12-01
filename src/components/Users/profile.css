@@ -2,6 +2,9 @@
     overflow: auto;
     height: 150px;
 }
+.textError {
+    color: red;
+}
 .textLink{
     text-decoration: none;
     color: black;

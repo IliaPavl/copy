@@ -100,7 +100,7 @@ const IndicatorResult = () => {
             setRowsTable(ResultServise.setRows(respons.data));
         }).catch((error) => {
             let message = error.request.responseText.split('"');
-            toast.error(message[3]);
+            console.log(message[3])
         })
     }
 

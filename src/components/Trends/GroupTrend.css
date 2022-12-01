@@ -16,12 +16,24 @@
 .modalRed{
     color: red;
 }
+
+.modalError{
+    border-color: red;
+}
+.modalTextError{
+    color: red;
+}
+.modalTextSecond{
+    margin-left: 5px;
+    margin-top: 2px;
+}
 .modalLastTextSecond{
+    overflow: auto;
     width: 70px;
 }
 
 .withP{
-    width: 165px;
+    width: 185px;
 }
 
 .accessOv {
