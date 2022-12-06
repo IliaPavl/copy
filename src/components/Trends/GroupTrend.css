@@ -35,8 +35,8 @@
     color: red;
 }
 .modalTextSecond{
-    margin-left: 5px;
-    margin-top: 2px;
+    margin: 0;
+    padding: 0;
 }
 .modalLastTextSecond{
     overflow: auto;

@@ -23,13 +23,26 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
     let [errorP, setErrorP] = useState('');
     let [errorG, setErrorG] = useState('');
     let [errorR, setErrorR] = useState('');
+
+    let [errorPE, setErrorPE] = useState('');
+    let [errorGE, setErrorGE] = useState('');
+    let [errorRE, setErrorRE] = useState('');
     async function click() {
         if (errorP === '' && errorG === '' && errorR === '') {
+            console.log(errorP);
+            setErrorPE('');
+            setErrorGE('');
+            setErrorRE('');
             set_r(minValue);
             set_g(maxValue);
             saveChenge(l, minValue, maxValue, planRange, periodEnable, typeChart, data.idResult);
             handleClose();
+
         } else {
+            console.log(errorP);
+            setErrorPE(errorP);
+            setErrorGE(errorG);
+            setErrorRE(errorR);
             toast.warning("Проверьте введённые вами данные");
         }
     }
@@ -82,25 +95,27 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
 
     async function setMin(value) {
         let err = InputPatternService.modalRedRange(value, maxValue);
-        if (err === '') { set_minValue(value); setRedPlan((planRange / 100 * value).toFixed(2)); setErrorR(err) }
+        if (err === '') { set_minValue(value); setErrorR(err) }
         else { set_minValue(value); setRedPlan(''); setErrorR(err); }
+        setRedPlan((planRange / 100 * value).toFixed(2));
     }
 
     async function setMax(value) {
         let err = InputPatternService.modalGreenRange(value, minValue);
-        if (err === '') { set_maxValue(value); setGreenPlan((planRange / 100 * value).toFixed(2)); setErrorG(''); }
+        if (err === '') { set_maxValue(value); setErrorG(''); }
         else { set_maxValue(value); setGreenPlan(''); setErrorG(err); }
+        setGreenPlan((planRange / 100 * value).toFixed(2));
     }
 
     async function setP(value) {
         let err = InputPatternService.modalPlan(value);
-        if (err === '') {
-            setErrorP(err); setPlan(value);
-            setGreenPlan((planRange / 100 * maxValue).toFixed(2));
-            setRedPlan((planRange / 100 * minValue).toFixed(2));
-        }
-
-
+        console.log(err)
+        if (err !== '')
+            setErrorP(err);
+        else setErrorP('');
+        setPlan(value);
+        setGreenPlan((planRange / 100 * maxValue).toFixed(2));
+        setRedPlan((planRange / 100 * minValue).toFixed(2));
     }
 
     return (
@@ -112,68 +127,66 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                 {data.length !== 0 ?
                     <Container>
                         <ListGroup variant="flush" >
-                        {isAdmin === true ?
-                            <ListGroup.Item key={data.idResult + "3"} className={'accordionItem'} >
-                                <span><h5>Границы статуса</h5></span>
-                                <ListGroup>
-                                    <ListGroup.Item className='accordionItem listBorderNone mb-2'>
-                                        <InputGroup >
-                                            <InputGroup.Text className={"withP"}>Красная граница % :  </InputGroup.Text>
-                                            <Form.Control
-                                                defaultValue={r}
-                                                aria-describedby="basic-addon1"
-                                                className={errorR === '' ? 'modalRed ' : 'modalRed modalError'}
-                                                onChange={(e) => { setMin(e.target.value) }}
-                                            />
-                                        </InputGroup>
-                                        <Form.Text className='modalTextSecond' muted>Красная граница: {redPlan}</Form.Text>
-                                        {errorR === '' ? <></> : <Form.Text muted>
-                                            <span className='modalTextError'>{errorR}</span>
-                                        </Form.Text>}
+                            {isAdmin === true ?
+                                <ListGroup.Item key={data.idResult + "3"} className={'accordionItem'} >
+                                    <span><h5>Границы статуса</h5></span>
+                                    <ListGroup>
+                                        <ListGroup.Item className='accordionItem listBorderNone mb-2'>
+                                            <InputGroup >
+                                                <InputGroup.Text className={"withP"}>Красная граница % :  </InputGroup.Text>
+                                                <Form.Control
+                                                    defaultValue={r}
+                                                    aria-describedby="basic-addon1"
+                                                    className={errorRE === '' ? 'modalRed ' : 'modalRed modalError'}
+                                                    onChange={(e) => { setMin(e.target.value) }}
+                                                />
+                                            </InputGroup>
+                                            <Form.Text className='modalTextSecond' muted><Col> Красная граница: {redPlan}</Col>
+                                                <Col>{errorRE === '' ? <></> :
+                                                    <span className='modalTextError'>  {errorRE}</span>}</Col>
+                                            </Form.Text>
+                                            <InputGroup >
+                                                <InputGroup.Text className={"withP"}>Зелёная граница % :  </InputGroup.Text>
+                                                <Form.Control
+                                                    defaultValue={g}
+                                                    aria-describedby="basic-addon1"
+                                                    className={errorGE === '' ? 'modalGreen ' : 'modalGreen modalError'}
+                                                    onChange={(e) => { setMax(e.target.value) }}
+                                                />
+                                            </InputGroup>
+                                            <Form.Text className='modalTextSecond' muted><Col>Зелёная граница: {greenPlan}</Col>
+                                                <Col> {errorGE === '' ? <></> :
+                                                    <span className='modalTextError'>  {errorGE}</span>
+                                                }
+                                                </Col>
+                                            </Form.Text>
+                                        </ListGroup.Item>
+                                        <ListGroup.Item className='accordionItem listBorderNone'>
 
+                                            <InputGroup >
+                                                <InputGroup.Text className={"withP"}>План, {data.typeResult} :  </InputGroup.Text>
+                                                <Form.Control
+                                                    aria-describedby="basic-addon1"
+                                                    defaultValue={planRange}
+                                                    className={errorPE === '' ? '' : 'modalError'}
+                                                    onChange={(e) => { setP(e.target.value) }}
+                                                />
+                                            </InputGroup>
+                                            {errorPE === '' ? <></> :
+                                                <Form.Text muted>
+                                                    <span className='modalTextError'>  {errorPE}</span>
+                                                </Form.Text>}
 
-                                        <InputGroup >
-                                            <InputGroup.Text className={"withP"}>Зелёная граница % :  </InputGroup.Text>
-                                            <Form.Control
-                                                defaultValue={g}
-                                                aria-describedby="basic-addon1"
-                                                className={errorG === '' ? 'modalGreen ' : 'modalGreen modalError'}
-                                                onChange={(e) => { setMax(e.target.value) }}
-                                            />
-                                        </InputGroup>
-                                        <Form.Text className='modalTextSecond' muted>Зелёная граница: {greenPlan}</Form.Text>
-                                        {errorG === '' ? <></> : <Form.Text muted>
-                                            <span className='modalTextError'>{errorG}</span>
-                                        </Form.Text>}
-
-                                    </ListGroup.Item>
-
-
-                                    <ListGroup.Item className='accordionItem listBorderNone'>
-
-                                        <InputGroup className='mb-2'>
-                                            <InputGroup.Text className={"withP"}>План, {data.typeResult} :  </InputGroup.Text>
-                                            <Form.Control
-                                                aria-describedby="basic-addon1"
-                                                defaultValue={planRange}
-                                                className={errorP === '' ? '' : 'modalError'}
-                                                onChange={(e) => { setP(e.target.value) }}
-                                            />
-                                        </InputGroup>
-                                        {errorP === '' ? <></> :
-                                            <Form.Text muted>
-                                                <span className='modalTextError'>{errorP}</span>
-                                            </Form.Text>}
-                                        <InputGroup className='mb-3'>
-                                            <InputGroup.Text className={"withP"}>Период :</InputGroup.Text>
-                                            <Form.Select aria-label="Floating label select example" onChange={(e) => setPeriodEnable(e.target.value)}>
-                                                {listPeriod.map(period => <option value={period.id}>{period.title} </option>)}
-                                            </Form.Select>
-                                        </InputGroup>
-                                    </ListGroup.Item>
-                                </ListGroup>
-                            </ListGroup.Item>
-                            :<></>}
+                                            <InputGroup className='mb-3 mt-2'>
+                                                <InputGroup.Text className={"withP"}>Период :</InputGroup.Text>
+                                                <Form.Select aria-label="Floating label select example" onChange={(e) => setPeriodEnable(e.target.value)}>
+                                                    {listPeriod.map(period => <option value={period.id}>{period.title} </option>)}
+                                                </Form.Select>
+                                            </InputGroup>
+                                        </ListGroup.Item>
+                                    </ListGroup>
+                                </ListGroup.Item>
+                                : <></>}
 
                             <ListGroup.Item key={data.idResult + "1"} className={'accordionItem'}>
                                 <span><h5>Вид графика</h5></span>
