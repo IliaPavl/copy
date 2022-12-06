@@ -16,9 +16,10 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
     let [maxValue, set_maxValue] = useState();
     let [r, set_r] = useState();
     let [g, set_g] = useState();
-    let [periodEnable, setPeriodEnable] = useState("Month")
-    //let [listPeriod, setListPeriod] = useState([ { id: 1, title: "Day" }, { id: 2, title: "Week" }, { id: 4, title: "Quarter" },{ id: 3, title: "Month" }, { id: 5, title: "Year" }])
-    let [listPeriod, setListPeriod] = useState([{ id: 3, title: "Month" }])
+    let [periodEnable, setPeriodEnable] = useState("Месяц")
+    //let [listPeriod, setListPeriod] = useState([ { id: 1, title: "День" }, { id: 2, title: "Неделя" }, { id: 4, title: "Квартал" },{ id: 3, title: "Месяц" }, { id: 5, title: "Год" }])
+    let [listPeriod, setListPeriod] = useState([{ id: 3, title: "Месяц" }])
+    let [listType, setListType] = useState([{ id: 3, title: "Чем больше, тем лучше" },{ id: 2, title: "Чем меньше, тем лучше" }])
     let [typeChart, setTypeChart] = useState(data.typeChart)
     let [errorP, setErrorP] = useState('');
     let [errorG, setErrorG] = useState('');
@@ -127,6 +128,15 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                 {data.length !== 0 ?
                     <Container>
                         <ListGroup variant="flush" >
+                            <ListGroup.Item key={data.idResult + "8"} className={'accordionItem'}>
+                                <span><h5>Тип показателя</h5></span>
+                                <InputGroup className='mb-3 mt-2'>
+                                    <InputGroup.Text className={"withP"}>Тип показателя :</InputGroup.Text>
+                                    <Form.Select aria-label="Floating label select example" onChange={(e) => setPeriodEnable(e.target.value)}>
+                                        {listType.map(period => <option value={period.id}>{period.title} </option>)}
+                                    </Form.Select>
+                                </InputGroup>
+                            </ListGroup.Item>
                             {isAdmin === true ?
                                 <ListGroup.Item key={data.idResult + "3"} className={'accordionItem'} >
                                     <span><h5>Границы статуса</h5></span>
@@ -187,6 +197,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                                     </ListGroup>
                                 </ListGroup.Item>
                                 : <></>}
+
 
                             <ListGroup.Item key={data.idResult + "1"} className={'accordionItem'}>
                                 <span><h5>Вид графика</h5></span>

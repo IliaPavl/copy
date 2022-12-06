@@ -143,18 +143,21 @@
 }
 
 .arrowUp {
-    height: 30px;
+    margin-top: -1px;
+    height: 25px;
     width: 25px;
     color: green;
 }
 
 .arrowDown {
+    align-items: start;
     height: 30px;
     width: 25px;
     color: red;
 }
 
 .arrowHoriz {
+    align-items: start;
     height: 30px;
     width: 25px;
     color: gold;
@@ -176,22 +179,23 @@
 .statusNumberContainer{
     float: right;
     position: absolute;
-    padding-top: 6px;
-    padding-left: 23px;
+    padding-top: 5px;
+    padding-left: 17px;
     font-size: 13px;
     font-weight: 300;
 }
 .notification-container {
     position: relative;
     display: inline-block;
-    width: 20px;
-    height: 20px;
+    width: 19px;
+    height: 19px;
+    padding-top: 8px;
 }
 .notification-container__text_Green {
     position: absolute;
     display: block;
-    height: 23px;
-    width: 23px;
+    height: 17px;
+    width: 17px;
     margin-top: -4px;
     padding-top: 4px;
     color: rgb(0, 0, 0);
@@ -202,8 +206,8 @@
 .notification-container__text_Red {
     position: absolute;
     display: block;
-    height: 23px;
-    width: 23px;
+    height: 17px;
+    width: 17px;
     margin-top: -4px;
     padding-top: 4px;
     color: rgb(0, 0, 0);
@@ -213,8 +217,8 @@
 .notification-container__text_Yellow {
     position: absolute;
     display: block;
-    height: 23px;
-    width: 23px;
+    height: 17px;
+    width: 17px;
     margin-top: -4px;
     padding-top: 4px;
     color: rgb(0, 0, 0);
