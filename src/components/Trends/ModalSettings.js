@@ -152,7 +152,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                                     <ListGroup.Item className='accordionItem listBorderNone'>
 
                                         <InputGroup className='mb-2'>
-                                            <InputGroup.Text className={"withP"}>План показателя, {data.typeResult} :  </InputGroup.Text>
+                                            <InputGroup.Text className={"withP"}>План, {data.typeResult} :  </InputGroup.Text>
                                             <Form.Control
                                                 aria-describedby="basic-addon1"
                                                 defaultValue={planRange}

@@ -2,11 +2,22 @@
     width: 900px;
     overflow-y: auto;
 }
+.CardHeadAccordion{
+    color: black!important;
+}
 
+.CardHead{
+    color: black!important;
+    font-weight: 600;
+    font-size: 19px;
+}
 .listBorderNone{
     border: none;
 }
-
+.noneVisible{
+    visibility: hidden;
+    opacity: 0
+}
 .delBsgutter{
     --bs-gutter-x:1.0rem;
 }
@@ -35,6 +46,16 @@
 .withP{
     width: 185px;
 }
+.svgTrends{
+    height: 29px;
+    width: 29px;
+    margin-right: 10px;
+}
+
+.noMP{
+    padding: 0;
+    margin: 0;
+}
 
 .accessOv {
     overflow: auto;
@@ -62,13 +83,13 @@
     width:80px;
 }
 .tablePCName {
-    width:230px;
+    width:270px;
 }
 .tablePfoneFact {
     width:50px;
 }
 .tablePfoneDate {
-    width:80px;
+    width:40px;
 }
 .tablePfoneUnits {
     width:60px;
@@ -139,57 +160,65 @@
     color: gold;
 }
 
-.notification-container {
-    position: relative;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-}
+
 
 .settingItem {
     position: absolute;
     border: 15px;
     right: 3px;
 }
+#status{
+    width: 80px;
+}
+.tablePfone1{
+    width: 96px;
+}
+.statusNumberContainer{
+    float: right;
+    position: absolute;
+    padding-top: 6px;
+    padding-left: 23px;
+    font-size: 13px;
+    font-weight: 300;
+}
+.notification-container {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
 .notification-container__text_Green {
     position: absolute;
     display: block;
-    height: 26px;
-    width: 26px;
+    height: 23px;
+    width: 23px;
+    margin-top: -4px;
+    padding-top: 4px;
     color: rgb(0, 0, 0);
-    background-color:green;
-    border-radius: 22px;
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 25px;
-    text-align: center;
+    background-color: green;
+    border-radius: 50%;
 }
+
 .notification-container__text_Red {
     position: absolute;
     display: block;
-    height: 26px;
-    width: 26px;
+    height: 23px;
+    width: 23px;
+    margin-top: -4px;
+    padding-top: 4px;
     color: rgb(0, 0, 0);
     background-color: red;
-    border-radius: 22px;
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 25px;
-    text-align: center;
+    border-radius: 50%;
 }
 .notification-container__text_Yellow {
     position: absolute;
     display: block;
-    height: 26px;
-    width: 26px;
+    height: 23px;
+    width: 23px;
+    margin-top: -4px;
+    padding-top: 4px;
     color: rgb(0, 0, 0);
     background-color: gold;
-    border: 20px;
-    border-color: aqua;
-    border-radius: 22px;
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 25px;
-    text-align: center;
+    border-radius: 50%;
 }
 

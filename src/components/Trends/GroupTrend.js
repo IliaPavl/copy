@@ -5,11 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ResultHttpServise from '../../servise/httpServise/ResultHttpServise';
 import { INDICATOR_RESULT } from '../../utils/const';
-import TableHead from '../UI/BootstratTable/TableHead';
 import './GroupTrend.css';
 import ModalSettings from './ModalSettings';
 
-const GroupTrend = ({ ingroup, reload }) => {
+const GroupTrend = ({ ingroup, reload,stylesIn }) => {
 
     const [head, setHead] = useState([
         { title: 'Name' },
@@ -73,7 +72,7 @@ const GroupTrend = ({ ingroup, reload }) => {
         <>
             <Accordion defaultActiveKey={group.nameMonitor} className={"cradsGroup scrollTable"}>
                 <Accordion.Item eventKey={group.nameMonitor}>
-                    <Accordion.Header>{group.nameMonitor} </Accordion.Header>
+                    <Accordion.Button className={stylesIn.colorBack +" CardHeadAccordion"}> {group.nameMonitor} </Accordion.Button>
                     <Accordion.Body className={"scrollTable"}>
                         {group.monitor.length === 0 ?
                             <Table variant='table-bordered table-hover' style={{ height: 70 }} className={"scrollTable"} >
@@ -101,34 +100,30 @@ const GroupTrend = ({ ingroup, reload }) => {
                                                 Дата
                                             </div>
                                         </th>
-                                        <th>
+                                        {/* <th>
                                             <div className='tablePfoneUnits'>
                                                 Ед.изм.
                                             </div>
-                                        </th>
+                                        </th> */}
                                     </tr>
                                 </thead>
                                 <tbody className="table-light">
                                     {group.linkMonitor.map(links =>
                                         <tr key={plus()}>
-                                            <td onClick={() => goToLink(links.idResult)} id="name">{links.nameResult}</td>
+                                            <td onClick={() => goToLink(links.idResult)} id="name" className='tablePCName'>{links.nameResult}, {links.typeResult}</td>
                                             <td onClick={() => goToLink(links.idResult)} id="fact">{links.indFact}</td>
                                             <td onClick={() => goToLink(links.idResult)} id="plan">
                                                 {links.indPlan !== 0 ? <>{links.indPlan}</> : <></>}
                                             </td>
                                             <td onClick={() => goToLink(links.idResult)} id="status">
-                                                {links.indStatus === "1" ?
-                                                    <div className="notification-container">
-                                                        <span className="notification-container__text_Red">{links.indStatusPercent}</span>
-                                                    </div> : <></>}
-                                                {links.indStatus === "2" ?
-                                                    <div className="notification-container">
-                                                        <span className="notification-container__text_Yellow">{links.indStatusPercent}</span>
-                                                    </div> : <></>}
-                                                {links.indStatus === "3" ?
-                                                    <div className="notification-container">
-                                                        <span className="notification-container__text_Green">{links.indStatusPercent}</span>
-                                                    </div> : <></>}
+                                                <div className="notification-container">
+                                                    <span className={
+                                                        links.indStatus === "1" ? "notification-container__text_Red" :
+                                                            links.indStatus === "2" ? "notification-container__text_Yellow" :
+                                                                links.indStatus === "3" ? "notification-container__text_Green" : ""}>
+                                                        <div className='statusNumberContainer'>   {links.indStatusPercent}%</div>
+                                                    </span>
+                                                </div>
                                             </td >
 
                                             <td onClick={() => goToLink(links.idResult)} id="trend">
@@ -137,7 +132,7 @@ const GroupTrend = ({ ingroup, reload }) => {
                                                 {links.trend === "3" ? <RiArrowRightUpLine className='arrowUp' /> : <></>}
                                             </td>
                                             <td onClick={() => goToLink(links.idResult)} id="date">{links.parseMaxDate}</td>
-                                            <td onClick={() => goToLink(links.idResult)} id="units">{links.typeResult}</td>
+                                            {/* <td onClick={() => goToLink(links.idResult)} id="units">{links.typeResult}</td> */}
                                             <td onClick={() => s(links)}> <RiSettings3Line onClick={() => handleShow()} className='chartSVG ' /></td>
                                         </tr>
                                     )}

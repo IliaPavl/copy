@@ -8,7 +8,7 @@ import { INDICATOR_RESULT } from '../../utils/const';
 import './GroupTrend.css';
 import ModalSettings from './ModalSettings';
 
-const PfoneGroupTrend = ({ ingroup, reload }) => {
+const PfoneGroupTrend = ({ ingroup, reload, stylesIn }) => {
     let [dataLinks, setData] = useState([]);
     const navigate = useNavigate();
     const [showAccess, setShowAccess] = useState(false);
@@ -47,10 +47,10 @@ const PfoneGroupTrend = ({ ingroup, reload }) => {
     }, [ingroup])
 
     return (
-        <div className='textPfone'> 
-            <Accordion defaultActiveKey={group.nameMonitor} className={"cradsGroup  "} >
+        <div className='textPfone  mt-2'>
+            <Accordion defaultActiveKey={group.nameMonitor} className={"cradsGroup"} >
                 <Accordion.Item eventKey={group.nameMonitor} >
-                    <Accordion.Header ><span>{group.nameMonitor}</span> </Accordion.Header>
+                    <Accordion.Button className={stylesIn.colorBack + " CardHeadAccordion"}> {group.nameMonitor} </Accordion.Button>
                     <Accordion.Body className='accessOv accordionItem'>
                         {group.monitor.length === 0 ?
                             <Table variant='table-bordered table-hover' style={{ height: 70 }} className={"scrollTable"} >
@@ -78,34 +78,30 @@ const PfoneGroupTrend = ({ ingroup, reload }) => {
                                                 Дата
                                             </div>
                                         </th>
-                                        <th>
+                                        {/* <th>
                                             <div className='tablePfoneUnits'>
                                                 Ед.изм.
                                             </div>
-                                        </th>
+                                        </th> */}
                                     </tr>
                                 </thead>
                                 <tbody >
                                     {group.linkMonitor.map(links =>
                                         <tr key={plus()}>
-                                            <td className='tablePfone1' onClick={() => goToLink(links.idResult)} id="name">{links.nameResult}</td>
+                                            <td onClick={() => goToLink(links.idResult)} id="name" className='tablePCName'>{links.nameResult}, {links.typeResult}</td>
                                             <td onClick={() => goToLink(links.idResult)} id="fact">{links.indFact}</td>
                                             <td onClick={() => goToLink(links.idResult)} id="plan">
                                                 {links.indPlan !== 0 ? <>{links.indPlan}</> : <></>}
                                             </td>
                                             <td onClick={() => goToLink(links.idResult)} id="status">
-                                                {links.indStatus === "1" ?
-                                                    <div className="notification-container">
-                                                        <span className="notification-container__text_Red">{links.indStatusPercent}</span>
-                                                    </div> : <></>}
-                                                {links.indStatus === "2" ?
-                                                    <div className="notification-container">
-                                                        <span className="notification-container__text_Yellow">{links.indStatusPercent}</span>
-                                                    </div> : <></>}
-                                                {links.indStatus === "3" ?
-                                                    <div className="notification-container">
-                                                        <span className="notification-container__text_Green">{links.indStatusPercent}</span>
-                                                    </div> : <></>}
+                                                <div className="notification-container">
+                                                    <span className={
+                                                        links.indStatus === "1" ? "notification-container__text_Red" :
+                                                            links.indStatus === "2" ? "notification-container__text_Yellow" :
+                                                                links.indStatus === "3" ? "notification-container__text_Green" : ""}>
+                                                        <div className='statusNumberContainer'>   {links.indStatusPercent}%</div>
+                                                    </span>
+                                                </div>
                                             </td >
 
                                             <td onClick={() => goToLink(links.idResult)} id="trend">
@@ -115,7 +111,7 @@ const PfoneGroupTrend = ({ ingroup, reload }) => {
                                             </td>
 
                                             <td onClick={() => goToLink(links.idResult)} id="date">{links.parseMaxDate}</td>
-                                            <td onClick={() => goToLink(links.idResult)} id="units">{links.typeResult}</td>
+                                            {/* <td onClick={() => goToLink(links.idResult)} id="units">{links.typeResult}</td> */}
                                             <td id="settings">
                                                 {/* <div className="notification-container ">
                                                     <span className="notification-container__text_Gear "><RiSettings3Line onClick={() => handleShow()} className='chartSVG gearSVG' /></span>
