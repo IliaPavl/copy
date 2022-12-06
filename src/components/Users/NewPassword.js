@@ -19,7 +19,7 @@ const NewPassword = () => {
         if (password === passwordRepit)
             toast.promise(
                 AuthServise.newPassword(password, url[2]).then((respons) => {
-                    toast.success(respons.data.body.message);
+                    toast.success("Проверьте вашу почту, пароль был успешно изменён! ");
                 })
                     .catch((error) => {
                         let message = error.request.responseText.split('"');

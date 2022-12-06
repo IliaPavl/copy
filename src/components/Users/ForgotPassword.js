@@ -12,7 +12,7 @@ const ForgotPassword = () => {
         if(errorEmail==='')
         toast.promise(
             AuthServise.forgotPassword(email).then((respons) => {
-                toast.success(respons.data.body.message);
+                toast.success("Проверьте почту, вам была выслана ссылка для смены пароля");
             })
                 .catch((error) => {
                     let message = error.request.responseText.split('"');
