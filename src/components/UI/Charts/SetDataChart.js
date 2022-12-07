@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Form, Row, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
+import { Button, Col, Row } from 'react-bootstrap';
+import { BsCalendarCheck, BsTable } from "react-icons/bs";
 import { toast } from 'react-toastify';
 import DropdownMonth from '../DropDown/DropdownMonth';
 import Loading from '../Loader/Loading';
 import MyChart from './MyChart';
-import { RiTableLine } from "react-icons/ri";
-import { BsCalendarCheck, BsTable } from "react-icons/bs";
 
 
 const SetDataChart = ({ chartData, titleChart, rowsName, options,showTable }) => {

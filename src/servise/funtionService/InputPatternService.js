@@ -55,6 +55,13 @@ class InputPatternService {
         else if (value < 0) { return ("План не может быть меньше 0"); }
         else return ('');
     }
+    
+    modalPlanMonth(value){
+        if (!/^(0|[1-9]\d*)$/.test(value)) { return ("Вводите только цифры от 0 до 12"); }
+        else if (value < 0) { return ("Не может быть меньше 0"); }
+        else if (value > 12) { return ("Не может быть больше 12"); }
+        else return ('');
+    }
 };
 
 export default new InputPatternService();

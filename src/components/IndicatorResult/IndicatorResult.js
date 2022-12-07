@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Accordion, ButtonGroup, Card, Container, Nav, Navbar, Offcanvas, Row } from "react-bootstrap";
-import { RiSettings3Line } from "react-icons/ri";
+import { Card, Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { v4 as uuidv4 } from 'uuid';
 import ResultServise from '../../servise/funtionService/ResultServise';
 import UserServise from '../../servise/funtionService/UserServise';
 import LocalServise from '../../servise/httpServise/LocalServise';
@@ -266,7 +264,7 @@ const IndicatorResult = () => {
         if (groupLinks.length !== 0) {
             let enable2 = [];
             (groupLinks).map((data) => {
-                enable2.push(data.nameResult + ' ' + data.typeResult + ', ')
+                enable2.push(data.nameResult + ' ' + data.typeResult)
             })
             setE(enable2);
             setTableResultList(groupLinks);

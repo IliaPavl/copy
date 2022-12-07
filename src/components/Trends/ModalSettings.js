@@ -4,6 +4,9 @@ import { AiOutlineAreaChart, AiOutlineBarChart, AiOutlineDotChart, AiOutlineLine
 import { toast } from 'react-toastify';
 import InputPatternService from '../../servise/funtionService/InputPatternService';
 import ResultHttpServise from '../../servise/httpServise/ResultHttpServise';
+import ModalMonthPlan from './ModalMonthPlan';
+import {  RiSettings3Line } from "react-icons/ri";
+
 
 
 
@@ -19,28 +22,36 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
     let [periodEnable, setPeriodEnable] = useState("Месяц")
     //let [listPeriod, setListPeriod] = useState([ { id: 1, title: "День" }, { id: 2, title: "Неделя" }, { id: 4, title: "Квартал" },{ id: 3, title: "Месяц" }, { id: 5, title: "Год" }])
     let [listPeriod, setListPeriod] = useState([{ id: 3, title: "Месяц" }])
-    let [listType, setListType] = useState([{ id: 3, title: "Чем больше, тем лучше" },{ id: 2, title: "Чем меньше, тем лучше" }])
+    //let [listType, setListType] = useState([{ id: 1, title: "Чем больше, тем лучше" },{ id: 2, title: "Чем меньше, тем лучше" }])
+    let [listType, setListType] = useState([{ id: 1, title: "Чем больше, тем лучше" }])
     let [typeChart, setTypeChart] = useState(data.typeChart)
+    let [planMonthTrend,setPlanMonthTrend] = useState('');
+    let [direction,setDirection] =useState(1);
+
+    let [errorPM,setErrorPM] = useState('');
     let [errorP, setErrorP] = useState('');
     let [errorG, setErrorG] = useState('');
     let [errorR, setErrorR] = useState('');
 
+    let [errorPME,setErrorPME] = useState('');
     let [errorPE, setErrorPE] = useState('');
     let [errorGE, setErrorGE] = useState('');
     let [errorRE, setErrorRE] = useState('');
+
     async function click() {
-        if (errorP === '' && errorG === '' && errorR === '') {
-            console.log(errorP);
+        if (errorP === '' && errorG === '' && errorR === '' && errorPM === '') {
             setErrorPE('');
             setErrorGE('');
             setErrorRE('');
+            setErrorPME('')
             set_r(minValue);
             set_g(maxValue);
-            saveChenge(l, minValue, maxValue, planRange, periodEnable, typeChart, data.idResult);
+            saveChenge(l, minValue, maxValue, planRange, periodEnable, typeChart, data.idResult, direction, planMonthTrend);
             handleClose();
 
         } else {
             console.log(errorP);
+            setErrorPME(errorPM);
             setErrorPE(errorP);
             setErrorGE(errorG);
             setErrorRE(errorR);
@@ -71,9 +82,9 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
 
     useEffect(() => {
         if (show === true) {
+            console.log(data);
             ResultHttpServise.getIndicatorSettings(data.idResult).then((data2) => {
-                setRedPlan((data2.data.indPlan / 100 * data2.data.percentRed).toFixed(2));
-                setGreenPlan((data2.data.indPlan / 100 * data2.data.percentGreen).toFixed(2));
+                console.log(data2);
                 set_r(data2.data.percentRed);
                 set_g(data2.data.percentGreen);
                 set_minValue(data2.data.percentRed);
@@ -81,6 +92,12 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                 setPlan(data2.data.indPlan.toFixed(2));
                 setTypeChart(data2.data.diagType_ID);
                 setPeriodEnable(data2.data.periodType);
+                setPlanMonthTrend(data2.data.trendPeriod);
+                setDirection(data2.data.directionIndicator);
+                setRedPlan((data2.data.indPlan / 100 * data2.data.percentRed).toFixed(2));
+                setGreenPlan((data2.data.indPlan / 100 * data2.data.percentGreen).toFixed(2));
+                
+                
                 setL(data.userAccessList);
             }).catch((error) => { toast.error(error) });
 
@@ -118,8 +135,19 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
         setGreenPlan((planRange / 100 * maxValue).toFixed(2));
         setRedPlan((planRange / 100 * minValue).toFixed(2));
     }
+    async function setPM(value) {
+        let err = InputPatternService.modalPlanMonth(value);
+        console.log(err)
+        if (err !== '')
+            setErrorPM(err);
+        else setErrorPM('');
+        setPlanMonthTrend(value);
+    }
 
+    let [showMonthPlan,setMonthPlan] =useState(false);
+    const handlMonthPlan = () => { setMonthPlan(!showMonthPlan);  handleClose()};
     return (
+        <>
         <Modal show={show} onHide={() => handleClose()} >
             <Modal.Header closeButton>
                 <Modal.Title>Настройки "{data.nameResult}" </Modal.Title>
@@ -143,7 +171,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                                     <ListGroup>
                                         <ListGroup.Item className='accordionItem listBorderNone mb-2'>
                                             <InputGroup >
-                                                <InputGroup.Text className={"withP"}>Красная граница % :  </InputGroup.Text>
+                                                <InputGroup.Text className={"withP"}>Красная граница %:  </InputGroup.Text>
                                                 <Form.Control
                                                     defaultValue={r}
                                                     aria-describedby="basic-addon1"
@@ -156,7 +184,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                                                     <span className='modalTextError'>  {errorRE}</span>}</Col>
                                             </Form.Text>
                                             <InputGroup >
-                                                <InputGroup.Text className={"withP"}>Зелёная граница % :  </InputGroup.Text>
+                                                <InputGroup.Text className={"withP"}>Зелёная граница %:  </InputGroup.Text>
                                                 <Form.Control
                                                     defaultValue={g}
                                                     aria-describedby="basic-addon1"
@@ -181,18 +209,36 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                                                     className={errorPE === '' ? '' : 'modalError'}
                                                     onChange={(e) => { setP(e.target.value) }}
                                                 />
+                                                {/* <InputGroup.Text onClick={()=>handlMonthPlan()} ><RiSettings3Line/></InputGroup.Text> */}
                                             </InputGroup>
+                                            
+
                                             {errorPE === '' ? <></> :
                                                 <Form.Text muted>
                                                     <span className='modalTextError'>  {errorPE}</span>
                                                 </Form.Text>}
 
                                             <InputGroup className='mb-3 mt-2'>
-                                                <InputGroup.Text className={"withP"}>Период :</InputGroup.Text>
+                                                <InputGroup.Text className={"withP"}>Период расчета:</InputGroup.Text>
                                                 <Form.Select aria-label="Floating label select example" onChange={(e) => setPeriodEnable(e.target.value)}>
                                                     {listPeriod.map(period => <option value={period.id}>{period.title} </option>)}
                                                 </Form.Select>
                                             </InputGroup>
+
+                                            <InputGroup >
+                                                <InputGroup.Text className={"withP"}>Период тренда:  </InputGroup.Text>
+                                                <Form.Control
+                                                    aria-describedby="basic-addon1"
+                                                    defaultValue={planMonthTrend}
+                                                    className={errorPME === '' ? '' : 'modalError'}
+                                                    onChange={(e) => { setPM(e.target.value) }}
+                                                />
+                                            </InputGroup>
+
+                                            {errorPME === '' ? <></> :
+                                                <Form.Text muted>
+                                                    <span className='modalTextError'>  {errorPME}</span>
+                                                </Form.Text>}
                                         </ListGroup.Item>
                                     </ListGroup>
                                 </ListGroup.Item>
@@ -248,6 +294,8 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                 </Button>
             </Modal.Footer>
         </Modal>
+        <ModalMonthPlan show={showMonthPlan} close={handlMonthPlan} nowData={data} type={data.typeResult}/>
+        </>
     );
 };
 
