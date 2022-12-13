@@ -12,8 +12,10 @@ import newPassword from "../../pages/User/newPasswordPage";
 import activate from "../../pages/User/activateAccauntPage";
 import UserAdd from "../../pages/User/userAdd";
 import UserList from "../../pages/User/userList";
-import { ACTIVATION, COMPANY_ADD, COMPANY_LIST, COMPANY_PROFILE, ERROR, FORGOT_PASSWPRD, HOME_PAGE, INDICATOR_RESULT, LOGIN_ROUTE, NEW_PASSWORD, REGISTRATION_ROUTE, USER_ADD, USER_EDIT, USER_LIST, USER_PROFILE } from "../../utils/const";
+import { ACTIVATION, COMPANY_ADD, COMPANY_LIST, COMPANY_PROFILE, ERROR, FORGOT_PASSWPRD, HOME_PAGE, INDICATOR_RESULT, LOGIN_ROUTE, NEW_DATA, NEW_PASSWORD, REGISTRATION_ROUTE, SETTINGS_NOTIFICATION, USER_ADD, USER_EDIT, USER_LIST, USER_PROFILE } from "../../utils/const";
 import forgotPassword from "../../pages/User/forgotPassword";
+import SettingBack from "../Settings/SettingBack";
+import NewDataPage from "../../pages/NewDataPage/NewDataPage";
 
 
 export const authRoutes = [
@@ -57,12 +59,20 @@ export const authRoutes = [
         path: USER_PROFILE,
         Component: profilePage
     },
+    {
+        path: SETTINGS_NOTIFICATION,
+        Component: SettingBack
+    },
 ]
 
 export const publicRoutes = [
     {
         path: LOGIN_ROUTE,
         Component: LoginPage
+    },
+    {
+        path: NEW_DATA,
+        Component: NewDataPage
     },
     {
         path: REGISTRATION_ROUTE,

@@ -2,57 +2,74 @@
     width: 900px;
     overflow-y: auto;
 }
-.CardHeadAccordion{
-    color: black!important;
+
+.CardHeadAccordion {
+    color: black !important;
 }
 
-.CardHead{
-    color: black!important;
+.CardHead {
+    color: black !important;
     font-weight: 600;
     font-size: 19px;
 }
-.listBorderNone{
+
+.listBorderNone {
     border: none;
 }
-.noneVisible{
+
+.noneVisible {
     visibility: hidden;
     opacity: 0
 }
-.delBsgutter{
-    --bs-gutter-x:1.0rem;
+
+.delBsgutter {
+    --bs-gutter-x: 1.0rem;
 }
-.modalGreen{
+
+.modalGreen {
     color: green;
 }
-.modalRed{
+
+.modalRed {
     color: red;
 }
 
-.modalError{
+.modalError {
     border-color: red;
 }
-.modalTextError{
+
+.modalTextError {
     color: red;
 }
-.modalTextSecond{
+
+.modalTextSecond {
     margin: 0;
     padding: 0;
 }
-.modalLastTextSecond{
+
+.modalLastTextSecond {
     overflow: auto;
     width: 70px;
 }
 
-.withP{
-    width: 185px;
+.with {
+    text-align: center;
+    padding-top: 7px;
+    padding-bottom: 15px;
+    margin-top: -27px;
 }
-.svgTrends{
+.withP {
+    position: relative;
+    width: 195px;
+}
+
+.svgTrends {
     height: 29px;
     width: 29px;
     margin-right: 10px;
 }
 
-.noMP{
+.noMP {
     padding: 0;
     margin: 0;
 }
@@ -65,34 +82,40 @@
     overflow-y: auto;
 }
 
-.accordion{
+.accordion {
     width: 100%;
 }
-.accordionItem{
+
+.accordionItem {
     padding: 0;
 }
 
-.textAccordionItem{
+.textAccordionItem {
     margin: 10px 0px 5px 10px;
 }
 
-.textPfone{
+.textPfone {
     font-size: 12px;
 }
+
 .tablePfoneName {
-    width:80px;
+    width: 80px;
 }
+
 .tablePCName {
-    width:270px;
+    width: 270px;
 }
+
 .tablePfoneFact {
-    width:50px;
+    width: 50px;
 }
+
 .tablePfoneDate {
-    width:40px;
+    width: 40px;
 }
+
 .tablePfoneUnits {
-    width:60px;
+    width: 60px;
 }
 
 
@@ -112,28 +135,30 @@
     height: 38px;
     width: 38px;
 }
-.chartSVGSettingsSet{
+
+.chartSVGSettingsSet {
     padding: 3px;
     margin: 4px;
     margin-right: 10px;
     margin-bottom: 10px;
-    border: 4px outset rgb(0, 106, 255,0.6);
-    background-color: rgb(0, 106, 255,0.3);
+    border: 4px outset rgb(0, 106, 255, 0.6);
+    background-color: rgb(0, 106, 255, 0.3);
     border-radius: 50%;
     height: 38px;
     width: 38px;
-} 
-.chartSVGSettings:hover{
+}
+
+.chartSVGSettings:hover {
     padding: 3px;
     margin: 4px;
     margin-right: 10px;
     margin-bottom: 10px;
-    border: 4px outset rgb(0, 106, 255,0.3);
-    background-color: rgb(0, 106, 255,0.1);
+    border: 4px outset rgb(0, 106, 255, 0.3);
+    background-color: rgb(0, 106, 255, 0.1);
     border-radius: 50%;
     height: 38px;
     width: 38px;
-} 
+}
 
 .gearSVG {
     height: 38px;
@@ -170,13 +195,24 @@
     border: 15px;
     right: 3px;
 }
-#status{
+
+#status {
     width: 80px;
 }
-.tablePfone1{
+
+.tablePfone1 {
     width: 96px;
 }
-.statusNumberContainer{
+
+.color2{
+    background-color: hsla(0, 0%, 0%, 0.5);
+    color: white;
+    border-color: rgb(118, 106, 195)!important;
+}
+
+
+
+.statusNumberContainer {
     float: right;
     position: absolute;
     padding-top: 5px;
@@ -184,6 +220,7 @@
     font-size: 13px;
     font-weight: 300;
 }
+
 .notification-container {
     position: relative;
     display: inline-block;
@@ -191,6 +228,7 @@
     height: 19px;
     padding-top: 8px;
 }
+
 .notification-container__text_Green {
     position: absolute;
     display: block;
@@ -214,6 +252,7 @@
     background-color: red;
     border-radius: 50%;
 }
+
 .notification-container__text_Yellow {
     position: absolute;
     display: block;
@@ -225,4 +264,3 @@
     background-color: gold;
     border-radius: 50%;
 }
-

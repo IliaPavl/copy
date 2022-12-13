@@ -3,7 +3,7 @@ import { Col, Row } from 'react-bootstrap';
 import { RiLineChartLine, RiLogoutBoxRLine, RiTeamLine, RiUser2Fill } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 import LocalServise from '../../../../servise/httpServise/LocalServise';
-import { HOME_PAGE, LOGIN_ROUTE, USER_LIST, USER_PROFILE } from '../../../../utils/const';
+import { HOME_PAGE, LOGIN_ROUTE, SETTINGS_NOTIFICATION, USER_LIST, USER_PROFILE } from '../../../../utils/const';
 import SearchLable from '../../SearchForm/SearchLable';
 import "./SideBarCSs.css";
 
@@ -33,6 +33,21 @@ const SideBar = ({ show, monitors, links, isRoleAdmin, showBurger,isUser }) => {
                             <Row>
                                 <Col sm={10}>
                                     Профиль
+                                </Col>
+                                <Col sm={1}>
+                                    <RiUser2Fill className='icon LinkHiden' />
+                                </Col>
+                            </Row>
+                        </span>
+                    </Link>
+                </li>:<></>}
+                {isUser === true ? 
+                <li>
+                    <Link to={SETTINGS_NOTIFICATION} className='Link' onClick={()=> showBurger()}>
+                        <span className='textNav ' >
+                            <Row>
+                                <Col sm={10}>
+                                    Настройки
                                 </Col>
                                 <Col sm={1}>
                                     <RiUser2Fill className='icon LinkHiden' />

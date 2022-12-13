@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, Form, InputGroup, ListGroup, Modal, Row, Table } from 'react-bootstrap';
+import { Button, Col, Container, Form, InputGroup, ListGroup, Modal, OverlayTrigger, Popover, Row, Table, Tooltip } from 'react-bootstrap';
 import { AiOutlineAreaChart, AiOutlineBarChart, AiOutlineDotChart, AiOutlineLineChart } from "react-icons/ai";
 import { toast } from 'react-toastify';
 import InputPatternService from '../../servise/funtionService/InputPatternService';
 import ResultHttpServise from '../../servise/httpServise/ResultHttpServise';
 import ModalMonthPlan from './ModalMonthPlan';
-import {  RiSettings3Line } from "react-icons/ri";
+import { RiSettings3Line } from "react-icons/ri";
+import SettingToolTip from "../UI/ToolTips/SettingToolTip.js"
 
 
 
@@ -25,15 +26,15 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
     //let [listType, setListType] = useState([{ id: 1, title: "Чем больше, тем лучше" },{ id: 2, title: "Чем меньше, тем лучше" }])
     let [listType, setListType] = useState([{ id: 1, title: "Чем больше, тем лучше" }])
     let [typeChart, setTypeChart] = useState(data.typeChart)
-    let [planMonthTrend,setPlanMonthTrend] = useState('');
-    let [direction,setDirection] =useState(1);
+    let [planMonthTrend, setPlanMonthTrend] = useState('');
+    let [direction, setDirection] = useState(1);
 
-    let [errorPM,setErrorPM] = useState('');
+    let [errorPM, setErrorPM] = useState('');
     let [errorP, setErrorP] = useState('');
     let [errorG, setErrorG] = useState('');
     let [errorR, setErrorR] = useState('');
 
-    let [errorPME,setErrorPME] = useState('');
+    let [errorPME, setErrorPME] = useState('');
     let [errorPE, setErrorPE] = useState('');
     let [errorGE, setErrorGE] = useState('');
     let [errorRE, setErrorRE] = useState('');
@@ -96,8 +97,8 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                 setDirection(data2.data.directionIndicator);
                 setRedPlan((data2.data.indPlan / 100 * data2.data.percentRed).toFixed(2));
                 setGreenPlan((data2.data.indPlan / 100 * data2.data.percentGreen).toFixed(2));
-                
-                
+
+
                 setL(data.userAccessList);
             }).catch((error) => { toast.error(error) });
 
@@ -143,158 +144,186 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
         else setErrorPM('');
         setPlanMonthTrend(value);
     }
-
-    let [showMonthPlan,setMonthPlan] =useState(false);
-    const handlMonthPlan = () => { setMonthPlan(!showMonthPlan);  handleClose()};
+    let k = '"';
+    let [showMonthPlan, setMonthPlan] = useState(false);
+    const handlMonthPlan = () => { setMonthPlan(!showMonthPlan); handleClose() };
     return (
         <>
-        <Modal show={show} onHide={() => handleClose()} >
-            <Modal.Header closeButton>
-                <Modal.Title>Настройки "{data.nameResult}" </Modal.Title>
-            </Modal.Header>
-            <Modal.Body className='accessOv accordionItem'>
-                {data.length !== 0 ?
-                    <Container>
-                        <ListGroup variant="flush" >
-                            <ListGroup.Item key={data.idResult + "8"} className={'accordionItem'}>
-                                <span><h5>Тип показателя</h5></span>
-                                <InputGroup className='mb-3 mt-2'>
-                                    <InputGroup.Text className={"withP"}>Тип показателя :</InputGroup.Text>
-                                    <Form.Select aria-label="Floating label select example" onChange={(e) => setPeriodEnable(e.target.value)}>
-                                        {listType.map(period => <option value={period.id}>{period.title} </option>)}
-                                    </Form.Select>
-                                </InputGroup>
-                            </ListGroup.Item>
-                            {isAdmin === true ?
-                                <ListGroup.Item key={data.idResult + "3"} className={'accordionItem'} >
-                                    <span><h5>Границы статуса</h5></span>
-                                    <ListGroup>
-                                        <ListGroup.Item className='accordionItem listBorderNone mb-2'>
-                                            <InputGroup >
-                                                <InputGroup.Text className={"withP"}>Красная граница %:  </InputGroup.Text>
-                                                <Form.Control
-                                                    defaultValue={r}
-                                                    aria-describedby="basic-addon1"
-                                                    className={errorRE === '' ? 'modalRed ' : 'modalRed modalError'}
-                                                    onChange={(e) => { setMin(e.target.value) }}
-                                                />
-                                            </InputGroup>
-                                            <Form.Text className='modalTextSecond' muted><Col> Красная граница: {redPlan}</Col>
-                                                <Col>{errorRE === '' ? <></> :
-                                                    <span className='modalTextError'>  {errorRE}</span>}</Col>
-                                            </Form.Text>
-                                            <InputGroup >
-                                                <InputGroup.Text className={"withP"}>Зелёная граница %:  </InputGroup.Text>
-                                                <Form.Control
-                                                    defaultValue={g}
-                                                    aria-describedby="basic-addon1"
-                                                    className={errorGE === '' ? 'modalGreen ' : 'modalGreen modalError'}
-                                                    onChange={(e) => { setMax(e.target.value) }}
-                                                />
-                                            </InputGroup>
-                                            <Form.Text className='modalTextSecond' muted><Col>Зелёная граница: {greenPlan}</Col>
-                                                <Col> {errorGE === '' ? <></> :
-                                                    <span className='modalTextError'>  {errorGE}</span>
-                                                }
-                                                </Col>
-                                            </Form.Text>
-                                        </ListGroup.Item>
-                                        <ListGroup.Item className='accordionItem listBorderNone'>
-
-                                            <InputGroup >
-                                                <InputGroup.Text className={"withP"}>План, {data.typeResult} :  </InputGroup.Text>
-                                                <Form.Control
-                                                    aria-describedby="basic-addon1"
-                                                    defaultValue={planRange}
-                                                    className={errorPE === '' ? '' : 'modalError'}
-                                                    onChange={(e) => { setP(e.target.value) }}
-                                                />
-                                                {/* <InputGroup.Text onClick={()=>handlMonthPlan()} ><RiSettings3Line/></InputGroup.Text> */}
-                                            </InputGroup>
-                                            
-
-                                            {errorPE === '' ? <></> :
-                                                <Form.Text muted>
-                                                    <span className='modalTextError'>  {errorPE}</span>
-                                                </Form.Text>}
-
-                                            <InputGroup className='mb-3 mt-2'>
-                                                <InputGroup.Text className={"withP"}>Период расчета:</InputGroup.Text>
-                                                <Form.Select aria-label="Floating label select example" onChange={(e) => setPeriodEnable(e.target.value)}>
-                                                    {listPeriod.map(period => <option value={period.id}>{period.title} </option>)}
-                                                </Form.Select>
-                                            </InputGroup>
-
-                                            <InputGroup >
-                                                <InputGroup.Text className={"withP"}>Период тренда:  </InputGroup.Text>
-                                                <Form.Control
-                                                    aria-describedby="basic-addon1"
-                                                    defaultValue={planMonthTrend}
-                                                    className={errorPME === '' ? '' : 'modalError'}
-                                                    onChange={(e) => { setPM(e.target.value) }}
-                                                />
-                                            </InputGroup>
-
-                                            {errorPME === '' ? <></> :
-                                                <Form.Text muted>
-                                                    <span className='modalTextError'>  {errorPME}</span>
-                                                </Form.Text>}
-                                        </ListGroup.Item>
-                                    </ListGroup>
+            <Modal show={show} onHide={() => handleClose()} >
+                <Modal.Header closeButton>
+                    <Modal.Title>Настройки "{data.nameResult}" </Modal.Title>
+                </Modal.Header>
+                <Modal.Body className='accessOv accordionItem'>
+                    {data.length !== 0 ?
+                        <Container>
+                            <ListGroup variant="flush" >
+                                <ListGroup.Item key={data.idResult + "8"} className={'accordionItem'}>
+                                    <span className={"withP"}>
+                                        <h5 className={"withP"}>Тип показателя
+                                        </h5>
+                                    </span>
+                                    <InputGroup className='mb-3 mt-2'>
+                                        <InputGroup.Text className={"withP "}>  Тип показателя
+                                        <SettingToolTip headerHext={"Тип показателя"} bodyText={
+                                                "Тип показателя влияет на границу статуса и линию тренда." +
+                                                "Например, для показателя с типом  " + k + "Чем больше, тем лучше" + k + ", " +
+                                                "зеленая область статуса должна быть приближена к плановому значению." +
+                                                "Цвет линии нисподающего тренда будет красным." +
+                                                "Для типа " + k + "Чем меньше, тем лучше" + k + " - наоборот."} />
+                                        </InputGroup.Text>
+                                        <Form.Select aria-label="Floating label select example" onChange={(e) => setPeriodEnable(e.target.value)}>
+                                            {listType.map(period => <option value={period.id}>{period.title} </option>)}
+                                        </Form.Select>
+                                    </InputGroup>
                                 </ListGroup.Item>
-                                : <></>}
+                                {isAdmin === true ?
+                                    <ListGroup.Item key={data.idResult + "3"} className={'accordionItem'} >
+
+                                        <span className={"withP"}>
+                                            <h5 className={"withP"}>Границы статуса<p className={"with"}><SettingToolTip headerHext={"Границы статусов"} bodyText={
+                                                "Плановое значение показателя разбивается на 3 области (статуса): красный, желтый, зеленый. Цвет статуса определяется по фактическому значению."} />
+                                            </p>
+                                            </h5>
+                                        </span>
+
+                                        <ListGroup>
+                                            <ListGroup.Item className='accordionItem listBorderNone mb-2'>
+                                                <InputGroup >
+                                                    <InputGroup.Text className={"withP"}>Красная граница, %
+                                                        <SettingToolTip headerHext={"Красная граница"} bodyText={
+                                                            "Задается наибольшее значение красного статуса (правая граница). Если Факт превысит указанное значение, статус будет желтым"} />
+                                                    </InputGroup.Text>
+                                                    <Form.Control
+                                                        defaultValue={r}
+                                                        aria-describedby="basic-addon1"
+                                                        className={errorRE === '' ? 'modalRed ' : 'modalRed modalError'}
+                                                        onChange={(e) => { setMin(e.target.value) }}
+                                                    />
+                                                </InputGroup>
+                                                <Form.Text className='modalTextSecond' muted><Col> Красная граница: {redPlan}</Col>
+                                                    <Col>{errorRE === '' ? <></> :
+                                                        <span className='modalTextError'>  {errorRE}</span>}</Col>
+                                                </Form.Text>
+                                                <InputGroup >
+                                                    <InputGroup.Text className={"withP"}>Зелёная граница, %
+                                                        <SettingToolTip headerHext={"Зелёная граница"} bodyText={
+                                                            "Задается наименьшее значение зеленого статуса. Если Факт будет больше указанного значения, статус будет зеленым"} />
+                                                    </InputGroup.Text>
+                                                    <Form.Control
+                                                        defaultValue={g}
+                                                        aria-describedby="basic-addon1"
+                                                        className={errorGE === '' ? 'modalGreen ' : 'modalGreen modalError'}
+                                                        onChange={(e) => { setMax(e.target.value) }}
+                                                    />
+                                                </InputGroup>
+                                                <Form.Text className='modalTextSecond' muted><Col>Зелёная граница: {greenPlan}</Col>
+                                                    <Col> {errorGE === '' ? <></> :
+                                                        <span className='modalTextError'>  {errorGE}</span>
+                                                    }
+                                                    </Col>
+                                                </Form.Text>
+                                            </ListGroup.Item>
+                                            <ListGroup.Item className='accordionItem listBorderNone'>
+
+                                                <InputGroup >
+                                                    <InputGroup.Text className={"withP"}>План, {data.typeResult}
+                                                        
+                                                    </InputGroup.Text>
+                                                    <Form.Control
+                                                        aria-describedby="basic-addon1"
+                                                        defaultValue={planRange}
+                                                        className={errorPE === '' ? '' : 'modalError'}
+                                                        onChange={(e) => { setP(e.target.value) }}
+                                                    />
+                                                    {/* <InputGroup.Text onClick={()=>handlMonthPlan()} ><RiSettings3Line/></InputGroup.Text> */}
+                                                </InputGroup>
 
 
-                            <ListGroup.Item key={data.idResult + "1"} className={'accordionItem'}>
-                                <span><h5>Вид графика</h5></span>
-                                <Row className='m-3 '>
-                                    {typeChart === 1 ? <AiOutlineLineChart className='chartSVGSettingsSet' /> : <AiOutlineLineChart onClick={() => setTypeChart(1)} className='chartSVGSettings' />}
-                                    {typeChart === 2 ? <AiOutlineBarChart className='chartSVGSettingsSet' /> : <AiOutlineBarChart onClick={() => setTypeChart(2)} className='chartSVGSettings' />}
-                                    {typeChart === 3 ? <AiOutlineDotChart className='chartSVGSettingsSet' /> : <AiOutlineDotChart onClick={() => setTypeChart(3)} className='chartSVGSettings' />}
-                                    {typeChart === 4 ? <AiOutlineAreaChart className='chartSVGSettingsSet' /> : <AiOutlineAreaChart onClick={() => setTypeChart(4)} className='chartSVGSettings' />}
-                                </Row>
-                            </ListGroup.Item>
-                            {isAdmin === true && l.length !== 0 ?
-                                <ListGroup.Item key={data.idResult + "2"} className={'accordionItem'}>
-                                    <span><h5>Настройки доступа</h5></span>
-                                    <Form>
-                                        <Col>
-                                            <Table variant='table-bordered table-hover' style={{ height: 70 }}>
-                                                <tbody className="table-light">
-                                                    {l.map(value => (
-                                                        <tr key={value.idUser}>
-                                                            <td>
-                                                                <Form.Check
-                                                                    checked={value.enable}
-                                                                    type={'switch'}
-                                                                    key={plus()}
-                                                                    onChange={() => {
-                                                                        switchLink(value);
-                                                                    }}
-                                                                />
-                                                            </td>
-                                                            <td >{value.nameUser}</td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </Table>
-                                        </Col>
-                                    </Form>
+                                                {errorPE === '' ? <></> :
+                                                    <Form.Text muted>
+                                                        <span className='modalTextError'>  {errorPE}</span>
+                                                    </Form.Text>}
+
+                                                <InputGroup className='mb-3 mt-2'>
+                                                    <InputGroup.Text className={"withP"}>Период расчета
+                                                    </InputGroup.Text>
+                                                    <Form.Select aria-label="Floating label select example" onChange={(e) => setPeriodEnable(e.target.value)}>
+                                                        {listPeriod.map(period => <option value={period.id}>{period.title} </option>)}
+                                                    </Form.Select>
+                                                </InputGroup>
+
+                                                <InputGroup >
+                                                    <InputGroup.Text className={"withP"}>Период тренда
+                                                        
+                                                    </InputGroup.Text>
+                                                    <Form.Control
+                                                        aria-describedby="basic-addon1"
+                                                        defaultValue={planMonthTrend}
+                                                        className={errorPME === '' ? '' : 'modalError'}
+                                                        onChange={(e) => { setPM(e.target.value) }}
+                                                    />
+                                                </InputGroup>
+
+                                                {errorPME === '' ? <></> :
+                                                    <Form.Text muted>
+                                                        <span className='modalTextError'>  {errorPME}</span>
+                                                    </Form.Text>}
+                                            </ListGroup.Item>
+                                        </ListGroup>
+                                    </ListGroup.Item>
+                                    : <></>}
+
+
+                                <ListGroup.Item key={data.idResult + "1"} className={'accordionItem'}>
+                                    <span><h5>Вид графика</h5></span>
+                                    <Row className='m-3 '>
+                                        {typeChart === 1 ? <AiOutlineLineChart className='chartSVGSettingsSet' /> : <AiOutlineLineChart onClick={() => setTypeChart(1)} className='chartSVGSettings' />}
+                                        {typeChart === 2 ? <AiOutlineBarChart className='chartSVGSettingsSet' /> : <AiOutlineBarChart onClick={() => setTypeChart(2)} className='chartSVGSettings' />}
+                                        {typeChart === 3 ? <AiOutlineDotChart className='chartSVGSettingsSet' /> : <AiOutlineDotChart onClick={() => setTypeChart(3)} className='chartSVGSettings' />}
+                                        {typeChart === 4 ? <AiOutlineAreaChart className='chartSVGSettingsSet' /> : <AiOutlineAreaChart onClick={() => setTypeChart(4)} className='chartSVGSettings' />}
+                                    </Row>
                                 </ListGroup.Item>
-                                :
-                                <></>
-                            }
-                        </ListGroup>
-                    </Container>
-                    : <></>}
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant="primary" onClick={() => click()}>
-                    Сохранить
-                </Button>
-            </Modal.Footer>
-        </Modal>
-        <ModalMonthPlan show={showMonthPlan} close={handlMonthPlan} nowData={data} type={data.typeResult}/>
+                                {isAdmin === true && l.length !== 0 ?
+                                    <ListGroup.Item key={data.idResult + "2"} className={'accordionItem'}>
+                                        <span><h5>Настройки доступа</h5></span>
+                                        <Form>
+                                            <Col>
+                                                <Table variant='table-bordered table-hover' style={{ height: 70 }}>
+                                                    <tbody className="table-light">
+                                                        {l.map(value => (
+                                                            <tr key={value.idUser}>
+                                                                <td>
+                                                                    <Form.Check
+                                                                        checked={value.enable}
+                                                                        type={'switch'}
+                                                                        key={plus()}
+                                                                        onChange={() => {
+                                                                            switchLink(value);
+                                                                        }}
+                                                                    />
+                                                                </td>
+                                                                <td >{value.nameUser}</td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </Table>
+                                            </Col>
+                                        </Form>
+                                    </ListGroup.Item>
+                                    :
+                                    <></>
+                                }
+                            </ListGroup>
+                        </Container>
+                        : <></>}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={() => click()}>
+                        Сохранить
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <ModalMonthPlan show={showMonthPlan} close={handlMonthPlan} nowData={data} type={data.typeResult} />
         </>
     );
 };

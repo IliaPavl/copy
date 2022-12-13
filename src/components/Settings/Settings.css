@@ -1,0 +1,14 @@
+.noBorder{
+    border: none;
+}
+.groupList{
+    text-decoration: none;
+    color: black;
+}
+
+.BlueBorder{
+    border-color: rgb(61, 148, 210)!important;
+}
+.BlueBack{
+    background-color: rgb(61, 148, 210,0.2)!important;
+}

@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN, AUTHRIZATION_WORD, URL_ALL_USER, URL_EDIT_USER, URL_IS_ADMIN, URL_PROFILE, URL_REGISTRATION_ROUTE, URL_ROLEUSER, URL_ROLE_USER, URL_SEARCH_USER, URL_STATUS_USER, URL_USER_COMPANYNAME } from "../../utils/const";
+import { ACCESS_TOKEN, AUTHRIZATION_WORD, URL_ALL_USER, URL_EDIT_USER, URL_IS_ADMIN, URL_PROFILE, URL_REGISTRATION_ROUTE, URL_ROLEUSER, URL_ROLE_USER, URL_SEARCH_USER, URL_SETTINGS_NOTIFICATION, URL_STATUS_USER, URL_USER_COMPANYNAME } from "../../utils/const";
 import api from "./api";
 
 class UserHttpServise {
@@ -117,6 +117,27 @@ class UserHttpServise {
 
     getUserProfile(){
         return api.get(URL_PROFILE, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`
+            }
+        });
+    }
+
+
+    getSettingsNotification(){
+        return api.get(URL_SETTINGS_NOTIFICATION, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`
+            }
+        });
+    }
+    setSettingsNotification(settings){
+        const u = {
+            settingsNotification: settings,
+        };
+        return api.post(URL_SETTINGS_NOTIFICATION,settings, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`
