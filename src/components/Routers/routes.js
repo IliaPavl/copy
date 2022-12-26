@@ -63,6 +63,10 @@ export const authRoutes = [
         path: SETTINGS_NOTIFICATION,
         Component: SettingBack
     },
+    {
+        path: NEW_DATA + "/:searchValue"+"/:searchValue2",
+        Component: NewDataPage
+    },
 ]
 
 export const publicRoutes = [

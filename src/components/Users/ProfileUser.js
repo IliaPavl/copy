@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Accordion, Button, Card, Col, Container, Form, ListGroup, Offcanvas, Row, Stack } from 'react-bootstrap';
+import { Accordion, Button, Card, Col, Container, ListGroup, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import UserServise from '../../servise/funtionService/UserServise';
 import { FORGOT_PASSWPRD } from '../../utils/const';
 import "./profile.css";
-import UserProfileEdit from './UserProfileEdit';
-import { RiArrowDownLine } from "react-icons/ri";
 
 
 const ProfileUser = () => {
-    const [showSettings, setShowSettings] = useState(false);
-    const handleShow = () => setShowSettings(!showSettings);
     let [company, setSompany] = useState({});
-    const [isAdmin, setIsAdmin] = useState(false);
-    let [agents, setAgents] = useState([]);
-    let [access, setAccess] = useState([]);
     let [userInfo, setUserInfo] = useState([]);
     let [roles, setRolse] = useState('');
     let [status, setStatus] = useState('');
@@ -26,14 +19,10 @@ const ProfileUser = () => {
         else
             setIsPfone(false)
     };
-    async function update() {
-        return true;
-    }
 
     useEffect(() => {
         UserServise.setUserProfile().then(obj => {
             setSompany(obj.data[1])
-            setAgents(obj.data[0]);
             setUserInfo(obj.data[2]);
         })
         if (window.innerWidth < 780)
@@ -47,8 +36,6 @@ const ProfileUser = () => {
         if (userInfo.length !== 0) {
             let r = '';
             userInfo.roles.forEach(role => {
-                if (role.name === "ROLE_Владелец")
-                    setIsAdmin(true);
                 r += (role.name.split('_')[1] + ", ")
             })
             setRolse(r);

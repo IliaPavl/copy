@@ -12,7 +12,7 @@ class InputPatternService {
     }
 
     loginInput(value) {
-        if (!/^[a-zA-Z][a-zA-Z0-9-_\.]{4,20}$/.test(value))
+        if (!/^[A-z0-9][-A-z0-9]{4,20}$/.test(value))
             return ('Логин должен быть от 5 до 20 символов и может содержать цифры и латинские буквы')
         else
             return ('')
@@ -53,6 +53,12 @@ class InputPatternService {
     modalPlan(value) {
         if (!/^\d{1,30}(?:,\d{3})*(?:\.\d{1,2})?$/.test(value)) { return ("План измеряется только в цифрах 999.99"); }
         else if (value < 0) { return ("План не может быть меньше 0"); }
+        else return ('');
+    }
+
+    valueIndicator(value) {
+        if (!/^\d{1,30}(?:,\d{3})*(?:\.\d{1,2})?$/.test(value)) { return ("Значение измеряется только в цифрах 999.99"); }
+        else if (value < 0) { return ("Значение не может быть меньше 0"); }
         else return ('');
     }
     

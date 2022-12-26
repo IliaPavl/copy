@@ -1,14 +1,55 @@
-.noBorder{
+.noBorder {
     border: none;
 }
-.groupList{
+
+.groupList {
     text-decoration: none;
     color: black;
 }
 
-.BlueBorder{
-    border-color: rgb(61, 148, 210)!important;
+.BlueBorder {
+    border-color: rgb(61, 148, 210) !important;
 }
-.BlueBack{
-    background-color: rgb(61, 148, 210,0.2)!important;
+
+.BlueBack {
+    background-color: rgb(61, 148, 210, 0.2) !important;
+}
+
+.cardFooterContainer {
+    position: relative;
+    height: 50px;
+}
+
+.cardFooter {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding-top: 5px;
+    padding-right: 5px;
+}
+
+.messageBox {
+    margin: 0px 0px 0px 0px;
+}
+
+.enableContainer {
+    position: relative;
+    width: 50px;
+}
+
+.enableDiv {
+    position: absolute;
+    top: 0;
+    margin-top: 5px;
+}
+.swith{
+    margin: -2px 0 0 0;
+}
+
+.messageTop {
+    margin: 0px 0px 0px 0px;
+}
+
+.messageBot {
+    margin: 0px 0px 0px 0px;
 }

@@ -12,7 +12,7 @@ class UserHttpServise {
         });
     }
 
-    getClientUser(){
+    getClientUser() {
         return api.get(URL_USER_COMPANYNAME, {
             headers: {
                 'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ class UserHttpServise {
         });
     }
 
-    getRegistratios(){
+    getRegistratios() {
         return api.get(URL_REGISTRATION_ROUTE, {
             headers: {
                 'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ class UserHttpServise {
         });
     }
 
-    getEditUser(){
+    getEditUser() {
         return api.get(URL_EDIT_USER, {
             headers: {
                 'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ class UserHttpServise {
         });
     }
 
-    getStatusUser(){
+    getStatusUser() {
         return api.get(URL_STATUS_USER, {
             headers: {
                 'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ class UserHttpServise {
         });
     }
 
-    getRoleUser(){
+    getRoleUser() {
         return api.get(URL_ROLE_USER, {
             headers: {
                 'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ class UserHttpServise {
         });
     }
 
-    getUser(url){
+    getUser(url) {
         return api.get(url, {
             headers: {
                 'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ class UserHttpServise {
         });
     }
 
-    updateUser(login,fioUser,email,password,roleE,statusE,companyE,url,links){
+    updateUser(login, fioUser, email, password, roleE, statusE, companyE, url, links) {
         roleE = roleE.toString()
         const u = {
             login: login,
@@ -78,14 +78,14 @@ class UserHttpServise {
             status: statusE,
             accessUserInCompany: links
         };
-        return api.post(url, u,{
+        return api.post(url, u, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`
             }
         });
     }
-    findUsers(seachMessege){
+    findUsers(seachMessege) {
         const u = {
             searchValue: seachMessege,
         };
@@ -96,7 +96,7 @@ class UserHttpServise {
             }
         });
     }
-    userRole(){
+    userRole() {
         return api.get(URL_ROLEUSER, {
             headers: {
                 'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ class UserHttpServise {
         });
     }
 
-    isAdmin(){
+    isAdmin() {
         return api.get(URL_IS_ADMIN, {
             headers: {
                 'Content-Type': 'application/json',
@@ -115,7 +115,7 @@ class UserHttpServise {
     }
 
 
-    getUserProfile(){
+    getUserProfile() {
         return api.get(URL_PROFILE, {
             headers: {
                 'Content-Type': 'application/json',
@@ -125,7 +125,7 @@ class UserHttpServise {
     }
 
 
-    getSettingsNotification(){
+    getSettingsNotification() {
         return api.get(URL_SETTINGS_NOTIFICATION, {
             headers: {
                 'Content-Type': 'application/json',
@@ -133,11 +133,8 @@ class UserHttpServise {
             }
         });
     }
-    setSettingsNotification(settings){
-        const u = {
-            settingsNotification: settings,
-        };
-        return api.post(URL_SETTINGS_NOTIFICATION,settings, {
+    setSettingsNotification(settings) {
+        return api.post(URL_SETTINGS_NOTIFICATION, settings, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`

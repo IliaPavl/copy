@@ -1,5 +1,4 @@
 import { toast } from "react-toastify";
-import { ROLE_VLADELTC } from "../../utils/const";
 import ResultHttpServise from "../httpServise/ResultHttpServise";
 import UserHttpServise from "../httpServise/UserHttpServise";
 
@@ -49,7 +48,7 @@ class UserServise {
 
     async bars(url) {
         return this.getBarComponents(url).then((obj) => {
-            return ({ linkMonitors: obj,  isAdmin: true });
+            return ({ linkMonitors: obj, isAdmin: true });
         })
 
     }

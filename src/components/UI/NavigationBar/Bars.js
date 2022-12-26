@@ -12,8 +12,6 @@ const Bars = () => {
 
     const [isRoleAdmin, setIsAdmin] = useState(false);
     const [isUser, setIsUser] = useState(false);
-    const [monitors, setMonitors] = useState([]);
-    const [links, setLinks] = useState([]);
 
     useEffect(() => {
         if (LocalServise.getUserName() !== "error") {
@@ -28,7 +26,7 @@ const Bars = () => {
     return (
         <>
             <NavigationBar showBurger={showBurger} isUser={isUser} />
-            <SideBar showBurger={showBurger} show={sideBurger} monitors={monitors} links={links} isRoleAdmin={isRoleAdmin} isUser={isUser} />
+            <SideBar showBurger={showBurger} show={sideBurger} isRoleAdmin={isRoleAdmin} isUser={isUser} />
         </>
     );
 };

@@ -9,11 +9,12 @@ class ResultServise {
     
     setRows(data){
         var rows = [];
-        data.tableData.forEach(element => {
+        data.forEach(element => {
             rows.push({ Дата_расчета: element.parseDate,Результат_показателя: element.dateSumma})
         });
         return rows;
     }
+    
 };
 
 export default new ResultServise();

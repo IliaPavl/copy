@@ -32,3 +32,11 @@
     line-height: 120% !important;
 
 }
+.tooltipImg{
+    position: absolute;
+    display: block;
+    height: 21px;
+    width: 21px;
+    margin-top: -12px;
+    padding-top: 0;
+}

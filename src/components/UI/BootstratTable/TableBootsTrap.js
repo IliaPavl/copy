@@ -80,7 +80,7 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
                             <Table variant='table-bordered table-hover' style={{ height: 70 }} className={"scrollTable"}>
                                 <TableHead key={plus()} values={head} sorting={sorting} withCheack={withCheack} />
                                 {rows.map((type) => (
-                                    <TableRow key={"fgh"} value={type} updateData={updateData} withCheack={withCheack} />
+                                    <TableRow key={plus()} value={type} updateData={updateData} withCheack={withCheack} />
                                 ))}
                             </Table> :
                             <Loading />

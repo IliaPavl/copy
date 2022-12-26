@@ -1,6 +1,7 @@
 import React from 'react';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import './Tooltip.css';
+import { IoIosHelpCircleOutline } from "react-icons/io";
 
 const SettingToolTip = ({ headerHext, bodyText }) => {
     return (
@@ -19,9 +20,7 @@ const SettingToolTip = ({ headerHext, bodyText }) => {
             }
         >
             <div className='notification-container_questionToolTipDiv'>
-                <div className='questionToolTipDiv'>
-                    ?
-                </div>
+                    <IoIosHelpCircleOutline className='tooltipImg'/>
             </div>
         </OverlayTrigger>
     );

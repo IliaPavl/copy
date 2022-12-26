@@ -1,5 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { Button, Col } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ClientServise from '../../servise/funtionService/ClientServise';
@@ -14,7 +13,6 @@ const ListBook = ({ update }) => {
     let [headerTable, setHeaderTable] = useState([])
     let [rowsTable, setRowsTable] = useState([])
     let [sortV, setSortV] = useState('');
-    let [box, setBox] = useState([])
 
     async function switchData(data) {
 
@@ -94,22 +92,11 @@ const ListBook = ({ update }) => {
                 let message = error.request.responseText.split('"');
                 toast.error(message[3]);
             })
-            setBox([])
         }
     }
 
-    useMemo(() => {
-
-    }, [box, rowsTable]);
-
     useEffect(() => {
     }, [sortV]);
-    const [showSettings, setShowSettings] = useState(false);
-    const handleShow = () => { setShowSettings(!showSettings) };
-    async function updateProfile() {
-        console.log("new")
-        return true;
-    }
     let [isPfone, setIsPfone] = useState(false)
     window.onresize = function (event) {
         if (event.target.innerWidth < 900)

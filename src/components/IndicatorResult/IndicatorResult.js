@@ -95,7 +95,7 @@ const IndicatorResult = () => {
         setHeaderTable(ResultServise.setHeader())
         ResultHttpServise.getAllClientsResult(url).then((respons) => {
             setResultRows(respons.data)
-            setRowsTable(ResultServise.setRows(respons.data));
+            setRowsTable(ResultServise.setRows(respons.data.tableData));
         }).catch((error) => {
             let message = error.request.responseText.split('"');
             console.log(message[3])

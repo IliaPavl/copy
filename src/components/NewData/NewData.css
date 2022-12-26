@@ -1,0 +1,45 @@
+.newDataTable{
+    width: 280px;
+    font-size: 13px;
+    height: 200px;
+    overflow: auto;
+}
+.calendarContainer{
+    margin: 0;
+    padding: 0;
+}
+.cardNewData{
+    width: 340px;
+}
+.cardErrorData{
+    max-width: 2000px!important;
+    width: 100%!important;
+    height: 100%!important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: auto;
+}
+.divErrorData{
+    width: 320px;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto; 
+}
+
+
+.cardFooterContainer{
+    position:relative;
+    height: 50px;
+}
+.cardFooter{
+    position:absolute;
+    right: 0;
+    top: 0;
+    padding-top: 5px;
+    padding-right: 5px;
+}

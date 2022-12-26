@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, Form, InputGroup, ListGroup, Modal, OverlayTrigger, Popover, Row, Table, Tooltip } from 'react-bootstrap';
+import { Button, Col, Container, Form, InputGroup, ListGroup, Modal, Row, Table } from 'react-bootstrap';
 import { AiOutlineAreaChart, AiOutlineBarChart, AiOutlineDotChart, AiOutlineLineChart } from "react-icons/ai";
 import { toast } from 'react-toastify';
 import InputPatternService from '../../servise/funtionService/InputPatternService';
 import ResultHttpServise from '../../servise/httpServise/ResultHttpServise';
+import SettingToolTip from "../UI/ToolTips/SettingToolTip.js";
 import ModalMonthPlan from './ModalMonthPlan';
-import { RiSettings3Line } from "react-icons/ri";
-import SettingToolTip from "../UI/ToolTips/SettingToolTip.js"
-
-
 
 
 const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
@@ -21,13 +18,11 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
     let [r, set_r] = useState();
     let [g, set_g] = useState();
     let [periodEnable, setPeriodEnable] = useState("Месяц")
-    //let [listPeriod, setListPeriod] = useState([ { id: 1, title: "День" }, { id: 2, title: "Неделя" }, { id: 4, title: "Квартал" },{ id: 3, title: "Месяц" }, { id: 5, title: "Год" }])
-    let [listPeriod, setListPeriod] = useState([{ id: 3, title: "Месяц" }])
-    //let [listType, setListType] = useState([{ id: 1, title: "Чем больше, тем лучше" },{ id: 2, title: "Чем меньше, тем лучше" }])
-    let [listType, setListType] = useState([{ id: 1, title: "Чем больше, тем лучше" }])
+    let [typeDimensionEnable, setTypeDimensionEnable] = useState({ id: 1, title: "Чем больше, тем лучше" })
+    let [listPeriod, setListPeriod] = useState([])
+    let [listType, setListType] = useState([])
     let [typeChart, setTypeChart] = useState(data.typeChart)
     let [planMonthTrend, setPlanMonthTrend] = useState('');
-    let [direction, setDirection] = useState(1);
 
     let [errorPM, setErrorPM] = useState('');
     let [errorP, setErrorP] = useState('');
@@ -47,7 +42,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
             setErrorPME('')
             set_r(minValue);
             set_g(maxValue);
-            saveChenge(l, minValue, maxValue, planRange, periodEnable, typeChart, data.idResult, direction, planMonthTrend);
+            saveChenge(l, minValue, maxValue, planRange, periodEnable, typeChart, data.idResult, typeDimensionEnable.id, planMonthTrend);
             handleClose();
 
         } else {
@@ -94,7 +89,18 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                 setTypeChart(data2.data.diagType_ID);
                 setPeriodEnable(data2.data.periodType);
                 setPlanMonthTrend(data2.data.trendPeriod);
-                setDirection(data2.data.directionIndicator);
+                //[ { id: 1, title: "День" }, { id: 2, title: "Неделя" }, { id: 4, title: "Квартал" },{ id: 3, title: "Месяц" }, { id: 5, title: "Год" }]
+                setListPeriod([{ id: 3, title: "Месяц" }])
+                if (data2.data.directionIndicator === 1)
+                {
+                    setTypeDimensionEnable({ id: 1, title: "Чем больше, тем лучше" })
+                    setListType([{ id: 1, title: "Чем больше, тем лучше" }, { id: 2, title: "Чем меньше, тем лучше" }])
+                }
+                else
+                {
+                    setTypeDimensionEnable({ id: 2, title: "Чем меньше, тем лучше" })
+                    setListType([{ id: 2, title: "Чем меньше, тем лучше" },{ id: 1, title: "Чем больше, тем лучше" } ])
+                }
                 setRedPlan((data2.data.indPlan / 100 * data2.data.percentRed).toFixed(2));
                 setGreenPlan((data2.data.indPlan / 100 * data2.data.percentGreen).toFixed(2));
 
@@ -164,14 +170,14 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                                     </span>
                                     <InputGroup className='mb-3 mt-2'>
                                         <InputGroup.Text className={"withP "}>  Тип показателя
-                                        <SettingToolTip headerHext={"Тип показателя"} bodyText={
+                                            <SettingToolTip headerHext={"Тип показателя"} bodyText={
                                                 "Тип показателя влияет на границу статуса и линию тренда." +
                                                 "Например, для показателя с типом  " + k + "Чем больше, тем лучше" + k + ", " +
                                                 "зеленая область статуса должна быть приближена к плановому значению." +
                                                 "Цвет линии нисподающего тренда будет красным." +
                                                 "Для типа " + k + "Чем меньше, тем лучше" + k + " - наоборот."} />
                                         </InputGroup.Text>
-                                        <Form.Select aria-label="Floating label select example" onChange={(e) => setPeriodEnable(e.target.value)}>
+                                        <Form.Select aria-label="Floating label select example" onChange={(e) => setTypeDimensionEnable(e.target.value)}>
                                             {listType.map(period => <option value={period.id}>{period.title} </option>)}
                                         </Form.Select>
                                     </InputGroup>
@@ -179,8 +185,8 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                                 {isAdmin === true ?
                                     <ListGroup.Item key={data.idResult + "3"} className={'accordionItem'} >
 
-                                        <span className={"withP"}>
-                                            <h5 className={"withP"}>Границы статуса<p className={"with"}><SettingToolTip headerHext={"Границы статусов"} bodyText={
+                                        <span className={"withP "}>
+                                            <h5 className={"withP pading"}>Границы статуса<p className={"with"}><SettingToolTip headerHext={"Границы статусов"} bodyText={
                                                 "Плановое значение показателя разбивается на 3 области (статуса): красный, желтый, зеленый. Цвет статуса определяется по фактическому значению."} />
                                             </p>
                                             </h5>
@@ -227,7 +233,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
 
                                                 <InputGroup >
                                                     <InputGroup.Text className={"withP"}>План, {data.typeResult}
-                                                        
+
                                                     </InputGroup.Text>
                                                     <Form.Control
                                                         aria-describedby="basic-addon1"
@@ -254,7 +260,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
 
                                                 <InputGroup >
                                                     <InputGroup.Text className={"withP"}>Период тренда
-                                                        
+
                                                     </InputGroup.Text>
                                                     <Form.Control
                                                         aria-describedby="basic-addon1"

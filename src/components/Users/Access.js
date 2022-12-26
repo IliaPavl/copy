@@ -6,10 +6,7 @@ import "./profile.css";
 
 const Access = ({ show, handleClose, links, saveChenge }) => {
     let [l, setL] = useState([]);
-    const title = { title: "Монитор" };
-    const group = { title: "Группа" };
-    const monitor = { title: "Показатель" };
-    const type = { title: "Ед.изм." };
+
     const [head, setHead] = useState([])
     async function click() {
         saveChenge(l);
@@ -21,22 +18,27 @@ const Access = ({ show, handleClose, links, saveChenge }) => {
     useEffect(() => {
     }, [l])
 
-    let maxValueList = [];
+
     useEffect(() => {
-        if(links!==null)
-        if(links.length!==0){
-        let maxValue = 0;
-        let header = [];
-        header.push(title);
-        links.forEach(link => { if (link.path.length > maxValue) { maxValue = link.path.length; maxValueList = link.path; } })
-        links.forEach(link => { if (link.path.length < maxValue) { for(let i=0;i<maxValue-link.path.length;i++) link.path.push("") } })
-        for (let i = 1; i < maxValue; i++)
-            header.push(group);
-        header.push(monitor);
-        header.push(type);
-        setHead(header);
-        setL(links);
-        }
+
+        if (links !== null)
+            if (links.length !== 0) {
+                const title = { title: "Монитор" };
+                const group = { title: "Группа" };
+                const monitor = { title: "Показатель" };
+                const type = { title: "Ед.изм." };
+                let maxValue = 0;
+                let header = [];
+                header.push(title);
+                links.forEach(link => { if (link.path.length > maxValue) { maxValue = link.path.length; } })
+                links.forEach(link => { if (link.path.length < maxValue) { for (let i = 0; i < maxValue - link.path.length; i++) link.path.push("") } })
+                for (let i = 1; i < maxValue; i++)
+                    header.push(group);
+                header.push(monitor);
+                header.push(type);
+                setHead(header);
+                setL(links);
+            }
     }, [links])
 
     function switchCh(value) {

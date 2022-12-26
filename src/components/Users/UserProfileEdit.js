@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Container, Form, Row } from 'react-bootstrap';
+import { Button, Card, Form, Row } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import InputPatternService from '../../servise/funtionService/InputPatternService';
 import UserServise from '../../servise/funtionService/UserServise';
@@ -10,7 +10,7 @@ import Access from './Access';
 
 
 const UserProfile = ({ isNew, update }) => {
-    let [isNewUser, setIsNew] = useState(isNew);
+    let [isNewUser, setIsNew] = useState();
     let [status, setStatus] = useState([])
     let [company, setCompany] = useState([])
     let [role, setRole] = useState([])
@@ -108,14 +108,13 @@ const UserProfile = ({ isNew, update }) => {
 
     async function getAccessList() {
         UserServise.setUserProfile().then(obj => {
-            obj.data[3].map(l => { l.checked = 0 })
+            obj.data[3].foreach(l => { l.checked = 0 })
             setLinks(obj.data[3])
         }).catch((error) => { toast.error(error) })
     }
 
     async function submitForm(event) {
         event.preventDefault()
-        console.log(repit + "|" + password)
         if (password !== repit)
             toast.error("Пароли не совпадают !")
         else if (errorlogin === '' && errorPass === '' && errorlogin === '') {
@@ -138,14 +137,15 @@ const UserProfile = ({ isNew, update }) => {
 
     useEffect(() => {
 
-    }, [links])
+    }, [links,isNew])
 
     useEffect(() => {
-        if (isNewUser !== null) {
+        setIsNew(isNew);
+        if (isNew !== null) {
             setAxiosClients()
             setAxiosStatusUser()
             setAxiosRoleUser()
-            if (!isNewUser)
+            if (!isNew)
                 setUserInfo()
             else {
                 getAccessList();
@@ -158,7 +158,7 @@ const UserProfile = ({ isNew, update }) => {
             setIsPfone(true)
         else
             setIsPfone(false)
-    }, [])
+    }, [isNew])
 
     useEffect(() => {
         if (isNewUser)

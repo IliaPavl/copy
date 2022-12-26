@@ -1,13 +1,13 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { RiLineChartLine, RiLogoutBoxRLine, RiTeamLine, RiUser2Fill } from "react-icons/ri";
+import { RiLineChartLine, RiLogoutBoxRLine, RiTeamLine, RiUser2Fill,RiSettings3Line } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 import LocalServise from '../../../../servise/httpServise/LocalServise';
 import { HOME_PAGE, LOGIN_ROUTE, SETTINGS_NOTIFICATION, USER_LIST, USER_PROFILE } from '../../../../utils/const';
 import SearchLable from '../../SearchForm/SearchLable';
 import "./SideBarCSs.css";
 
-const SideBar = ({ show, monitors, links, isRoleAdmin, showBurger,isUser }) => {
+const SideBar = ({ show, isRoleAdmin, showBurger,isUser }) => {
     async function Logout() {
         LocalServise.logoutUser();
         window.location.assign(LOGIN_ROUTE)
@@ -50,7 +50,7 @@ const SideBar = ({ show, monitors, links, isRoleAdmin, showBurger,isUser }) => {
                                     Настройки
                                 </Col>
                                 <Col sm={1}>
-                                    <RiUser2Fill className='icon LinkHiden' />
+                                    <RiSettings3Line className='icon LinkHiden' />
                                 </Col>
                             </Row>
                         </span>

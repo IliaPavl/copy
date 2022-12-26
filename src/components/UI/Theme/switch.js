@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {IoMoonSharp, IoMoonOutline} from "react-icons/io5";
-import '../CSS/swithTheme.css'
+import React from 'react';
+import { IoMoonOutline, IoMoonSharp } from "react-icons/io5";
+import '../CSS/swithTheme.css';
 
 const Switch = () => {
 

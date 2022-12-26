@@ -7,12 +7,11 @@ import Loading from '../Loader/Loading';
 import MyChart from './MyChart';
 
 
-const SetDataChart = ({ chartData, titleChart, rowsName, options,showTable }) => {
+const SetDataChart = ({ chartData, titleChart, rowsName, options, showTable }) => {
     let [enableTypeChart, setEnableType] = useState('line');
     let [enableCustomData, setEnabled] = useState(false);
     let [buferData, setBuferData] = useState([]);
     let [series, setSeries] = useState([]);
-    let [lastWeek, setLastWeek] = useState(0);
     let [customData, setCustomData] = useState([]);
     let [title, setTitle] = useState('');
     let [navigate, setNavigate] = useState(1);
@@ -199,7 +198,7 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options,showTable }) =>
             <Row className='mb-2 m-2'>
                 <Row className='settings_Controller'>
                     <div className='svgImgContainer'>
-                        <BsTable className='svgImg' onClick={() => {showTable()}}/>
+                        <BsTable className='svgImg' onClick={() => { showTable() }} />
                     </div>
                     <div className='svgImgContainerLast' onClick={() => { clickTimeSettings() }}>
                         <BsCalendarCheck className='svgImg' />
@@ -208,7 +207,7 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options,showTable }) =>
                         <div >
                             <Col className='m-2'>
                                 <Row className='buttonContainer'>
-                                    <DropdownMonth  className={"settingsButton"} setEnable={setHotMonth} noSelectValue={"Выберите месяц"} isSelect={isSelect} />
+                                    <DropdownMonth className={"settingsButton"} setEnable={setHotMonth} noSelectValue={"Выберите месяц"} isSelect={isSelect} />
                                 </Row>
                                 <Row className='buttonContainer'>
                                     <Button className={"settingsButton"} onClick={() => setNavigate(1)} variant="primary" >За все время</Button><br />

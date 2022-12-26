@@ -4,11 +4,20 @@ import { toast } from 'react-toastify';
 import UserHttpServise from '../../servise/httpServise/UserHttpServise';
 
 const MessageSettings = () => {
-    let [setting, setSetting] = useState([]);
+    let mapSettings = [{ id: 1, name: 'Окончание расчета', enable: false, help: "Получать уведомления на почту по завершению расчета показателей" }]
+    let [setting, setSetting] = useState(mapSettings);
     useEffect(() => {
         UserHttpServise.getSettingsNotification().then(obj => {
             console.log(obj.data);
-            setSetting(obj.data);
+            obj.data.map((data) => {
+                setSetting(setting =>
+                    setting.map(item =>
+                        item.id === data.id
+                            ? { ...item, name: data.name, enable: data.enable }
+                            : item
+                    )
+                )
+            })
         })
     }, [])
 
@@ -44,38 +53,54 @@ const MessageSettings = () => {
                             <tbody>
                                 {setting.map(setting =>
                                     <tr key={plus()}>
-                                        <td>
-                                            {setting.enable === true ?
-                                                <Form.Check
-                                                    checked
-                                                    type={'switch'}
-                                                    key={plus()}
-                                                    onChange={() => {
-                                                        switchValue(setting);
-                                                    }}
-                                                /> :
-                                                <Form.Check
-                                                    type={'switch'}
-                                                    key={plus()}
-                                                    onChange={() => {
-                                                        switchValue(setting);
-                                                    }}
-                                                />}
+                                        <td className='enableContainer'>
+                                            <div className='enableDiv'>
+                                                {setting.enable === true ?
+                                                    <Form.Check
+                                                        checked
+                                                        type={'switch'}
+                                                        key={plus()}
+                                                        className={'swith'}
+                                                        onChange={() => {
+                                                            switchValue(setting);
+                                                        }}
+                                                    /> :
+                                                    <Form.Check
+                                                        type={'switch'}
+                                                        key={plus()}
+                                                        className={'swith'}
+                                                        onChange={() => {
+                                                            switchValue(setting);
+                                                        }}
+                                                    />}
+                                            </div>
                                         </td>
-                                        <td>
-                                            {setting.name}
+                                        <td className='messageBox'>
+                                            <Row>
+
+                                                <Form.Label className='messageTop'>
+                                                    {setting.name}
+                                                </Form.Label>
+                                                <Form.Text className='messageBot'>
+                                                    {setting.help}
+                                                </Form.Text>
+
+                                            </Row>
                                         </td>
                                     </tr>
                                 )}
+                                
                             </tbody>
                         </table>
                         : <></>}
                 </Card.Body>
-                <Card.Footer>
+                <Card.Footer className='cardFooterContainer'>
+                    <div className='cardFooter'>
                         <Button variant="primary" onClick={() => click()}>
                             Сохранить
                         </Button>
-                    </Card.Footer>
+                    </div>
+                </Card.Footer>
             </Card>
         </Container>
     );
