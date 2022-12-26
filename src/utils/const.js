@@ -14,9 +14,12 @@ export const INDICATOR_RESULT ='/indicatorResult'
 export const NEW_PASSWORD = '/newPassword'
 export const ACTIVATION = '/activate'
 export const FORGOT_PASSWPRD = '/forgotPassword'
+export const SETTINGS_NOTIFICATION = '/settings/notification'
+export const NEW_DATA = '/indicator_add_value'
+
 
 export const URL_BASE = 'http://77.74.35.5:30823'
-//export const URL_BASE = 'https://localhost:8080'
+//export const URL_BASE = 'http://localhost:8080'
 
 
 export const URL_LOGIN = URL_BASE+'/app/login'
@@ -43,6 +46,8 @@ export const URL_PROFILE ='/app/user/profile'
 export const URL_CHANGR_SETTINGS_TRENDS = '/app/user/indicatorResult/changeSetting'
 export const URL_IS_ADMIN = '/app/user/isAdmin'
 export const URL_GET_SETTINGS_INDICATOR = '/app/user/getIndicatorSetting'
+export const URL_SETTINGS_NOTIFICATION = '/app/user/settings/notification'
+export const URL_NEW_DATA = '/app/user/indicatorAddValue'
 
 export const URL_EDIT_CLIENT = URL_BASE + '/app/client/edit'
 export const URL_ALL_CLIENTS = URL_BASE + '/app/client/all'
