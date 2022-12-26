@@ -172,7 +172,7 @@
 }
 
 .arrowUp {
-    margin-top: -1px;
+    align-items: start;
     height: 25px;
     width: 25px;
     color: green;

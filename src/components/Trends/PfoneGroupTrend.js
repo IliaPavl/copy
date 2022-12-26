@@ -88,6 +88,7 @@ const PfoneGroupTrend = ({ ingroup, reload, stylesIn }) => {
                                 <tbody >
                                     {group.linkMonitor.map(links =>
                                         <tr key={plus()}>
+                                            {console.log(links)}
                                             <td onClick={() => goToLink(links.idResult)} id="name" className='tablePCName'>{links.nameResult}, {links.typeResult}</td>
                                             <td onClick={() => goToLink(links.idResult)} id="fact">{links.indFact}</td>
                                             <td onClick={() => goToLink(links.idResult)} id="plan">
@@ -108,6 +109,9 @@ const PfoneGroupTrend = ({ ingroup, reload, stylesIn }) => {
                                                 {links.trend === "1" ? <RiArrowRightDownLine className='arrowDown' /> : <></>}
                                                 {links.trend === "2" ? <RiArrowRightLine className='arrowHoriz' /> : <></>}
                                                 {links.trend === "3" ? <RiArrowRightUpLine className='arrowUp' /> : <></>}
+                                                {links.trend === "-1" ? <RiArrowRightUpLine className='arrowUp' /> : <></>}
+                                                {links.trend === "-2" ? <RiArrowRightLine className='arrowHoriz' /> : <></>}
+                                                {links.trend === "-3" ? <RiArrowRightDownLine className='arrowDown' /> : <></>}
                                             </td>
 
                                             <td onClick={() => goToLink(links.idResult)} id="date">{links.parseMaxDate}</td>
