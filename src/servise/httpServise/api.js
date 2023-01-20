@@ -26,7 +26,7 @@ instance.interceptors.response.use(
   },
   async (err) => {
     const originalConfig = err.config;
-    
+
     if (originalConfig.url !== URL_LOGIN && err.response) {
       // Access Token was expired
       if (err.response.status === 401 && !originalConfig._retry) {
@@ -56,7 +56,10 @@ instance.interceptors.response.use(
         }
       }
       if (err.response.status === 403) {
-        toast.error("You are not logged in or do not have access rights!")
+        window.location.replace(LOGIN_ROUTE);
+        toast.error("Время сессии истекло, перезайдите в приложение!");
+        LocalServise.logoutUser();
+
       }
     }
     if (err.response.status === 0) {

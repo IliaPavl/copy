@@ -18,10 +18,11 @@ const NewData = () => {
     let [errorPE, setErrorPE] = useState('');
     let [value, setValue] = useState(0);
     let [comment, setComment] = useState('');
-    let [localUrl, setUrl] = useState(window.location.pathname.split('/'))
+    let [localUrl, setUrl] = useState()
     let [isLoaded, setIsLoaded] = useState(false);
     useEffect(() => {
         let url = window.location.pathname.split('/');
+        setUrl(url);
         setHeaderTable(ResultServise.setHeader())
         ResultHttpServise.getIndicatorValues(url).then((respons) => {
             console.log(respons.data);
@@ -35,11 +36,6 @@ const NewData = () => {
             let message = error.request.responseText.split('"');
             toast.error(message[3]);
         })
-
-        if (window.innerWidth < 900)
-            setIsPfone(true)
-        else
-            setIsPfone(false)
     }, [])
 
 
@@ -91,18 +87,7 @@ const NewData = () => {
             toast.warning("Проверьте введённые вами данные");
         }
     }
-    let [date, setDate] = useState(null);
-    useEffect(() => {
 
-    }, [date])
-
-    let [isPfone, setIsPfone] = useState(true)
-    window.onresize = function (event) {
-        if (event.target.innerWidth < 900)
-            setIsPfone(true)
-        else
-            setIsPfone(false)
-    };
     return (
         <>
             {isLoaded === false ?

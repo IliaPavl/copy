@@ -7,7 +7,7 @@ import Loading from '../Loader/Loading';
 import MyChart from './MyChart';
 
 
-const SetDataChart = ({ chartData, titleChart, rowsName, options, showTable }) => {
+const SetDataChart = ({ chartData, titleChart, rowsName, options, showTable, setType }) => {
     let [enableTypeChart, setEnableType] = useState('line');
     let [enableCustomData, setEnabled] = useState(false);
     let [buferData, setBuferData] = useState([]);
@@ -30,6 +30,7 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options, showTable }) =
     };
 
     function setChartData() {
+        
         if (chartData.length !== 0 && rowsName.length !== 0) {
             setCustomData(chartData);
             if (hotMonth.length !== 0) {
@@ -75,14 +76,27 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options, showTable }) =
         if (customData.length !== 0)
             if (navigate === 1) {
                 setSubTitle('За все время')
-                setBuferData(customData[0].values[customData[0].values.length - 1].monthChartData);
+                setType(2);
+                const data=[];
+                customData[0].values.forEach(el => el.monthChartData.forEach(el2 => data.push(el2)))
+                //console.log(customData[0].values[0].monthChartData);
+                //data.push(customData[0].values[0].monthChartData[0])
+                setBuferData(data);
                 setSeriesLocal('month', enableTypeChart);
                 setNavigator(0);
             } else if (navigate === 2) {
+                setType(3);
                 setSubTitle('Последний год')
-                setBuferData(customData[0].values[customData[0].values.length - 1].monthChartData);
+                const data=[];
+                customData[0].values.forEach(el => el.monthChartData.forEach(el2 => data.push(el2)))
+                //console.log(customData[0].values[0].monthChartData);
+                //data.push(customData[0].values[0].monthChartData[0])
+                setBuferData(data);
                 setSeriesLocal('month', enableTypeChart);
                 setNavigator(0);
+                // setBuferData(customData[0].values[customData[0].values.length - 1].monthChartData);
+                // setSeriesLocal('month', enableTypeChart);
+                // setNavigator(0);
             } else if (navigate === 3) {
                 setSubTitle('За последний месяц')
                 let lastMonth = customData[0].values[customData[0].values.length - 1].monthChartData.length;
@@ -104,6 +118,16 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options, showTable }) =
                 // setNavigator((1 - (lastMonth / ((customData[0].values[customData[0].values.length - 1].monthChartData.length - 1)))));
                 // setBuferData(customData[0].values[customData[0].values.length - 1].monthChartData)
                 // setSeriesLocal('parseDate', enableTypeChart);
+            } else if (navigate === 5) {
+                setType(1);
+                setSubTitle('По умолчанию')
+                const data=[];
+                customData[0].values.forEach(el => el.monthChartData.forEach(el2 => data.push(el2)))
+                //console.log(customData[0].values[0].monthChartData);
+                //data.push(customData[0].values[0].monthChartData[0])
+                setBuferData(data);
+                setSeriesLocal('month', enableTypeChart);
+                setNavigator(0);
             }
             else setNavigator(0);
     }
@@ -121,6 +145,10 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options, showTable }) =
     useEffect(() => {
         setEnableType(options);
     }, [options])
+    useEffect(()=>{
+        //console.log(customData);
+    },[customData])
+
 
     useEffect(() => {
         if (hotMonth.length !== 0) {
@@ -206,8 +234,11 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options, showTable }) =
                     {timeSettings ?
                         <div >
                             <Col className='m-2'>
-                                <Row className='buttonContainer'>
+                                {/* <Row className='buttonContainer'>
                                     <DropdownMonth className={"settingsButton"} setEnable={setHotMonth} noSelectValue={"Выберите месяц"} isSelect={isSelect} />
+                                </Row> */}
+                                <Row className='buttonContainer'>
+                                    <Button className={"settingsButton"} onClick={() => setNavigate(5)} variant="primary">По умолчанию</Button><br />
                                 </Row>
                                 <Row className='buttonContainer'>
                                     <Button className={"settingsButton"} onClick={() => setNavigate(1)} variant="primary" >За все время</Button><br />
@@ -215,12 +246,12 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options, showTable }) =
                                 <Row className='buttonContainer'>
                                     <Button className={"settingsButton"} onClick={() => setNavigate(2)} variant="primary">За последний год</Button><br />
                                 </Row>
-                                <Row className='buttonContainer'>
+                                {/* <Row className='buttonContainer'>
                                     <Button className={"settingsButton"} onClick={() => lm()} variant="primary" >За последний месяц</Button><br />
                                 </Row>
                                 <Row className='buttonContainer'>
                                     <Button className={"settingsButton"} onClick={() => setNavigate(4)} variant="primary" >За последнюю неделю</Button><br />
-                                </Row>
+                                </Row> */}
                             </Col>
                         </div>
                         : <></>}

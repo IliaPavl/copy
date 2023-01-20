@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
-
-
 import { toast } from 'react-toastify';
 import ClientServise from '../../servise/funtionService/ClientServise';
 import ClientHttpServise from '../../servise/httpServise/ClientHttpServise';
@@ -32,23 +30,14 @@ const EditCompany = () => {
         })
     }
 
-    async function loadClientData(){
+    async function loadClientData() {
         let url = window.location.pathname.split('/');
-        ClientHttpServise.getClient(URL_EDIT_CLIENT+'/'+url[2]).then((respons) => {
-           console.log(respons.data.status);
-           setCompanyName(respons.data.companyName);
-           setPhoneNumber(respons.data.phoneNumber);
-           setNameCliet(respons.data.nameClient);
-           setEnabledStatus(respons.data.status);
-        }).catch((error) => {
-            let message = error.request.responseText.split('"');
-            toast.error(message[3]);
-        })
-    }
-
-    async function setAxiosStatus() {
-        ClientHttpServise.getStatusClient().then((respons) => {
-            setStatus(ClientServise.setStatusClient(respons))
+        ClientHttpServise.getClient(URL_EDIT_CLIENT + '/' + url[2]).then((respons) => {
+            console.log(respons.data.status);
+            setCompanyName(respons.data.companyName);
+            setPhoneNumber(respons.data.phoneNumber);
+            setNameCliet(respons.data.nameClient);
+            setEnabledStatus(respons.data.status);
         }).catch((error) => {
             let message = error.request.responseText.split('"');
             toast.error(message[3]);
@@ -58,10 +47,9 @@ const EditCompany = () => {
     async function setClient(e) {
         e.preventDefault()
         let url = window.location.pathname.split('/');
-        console.log(companyName+ nameCliet+ phoneNumber+ enabledStatus)
-        ClientHttpServise.updateCompany(companyName, nameCliet, phoneNumber, enabledStatus,URL_EDIT_CLIENT+'/'+url[2]).then((respons) => {
+        console.log(companyName + nameCliet + phoneNumber + enabledStatus)
+        ClientHttpServise.updateCompany(companyName, nameCliet, phoneNumber, enabledStatus, URL_EDIT_CLIENT + '/' + url[2]).then((respons) => {
             toast.success(respons.data);
-            //window.location.assign(URL_ADD_CLIENTS)
         }).catch((error) => {
             let message = error.request.responseText.split('"');
             toast.error(message[3]);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Container, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { SETTINGS_NOTIFICATION, URL_BASE, USER_PROFILE } from '../../utils/const';
+import { SETTINGS_NOTIFICATION } from '../../utils/const';
 
 const SettingGroup = () => {
     return (

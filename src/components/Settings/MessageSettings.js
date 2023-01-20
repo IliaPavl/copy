@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Card, Container, Form, Row } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import UserHttpServise from '../../servise/httpServise/UserHttpServise';
 
@@ -9,7 +9,7 @@ const MessageSettings = () => {
     useEffect(() => {
         UserHttpServise.getSettingsNotification().then(obj => {
             console.log(obj.data);
-            obj.data.map((data) => {
+            obj.data.map((data) => (
                 setSetting(setting =>
                     setting.map(item =>
                         item.id === data.id
@@ -17,7 +17,7 @@ const MessageSettings = () => {
                             : item
                     )
                 )
-            })
+            ))
         })
     }, [])
 
@@ -89,7 +89,7 @@ const MessageSettings = () => {
                                         </td>
                                     </tr>
                                 )}
-                                
+
                             </tbody>
                         </table>
                         : <></>}

@@ -116,7 +116,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
             setPeriodEnable(null);
             setL([]);
         }
-    }, [show])
+    }, [show,data])
 
     async function setMin(value) {
         let err = InputPatternService.modalRedRange(value, maxValue);
@@ -164,10 +164,10 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                         <Container>
                             <ListGroup variant="flush" >
                                 <ListGroup.Item key={data.idResult + "8"} className={'accordionItem'}>
-                                    <span className={"withP"}>
+                                    <div className={"withP"}>
                                         <h5 className={"withP"}>Тип показателя
                                         </h5>
-                                    </span>
+                                    </div>
                                     <InputGroup className='mb-3 mt-2'>
                                         <InputGroup.Text className={"withP "}>  Тип показателя
                                             <SettingToolTip headerHext={"Тип показателя"} bodyText={
@@ -178,19 +178,19 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                                                 "Для типа " + k + "Чем меньше, тем лучше" + k + " - наоборот."} />
                                         </InputGroup.Text>
                                         <Form.Select aria-label="Floating label select example" onChange={(e) => setTypeDimensionEnable(e.target.value)}>
-                                            {listType.map(period => <option value={period.id}>{period.title} </option>)}
+                                            {listType.map(period => <option key={plus()} value={period.id}>{period.title} </option>)}
                                         </Form.Select>
                                     </InputGroup>
                                 </ListGroup.Item>
                                 {isAdmin === true ?
                                     <ListGroup.Item key={data.idResult + "3"} className={'accordionItem'} >
 
-                                        <span className={"withP "}>
-                                            <h5 className={"withP pading"}>Границы статуса<p className={"with"}><SettingToolTip headerHext={"Границы статусов"} bodyText={
+                                        <div className={"withP "}>
+                                            <h5 className={"withP pading"}>Границы статуса<div className={"with"}><SettingToolTip headerHext={"Границы статусов"} bodyText={
                                                 "Плановое значение показателя разбивается на 3 области (статуса): красный, желтый, зеленый. Цвет статуса определяется по фактическому значению."} />
-                                            </p>
+                                            </div>
                                             </h5>
-                                        </span>
+                                        </div>
 
                                         <ListGroup>
                                             <ListGroup.Item className='accordionItem listBorderNone mb-2'>
@@ -208,7 +208,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                                                 </InputGroup>
                                                 <Form.Text className='modalTextSecond' muted><Col> Красная граница: {redPlan}</Col>
                                                     <Col>{errorRE === '' ? <></> :
-                                                        <span className='modalTextError'>  {errorRE}</span>}</Col>
+                                                        <div className='modalTextError'>  {errorRE}</div>}</Col>
                                                 </Form.Text>
                                                 <InputGroup >
                                                     <InputGroup.Text className={"withP"}>Зелёная граница, %
@@ -224,7 +224,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                                                 </InputGroup>
                                                 <Form.Text className='modalTextSecond' muted><Col>Зелёная граница: {greenPlan}</Col>
                                                     <Col> {errorGE === '' ? <></> :
-                                                        <span className='modalTextError'>  {errorGE}</span>
+                                                        <div className='modalTextError'>  {errorGE}</div>
                                                     }
                                                     </Col>
                                                 </Form.Text>
@@ -247,14 +247,14 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
 
                                                 {errorPE === '' ? <></> :
                                                     <Form.Text muted>
-                                                        <span className='modalTextError'>  {errorPE}</span>
+                                                        <div className='modalTextError'>  {errorPE}</div>
                                                     </Form.Text>}
 
                                                 <InputGroup className='mb-3 mt-2'>
                                                     <InputGroup.Text className={"withP"}>Период расчета
                                                     </InputGroup.Text>
                                                     <Form.Select aria-label="Floating label select example" onChange={(e) => setPeriodEnable(e.target.value)}>
-                                                        {listPeriod.map(period => <option value={period.id}>{period.title} </option>)}
+                                                        {listPeriod.map(period => <option key={plus()} value={period.id}>{period.title} </option>)}
                                                     </Form.Select>
                                                 </InputGroup>
 
@@ -272,7 +272,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
 
                                                 {errorPME === '' ? <></> :
                                                     <Form.Text muted>
-                                                        <span className='modalTextError'>  {errorPME}</span>
+                                                        <div className='modalTextError'>  {errorPME}</div>
                                                     </Form.Text>}
                                             </ListGroup.Item>
                                         </ListGroup>
@@ -281,7 +281,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
 
 
                                 <ListGroup.Item key={data.idResult + "1"} className={'accordionItem'}>
-                                    <span><h5>Вид графика</h5></span>
+                                    <div><h5>Вид графика</h5></div>
                                     <Row className='m-3 '>
                                         {typeChart === 1 ? <AiOutlineLineChart className='chartSVGSettingsSet' /> : <AiOutlineLineChart onClick={() => setTypeChart(1)} className='chartSVGSettings' />}
                                         {typeChart === 2 ? <AiOutlineBarChart className='chartSVGSettingsSet' /> : <AiOutlineBarChart onClick={() => setTypeChart(2)} className='chartSVGSettings' />}
@@ -291,7 +291,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                                 </ListGroup.Item>
                                 {isAdmin === true && l.length !== 0 ?
                                     <ListGroup.Item key={data.idResult + "2"} className={'accordionItem'}>
-                                        <span><h5>Настройки доступа</h5></span>
+                                        <div><h5>Настройки доступа</h5></div>
                                         <Form>
                                             <Col>
                                                 <Table variant='table-bordered table-hover' style={{ height: 70 }}>

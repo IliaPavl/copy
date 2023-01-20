@@ -7,30 +7,23 @@ import './Colors.css';
 import PfoneGroupTrend from './PfoneGroupTrend';
 import { MdAttachMoney } from "react-icons/md";
 import { BsFillPeopleFill } from "react-icons/bs";
-import { FiUsers } from "react-icons/fi";
 
 const Trends = () => {
-    const [colors, setColors] = useState([
-        { colorBack: "GreenBack", colorBorder: "GreenBorder" },
-        { colorBack: "BlueBack", colorBorder: "BlueBorder" }])
+    let [colors, setColors] = useState([
+            { colorBack: "GreenBack", colorBorder: "GreenBorder" },
+            { colorBack: "BlueBack", colorBorder: "BlueBorder" }])
     let [cards, setcards] = useState([]);
     useEffect(() => {
-
+        if(colors.length===0)
+        setColors([
+            { colorBack: "GreenBack", colorBorder: "GreenBorder" },
+            { colorBack: "BlueBack", colorBorder: "BlueBorder" }])
         UserServise.trends().then((data) => { setcards(data) })
         if (window.innerWidth < 1000)
             setIsPfone(true)
         else
             setIsPfone(false)
-    }, [])
-    useEffect(() => {
-        if (cards !== null)
-            cards.map(firstGroup => {
-                if (firstGroup.monitor.length !== 0 && firstGroup.linkMonitor.length !== 0) {
-
-                }
-            }
-            )
-    }, [cards])
+    }, [colors])
 
     let number = 1;
 
@@ -68,7 +61,7 @@ const Trends = () => {
                 cards.map(firstGroup =>
                     !firstGroup.null ?
                         !isPfone ?
-                            <Container>
+                            <Container key={plus()}>
                                 {newColor()}
                                 <Card className={colors[n].colorBorder + " m-2 mb-5"} key={plus()}>
                                     <Accordion defaultActiveKey={"j"}>
@@ -85,7 +78,7 @@ const Trends = () => {
                                                 : <></>}
                                             <Accordion.Body>
                                                 <Row >
-                                                    <Col xs={12} md={8}>
+                                                    <Col xs={12} md={8} >
                                                         {firstGroup.monitor.length !== 0 ?
                                                             firstGroup.monitor.map(cardGroup =>
                                                                 !cardGroup.null ?

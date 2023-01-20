@@ -1,4 +1,5 @@
-import { ACCESS_TOKEN, AUTH, LAST_PAGE, REFRESH_TOKEN, REMEMBER_MY, USERNAME } from "../../utils/const";
+import { useNavigate } from "react-router-dom";
+import { ACCESS_TOKEN, AUTH, LAST_PAGE, LOGIN_ROUTE, REFRESH_TOKEN, REMEMBER_MY, USERNAME } from "../../utils/const";
 
 class LocalServise {
     saveTokens(data) {
@@ -43,6 +44,21 @@ class LocalServise {
         localStorage.removeItem(REFRESH_TOKEN);
         localStorage.removeItem(AUTH);
         localStorage.removeItem(USERNAME);
+    }
+
+    navigate(){
+        window.location.replace(LOGIN_ROUTE);
+    }
+
+    isLoginUser() {
+        if (localStorage.getItem(ACCESS_TOKEN) === null ||
+            localStorage.getItem(REFRESH_TOKEN) === null ||
+            localStorage.getItem(AUTH) === null ||
+            localStorage.getItem(USERNAME) === null
+        )
+            return false
+        else
+            return true
     }
 
     saveUserName(username) {

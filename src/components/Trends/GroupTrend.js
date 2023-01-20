@@ -10,15 +10,6 @@ import ModalSettings from './ModalSettings';
 
 const GroupTrend = ({ ingroup, reload,stylesIn }) => {
 
-    const [head, setHead] = useState([
-        { title: 'Name' },
-        { title: 'Trend' },
-        { title: 'Plan' },
-        { title: 'Status' },
-        { title: 'Fact' },
-        { title: 'Date' },
-        { title: 'Units' },
-    ]);
     let [dataLinks, setData] = useState([]);
     const navigate = useNavigate();
     const [showAccess, setShowAccess] = useState(false);
@@ -61,7 +52,6 @@ const GroupTrend = ({ ingroup, reload,stylesIn }) => {
                 { title: 'Дата' },
                 { title: 'ед.' },
             )
-            setHead(newHead);
             setGroup(ingroup);
         }
     }, [ingroup])

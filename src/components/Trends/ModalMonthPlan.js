@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Col, Form, InputGroup, Modal, Row } from 'react-bootstrap';
+import React from 'react';
+import { Col, Form, InputGroup, Modal } from 'react-bootstrap';
 
 const ModalMonthPlan = ({ show, close, nowData, type }) => {
-    const [month, setMonth] = useState([
+    const month =[
         {
             text: "Январь",
             value: "1",
@@ -87,14 +87,14 @@ const ModalMonthPlan = ({ show, close, nowData, type }) => {
             plan: 0,
             enabled: false
         }
-    ])
+    ]
     let number = 1;
 
     function plus() {
         number++;
         return number;
     }
-   
+
     return (
         <>
             <Modal show={show} onHide={() => close()} >
@@ -117,7 +117,7 @@ const ModalMonthPlan = ({ show, close, nowData, type }) => {
                                     <Form.Control
                                         aria-describedby="basic-addon1"
                                         defaultValue={"План: " + month.fact}
-                                        
+
                                     />
                                 </>
                                 :

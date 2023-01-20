@@ -1,52 +1,34 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { authRoutes, publicRoutes } from "./routes";
-import PageServise from '../../servise/funtionService/PageServise';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import RoleServise from '../../servise/funtionService/RoleServise';
 import LocalServise from '../../servise/httpServise/LocalServise';
-import { HOME_PAGE } from '../../utils/const';
+import { LOGIN_ROUTE } from '../../utils/const';
+import { authRoutes, publicRoutes } from "./routes";
 
 const AppRouter = () => {
     let [c, setC] = useState(false);
-    let [page, setPage] = useState('');
-
+    const navigate = useNavigate();
     const findC = useMemo(() => {
-        if(LocalServise.getUserName()!== "error")
-        return RoleServise.cheakRole();
-        else 
-        return false;
-    }, [])
-
-    const findP = useMemo(() => {
-        return LocalServise.getLastPage();
+        if (LocalServise.getUserName() !== "error")
+            return RoleServise.cheakRole();
+        else
+            return false;
     }, [])
 
     useEffect(() => {
         setC(findC);
-    }, [findC])
-
-    useEffect(() => {
-        setPage(findP);
-    }, [findP])
-
-    useEffect(() => {
-        if(LocalServise.getUserName()!== "error")
-        {
-            if (page === '') {
-            if (LocalServise.getAccesToken() !== null)
-                setPage(LocalServise.getLastPage())
+        if (!LocalServise.isLoginUser()) {
+            LocalServise.logoutUser();
+            navigate(LOGIN_ROUTE);
         }
-        else {
-            PageServise.redirectLastPage(HOME_PAGE);
-        }}
-    }, [])
+    }, [findC])
 
     return (
         <Routes>
-            {c && authRoutes.map(({ path, Component }) =>
+            {publicRoutes.map(({ path, Component }) =>
                 <Route key={path} path={path} element={<Component />} exact />
             )}
-            {publicRoutes.map(({ path, Component }) =>
+            {c && authRoutes.map(({ path, Component }) =>
                 <Route key={path} path={path} element={<Component />} exact />
             )}
         </Routes>
