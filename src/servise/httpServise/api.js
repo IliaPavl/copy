@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from 'react-toastify';
-import { AUTHRIZATION_WORD, URL_BASE, URL_LOGIN, URL_REFRESH } from "../../utils/const";
+import { AUTHRIZATION_WORD, URL_BASE, URL_LOGIN, URL_REFRESH ,LOGIN_ROUTE} from "../../utils/const";
 import LocalServise from "./LocalServise";
 const instance = axios.create({
   baseURL: URL_BASE,
@@ -58,6 +58,7 @@ instance.interceptors.response.use(
       if (err.response.status === 403) {
         window.location.replace(LOGIN_ROUTE);
         toast.error("Время сессии истекло, перезайдите в приложение!");
+        console.log("Время сессии истекло, перезайдите в приложение!");
         LocalServise.logoutUser();
 
       }
