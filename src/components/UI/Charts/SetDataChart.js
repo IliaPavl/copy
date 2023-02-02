@@ -241,10 +241,10 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options, showTable, set
                                     <Button className={"settingsButton"} onClick={() => setNavigate(5)} variant="primary">По умолчанию</Button><br />
                                 </Row>
                                 <Row className='buttonContainer'>
-                                    <Button className={"settingsButton"} onClick={() => setNavigate(1)} variant="primary" >За все время</Button><br />
+                                    <Button className={"settingsButton"} onClick={() => setNavigate(2)} variant="primary">За предыдущий год</Button><br />
                                 </Row>
                                 <Row className='buttonContainer'>
-                                    <Button className={"settingsButton"} onClick={() => setNavigate(2)} variant="primary">За последний год</Button><br />
+                                    <Button className={"settingsButton"} onClick={() => setNavigate(1)} variant="primary" >За все время</Button><br />
                                 </Row>
                                 {/* <Row className='buttonContainer'>
                                     <Button className={"settingsButton"} onClick={() => lm()} variant="primary" >За последний месяц</Button><br />

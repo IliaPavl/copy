@@ -9,22 +9,23 @@
     padding-right: 13px;
     left: 0;
     z-index: 999;
+    width: 270px;
 }
 
-.color2{
+.color2 {
     background-color: rgb(118, 106, 195);
 }
 
-.color3{
+.color3 {
     background-color: rgb(98, 86, 171);
 }
 
 
 .SideNav.active {
-    left: -100%;
+    left: -500px;
 }
 
-.SideNavMenu:hover{
+.SideNavMenu:hover {
     left: 0%;
 }
 
@@ -35,6 +36,14 @@
 
 .Link {
     text-decoration: none;
+}
+
+.firstCol {
+    width: 197px;
+}
+
+.sekondCol {
+    width: 0px;
 }
 
 .LinkHiden {
@@ -51,7 +60,7 @@ ul li {
     padding-bottom: 3px;
 }
 
-.menu{
+.menu {
     font-size: 23px;
     color: rgb(204, 204, 204);
 }

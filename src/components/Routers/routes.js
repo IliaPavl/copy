@@ -4,6 +4,8 @@ import CompanyAdd from "../../pages/Company/companyCreate";
 import companyEdit from "../../pages/Company/companyEdit";
 import CompanyLIst from "../../pages/Company/companyList";
 import Error from "../../pages/Errors/error";
+import IndicatorListPage from "../../pages/IndicatorSetting/IndicatorListPage";
+import IndicatorMemberPage from "../../pages/IndicatorSetting/IndicatorMemberPage";
 import NewDataPage from "../../pages/NewDataPage/NewDataPage";
 import TrendsPage from "../../pages/Trends/start";
 import activate from "../../pages/User/activateAccauntPage";
@@ -12,7 +14,25 @@ import newPassword from "../../pages/User/newPasswordPage";
 import profilePage from "../../pages/User/profilePage";
 import UserAdd from "../../pages/User/userAdd";
 import UserList from "../../pages/User/userList";
-import { ACTIVATION, COMPANY_ADD, COMPANY_LIST, COMPANY_PROFILE, ERROR, FORGOT_PASSWPRD, HOME_PAGE, INDICATOR_RESULT, LOGIN_ROUTE, NEW_DATA, NEW_PASSWORD, REGISTRATION_ROUTE, SETTINGS_NOTIFICATION, USER_ADD, USER_EDIT, USER_LIST, USER_PROFILE } from "../../utils/const";
+import {
+    ACTIVATION,
+    INDICATOR_MEMBER,
+    COMPANY_ADD,
+    COMPANY_LIST,
+    COMPANY_PROFILE,
+    ERROR, FORGOT_PASSWPRD,
+    HOME_PAGE,
+    INDICATOR_LIST,
+    INDICATOR_RESULT,
+    LOGIN_ROUTE,
+    NEW_DATA,
+    NEW_PASSWORD,
+    REGISTRATION_ROUTE,
+    SETTINGS, USER_ADD,
+    USER_EDIT,
+    USER_LIST,
+    USER_PROFILE
+} from "../../utils/const";
 import IndicatorResult from "../IndicatorResult/IndicatorResult";
 import SettingBack from "../Settings/SettingBack";
 import UserProfileEdit from "../Users/UserProfileEdit";
@@ -60,13 +80,22 @@ export const authRoutes = [
         Component: profilePage
     },
     {
-        path: SETTINGS_NOTIFICATION,
+        path: SETTINGS + "/:searchValue",
         Component: SettingBack
     },
     {
         path: NEW_DATA + "/:searchValue/:searchValue2",
         Component: NewDataPage
     },
+    {
+        path: INDICATOR_LIST,
+        Component: IndicatorListPage
+    },
+    {
+        path: INDICATOR_MEMBER + "/:id/:name",
+        Component: IndicatorMemberPage
+    },
+
 ]
 
 export const publicRoutes = [

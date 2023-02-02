@@ -61,11 +61,32 @@ class InputPatternService {
         else if (value < 0) { return ("Значение не может быть меньше 0"); }
         else return ('');
     }
-    
-    modalPlanMonth(value){
+
+    modalPlanMonth(value) {
         if (!/^(0|[1-9]\d*)$/.test(value)) { return ("Вводите только цифры от 0 до 12"); }
         else if (value < 0) { return ("Не может быть меньше 0"); }
         else if (value > 12) { return ("Не может быть больше 12"); }
+        else return ('');
+    }
+
+    intputChar(value) {
+        if (value !== null)
+            if (value !== "")
+                if (value.lenght <= 150)
+                    return ("Проверьте введённую строку, не более 150 символов")
+                else
+                    return ('');
+
+        return ("Проверьте введённую строку, не более 150 символов")
+    }
+    intputInt(value) {
+        if (!/^(0|[1-9]\d*)$/.test(value))
+            return ('');
+        else
+            return ("Это не число")
+    }
+    intputDec(value) {
+        if (!/^\d{1,30}(?:,\d{3})*(?:\.\d{1,2})?$/.test(value)) { return ("Значение измеряется только в цифрах 999.99"); }
         else return ('');
     }
 };

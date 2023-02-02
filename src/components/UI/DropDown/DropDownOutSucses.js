@@ -31,7 +31,7 @@ const DropDownCompany = ({values,setEnabledStatus,enabledStatus}) => {
                 </Dropdown.Header>
                 {values.length ?
                     values.map((type) => (
-                        <Dropdown.Item size="lg" key={type.item} value={type.item} onClick={() => hederSet(type.item+" ")}>{type.item}</Dropdown.Item>
+                        <Dropdown.Item size="lg" key={type.item} value={type.item} onClick={() => hederSet(type.item)}>{type.item}</Dropdown.Item>
                     )) : <p> Нету айтемов</p>}
             </Dropdown.Menu>
         </Dropdown>

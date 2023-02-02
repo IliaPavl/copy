@@ -14,12 +14,16 @@ export const INDICATOR_RESULT ='/indicatorResult'
 export const NEW_PASSWORD = '/newPassword'
 export const ACTIVATION = '/activate'
 export const FORGOT_PASSWPRD = '/forgotPassword'
+export const SETTINGS = '/settings'
 export const SETTINGS_NOTIFICATION = '/settings/notification'
+export const SETTINGS_INTEGRATION = '/settings/integration'
 export const NEW_DATA = '/indicator_add_value'
+export const INDICATOR_LIST = '/indicator/list'
+export const INDICATOR_MEMBER = '/indicator/member'
 
-
-export const URL_BASE = 'http://77.74.35.5:30823'
+//export const URL_BASE = 'http://77.74.35.5:30823'
 //export const URL_BASE = 'http://localhost:8080'
+export const URL_BASE = 'https://ts.hs.by:30823/'
 
 
 export const URL_LOGIN = URL_BASE+'/app/login'
@@ -48,6 +52,19 @@ export const URL_IS_ADMIN = '/app/user/isAdmin'
 export const URL_GET_SETTINGS_INDICATOR = '/app/user/getIndicatorSetting'
 export const URL_SETTINGS_NOTIFICATION = '/app/user/settings/notification'
 export const URL_NEW_DATA = '/app/user/indicatorAddValue'
+
+export const URL_INDICATOR_LIST = 'app/user/indicator_setting/list'
+export const URL_INDICATOR_IND_MEMBER_LIST = 'app/user/indicator_setting/indMemberList'
+export const URL_INDICATOR_IND_MEMBER = 'app/user/indicator_setting/member'
+
+
+
+
+export const URL_INEGTRATION_SETTINGS = '/app/user/integration/settings'
+export const URL_INEGTRATION_LIST = '/app/user/integration/list'
+export const URL_INEGTRATION_ONE = '/app/user/integration/one/'
+export const URL_INEGTRATION_SET = '/app/user/integration/set'
+export const URL_INEGTRATION_DELETE = '/app/user/integration/delete'
 
 export const URL_EDIT_CLIENT = URL_BASE + '/app/client/edit'
 export const URL_ALL_CLIENTS = URL_BASE + '/app/client/all'

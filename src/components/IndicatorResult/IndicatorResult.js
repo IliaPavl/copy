@@ -83,7 +83,7 @@ const IndicatorResult = () => {
                             }).catch((error) => { toast.error(error) });
 
                             let h = [];
-                            h.push(dataL[i].nameResult + ' ' + dataL[i].typeResult + ',');
+                            h.push(dataL[i].nameResult + ', ' + dataL[i].typeResult);
                             setE(h);
                             let h2 = []
                             h2.push(dataL[i])
@@ -114,7 +114,7 @@ const IndicatorResult = () => {
         if (groupLinks.length !== 0) {
             let enable2 = [];
             (groupLinks).map((data) => (
-                enable2.push(data.nameResult + ' ' + data.typeResult)
+                enable2.push(data.nameResult + ', ' + data.typeResult)
             ))
             setE(enable2);
             setHeaderTable(ResultServise.setHeader())

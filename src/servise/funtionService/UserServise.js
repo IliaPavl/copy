@@ -13,6 +13,12 @@ class UserServise {
         keys2.push({ title: "Почта" });
         return keys2;
     }
+    setHeadIntegration() {
+        var keys2 = [];
+        keys2.push({ title: "Тип интеграции" });
+        keys2.push({ title: "Название" });
+        return keys2;
+    }
 
     async setRowsUsers() {
         return UserHttpServise.getAllUsers().then((respons) => {

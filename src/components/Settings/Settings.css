@@ -1,5 +1,30 @@
+.buttonIntegation{
+    width: 200px; 
+    height: 50px;
+}
+.buttonIntegation_P{
+    width: 141px;
+    height: 63px;
+}
+
+.settingForm{
+    width:138px;
+}
+
+.cardIntList{
+    padding: 0;
+}
+.scrollTable{
+    overflow-y: scroll;
+    height:100%;
+}
 .noBorder {
     border: none;
+}
+
+.amo{
+    position: relative;
+    width: 200px;
 }
 
 .groupList {
@@ -15,11 +40,14 @@
     background-color: rgb(61, 148, 210, 0.2) !important;
 }
 
+.errorBorder{
+    border-color: red;
+}
+
 .cardFooterContainer {
     position: relative;
     height: 50px;
 }
-
 .cardFooter {
     position: absolute;
     right: 0;
@@ -44,6 +72,9 @@
 }
 .swith{
     margin: -2px 0 0 0;
+}
+.swith_P{
+    margin: 5px 0px 0px -5px;
 }
 
 .messageTop {

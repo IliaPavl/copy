@@ -53,9 +53,8 @@ const Login = () => {
     return (
         <Container className="d-flex justify-content-center align-items-center mt-5">
             <Card className="p-5 loginForm">
-
                 <h2 className="m-auto"> Авторизация </h2>
-
+                            
                 <Form className="d-flex flex-column">
                     <Form.Control
                         className="mt-3"

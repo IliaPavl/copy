@@ -60,7 +60,7 @@ const GroupTrend = ({ ingroup, reload,stylesIn }) => {
 
     return (
         <>
-            <Accordion defaultActiveKey={group.nameMonitor} className={"cradsGroup scrollTable"}>
+            <Accordion defaultActiveKey={group.nameMonitor} className={"cradsGroup"}>
                 <Accordion.Item eventKey={group.nameMonitor}>
                     <Accordion.Button className={stylesIn.colorBack +" CardHeadAccordion"}> {group.nameMonitor} </Accordion.Button>
                     <Accordion.Body className={"scrollTable"}>
