@@ -23,8 +23,8 @@ export const INDICATOR_MEMBER = '/indicator/member'
 
 //export const URL_BASE = 'http://77.74.35.5:30823'
 //export const URL_BASE = 'https://localhost:8080'
-export const URL_BASE = 'https://ts.hs.by:30823'
-
+//export const URL_BASE = 'https://ts.hs.by:30823'
+export const URL_BASE = 'https://rmsys.info:8080'
 
 export const URL_LOGIN = URL_BASE+'/app/login'
 export const URL_REGISTRATION_ROUTE = '/app/registration'
