@@ -21,6 +21,13 @@ const IntegrationSetting = () => {
     let [id, setid] = useState("");
     let [source, setSource] = useState(0);
     let [isOn, setIsOn] = useState(0);
+    let [isPfone, setIsPfone] = useState(false)
+    window.onresize = function (event) {
+        if (event.target.innerWidth < 780)
+            setIsPfone(true)
+        else
+            setIsPfone(false)
+    };
     useEffect(() => {
         integrationService.getIntegrationList().then(data => {
             setList(data.data);
@@ -29,6 +36,10 @@ const IntegrationSetting = () => {
             setTypes(data.data.types);
             setViews(data.data.jsonViews);
         })
+        if (window.innerWidth < 780)
+            setIsPfone(true)
+        else
+            setIsPfone(false)
     }, [])
 
     let number = 1;
@@ -92,10 +103,8 @@ const IntegrationSetting = () => {
         setIsNewInt(true);
         setNewIntegration(null);
         handleShow();
-        console.log("!");
     }
     useEffect(() => {
-        console.log(show);
     }, [show])
 
     async function edit(id) {
@@ -108,7 +117,6 @@ const IntegrationSetting = () => {
             setEViews(data.data.json);
             setIsOn(data.data.isOn);
             setName(data.data.viewName);
-            console.log(data.data.json);
             setComment(data.data.testComment);
             const f = data.data.json[0].fullPath.split("\\");
             setFile(f[f.length - 1]);
@@ -188,7 +196,6 @@ const IntegrationSetting = () => {
         let err = false;
         let b = cheakError(k);
         for (let k = 0; k < b.length; k++) {
-            console.log(b[k].error);
             if (b[k].error === true) {
                 err = true;
                 break;
@@ -222,9 +229,6 @@ const IntegrationSetting = () => {
         }
     }
 
-    useEffect(() => {
-
-    }, [errors])
 
     return (
         <Container className='mb-5'>
@@ -271,7 +275,7 @@ const IntegrationSetting = () => {
                                                                 checked
                                                                 type={'checkbox'}
                                                                 key={plus()}
-                                                                className={'swith'}
+                                                                className={isPfone ? 'swith_P' : 'swith'}
                                                                 onChange={() => {
                                                                     switchValue(list);
                                                                 }}
@@ -279,7 +283,7 @@ const IntegrationSetting = () => {
                                                             <Form.Check
                                                                 type={'checkbox'}
                                                                 key={plus()}
-                                                                className={'swith'}
+                                                                className={isPfone ? 'swith_P' : 'swith'}
                                                                 onChange={() => {
                                                                     switchValue(list);
                                                                 }}
@@ -361,7 +365,7 @@ const IntegrationSetting = () => {
                                         <>
                                             {file !== "" ?
                                                 <>
-                                                    <InputGroup key={plus()} className="mt-1">
+                                                    <InputGroup key={plus()} className="mt-2">
                                                         <Form.Label>Выбрвнный файл: {file}</Form.Label>
                                                     </InputGroup>
                                                     <InputGroup key={plus()} >
@@ -370,14 +374,14 @@ const IntegrationSetting = () => {
                                                 </>
                                                 :
                                                 <>
-                                                    <InputGroup key={plus()} >
+                                                    <InputGroup key={plus()} className="mt-2">
                                                         <Form.Control type="file" className={isError(data.viewName) === true ? "errorBorder " : ""} onChange={(e) => editData(data, e.target.value)} />
                                                     </InputGroup></>}
                                         </>
 
                                         :
                                         <>
-                                            <InputGroup key={plus()} className={isError(data.viewName) === true ? "errorBorder" : ""}>
+                                            <InputGroup key={plus()} className={isError(data.viewName) === true ? "errorBorder mt-2" : "mt-2"}>
                                                 <InputGroup.Text className={isError(data.viewName) === true ? "settingForm errorBorder" : ""}>
                                                     {data.viewName}
                                                 </InputGroup.Text>
@@ -395,9 +399,14 @@ const IntegrationSetting = () => {
                         </Form>
                         <Card.Footer className='cardFooterContainer mt-2'>
                             <div className='cardFooter'>
-                                <Button onClick={() => save()}>
-                                    Сохранить
-                                </Button>
+                                {eViews !== null ?
+                                    eViews.length !== 0 ?
+                                        <Button onClick={() => save()}>
+                                            Сохранить
+                                        </Button> : <Button disabled onClick={() => save()}>
+                                            Сохранить
+                                        </Button>
+                                    : <></>}
                             </div>
                         </Card.Footer>
                     </Card>

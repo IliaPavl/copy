@@ -19,7 +19,6 @@ const IndicatorMember = () => {
     useEffect(() => {
         let u = window.location.pathname.split('/');
         setUrl(u);
-        console.log(u[3]);
         integrationService.getIndicatorMemberList(u[3]).then(data => {
             setList(data.data.memberList);
             if (data.data.indicatorClients !== null)
@@ -31,7 +30,6 @@ const IndicatorMember = () => {
             setIsPfone(false)
     }, [])
     useEffect(() => {
-        console.log(info);
     }, [info])
     const navigate = useNavigate();
     let number = 1;
@@ -96,13 +94,13 @@ const IndicatorMember = () => {
                         {isPfone ?
                             <>
                                 <Row>
-                                    <div className='containerFirst_P'>Название индикатора:</div>
-                                    <div className='containerSecond_P'>{info !== undefined ? info.nameIndicator : <></>}</div>
+                                    <div className='containerFirst_P'>Индикатор:</div>
+                                    <div className='containerSecond_P '>{info !== undefined ? info.nameIndicator : <></>}</div>
                                 </Row>
 
                                 <Row>
-                                    <div className='containerFirst_P'>Описание </div>
-                                    <div className='containerSecond'>{info !== undefined ? info.description : <></>}</div>
+                                    <div className='containerFirst_P'>Описание: </div>
+                                    <Form.Control as="textarea" readOnly='true' className='containerSecond_P' value={info !== undefined ? info.description : ''} />
                                 </Row>
                                 <Row>
                                     <div className='containerFirst_P'>Группа: </div>
@@ -132,47 +130,58 @@ const IndicatorMember = () => {
                                 </Row>
                             </>
                             :
-                            <Row>
-                                <Col>
-                                    <Row>
-                                        <div className='containerFirst'>Название индикатора:</div>
-                                        <div className='containerSecond'>{info !== undefined ? <>{info.nameIndicator}</> : <></>}</div>
-                                    </Row>
+                            <>
+                                <Row>
+                                    <Col sm={6}>
+                                        <Row>
+                                            <div className='containerFirst'>Индикатор:</div>
+                                            <div className='containerSecond name'>{info !== undefined ? <>{info.nameIndicator}</> : <></>}</div>
+                                        </Row>
 
-                                    <Row>
-                                        <div className='containerFirst'>Описание </div>
-                                        <div className='containerSecond'>{info !== undefined ? <>{info.description}</> : <></>}</div>
-                                    </Row>
-                                    <Row>
-                                        <div className='containerFirst'>Группа: </div>
-                                        <div className='containerSecond'>{info !== undefined ? <>{info.group}</> : <></>}</div>
-                                    </Row>
-                                </Col>
-                                <Col>
-                                    <Row>
-                                        <div className='containerFirst'>Статус: </div>
-                                        <div className='containerSecond '>{info !== undefined ? <>{info.status}</> : <></>}</div>
-                                    </Row>
-                                    <Row>
-                                        <div className='containerFirst'>Интервал: </div>
-                                        <div className='containerSecond '>{info !== undefined ? <>{info.interval}</> : <></>}</div>
-                                    </Row>
-                                    <Row>
-                                        <div className='containerFirst'>Период расчёта: </div>
-                                        <div className='containerSecond '>{info !== undefined ? <>{info.runPeriod}</> : <></>}</div>
-                                    </Row>
-                                </Col>
-                                <Col>
-                                    <Row>
-                                        <div className='containerFirst'>Ед.Изм.: </div>
-                                        <div className='containerSecond '>{info !== undefined ? <>{info.units}</> : <></>}</div>
-                                    </Row>
-                                    <Row>
-                                        <div className='containerFirst'>Формула: </div>
-                                        <div className='containerSecond '>{info !== undefined ? <>{info.formula}</> : <></>}</div>
-                                    </Row>
-                                </Col>
-                            </Row>
+                                        <Row>
+                                            <div className='containerFirst'>Описание: </div>
+                                            <Form.Control as="textarea" readOnly='true' className='containerSecond description' value={info !== undefined ? info.description : ''} />
+                                        </Row>
+
+                                    </Col>
+                                    <Col sm={2}>
+                                        <Row>
+                                            <div className='containerFirst unit_F'>Ед.Изм.: </div>
+                                            <div className='containerSecond unit'>{info !== undefined ? <>{info.units}</> : <></>}</div>
+                                        </Row>
+
+                                    </Col >
+                                    <Col sm={4}>
+                                        <Row>
+                                            <div className='containerFirst'>Статус: </div>
+                                            <div className='containerSecond '>{info !== undefined ? <>{info.status}</> : <></>}</div>
+                                        </Row>
+                                        <Row>
+                                            <div className='containerFirst'>Интервал: </div>
+                                            <div className='containerSecond '>{info !== undefined ? <>{info.interval}</> : <></>}</div>
+                                        </Row>
+                                        <Row>
+                                            <div className='containerFirst '>Период расчёта: </div>
+                                            <div className='containerSecond '>{info !== undefined ? <>{info.runPeriod}</> : <></>}</div>
+                                        </Row>
+                                    </Col>
+                                </Row>
+                                <Row className='mt-3'>
+                                    <Col sm={4}>
+                                        <Row>
+                                            <div className='containerFirst'>Группа: </div>
+                                            <div className='containerSecond'>{info !== undefined ? <>{info.group}</> : <></>}</div>
+                                        </Row>
+                                    </Col>
+                                    <Col sm={4}>
+                                        <Row>
+                                            <div className='containerFirst'>Формула: </div>
+                                            <div className='containerSecond '>{info !== undefined ? <>{info.formula}</> : <></>}</div>
+                                        </Row>
+                                    </Col>
+                                </Row>
+                            </>
+
                         }
                     </Card.Body>
                     <Card.Body className='noBorder'>

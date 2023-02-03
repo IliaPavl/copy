@@ -12,7 +12,6 @@ const SettingBack = () => {
         setSetting(u);
     }, [])
     useEffect(() => {
-        console.log(setting)
     }, [setting])
     return (
         <Card className='mt-2 BlueBorder' >

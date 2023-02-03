@@ -6,9 +6,15 @@ import UserHttpServise from '../../servise/httpServise/UserHttpServise';
 const MessageSettings = () => {
     let mapSettings = [{ id: 1, name: 'Окончание расчета', enable: false, help: "Получать уведомления на почту по завершению расчета показателей" }]
     let [setting, setSetting] = useState(mapSettings);
+    let [isPfone, setIsPfone] = useState(false)
+    window.onresize = function (event) {
+        if (event.target.innerWidth < 780)
+            setIsPfone(true)
+        else
+            setIsPfone(false)
+    };
     useEffect(() => {
         UserHttpServise.getSettingsNotification().then(obj => {
-            console.log(obj.data);
             obj.data.map((data) => (
                 setSetting(setting =>
                     setting.map(item =>
@@ -19,6 +25,10 @@ const MessageSettings = () => {
                 )
             ))
         })
+        if (window.innerWidth < 780)
+            setIsPfone(true)
+        else
+            setIsPfone(false)
     }, [])
 
     async function switchValue(link) {
@@ -41,6 +51,7 @@ const MessageSettings = () => {
         number++;
         return number;
     }
+    
     return (
         <Container className='mb-5'>
             
@@ -64,7 +75,7 @@ const MessageSettings = () => {
                                                         checked
                                                         type={'switch'}
                                                         key={plus()}
-                                                        className={'swith'}
+                                                        className={isPfone ? 'swith_P' : 'swith'}
                                                         onChange={() => {
                                                             switchValue(setting);
                                                         }}
@@ -72,7 +83,7 @@ const MessageSettings = () => {
                                                     <Form.Check
                                                         type={'switch'}
                                                         key={plus()}
-                                                        className={'swith'}
+                                                        className={isPfone ? 'swith_P' : 'swith'}
                                                         onChange={() => {
                                                             switchValue(setting);
                                                         }}

@@ -11,10 +11,8 @@ const ModalSettings = ({ show, handleClose, id_member }) => {
             setIsPfone(false)
     };
     useEffect(() => {
-        console.log(id_member);
         if (id_member !== undefined) {
             integrationService.getIndicatorMember(id_member).then(res => {
-                console.log(res)
                 setInfo(res.data);
             })
             if (window.innerWidth < 780)

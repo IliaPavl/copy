@@ -68,7 +68,7 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
         <>
             <Container className='mt-2'>
                 <Col>
-                    <Row>
+                    <Row key={plus()} >
                         {withSearch ?
                             <Col sm={5}>
                                 <SearchWithButton backSearch={search} />
@@ -86,7 +86,7 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
                             <Loading />
                         }
                     </Row>
-                    <Col>
+                    <Col key={plus()} >
 
                         {withAdd ?
                             <Button variant="info" className='m-1 ' onClick={handleShow}>Создать</Button>
