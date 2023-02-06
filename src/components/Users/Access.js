@@ -13,10 +13,7 @@ const Access = ({ show, handleClose, links, saveChenge }) => {
         handleClose();
     }
     useEffect(() => {
-    }, [head])
-
-    useEffect(() => {
-    }, [l])
+    }, [l, head])
 
 
     useEffect(() => {

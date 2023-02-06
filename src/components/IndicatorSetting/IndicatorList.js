@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Container, Form, InputGroup, Offcanvas, Row, Table } from 'react-bootstrap';
+import { Button, Card, Col, Container, Form, Row, Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import integrationService from "../../servise/httpServise/IntegrationService";
@@ -49,10 +49,10 @@ const IndicatorList = () => {
                 l += 1;
             }
         }
-        if (l != 0)
+        if (l !== 0)
             toast.promise(
                 integrationService.deleteIntegration(list).then((response) => {
-
+                    console.log(response.data);
                 }).catch((error) => {
                     let message = error.request.responseText.split('"');
                     toast.error(message[3]);
@@ -127,7 +127,7 @@ const IndicatorList = () => {
                                                             <Form.Check
                                                                 type={'checkbox'}
                                                                 key={plus()}
-                                                                 className={isPfone ? 'swith_P' : 'swith'}
+                                                                className={isPfone ? 'swith_P' : 'swith'}
                                                                 onChange={() => {
                                                                     switchValue(list);
                                                                 }}

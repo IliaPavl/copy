@@ -4,7 +4,7 @@ import '../CSS/swithTheme.css';
 
 const Switch = () => {
 
-    async function f(){
+    async function f() {
 
     }
 

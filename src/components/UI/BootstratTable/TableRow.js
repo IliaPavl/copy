@@ -36,7 +36,6 @@ const TableRow = ({ value, updateData, withCheack, variant }) => {
                             <Form.Check
                                 type={'switch'}
                                 id={value.id}
-                                key={"kb"}
                                 onClick={() => {
                                     updateData(value.id)
                                 }}
@@ -44,7 +43,6 @@ const TableRow = ({ value, updateData, withCheack, variant }) => {
                             /> :
                             <Form.Check
                                 type={'checkbox'}
-                                key={"kh"}
                                 id={value.id}
                                 onClick={() => {
                                     updateData(value.id)
@@ -57,7 +55,7 @@ const TableRow = ({ value, updateData, withCheack, variant }) => {
                 }
 
                 {Object.entries(value).map((data) => (
-                    data[0]!== "id"&& data[0]!=="Клиент" && data[0]!=="RegistrationLink" ? <td key={plus2()}> <Link to={url} className="linkRow" key={plus2()}> {data[1]}</Link></td>:<></>
+                    data[0] !== "id" && data[0] !== "Клиент" && data[0] !== "RegistrationLink" ? <td key={plus2()}> <Link to={url} className="linkRow" key={plus2()}> {data[1]}</Link></td> : <></>
                 ))}
             </tr>
         </tbody>

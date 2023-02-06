@@ -20,7 +20,7 @@ const SettingToolTip = ({ headerHext, bodyText }) => {
             }
         >
             <div className='notification-container_questionToolTipDiv'>
-                    <IoIosHelpCircleOutline className='tooltipImg'/>
+                <IoIosHelpCircleOutline className='tooltipImg' />
             </div>
         </OverlayTrigger>
     );

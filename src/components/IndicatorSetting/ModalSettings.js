@@ -2,23 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Button, Row, Form } from 'react-bootstrap';
 import integrationService from "../../servise/httpServise/IntegrationService";
 const ModalSettings = ({ show, handleClose, id_member }) => {
-    let [isPfone, setIsPfone] = useState(false)
     let [info, setInfo] = useState();
-    window.onresize = function (event) {
-        if (event.target.innerWidth < 780)
-            setIsPfone(true)
-        else
-            setIsPfone(false)
-    };
     useEffect(() => {
         if (id_member !== undefined) {
             integrationService.getIndicatorMember(id_member).then(res => {
                 setInfo(res.data);
             })
-            if (window.innerWidth < 780)
-                setIsPfone(true)
-            else
-                setIsPfone(false)
         }
     }, [id_member])
 

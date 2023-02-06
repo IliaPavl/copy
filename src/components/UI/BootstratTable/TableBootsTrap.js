@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, Modal, Offcanvas, Row, Table } from 'react-bootstrap';
+import { Button, Col, Container, Modal, Row, Table } from 'react-bootstrap';
 import UserProfileEdit from '../../Users/UserProfileEdit';
 import '../CSS/componentCss.css';
 import Loading from '../Loader/Loading';
@@ -20,7 +20,7 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
     useEffect(() => {
         if (add !== null)
             setAdd(add);
-    })
+    },[add])
 
     function uncheck() {
         let uncheck = document.getElementsByTagName('input');

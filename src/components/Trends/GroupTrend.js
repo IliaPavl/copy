@@ -8,7 +8,7 @@ import { INDICATOR_RESULT } from '../../utils/const';
 import './GroupTrend.css';
 import ModalSettings from './ModalSettings';
 
-const GroupTrend = ({ ingroup, reload,stylesIn }) => {
+const GroupTrend = ({ ingroup, reload, stylesIn }) => {
 
     let [dataLinks, setData] = useState([]);
     const navigate = useNavigate();
@@ -24,7 +24,7 @@ const GroupTrend = ({ ingroup, reload,stylesIn }) => {
 
     async function saveChenge(links, redRange, greenRange, planRange, periodEnable, typeChart, idIndicator, direction, planMonthTrend) {
         const settings = { links: links, redRange: redRange, greenRange: greenRange, planRange: planRange, periodEnable: periodEnable, typeChart: typeChart, idIndicator: idIndicator, direction: direction, trendMonth: planMonthTrend };
-          toast.promise(
+        toast.promise(
             ResultHttpServise.changeSettins(settings).then((respons) => {
                 reload();
                 toast.success(respons.data)
@@ -62,7 +62,7 @@ const GroupTrend = ({ ingroup, reload,stylesIn }) => {
         <>
             <Accordion defaultActiveKey={group.nameMonitor} className={"cradsGroup"}>
                 <Accordion.Item eventKey={group.nameMonitor}>
-                    <Accordion.Button className={stylesIn.colorBack +" CardHeadAccordion"}> {group.nameMonitor} </Accordion.Button>
+                    <Accordion.Button className={stylesIn.colorBack + " CardHeadAccordion"}> {group.nameMonitor} </Accordion.Button>
                     <Accordion.Body className={"scrollTable"}>
                         {group.monitor.length === 0 ?
                             <Table variant='table-bordered table-hover' style={{ height: 70 }} className={"scrollTable"} >

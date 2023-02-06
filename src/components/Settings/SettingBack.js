@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Card, Col, Row } from 'react-bootstrap';
 import IntegrationSetting from './IntegrationService';
 import MessageSettings from './MessageSettings';
 import SettingGroup from './SettingGroup';
@@ -28,7 +28,7 @@ const SettingBack = () => {
                         {setting === "notification"
                             ? <><MessageSettings /></> : <></>}
                         {setting === "integration"
-                            ? <><IntegrationSetting/></> : <></>}
+                            ? <><IntegrationSetting /></> : <></>}
                     </Col>
                 </Row>
             </Card.Body>

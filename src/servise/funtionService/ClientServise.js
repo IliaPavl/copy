@@ -12,7 +12,7 @@ class ClientServise {
         }
         return keys;
     }
-    
+
     setHeadClients() {
         var keys2 = [];
         keys2.push({ title: "id" });
@@ -27,9 +27,9 @@ class ClientServise {
     async findCliens(seachMessege) {
         return ClientHttpServise.findClient(seachMessege).then((respons) => {
             let k = this.makeRowsClients(respons.data);
-            if(k.length === 0)
-            toast.warning("No result find clients");
-            return(k)
+            if (k.length === 0)
+                toast.warning("No result find clients");
+            return (k)
         }).catch((error) => {
             let message = error.request.responseText.split('"');
             toast.error(message[3]);
@@ -39,7 +39,7 @@ class ClientServise {
 
     async setRowsClients() {
         return ClientHttpServise.getAllClients().then((respons) => {
-            return(this.makeRowsClients(respons.data))
+            return (this.makeRowsClients(respons.data))
         }).catch((error) => {
             let message = error.request.responseText.split('"');
             toast.error(message[3]);
@@ -49,8 +49,8 @@ class ClientServise {
 
     makeRowsClients(data) {
         var keys3 = [];
-        for(let k in data){
-            keys3.push({ 
+        for (let k in data) {
+            keys3.push({
                 id: data[k].id,
                 Client_Name: data[k].companyName,
                 Date_add: data[k].data,
@@ -59,7 +59,7 @@ class ClientServise {
                 Status: data[k].status
             });
         }
-        
+
         return keys3;
     }
 };

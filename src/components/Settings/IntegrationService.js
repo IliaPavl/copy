@@ -8,7 +8,6 @@ import './Settings.css';
 
 const IntegrationSetting = () => {
     const [types, setTypes] = useState([]);
-    let [eTypes, setETypes] = useState();
     let [name, setName] = useState('');
     let [comment, setComment] = useState('');
     let [eViews, setEViews] = useState([]);
@@ -71,7 +70,7 @@ const IntegrationSetting = () => {
                 l += 1;
             }
         }
-        if (l != 0)
+        if (l !== 0)
             toast.promise(
                 integrationService.deleteIntegration(list).then((response) => {
                     toast.success(response.data);
@@ -173,7 +172,6 @@ const IntegrationSetting = () => {
         if (typeName !== null)
             for (let i = 0; i < types.length; i++) {
                 if (types[i].name === typeName) {
-                    setETypes(types[i]);
                     let d = [];
                     for (let data = 0; data < views.length; data++)
                         if (views[data].id_type === types[i].type_id)

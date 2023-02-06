@@ -6,22 +6,22 @@ import { LOGIN_ROUTE } from '../../utils/const';
 import AuthServise from '../../servise/funtionService/AuthService'
 import { toast } from 'react-toastify';
 const ActivationAccaunt = () => {
-    const [message,setMessage] = useState('');
-  useEffect(()=>{
-    let url = window.location.pathname.split('/');
+    const [message, setMessage] = useState('');
+    useEffect(() => {
+        let url = window.location.pathname.split('/');
         toast.promise(
             AuthServise.activateAccaunt(url[2]).then((respons) => {
                 setMessage(respons.data.message)
             })
-            .catch((error) => {
-                let message = error.request.responseText.split('"');
-                toast.error(message[3]);
-            }), {
+                .catch((error) => {
+                    let message = error.request.responseText.split('"');
+                    toast.error(message[3]);
+                }), {
             pending: "Please wait... ",
         })
-  },[])
-        
-   
+    }, [])
+
+
     return (
         <Container className="d-flex justify-content-center align-items-center mt-5">
             <Card className="p-5 loginForm">

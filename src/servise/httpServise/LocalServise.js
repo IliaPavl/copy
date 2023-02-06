@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, AUTH, LAST_PAGE, LOGIN_ROUTE, REFRESH_TOKEN, REMEMBER_MY, USERNAME } from "../../utils/const";
 
 class LocalServise {
@@ -46,7 +45,7 @@ class LocalServise {
         localStorage.removeItem(USERNAME);
     }
 
-    navigate(){
+    navigate() {
         window.location.replace(LOGIN_ROUTE);
     }
 

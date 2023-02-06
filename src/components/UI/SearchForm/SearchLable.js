@@ -1,7 +1,7 @@
 import React from 'react';
-import {Form, FormControl} from "react-bootstrap";
+import { Form, FormControl } from "react-bootstrap";
 
-const SearchLable = ({backSearch}) => {
+const SearchLable = ({ backSearch }) => {
     return (
         <Form className="d-flex ml-auto m-1">
             <FormControl

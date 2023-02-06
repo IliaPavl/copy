@@ -2,7 +2,7 @@ import React from 'react';
 import { Col, Form, InputGroup, Modal } from 'react-bootstrap';
 
 const ModalMonthPlan = ({ show, close, nowData, type }) => {
-    const month =[
+    const month = [
         {
             text: "Январь",
             value: "1",

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Form, Row, Table } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import integrationService from "../../servise/httpServise/IntegrationService";
 import './indicatorCss.css';
@@ -8,7 +7,6 @@ import ModalSettings from './ModalSettings';
 const IndicatorMember = () => {
     const [list, setList] = useState([]);
     const [info, setInfo] = useState()
-    const [url, setUrl] = useState([]);
     let [isPfone, setIsPfone] = useState(false)
     window.onresize = function (event) {
         if (event.target.innerWidth < 780)
@@ -18,7 +16,6 @@ const IndicatorMember = () => {
     };
     useEffect(() => {
         let u = window.location.pathname.split('/');
-        setUrl(u);
         integrationService.getIndicatorMemberList(u[3]).then(data => {
             setList(data.data.memberList);
             if (data.data.indicatorClients !== null)
@@ -31,7 +28,7 @@ const IndicatorMember = () => {
     }, [])
     useEffect(() => {
     }, [info])
-    const navigate = useNavigate();
+
     let number = 1;
 
     function plus() {
@@ -57,7 +54,7 @@ const IndicatorMember = () => {
                 l += 1;
             }
         }
-        if (l != 0)
+        if (l !== 0)
             toast.promise(
                 integrationService.deleteIntegration(list).then((response) => {
 

@@ -1,6 +1,4 @@
 import LoginPage from "../../pages/Authorization/loginPage";
-import RegistrationPage from "../../pages/Authorization/registrationPage";
-import CompanyAdd from "../../pages/Company/companyCreate";
 import companyEdit from "../../pages/Company/companyEdit";
 import CompanyLIst from "../../pages/Company/companyList";
 import Error from "../../pages/Errors/error";
@@ -15,20 +13,14 @@ import profilePage from "../../pages/User/profilePage";
 import UserAdd from "../../pages/User/userAdd";
 import UserList from "../../pages/User/userList";
 import {
-    ACTIVATION,
-    INDICATOR_MEMBER,
-    COMPANY_ADD,
-    COMPANY_LIST,
+    ACTIVATION, COMPANY_LIST,
     COMPANY_PROFILE,
     ERROR, FORGOT_PASSWPRD,
     HOME_PAGE,
-    INDICATOR_LIST,
-    INDICATOR_RESULT,
+    INDICATOR_LIST, INDICATOR_MEMBER, INDICATOR_RESULT,
     LOGIN_ROUTE,
     NEW_DATA,
-    NEW_PASSWORD,
-    REGISTRATION_ROUTE,
-    SETTINGS, USER_ADD,
+    NEW_PASSWORD, SETTINGS, USER_ADD,
     USER_EDIT,
     USER_LIST,
     USER_PROFILE
@@ -51,14 +43,10 @@ export const authRoutes = [
         path: USER_ADD,
         Component: UserAdd
     },
-    {
-        path: ERROR,
-        Component: Error
-    },
-    {
-        path: COMPANY_ADD,
-        Component: CompanyAdd
-    },
+    // {
+    //     path: COMPANY_ADD,
+    //     Component: CompanyAdd
+    // },
     {
         path: USER_EDIT + "/:searchValue",
         Component: UserProfileEdit
@@ -108,9 +96,13 @@ export const publicRoutes = [
         Component: NewDataPage
     },
     {
-        path: REGISTRATION_ROUTE,
-        Component: RegistrationPage
+        path: ERROR,
+        Component: Error
     },
+    // {
+    //     path: REGISTRATION_ROUTE,
+    //     Component: RegistrationPage
+    // },
     {
         path: NEW_PASSWORD + "/:searchValue",
         Component: newPassword

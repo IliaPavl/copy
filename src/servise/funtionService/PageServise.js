@@ -3,9 +3,6 @@ import { HOME_PAGE } from '../../utils/const';
 import LocalServise from '../httpServise/LocalServise';
 
 class PageServise {
-
-
-
     setLastPage() {
         LocalServise.setLastPage(window.location.href);
     }

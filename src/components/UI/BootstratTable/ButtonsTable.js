@@ -7,18 +7,18 @@ const ButtonsTable = ({ uncheck, cheackAll, getBox }) => {
         // <Button className="m-1 radius" onClick={() => uncheck()}>uncheck</Button>
         // <Button className="m-1 radius" onClick={() => cheackAll()}>cheackAll</Button>
         if ('/' + url[1] === INDICATOR_RESULT) {
-            return(
-                <></>
-            )
+                return (
+                        <></>
+                )
 
         } else {
 
                 return (
-                    
+
                         <Button variant="danger" className='m-1 ' onClick={event => getBox(event)}>Удалить</Button>
-                    
+
                 );
-            
+
         }
 };
 

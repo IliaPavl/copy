@@ -18,7 +18,7 @@ const TableHead = ({ values, sorting, withCheack }) => {
                 {values.length ?
                     values.map((value) => (
                         <th
-                        key={plus()}
+                            key={plus()}
                             onClick={() => { sorting(value.title) }}
                         ><p>{value.title}</p></th>
                     )) :

@@ -91,15 +91,13 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
                 setPlanMonthTrend(data2.data.trendPeriod);
                 //[ { id: 1, title: "День" }, { id: 2, title: "Неделя" }, { id: 4, title: "Квартал" },{ id: 3, title: "Месяц" }, { id: 5, title: "Год" }]
                 setListPeriod([{ id: 3, title: "Месяц" }])
-                if (data2.data.directionIndicator === 1)
-                {
+                if (data2.data.directionIndicator === 1) {
                     setTypeDimensionEnable({ id: 1, title: "Чем больше, тем лучше" })
                     setListType([{ id: 1, title: "Чем больше, тем лучше" }, { id: 2, title: "Чем меньше, тем лучше" }])
                 }
-                else
-                {
+                else {
                     setTypeDimensionEnable({ id: 2, title: "Чем меньше, тем лучше" })
-                    setListType([{ id: 2, title: "Чем меньше, тем лучше" },{ id: 1, title: "Чем больше, тем лучше" } ])
+                    setListType([{ id: 2, title: "Чем меньше, тем лучше" }, { id: 1, title: "Чем больше, тем лучше" }])
                 }
                 setRedPlan((data2.data.indPlan / 100 * data2.data.percentRed).toFixed(2));
                 setGreenPlan((data2.data.indPlan / 100 * data2.data.percentGreen).toFixed(2));
@@ -116,7 +114,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
             setPeriodEnable(null);
             setL([]);
         }
-    }, [show,data])
+    }, [show, data])
 
     async function setMin(value) {
         let err = InputPatternService.modalRedRange(value, maxValue);

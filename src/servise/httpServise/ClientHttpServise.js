@@ -35,7 +35,7 @@ class ClientHttpServise {
         });
     }
 
-    getClient(url){
+    getClient(url) {
         return api.get(url, {
             headers: {
                 'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ class ClientHttpServise {
             }
         });
     }
-    updateCompany(companyName, nameCliet, phoneNumber, enabledStatus,url){
+    updateCompany(companyName, nameCliet, phoneNumber, enabledStatus, url) {
         const u = {
             companyName: companyName,
             nameClient: nameCliet,
@@ -58,7 +58,7 @@ class ClientHttpServise {
         });
     }
 
-    findClient(findString){
+    findClient(findString) {
         const u = {
             searchValue: findString,
         };
@@ -70,7 +70,7 @@ class ClientHttpServise {
         });
     }
 
-    deleteUser(box){
+    deleteUser(box) {
         const u = {
             idUsers: box
         };

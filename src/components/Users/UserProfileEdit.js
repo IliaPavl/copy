@@ -137,7 +137,7 @@ const UserProfile = ({ isNew, update }) => {
 
     useEffect(() => {
 
-    }, [links,isNew])
+    }, [links, isNew])
 
     useEffect(() => {
         setIsNew(isNew);

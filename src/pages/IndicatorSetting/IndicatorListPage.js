@@ -1,10 +1,11 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
 import IndicatorList from '../../components/IndicatorSetting/IndicatorList';
+import PageServise from '../../servise/funtionService/PageServise';
 
 const IndicatorListPage = () => {
+    PageServise.setLastPage()
     return (
-        <IndicatorList/>
+        <IndicatorList />
     );
 };
 

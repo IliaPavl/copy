@@ -10,14 +10,14 @@ import { BsFillPeopleFill } from "react-icons/bs";
 
 const Trends = () => {
     let [colors, setColors] = useState([
-            { colorBack: "GreenBack", colorBorder: "GreenBorder" },
-            { colorBack: "BlueBack", colorBorder: "BlueBorder" }])
+        { colorBack: "GreenBack", colorBorder: "GreenBorder" },
+        { colorBack: "BlueBack", colorBorder: "BlueBorder" }])
     let [cards, setcards] = useState([]);
     useEffect(() => {
-        if(colors.length===0)
-        setColors([
-            { colorBack: "GreenBack", colorBorder: "GreenBorder" },
-            { colorBack: "BlueBack", colorBorder: "BlueBorder" }])
+        if (colors.length === 0)
+            setColors([
+                { colorBack: "GreenBack", colorBorder: "GreenBorder" },
+                { colorBack: "BlueBack", colorBorder: "BlueBorder" }])
         UserServise.trends().then((data) => { setcards(data) })
         if (window.innerWidth < 1000)
             setIsPfone(true)

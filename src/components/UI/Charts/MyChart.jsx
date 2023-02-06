@@ -1,7 +1,5 @@
-import * as agCharts from 'ag-charts-community';
 import { AgChartsReact } from 'ag-charts-react';
 import React, { useEffect, useState } from 'react';
-import Loading from '../Loader/Loading';
 import "./Wrapper.css";
 
 const MyChart = ({ enableTypeChart, title, data, navigatorChange, series, subTitle }) => {
@@ -48,10 +46,6 @@ const MyChart = ({ enableTypeChart, title, data, navigatorChange, series, subTit
             ],
             legend: {
                 enabled: false,
-                // position: 'bottom',
-                // item: {
-                //     paddingY: 15,
-                // },
             },
             padding: {
                 bottom: 30,
@@ -89,7 +83,7 @@ const MyChart = ({ enableTypeChart, title, data, navigatorChange, series, subTit
 
     useEffect(() => {
         setOptions(state.options);
-    }, [series, data, subTitle, title, navigatorChange, enableTypeChart])
+    }, [series, data, subTitle, title, navigatorChange, enableTypeChart,state.options])
 
     return (
         <>

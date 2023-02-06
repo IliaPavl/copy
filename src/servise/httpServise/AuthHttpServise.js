@@ -16,26 +16,26 @@ class AuthHttpServise {
         });
     }
 
-    createAdmin(login, email, password,companyE){
+    createAdmin(login, email, password, companyE) {
         const u = {
             username: login,
             password: password,
             email: email,
             nameClient: companyE,
-            link: window.location.href+REG_LINK
+            link: window.location.href + REG_LINK
         };
-        return api.post(URL_REGISTRATION_ROUTE, u,{
+        return api.post(URL_REGISTRATION_ROUTE, u, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`
             }
         });
     }
-    postNewPassword(password,link){
+    postNewPassword(password, link) {
         const u = {
             message: password,
         };
-        return api.post(URL_NEW_PASSWORD+"/"+link, u, {
+        return api.post(URL_NEW_PASSWORD + "/" + link, u, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`
@@ -43,7 +43,7 @@ class AuthHttpServise {
         });
     }
 
-    postForgotPassword(email){
+    postForgotPassword(email) {
         const u = {
             message: email,
         };
@@ -55,8 +55,8 @@ class AuthHttpServise {
         });
     }
 
-    postActivateLink(link){
-        return api.get(URL_ACTIVATION+"/"+link, {
+    postActivateLink(link) {
+        return api.get(URL_ACTIVATION + "/" + link, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`

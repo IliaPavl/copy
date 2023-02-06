@@ -8,7 +8,6 @@ import DropDownOutSucses from '../UI/DropDown/DropDownOutSucses';
 
 const Add2 = () => {
     let [status, setStatus] = useState([])
-    let [clients, setClients] = useState('')
     let [renj, setReng] = useState()
     let [clientsE, setClientsE] = useState('')
 
@@ -27,14 +26,14 @@ const Add2 = () => {
     async function createUsers(event) {
         event.preventDefault()
         toast.promise(
-            UserServise.createUsers(clients, renj), { pending: "Please wait... ", }
+            UserServise.createUsers('', renj), { pending: "Please wait... ", }
         );
     }
 
     useEffect(() => {
         setAxiosClients()
         getValueReng()
-    }, [clients]);
+    }, []);
 
     return (
         <Card className={"border-1 m-1"}>

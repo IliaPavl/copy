@@ -7,21 +7,21 @@ import InputPatternService from '../../servise/funtionService/InputPatternServic
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('')
-    useEffect(() => {isEmail('') }, [])
+    useEffect(() => { isEmail('') }, [])
     async function click() {
-        if(errorEmail==='')
-        toast.promise(
-            AuthServise.forgotPassword(email).then((respons) => {
-                toast.success("Проверьте почту, вам была выслана ссылка для смены пароля");
+        if (errorEmail === '')
+            toast.promise(
+                AuthServise.forgotPassword(email).then((respons) => {
+                    toast.success("Проверьте почту, вам была выслана ссылка для смены пароля");
+                })
+                    .catch((error) => {
+                        let message = error.request.responseText.split('"');
+                        toast.error(message[3]);
+                    }), {
+                pending: "Please wait... ",
             })
-                .catch((error) => {
-                    let message = error.request.responseText.split('"');
-                    toast.error(message[3]);
-                }), {
-            pending: "Please wait... ",
-        })
         else
-        toast.warning("Проверьте введённые вами данные")
+            toast.warning("Проверьте введённые вами данные")
     }
     let [errorEmail, setErrorEmail] = useState('');
     function isEmail(value) {

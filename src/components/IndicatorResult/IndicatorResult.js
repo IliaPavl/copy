@@ -110,7 +110,7 @@ const IndicatorResult = () => {
         //__________________________________________________________________________   
     }, [location, types]);
 
-    async function setBuferData(){
+    useEffect(() => {
         if (groupLinks.length !== 0) {
             let enable2 = [];
             (groupLinks).map((data) => (
@@ -180,10 +180,6 @@ const IndicatorResult = () => {
                 }
             }
         }
-    }
-
-    useEffect(() => {
-        setBuferData();
     }, [groupLinks, buferRow, results])
 
     useEffect(() => {
@@ -220,10 +216,10 @@ const IndicatorResult = () => {
                 })
             }
         }
-    }, [page, results]);
+    }, [page, results, type]);
 
     useEffect(() => {
-        
+
         if (page !== '') {
             setHeaderTable(ResultServise.setHeader())
             ResultHttpServise.getAllClientsResult(page + "/" + type).then((respons) => {
@@ -260,7 +256,7 @@ const IndicatorResult = () => {
                 console.log(message[3])
             })
         }
-    }, [type]);
+    }, [type, groupLinks, page]);
 
     const [tableShow, setTableShow] = useState(false);
     const showTable = () => { setTableShow(!tableShow) }

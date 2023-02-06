@@ -15,19 +15,19 @@ const NewPassword = () => {
 
     async function click() {
         let url = window.location.pathname.split('/');
-        if(errorPass==='')
-        if (password === passwordRepit)
-            toast.promise(
-                AuthServise.newPassword(password, url[2]).then((respons) => {
-                    toast.success("Проверьте вашу почту, пароль был успешно изменён! ");
+        if (errorPass === '')
+            if (password === passwordRepit)
+                toast.promise(
+                    AuthServise.newPassword(password, url[2]).then((respons) => {
+                        toast.success("Проверьте вашу почту, пароль был успешно изменён! ");
+                    })
+                        .catch((error) => {
+                            let message = error.request.responseText.split('"');
+                            toast.error(message[3]);
+                        }), {
+                    pending: "Please wait... ",
                 })
-                    .catch((error) => {
-                        let message = error.request.responseText.split('"');
-                        toast.error(message[3]);
-                    }), {
-                pending: "Please wait... ",
-            })
-        else toast.warning("Пароли должны совпадать")
+            else toast.warning("Пароли должны совпадать")
         else toast.warning("Проверьте введённые двнные")
     }
 

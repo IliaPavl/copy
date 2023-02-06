@@ -3,40 +3,40 @@ import { Col, Row } from 'react-bootstrap';
 import { INDICATOR_RESULT } from '../../../../utils/const';
 import "./../SideBar/SideBarCSs.css";
 import { v4 as uuidv4 } from 'uuid';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Group = ({ menu }) => {
     const [show, setShow] = useState([])
     const [menuLocal, setMenu] = useState([]);
     const [linkName, setLinkName] = useState([]);
-    const navigate =useNavigate();
-    const goToLink =(link) => navigate(INDICATOR_RESULT + "/" + link.idResult)
-    
+    const navigate = useNavigate();
+    const goToLink = (link) => navigate(INDICATOR_RESULT + "/" + link.idResult)
+
     useEffect(() => {
         if (menuLocal.length !== 0) {
             let datas = [];
             menuLocal.forEach(data => {
                 data.links.forEach(linksLevel => {
-                    if(data.level === linksLevel.previosMonitor && data.monitorName === linksLevel.nameMonitor)
+                    if (data.level === linksLevel.previosMonitor && data.monitorName === linksLevel.nameMonitor)
                         datas.push(linksLevel);
                 })
             })
             setLinkName(datas)
         }
     }, [menuLocal])
-    
-    useEffect(()=>{
 
-    },[linkName,show])
+    useEffect(() => {
 
-    
+    }, [linkName, show])
+
+
 
     async function showResultLink(data) {
         if (data.links.length !== 0) {
             menu.forEach(menu =>
                 data.links.forEach(link => {
                     if (menu.level === link.previosMonitor && menu.monitorName === link.nameMonitor)
-                    goToLink(link);
+                        goToLink(link);
                     //window.location.assign(INDICATOR_RESULT + "/" + link.idResult);
                 })
             )
@@ -47,7 +47,7 @@ const Group = ({ menu }) => {
 
 
     useEffect(() => {
-        if (menu.length !== 0 ) {
+        if (menu.length !== 0) {
             let s = []
             if (menu.length !== 1)
                 menu.forEach((data) => { s.push({ show: false, name: data.monitorName }) });
@@ -63,13 +63,13 @@ const Group = ({ menu }) => {
             {menuLocal.length !== 0 ? <h1>
                 {menuLocal.map(data => (
                     <li key={uuidv4()} >
-                            <span className='textNav ' onClick={() => showResultLink(data)} >
-                                <Row>
-                                    <Col sm={10}>
-                                        {data.monitorName}
-                                    </Col>
-                                </Row>
-                            </span>
+                        <span className='textNav ' onClick={() => showResultLink(data)} >
+                            <Row>
+                                <Col sm={10}>
+                                    {data.monitorName}
+                                </Col>
+                            </Row>
+                        </span>
                         {show.length !== 0 ?
                             show.map((show) =>
                                 show.name === data.monitorName ?

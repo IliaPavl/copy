@@ -51,17 +51,17 @@ const MessageSettings = () => {
         number++;
         return number;
     }
-    
+
     return (
         <Container className='mb-5'>
-            
+
             <Card className='noBorder'>
-                
+
                 <Card.Header className='noBorder BlueBack CardHead'>
                     Настройки уведомлений
-                    
+
                 </Card.Header>
-               
+
                 <Card.Body className='noBorder'>
                     {setting.length !== 0 ?
                         <table>

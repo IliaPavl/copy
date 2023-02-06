@@ -2,27 +2,36 @@ import React, { useEffect, useState } from 'react';
 import { Dropdown } from "react-bootstrap";
 
 
-const DropDownCompany = ({values,setEnabledStatus,enabledStatus}) => {
+const DropDownCompany = ({ values, setEnabledStatus, enabledStatus }) => {
     let [head, setHead] = useState('')
 
-    function hederSet(enabledStatus){
-        if(enabledStatus==null){
+    function hederSet(enabledStatus) {
+        if (enabledStatus == null) {
             setHead("Not selected")
-        }else{
+        } else {
             setHead(enabledStatus)
         }
-        
+
         setEnabledStatus(enabledStatus)
     }
 
     useEffect(() => {
+        async function hederSet(enabledStatus) {
+            if (enabledStatus == null) {
+                setHead("Not selected")
+            } else {
+                setHead(enabledStatus)
+            }
+
+            setEnabledStatus(enabledStatus)
+        }
         hederSet(enabledStatus)
-    },[enabledStatus]);
+    }, [enabledStatus, setEnabledStatus]);
 
     return (
         <Dropdown className="d-grid gap-2">
             <Dropdown.Toggle variant="outline-success" >
-                {head === ''? <span>Загрузка</span>: head}
+                {head === '' ? <span>Загрузка</span> : head}
             </Dropdown.Toggle>
 
             <Dropdown.Menu >

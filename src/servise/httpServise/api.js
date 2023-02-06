@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from 'react-toastify';
-import { AUTHRIZATION_WORD, URL_BASE, URL_LOGIN, URL_REFRESH ,LOGIN_ROUTE} from "../../utils/const";
+import { AUTHRIZATION_WORD, URL_BASE, URL_LOGIN, URL_REFRESH, LOGIN_ROUTE } from "../../utils/const";
 import LocalServise from "./LocalServise";
 const instance = axios.create({
   baseURL: URL_BASE,

@@ -2,75 +2,75 @@ import React, { useEffect, useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import './drop.css';
 
-const DropdownMonth = ({setEnable, noSelectValue ,isSelect}) => {
+const DropdownMonth = ({ setEnable, noSelectValue, isSelect }) => {
     let [head, setHead] = useState(noSelectValue)
-    const [month,setMonth] = useState([
+    const [month, setMonth] = useState([
         {
             text: "Январь",
-            value:  "1"
+            value: "1"
         },
         {
             text: "Февраль",
-            value:  "2"
+            value: "2"
         },
         {
             text: "Март",
-            value:  "3"
+            value: "3"
         },
         {
             text: "Апрель",
-            value:  "4"
+            value: "4"
         },
         {
             text: "Май",
-            value:  "5"
+            value: "5"
         },
         {
             text: "Июнь",
-            value:  "6"
+            value: "6"
         },
         {
             text: "Июль",
-            value:  "7"
+            value: "7"
         },
         {
             text: "Август",
-            value:  "8"
+            value: "8"
         },
         {
             text: "Сентябрь",
-            value:  "9"
+            value: "9"
         },
         {
             text: "Октябрь",
-            value:  "10"
+            value: "10"
         },
         {
             text: "Ноябрь",
-            value:  "11"
+            value: "11"
         },
         {
             text: "Декабрь",
-            value:  "12"
+            value: "12"
         }
     ])
 
-    async function set(value){
+    async function set(value) {
         setEnable(value)
         setHead(value.text)
     }
 
-    useEffect(()=>{
+    useEffect(() => {
 
-    },[head]);
-    useEffect(()=>{
-        if(isSelect){
+    }, [head]);
+    useEffect(() => {
+        if (isSelect) {
 
-        }else{
+        } else {
             setEnable("")
             setHead(noSelectValue);
         }
-    },[isSelect])
+    }, [isSelect])
 
     return (
         <Dropdown  >

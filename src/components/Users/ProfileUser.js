@@ -30,7 +30,6 @@ const ProfileUser = () => {
         else
             setIsPfone(false)
     }, [])
-    // useEffect(()=>{},[isAdmin])
 
     useEffect(() => {
         if (userInfo.length !== 0) {
@@ -44,7 +43,7 @@ const ProfileUser = () => {
     }, [userInfo])
     return (
         <Container className='mt-2 mb-5' >
-            
+
             {isPfone ?
                 <Card border="secondary" >
                     <Card.Header>
@@ -123,7 +122,7 @@ const ProfileUser = () => {
                                 <Row className="mb-3">
                                     <div className='containerFirst'> Пароль</div>
                                     <Button variant="outline-primary  containerSecond_b">
-                                                <Link className='textLink' to={FORGOT_PASSWPRD}>Новый пароль</Link>
+                                        <Link className='textLink' to={FORGOT_PASSWPRD}>Новый пароль</Link>
                                     </Button>
                                 </Row>
                             </Accordion.Body>
