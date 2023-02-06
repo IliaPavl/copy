@@ -35,7 +35,7 @@ class LocalServise {
         localStorage.setItem(ACCESS_TOKEN, accessToken);
     }
     setRefreshToken(refreshToken) {
-        localStorage.setItem(ACCESS_TOKEN, refreshToken);
+        localStorage.setItem(REFRESH_TOKEN, refreshToken);
     }
 
     logoutUser() {

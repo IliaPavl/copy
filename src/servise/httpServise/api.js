@@ -35,8 +35,9 @@ instance.interceptors.response.use(
           const rs = await instance.post(URL_REFRESH, {
             refreshToken: LocalServise.getRefreshToken(),
           });
-          const { accessToken } = rs.data;
+          const { accessToken,refreshToken } = rs.data;
           LocalServise.setAccesToken(accessToken);
+          LocalServise.setRefreshToken(refreshToken);
           return instance(originalConfig);
         } catch (_error) {
           return Promise.reject(_error);
@@ -48,8 +49,9 @@ instance.interceptors.response.use(
           const rs = await instance.post(URL_REFRESH, {
             refreshToken: LocalServise.getRefreshToken(),
           });
-          const { accessToken } = rs.data;
+          const { accessToken,refreshToken } = rs.data;
           LocalServise.setAccesToken(accessToken);
+          LocalServise.setRefreshToken(refreshToken);
           return instance(originalConfig);
         } catch (_error) {
           return Promise.reject(_error);
@@ -58,18 +60,18 @@ instance.interceptors.response.use(
       if (err.response.status === 403) {
         window.location.replace(LOGIN_ROUTE);
         toast.error("Время сессии истекло, перезайдите в приложение!");
-        console.log("Время сессии истекло, перезайдите в приложение!");
+        console.info("Время сессии истекло, перезайдите в приложение!");
         LocalServise.logoutUser();
 
       }
     }
     if (err.response.status === 0) {
       // network error
-      toast.error('Error: Network Error');
+      toast.error('Ошибка: Ошибка сети');
     }
     if (err.response.status === 503) {
       // network error
-      toast.error('Error: Server Error');
+      toast.error('Ошибка: Ошибка сервера');
     }
     return Promise.reject(err);
   }
