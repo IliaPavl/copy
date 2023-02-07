@@ -17,11 +17,8 @@ const AppRouter = () => {
 
     useEffect(() => {
         setC(findC);
-        if (!LocalServise.isLoginUser()) {
-            LocalServise.logoutUser();
-            navigate(LOGIN_ROUTE);
-        }
-    }, [findC])
+
+    }, [findC,navigate])
 
     return (
         <Routes>

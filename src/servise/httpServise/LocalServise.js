@@ -1,76 +1,93 @@
 import { ACCESS_TOKEN, AUTH, LAST_PAGE, LOGIN_ROUTE, REFRESH_TOKEN, REMEMBER_MY, USERNAME } from "../../utils/const";
 
-class LocalServise {
-    saveTokens(data) {
-        const { token, refreshToken } = data.data;
-        localStorage.setItem(ACCESS_TOKEN, token);
-        localStorage.setItem(AUTH, true);
-        localStorage.setItem(REFRESH_TOKEN, refreshToken);
-    }
+ function saveTokens(data) {
+    const { token, refreshToken } = data.data;
+    localStorage.setItem(ACCESS_TOKEN, token);
+    localStorage.setItem(AUTH, true);
+    localStorage.setItem(REFRESH_TOKEN, refreshToken);
+}
 
-    setLastPage(page) {
-        localStorage.setItem(LAST_PAGE, page);
-    }
-    setRememberMy(value) {
-        localStorage.setItem(REMEMBER_MY, value);
-    }
+ function setLastPage(page) {
+    localStorage.setItem(LAST_PAGE, page);
+}
 
-    getRememberMy() {
-        return localStorage.getItem(REMEMBER_MY);
-    }
+ function setRememberMy(value) {
+    localStorage.setItem(REMEMBER_MY, value);
+}
 
-    getLastPage() {
-        return localStorage.getItem(LAST_PAGE);
-    }
+ function getRememberMy() {
+    return localStorage.getItem(REMEMBER_MY);
+}
 
-    getAccesToken() {
-        return localStorage.getItem(ACCESS_TOKEN);
-    }
+ function getLastPage() {
+    return localStorage.getItem(LAST_PAGE);
+}
 
-    getRefreshToken() {
-        return localStorage.getItem(REFRESH_TOKEN);
-    }
+ function getAccesToken() {
+    return localStorage.getItem(ACCESS_TOKEN);
+}
 
-    setAccesToken(accessToken) {
-        localStorage.setItem(ACCESS_TOKEN, accessToken);
-    }
-    setRefreshToken(refreshToken) {
-        localStorage.setItem(REFRESH_TOKEN, refreshToken);
-    }
+ function getRefreshToken() {
+    return localStorage.getItem(REFRESH_TOKEN);
+}
 
-    logoutUser() {
-        localStorage.removeItem(ACCESS_TOKEN);
-        localStorage.removeItem(REFRESH_TOKEN);
-        localStorage.removeItem(AUTH);
-        localStorage.removeItem(USERNAME);
-    }
+ function setAccesToken(accessToken) {
+    localStorage.setItem(ACCESS_TOKEN, accessToken);
+}
 
-    navigate() {
-        window.location.replace(LOGIN_ROUTE);
-    }
+ function setRefreshToken(refreshToken) {
+    localStorage.setItem(REFRESH_TOKEN, refreshToken);
+}
 
-    isLoginUser() {
-        if (localStorage.getItem(ACCESS_TOKEN) === null ||
-            localStorage.getItem(REFRESH_TOKEN) === null ||
-            localStorage.getItem(AUTH) === null ||
-            localStorage.getItem(USERNAME) === null
-        )
-            return false
-        else
-            return true
-    }
+ function logoutUser() {
+    localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem(REFRESH_TOKEN);
+    localStorage.removeItem(AUTH);
+    localStorage.removeItem(USERNAME);
+}
 
-    saveUserName(username) {
-        localStorage.setItem(USERNAME, username);
-    }
+ function navigate() {
+    window.location.replace(LOGIN_ROUTE);
+}
 
-    getUserName() {
-        let name = localStorage.getItem(USERNAME)
-        if (name !== null)
-            return name;
-        else
-            return "error";
-    }
+ function isLoginUser() {
+    if (localStorage.getItem(ACCESS_TOKEN) === null ||
+        localStorage.getItem(REFRESH_TOKEN) === null ||
+        localStorage.getItem(AUTH) === null ||
+        localStorage.getItem(USERNAME) === null
+    )
+        return false
+    else
+        return true
+}
+
+ function saveUserName(username) {
+    localStorage.setItem(USERNAME, username);
+}
+
+ function getUserName() {
+    let name = localStorage.getItem(USERNAME)
+    if (name !== null)
+        return name;
+    else
+        return "error";
+}
+
+const LocalServise = {
+    saveTokens,
+    setLastPage,
+    setRememberMy,
+    getRememberMy,
+    getLastPage,
+    getAccesToken,
+    getRefreshToken,
+    setAccesToken,
+    setRefreshToken,
+    logoutUser,
+    navigate,
+    isLoginUser,
+    saveUserName,
+    getUserName
 };
 
-export default new LocalServise();
+export default LocalServise;

@@ -43,10 +43,6 @@ export const authRoutes = [
         path: USER_ADD,
         Component: UserAdd
     },
-    // {
-    //     path: COMPANY_ADD,
-    //     Component: CompanyAdd
-    // },
     {
         path: USER_EDIT + "/:searchValue",
         Component: UserProfileEdit
@@ -99,10 +95,6 @@ export const publicRoutes = [
         path: ERROR,
         Component: Error
     },
-    // {
-    //     path: REGISTRATION_ROUTE,
-    //     Component: RegistrationPage
-    // },
     {
         path: NEW_PASSWORD + "/:searchValue",
         Component: newPassword
