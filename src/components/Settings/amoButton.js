@@ -1,3 +1,5 @@
+import AmoHtttp from "../../servise/httpServise/AmoHtttp";
+
 function start() {
   var oauth_scripts = document.querySelectorAll('.amocrm_oauth');
 
@@ -155,7 +157,7 @@ function start() {
 
 function receiveOAuthMessage(event) {
   var oauth_scripts = document.querySelectorAll('.amocrm_oauth');
-  console.info(event.data.url);
+  console.info("receive");
   oauth_scripts.forEach(function (oauth_script) {
     if (event.data.client_id && oauth_script.dataset.clientId && event.data.client_id === oauth_script.dataset.clientId) {
       oauth_script.dataset.error = event.data.error;
@@ -175,7 +177,11 @@ function receiveOAuthMessage(event) {
 
 function receiveNewLocation(event) {
   if (event.data.url) {
+    console.info("new_loc");
     console.info(event.data.url);
+    AmoHtttp.amoGet(event.data.url).then(data=>{
+      console.info(data);
+    })
     //window.location = event.data.url;
   }
 }
