@@ -26,7 +26,7 @@ const IndicatorResult = () => {
     //const [links, setLinks] = useState([]);
     const [showSettings, setShowSettings] = useState(false);
     const handleShow = () => setShowSettings(!showSettings);
-    let [enableTypeChart, setEnableType] = useState('line');
+    let [enableTypeChart, setEnableType] = useState('');
     let [results, setResults] = useState([]);
     let [type, setType] = useState(2);
 

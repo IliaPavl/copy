@@ -88,7 +88,6 @@ const PfoneGroupTrend = ({ ingroup, reload, stylesIn }) => {
                                 <tbody >
                                     {group.linkMonitor.map(links =>
                                         <tr key={plus()}>
-                                            {console.log(links)}
                                             <td onClick={() => goToLink(links.idResult)} id="name" className='tablePCName'>{links.nameResult}, {links.typeResult}</td>
                                             <td onClick={() => goToLink(links.idResult)} id="fact">{links.indFact}</td>
                                             <td onClick={() => goToLink(links.idResult)} id="plan">

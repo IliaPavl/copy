@@ -7,11 +7,13 @@ import InputPatternService from '../../servise/funtionService/InputPatternServic
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('')
-    useEffect(() => { isEmail('') }, [])
+    let [errorEmail, setErrorEmail] = useState('');
     async function click() {
-        if (errorEmail === '')
+        let err = InputPatternService.emailInput(email);
+        setErrorEmail(InputPatternService.emailInput(email));
+        if (err === '') {
             toast.promise(
-                AuthServise.forgotPassword(email).then((respons) => {
+                AuthServise.forgotPassword(email).then(() => {
                     toast.success("Проверьте почту, вам была выслана ссылка для смены пароля");
                 })
                     .catch((error) => {
@@ -20,26 +22,23 @@ const ForgotPassword = () => {
                     }), {
                 pending: "Please wait... ",
             })
+        }
         else
             toast.warning("Проверьте введённые вами данные")
     }
-    let [errorEmail, setErrorEmail] = useState('');
-    function isEmail(value) {
-        setErrorEmail(InputPatternService.emailInput(value));
-        setEmail(value);
-    }
+
+
     return (
         <Container className="d-flex justify-content-center align-items-center mt-5">
             <Card className="p-5 loginForm">
                 <h2 className="m-auto"> Забыли пароль? </h2>
                 <Card.Body>
 
-
-                    <Form className="d-flex flex-column">
+                    <div className="d-flex flex-column">
                         <Form.Control
                             className="mt-3"
                             placeholder="Введите почтовый адрес ..."
-                            value={email} onChange={e => isEmail(e.target.value)}
+                            value={email} onChange={e => setEmail(e.target.value)}
                             type="email"
                         />
                         <Form.Text muted>
@@ -58,7 +57,7 @@ const ForgotPassword = () => {
                                 </Button>
                             </Col>
                         </Row>
-                    </Form>
+                    </div>
                 </Card.Body>
             </Card>
         </Container>

@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import InputPatternService from '../../servise/funtionService/InputPatternService';
 import integrationService from "../../servise/httpServise/IntegrationService";
 import DropDownOutSucses from '../UI/DropDown/DropDownOutSucses';
+import Amo from './Amo';
 import './Settings.css';
 
 const IntegrationSetting = () => {
@@ -311,6 +312,7 @@ const IntegrationSetting = () => {
 
             <Offcanvas show={show} onHide={handleClose} placement={'end'}>
                 <Offcanvas.Header closeButton>
+
                     <Offcanvas.Title className='CardHead'>{isNewIntegr === true ? <>Новая интеграция </> : <>Интеграция '{newIntegration != null ? newIntegration.viewName : ''}' </>} </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>

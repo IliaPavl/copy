@@ -7,7 +7,7 @@ import MyChart from './MyChart';
 
 
 const SetDataChart = ({ chartData, titleChart, rowsName, options, showTable, setType }) => {
-    let [enableTypeChart, setEnableType] = useState('line');
+    let [enableTypeChart, setEnableType] = useState('');
     let [enableCustomData, setEnabled] = useState(false);
     let [buferData, setBuferData] = useState([]);
     let [series, setSeries] = useState([]);
@@ -26,13 +26,13 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options, showTable, set
             setIsPfone(false)
     };
 
-
-
     useEffect(() => {
+        if(options!=='')
         setEnableType(options);
     }, [options])
 
     useEffect(() => {
+        
         async function setSeriesLocal(xValueName, enableTypeChart) {
             let localSeries = [];
             for (let i = 0; i < rowsName.length; i++) {
@@ -45,6 +45,7 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options, showTable, set
             }
             setSeries(localSeries)
         }
+        if(options!=='')
         if (chartData.length !== 0 && rowsName.length !== 0) {
             setCustomData(chartData);
             if (hotMonth.length !== 0) {
@@ -109,6 +110,7 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options, showTable, set
                 setEnabled(true);
             }
         }
+        if(options!=='')
         if (hotMonth.length !== 0) {
             let isMoth = true;
             customData[0].values[customData[0].values.length - 1].monthChartData.forEach(element => {
@@ -130,16 +132,7 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options, showTable, set
             setIsPfone(true)
         else
             setIsPfone(false)
-        window.onresize = function (event) {
-            if (event.target.innerWidth < 535)
-                setIsPfone(true)
-            else
-                setIsPfone(false)
-        };
     }, [])
-
-    useEffect(() => {
-    }, [subTitle, isPfone])
 
     useEffect(() => {
         let t = "";
@@ -152,8 +145,6 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options, showTable, set
 
     const [timeSettings, setTimeSettings] = useState(false);
     const clickTimeSettings = () => { setTimeSettings(!timeSettings) }
-
-
 
     return (
         <div>
