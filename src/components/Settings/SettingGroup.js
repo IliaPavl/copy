@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, Container, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { SETTINGS_INTEGRATION, SETTINGS_NOTIFICATION } from '../../utils/const';
 import Amo from './Amo';
+import amoButton from './amoButton';
 
 
 
@@ -22,7 +23,6 @@ const SettingGroup = ({ setSetting }) => {
                             Настройки интеграций
                         </Link>
                     </ListGroup.Item>
-                    {/* <Amo/> */}
                 </ListGroup>
             </Card>
         </Container>

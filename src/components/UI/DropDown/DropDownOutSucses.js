@@ -5,14 +5,13 @@ import { Dropdown } from "react-bootstrap";
 const DropDownCompany = ({ values, setEnabledStatus, enabledStatus }) => {
     let [head, setHead] = useState('')
 
-    function hederSet(enabledStatus) {
-        if (enabledStatus == null) {
+    function hederSet(e) {
+        if (e == null) {
             setHead("Not selected")
         } else {
-            setHead(enabledStatus)
+            setHead(e)
         }
-
-        setEnabledStatus(enabledStatus)
+        setEnabledStatus(e)
     }
 
     useEffect(() => {
@@ -26,7 +25,7 @@ const DropDownCompany = ({ values, setEnabledStatus, enabledStatus }) => {
             setEnabledStatus(enabledStatus)
         }
         hederSet(enabledStatus)
-    }, [enabledStatus, setEnabledStatus]);
+    }, [enabledStatus]);
 
     return (
         <Dropdown className="d-grid gap-2">

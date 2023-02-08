@@ -10,6 +10,9 @@
 .settingForm{
     width:138px;
 }
+.dis{
+    display: none;
+}
 
 .cardIntList{
     padding: 0;

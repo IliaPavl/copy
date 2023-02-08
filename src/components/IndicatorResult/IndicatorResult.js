@@ -110,7 +110,7 @@ const IndicatorResult = () => {
         //__________________________________________________________________________   
     }, [location, types]);
 
-    useEffect(() => {
+    async function setBuferData() {
         if (groupLinks.length !== 0) {
             let enable2 = [];
             (groupLinks).map((data) => (
@@ -154,32 +154,46 @@ const IndicatorResult = () => {
                     }
                 }
             } else {
-                let buferChartData = [];
-                groupLinks.forEach(async (url) => {
+                let b = [];
+                groupLinks.forEach((url) => {
                     results.forEach(result => {
                         if (result.nameResult === url.idResult)
-                            buferChartData.push({ values: result.yearChartData, id: result.nameResult })
+                            b.push({ values: result.yearChartData, id: result.nameResult })
                     })
                 })
-                for (let i in groupLinks) {
-                    if (buferChartData[i].id === groupLinks[i].idResult) {
-                        let name = groupLinks[i].nameResult;
-                        let units = groupLinks[i].typeResult;
-                        buferChartData[i].values.forEach(data => {
-                            Object.assign(data, { [name]: data.yearSumma, units: units });
-                            data.monthChartData.forEach(data => {
-                                Object.assign(data, { [name]: data.monthSumma, units: units });
-                                data.monthChartData.forEach(data => {
-                                    Object.assign(data, { [name]: data.dateSumma, units: units });
-                                })
-                            })
-                        })
-                        setBufer(buferChartData);
-                        break;
-                    }
-                }
+                setB(b);
+
             }
         }
+    }
+    let [buferChartData, setB] = useState([])
+
+    useEffect(() => {
+        if (buferChartData !== null)
+            if (buferChartData !== undefined)
+                if (buferChartData.length !== 0) {
+                    for (let i in groupLinks) {
+                        if (buferChartData[i].id === groupLinks[i].idResult) {
+                            let name = groupLinks[i].nameResult;
+                            let units = groupLinks[i].typeResult;
+                            buferChartData[i].values.forEach(data => {
+                                Object.assign(data, { [name]: data.yearSumma, units: units });
+                                data.monthChartData.forEach(data => {
+                                    Object.assign(data, { [name]: data.monthSumma, units: units });
+                                    data.monthChartData.forEach(data => {
+                                        Object.assign(data, { [name]: data.dateSumma, units: units });
+                                    })
+                                })
+                            })
+                            setBufer(buferChartData);
+                            break;
+                        }
+                    }
+                }
+    }, [buferChartData])
+
+    useEffect(() => {
+        setBuferData();
     }, [groupLinks, buferRow, results])
 
     useEffect(() => {
@@ -216,7 +230,7 @@ const IndicatorResult = () => {
                 })
             }
         }
-    }, [page, results, type]);
+    }, [page, results]);
 
     useEffect(() => {
 
@@ -256,7 +270,7 @@ const IndicatorResult = () => {
                 console.log(message[3])
             })
         }
-    }, [type, groupLinks, page]);
+    }, [type]);
 
     const [tableShow, setTableShow] = useState(false);
     const showTable = () => { setTableShow(!tableShow) }
