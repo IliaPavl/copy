@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Container, FloatingLabel, Form, InputGroup, ListGroup, Row } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import InputPatternService from '../../servise/funtionService/InputPatternService';
 import ResultServise from '../../servise/funtionService/ResultServise';
 import ResultHttpServise from '../../servise/httpServise/ResultHttpServise';
+import { HOME_PAGE } from '../../utils/const';
 import '../Trends/Colors.css';
 import '../Trends/GroupTrend.css';
 import TableBootsTrap from '../UI/BootstratTable/TableBootsTrap';
@@ -20,6 +22,7 @@ const NewData = () => {
     let [comment, setComment] = useState('');
     let [localUrl, setUrl] = useState()
     let [isLoaded, setIsLoaded] = useState(false);
+    const navigate = useNavigate();
     useEffect(() => {
         let url = window.location.pathname.split('/');
         setUrl(url);
@@ -78,6 +81,10 @@ const NewData = () => {
             setErrorPE('');
             ResultHttpServise.setIndicatorValues(localUrl, value, comment).then((data) => {
                 toast.success("значения сохранены");
+                setTimeout(function () {
+                    navigate(HOME_PAGE);
+                }, 2000);
+
             }).catch((error) => {
                 let message = error.request.responseText.split('"');
                 toast.error(message[3]);

@@ -244,6 +244,7 @@ const IntegrationSetting = () => {
                             <Button className='buttonIntegation m-2' onClick={() => del()}>
                                 Удалить интеграции
                             </Button>
+
                         </Row>
                         <Row className={"scrollTable"}>
                             {list.length !== 0 ?
