@@ -12,6 +12,7 @@ const OffcanvasIntegration = ({ file, enableType, show, onHide, placement, isNew
         enableType(value);
     }
     useEffect(() => {
+        if(show===true)
         amoButton.start();
     }, [eViews])
     return (

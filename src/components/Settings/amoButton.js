@@ -92,6 +92,8 @@ function start() {
       '-webkit-font-smoothing: antialiased',
       'text-rendering: optimizeLegibility',
       'height: 45px',
+      'width: 100%',
+      'border-radius: 2px',
     ].join(';');
 
     oauth_script.parentNode.insertBefore(button, oauth_script);
@@ -153,7 +155,7 @@ function start() {
 
 function receiveOAuthMessage(event) {
   var oauth_scripts = document.querySelectorAll('.amocrm_oauth');
-
+  console.info(event.data.url);
   oauth_scripts.forEach(function (oauth_script) {
     if (event.data.client_id && oauth_script.dataset.clientId && event.data.client_id === oauth_script.dataset.clientId) {
       oauth_script.dataset.error = event.data.error;
@@ -173,7 +175,8 @@ function receiveOAuthMessage(event) {
 
 function receiveNewLocation(event) {
   if (event.data.url) {
-    window.location = event.data.url;
+    console.info(event.data.url);
+    //window.location = event.data.url;
   }
 }
 
