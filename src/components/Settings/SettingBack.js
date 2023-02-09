@@ -15,12 +15,15 @@ const SettingBack = () => {
         let u = window.location.pathname.split('/')[2];
         setSetting(u);
         if (LocalServise.getUserName() !== "error")
-            setIsAdmin(RoleServise.cheakRole());
+            RoleServise.cheakRole().then(function(value){
+                setIsAdmin(value)
+            });
         else
             setIsAdmin(false);
     }, [])
     useEffect(() => {
-    }, [setting])
+        console.log(isAdmin)
+    }, [setting,isAdmin])
     return (
         <Card className='mt-2 BlueBorder' >
             <Card.Header className='BlueBack CardHead'>
