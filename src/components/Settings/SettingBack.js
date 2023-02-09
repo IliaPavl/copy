@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
+import RoleServise from '../../servise/funtionService/RoleServise';
+import LocalServise from '../../servise/httpServise/LocalServise';
 import IntegrationSetting from './IntegrationService';
 import MessageSettings from './MessageSettings';
 import SettingGroup from './SettingGroup';
 import './Settings.css';
 
 const SettingBack = () => {
+    let [isAdmin, setIsAdmin] = useState();
     let [setting, setSetting] = useState();
+
     useEffect(() => {
         let u = window.location.pathname.split('/')[2];
         setSetting(u);
+        if (LocalServise.getUserName() !== "error")
+            setIsAdmin(RoleServise.cheakRole());
+        else
+            setIsAdmin(false);
     }, [])
     useEffect(() => {
     }, [setting])
@@ -22,12 +30,12 @@ const SettingBack = () => {
 
                 <Row>
                     <Col sm={3} className="mb-2">
-                        <SettingGroup setSetting={setSetting} />
+                        <SettingGroup setSetting={setSetting} isAdmin={isAdmin}/>
                     </Col>
                     <Col>
                         {setting === "notification"
                             ? <><MessageSettings /></> : <></>}
-                        {setting === "integration"
+                        {setting === "integration" && isAdmin ===true
                             ? <><IntegrationSetting /></> : <></>}
                     </Col>
                 </Row>

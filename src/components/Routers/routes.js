@@ -1,3 +1,4 @@
+import AmoPage from "../../pages/Amo/AmoPage";
 import LoginPage from "../../pages/Authorization/loginPage";
 import companyEdit from "../../pages/Company/companyEdit";
 import CompanyLIst from "../../pages/Company/companyList";
@@ -13,7 +14,7 @@ import profilePage from "../../pages/User/profilePage";
 import UserAdd from "../../pages/User/userAdd";
 import UserList from "../../pages/User/userList";
 import {
-    ACTIVATION, COMPANY_LIST,
+    ACTIVATION, AMO_INTEGRATION, COMPANY_LIST,
     COMPANY_PROFILE,
     ERROR, FORGOT_PASSWPRD,
     HOME_PAGE,
@@ -79,7 +80,49 @@ export const authRoutes = [
         path: INDICATOR_MEMBER + "/:id/:name",
         Component: IndicatorMemberPage
     },
+    {
+        path: AMO_INTEGRATION,
+        Component: AmoPage
+    },
 
+]
+export const noVladelRoutes = [
+    {
+        path: INDICATOR_RESULT + "/:searchValue",
+        Component: IndicatorResult
+    },
+    {
+        path: HOME_PAGE,
+        Component: TrendsPage
+    },
+    {
+        path: USER_PROFILE,
+        Component: profilePage
+    },
+    {
+        path: LOGIN_ROUTE,
+        Component: LoginPage
+    },
+    {
+        path: NEW_DATA,
+        Component: NewDataPage
+    },
+    {
+        path: ERROR,
+        Component: Error
+    },
+    {
+        path: NEW_PASSWORD + "/:searchValue",
+        Component: newPassword
+    },
+    {
+        path: ACTIVATION + "/:searchValue",
+        Component: activate
+    },
+    {
+        path: FORGOT_PASSWPRD,
+        Component: forgotPassword
+    },
 ]
 
 export const publicRoutes = [

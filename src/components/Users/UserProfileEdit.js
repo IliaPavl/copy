@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Form, Row } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import InputPatternService from '../../servise/funtionService/InputPatternService';
 import UserServise from '../../servise/funtionService/UserServise';
 import UserHttpServise from '../../servise/httpServise/UserHttpServise';
-import { URL_EDIT_USER, URL_NEW_USER } from '../../utils/const';
+import { URL_EDIT_USER, URL_NEW_USER, USER_LIST } from '../../utils/const';
 import DropDownOutSucses from '../UI/DropDown/DropDownOutSucses';
 import Access from './Access';
 
 
-const UserProfile = ({ isNew, update }) => {
+const UserProfile = ({ isNew, update,close }) => {
     let [isNewUser, setIsNew] = useState();
     let [status, setStatus] = useState([])
     let [company, setCompany] = useState([])
@@ -51,6 +52,10 @@ const UserProfile = ({ isNew, update }) => {
     let [errorlogin, setErrorlogin] = useState('');
     let [errorPass, setErrorPass] = useState('');
     let [errorEmail, setErrorEmail] = useState('');
+
+    let [iserrorlogin, setIsErrorlogin] = useState('');
+    let [iserrorPass, setIsErrorPass] = useState('');
+    let [iserrorEmail, setIsErrorEmail] = useState('');
 
 
     function isLogin(value) {
@@ -108,31 +113,54 @@ const UserProfile = ({ isNew, update }) => {
 
     async function getAccessList() {
         UserServise.setUserProfile().then(obj => {
-            obj.data[3].foreach(l => { l.checked = 0 })
-            setLinks(obj.data[3])
+            const arr = obj.data[3].map(obj=>({...obj, checked: 0}));
+            setLinks(arr)
+           
         }).catch((error) => { toast.error(error) })
     }
 
+    const navigate =useNavigate();
     async function submitForm(event) {
+        
         event.preventDefault()
         if (password !== repit)
             toast.error("Пароли не совпадают !")
-        else if (errorlogin === '' && errorPass === '' && errorlogin === '') {
+        else if (errorlogin === '' && errorPass === '' && errorEmail === '') {
             let url = window.location.pathname.split('/');
             if (!isNewUser)
                 toast.promise(
                     UserHttpServise.updateUser(login, fioUser, email, password, roleE, statusE, companyE, URL_EDIT_USER + '/' + url[2], links).then((respons) => {
-                        toast.success(respons.data)
+                        navigate(USER_LIST);
+                        toast.success("Сотрудник изменён")
+                        update();
+                        close();
                     }).catch((error) => { toast.error(error) }), { pending: "Please wait... ", })
             else {
                 toast.promise(
                     UserHttpServise.updateUser(login, fioUser, email, password, roleE, statusE, companyE, URL_NEW_USER, links).then((respons) => {
-                        toast.success(respons.data)
+                        toast.success("Сотрудник создан")
                         update();
+                        close();
                     }).catch((error) => { toast.error(error) }), { pending: "Please wait... ", })
             }
         }
-        else toast.warning("Проверьте введённые вами данные");
+        else
+        {
+            if(errorlogin === '')
+            setIsErrorlogin('')
+            else
+            setIsErrorlogin('err')
+            if(errorPass === '')
+            setIsErrorPass('')
+            else
+            setIsErrorPass('err')
+            if(errorEmail === '')
+            setIsErrorEmail('')
+            else
+            setIsErrorEmail('err')
+            toast.warning("Проверьте введённые вами данные");
+        }
+        
     }
 
     useEffect(() => {
@@ -205,7 +233,7 @@ const UserProfile = ({ isNew, update }) => {
                         <Row >
                             <div className='containerFirstEdit'>Логин:</div>
                             <Form.Control className={isPfone ? 'containerSecondAdd' : 'containerSecondEdit'} type="text" placeholder="Введите логин" defaultValue={login} onChange={e => isLogin(e.target.value)} />
-                            {errorlogin === '' ? <></> : <Form.Text muted>
+                            {iserrorlogin === '' ? <></> : <Form.Text muted>
                                 <span className='textError'>{errorlogin}</span>
                             </Form.Text>}
                         </Row>
@@ -216,7 +244,7 @@ const UserProfile = ({ isNew, update }) => {
                         <Row className='mt-2'>
                             <div className='containerFirstEdit'>Почта:</div>
                             <Form.Control className={isPfone ? 'containerSecondAdd' : 'containerSecondEdit'} type="email" placeholder="Введите почту" value={email} onChange={e => isEmail(e.target.value)} />
-                            {errorEmail === '' ? <></> : <Form.Text muted>
+                            {iserrorEmail === '' ? <></> : <Form.Text muted>
                                 <span className='textError'>{errorEmail}</span>
                             </Form.Text>}
                         </Row>
@@ -243,7 +271,7 @@ const UserProfile = ({ isNew, update }) => {
                         <Row className='mt-2'>
                             <div className='containerFirstEdit'>Пароль:</div>
                             <Form.Control className={isPfone ? 'containerSecondAdd' : 'containerSecondEdit'} type="password" name="password" placeholder="Введите пароль" defaultValue={password} onChange={e => isPass(e.target.value)} />
-                            {errorPass === '' ? <></> : <Form.Text muted>
+                            {iserrorPass === '' ? <></> : <Form.Text muted>
                                 <span className='textError'>{errorPass}</span>
                             </Form.Text>}
                         </Row>

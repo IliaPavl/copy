@@ -1,4 +1,4 @@
-import AmoHtttp from "../../servise/httpServise/AmoHtttp";
+
 
 function start() {
   var oauth_scripts = document.querySelectorAll('.amocrm_oauth');
@@ -179,10 +179,7 @@ function receiveNewLocation(event) {
   if (event.data.url) {
     console.info("new_loc");
     console.info(event.data.url);
-    AmoHtttp.amoGet(event.data.url).then(data=>{
-      console.info(data);
-    })
-    //window.location = event.data.url;
+    window.location = event.data.url;
   }
 }
 

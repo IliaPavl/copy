@@ -30,13 +30,12 @@ instance.interceptors.response.use(
     if (originalConfig.url !== URL_LOGIN && err.response) {
       // Access Token was expired
       if (err.response.status === 401 && !originalConfig._retry) {
-        console.info("401")
         originalConfig._retry = true;
         try {
           const rs = await instance.post(URL_REFRESH, {
             refreshToken: LocalServise.getRefreshToken(),
           });
-          const { accessToken,refreshToken } = rs.data;
+          const { accessToken } = rs.data;
           LocalServise.setAccesToken(accessToken);
           //LocalServise.setRefreshToken(refreshToken);
           return instance(originalConfig);
@@ -46,12 +45,11 @@ instance.interceptors.response.use(
       }
       if (err.response.status === 400 && !originalConfig._retry) {
         originalConfig._retry = true;
-        console.info("400")
         try {
           const rs = await instance.post(URL_REFRESH, {
             refreshToken: LocalServise.getRefreshToken(),
           });
-          const { accessToken,refreshToken } = rs.data;
+          const { accessToken } = rs.data;
           LocalServise.setAccesToken(accessToken);
           //LocalServise.setRefreshToken(refreshToken);
           return instance(originalConfig);

@@ -65,7 +65,7 @@ const IndicatorMember = () => {
                 pending: "Please wait... ",
             })
         else {
-            toast.warning("Выберите интеграции для удаления")
+            toast.warning("Выберите показатель для удаления")
         }
 
     }
@@ -184,10 +184,10 @@ const IndicatorMember = () => {
                     <Card.Body className='noBorder'>
                         <Col>
                             <Row>
-                                <Button onClick={() => newIntegr()} className={isPfone ? 'buttonIntegation_P m-2' : 'buttonIntegation m-2'}>
+                                <Button onClick={() => newIntegr()} className={isPfone ? 'buttonIntegation_P m-2' : 'buttonIntegation m-2'} disabled='true'>
                                     Новая переменная
                                 </Button>
-                                <Button className={isPfone ? 'buttonIntegation_P m-2' : 'buttonIntegation m-2'} onClick={() => del()}>
+                                <Button className={isPfone ? 'buttonIntegation_P m-2' : 'buttonIntegation m-2'} onClick={() => del()} disabled='true'>
                                     Удалить переменную
                                 </Button>
                             </Row>

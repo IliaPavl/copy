@@ -57,9 +57,9 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
         return number;
     }
     const [showSettings, setShowSettings] = useState(false);
-    const handleShow = () => { console.log(!showSettings); setShowSettings(!showSettings); };
+    const handleShow = () => { setShowSettings(!showSettings); };
     useEffect(() => {
-        console.log(showSettings);
+
     }, [showSettings])
     async function updateProfile() {
         return true;
@@ -105,7 +105,7 @@ const TableBootsTrap = ({ head, rows, sorting, search, setBox, withSearch, withC
                         <Modal.Title>Создать нового пользователя</Modal.Title>
                     </Modal.Header>
                     <Modal.Body className='userListModal'>
-                        <UserProfileEdit isNew={true} update={updateProfile} />
+                        <UserProfileEdit isNew={true} update={updateProfile} close={handleShow}/>
                     </Modal.Body>
                 </Modal>
             </div>

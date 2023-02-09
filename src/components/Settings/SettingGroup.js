@@ -1,28 +1,31 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Card, Container, ListGroup } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SETTINGS_INTEGRATION, SETTINGS_NOTIFICATION } from '../../utils/const';
-import Amo from './Amo';
-import amoButton from './amoButton';
 
 
 
-const SettingGroup = ({ setSetting }) => {
-
+const SettingGroup = ({ setSetting, isAdmin }) => {
+    const navigate = useNavigate();
+    function setSet(value, url) {
+        setSetting(value);
+        navigate(url);
+    }
     return (
         <Container>
             <Card>
                 <ListGroup >
-                    <ListGroup.Item action>
+                    <ListGroup.Item action onClick={() => setSet("notification", SETTINGS_NOTIFICATION)}>
                         <Link to={SETTINGS_NOTIFICATION} onClick={() => setSetting("notification")} className='groupList'>
                             Настройки уведомлений
                         </Link>
                     </ListGroup.Item>
-                    <ListGroup.Item action>
+                    {isAdmin === true ? <ListGroup.Item action onClick={() => setSet("integration", SETTINGS_INTEGRATION)}>
                         <Link to={SETTINGS_INTEGRATION} onClick={() => setSetting("integration")} className='groupList'>
                             Настройки интеграций
                         </Link>
-                    </ListGroup.Item>
+                    </ListGroup.Item>:<></>}
+
                 </ListGroup>
             </Card>
         </Container>

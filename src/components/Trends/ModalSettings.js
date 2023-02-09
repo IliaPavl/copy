@@ -78,9 +78,7 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
 
     useEffect(() => {
         if (show === true) {
-            console.log(data);
             ResultHttpServise.getIndicatorSettings(data.idResult).then((data2) => {
-                console.log(data2);
                 set_r(data2.data.percentRed);
                 set_g(data2.data.percentGreen);
                 set_minValue(data2.data.percentRed);
@@ -132,7 +130,6 @@ const ModalSettings = ({ show, handleClose, saveChenge, data, isAdmin }) => {
 
     async function setP(value) {
         let err = InputPatternService.modalPlan(value);
-        console.log(err)
         if (err !== '')
             setErrorP(err);
         else setErrorP('');

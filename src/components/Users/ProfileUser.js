@@ -35,7 +35,7 @@ const ProfileUser = () => {
         if (userInfo.length !== 0) {
             let r = '';
             userInfo.roles.forEach(role => {
-                r += (role.name.split('_')[1] + ", ")
+                r += (role.name.split('_')[1] + " ")
             })
             setRolse(r);
             setStatus(userInfo.userStatus.userStatus.split('_')[1]);

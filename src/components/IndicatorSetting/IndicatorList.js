@@ -60,7 +60,7 @@ const IndicatorList = () => {
                 pending: "Please wait... ",
             })
         else {
-            toast.warning("Выберите интеграции для удаления")
+            toast.warning("Выберите показатель для удаления")
         }
 
     }
@@ -77,10 +77,10 @@ const IndicatorList = () => {
                 <Card.Body className='noBorder'>
                     <Col>
                         <Row>
-                            <Button onClick={() => newIntegr()} className='buttonIntegation m-2'>
+                            <Button onClick={() => newIntegr()} className='buttonIntegation m-2' disabled='true'>
                                 Новый показатель
                             </Button>
-                            <Button className='buttonIntegation m-2' onClick={() => del()}>
+                            <Button className='buttonIntegation m-2' onClick={() => del()} disabled='true'>
                                 Удалить показатель
                             </Button>
                         </Row>

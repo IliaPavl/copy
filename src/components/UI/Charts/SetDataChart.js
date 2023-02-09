@@ -48,6 +48,7 @@ const SetDataChart = ({ chartData, titleChart, rowsName, options, showTable, set
         if(options!=='')
         if (chartData.length !== 0 && rowsName.length !== 0) {
             setCustomData(chartData);
+           
             if (hotMonth.length !== 0) {
                 let isMoth = true;
                 chartData[0].values[chartData[0].values.length - 1].monthChartData.forEach(element => {

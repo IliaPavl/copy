@@ -12,19 +12,15 @@ const OffcanvasIntegration = ({ file, enableType, show, onHide, placement, isNew
         enableType(value);
     }
     useEffect(() => {
-        if(show===true)
-        amoButton.start();
+        if (show === true)
+            amoButton.start();
     }, [eViews])
     return (
         <Offcanvas show={show} onHide={onHide} placement={'end'}>
             <Offcanvas.Header closeButton>
-
                 <Offcanvas.Title className='CardHead'>{isNewIntegr === true ? <>Новая интеграция </> : <>Интеграция '{newIntegration != null ? newIntegration.viewName : ''}' </>} </Offcanvas.Title>
             </Offcanvas.Header>
-
             <Offcanvas.Body>
-
-
                 <Card className='noBorder'>
                     <Form>
 

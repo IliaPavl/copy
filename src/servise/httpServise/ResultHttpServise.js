@@ -37,7 +37,7 @@ import api from "./api";
     });
 }
 
- function changeSettins(settings) {
+async function changeSettins(settings) {
     const modalSettings = settings;
     return api.post(URL_CHANGR_SETTINGS_TRENDS, modalSettings, {
         headers: {

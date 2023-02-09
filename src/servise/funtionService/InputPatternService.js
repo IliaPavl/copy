@@ -1,4 +1,4 @@
- function passwordInput(value) {
+function passwordInput(value) {
     if (!/^[a-zA-Z0-9]{1,25}$/.test(value))
         return ("Пароль должен быть от 1 до 25 символов и может содержать цифры и латинские буквы")
     else
@@ -9,28 +9,28 @@
     //     return ('')
 }
 
- function loginInput(value) {
+function loginInput(value) {
     if (!/^[A-z0-9][-A-z0-9]{4,20}$/.test(value))
         return ('Логин должен быть от 5 до 20 символов и может содержать цифры и латинские буквы')
     else
         return ('')
 }
 
- function emailInput(value) {
+function emailInput(value) {
     if (!/^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/.test(value))
         return ('некорректный формат почты')
     else
         return ('')
 }
 
-async function procent100(value) {
+function procent100(value) {
     if (!/^(0|[1-9]\d*)$/.test(value)) { return ("Вводите только цифры от 0 до 100"); }
     else if (value < 0) { return ("Не может быть меньше 0"); }
     else if (value > 100) { return ("Не может быть больше 100"); }
     else return ('');
 }
 
- function modalRedRange(value, maxValue) {
+function modalRedRange(value, maxValue) {
     let err = this.procent100(value);
     if (err === '')
         if (value > maxValue) { return ("Красная граница не может быть больше зелёной"); }
@@ -39,7 +39,7 @@ async function procent100(value) {
     else return err;
 }
 
- function modalGreenRange(value, minValue) {
+function modalGreenRange(value, minValue) {
     let err = this.procent100(value);
     if (err === '')
         if (value - minValue < 20) { return ("Между зелёной границей и красной должно быть минимум 20%"); }
@@ -48,26 +48,26 @@ async function procent100(value) {
     else return err;
 }
 
-async function modalPlan(value) {
+function modalPlan(value) {
     if (!/^\d{1,30}(?:,\d{3})*(?:\.\d{1,2})?$/.test(value)) { return ("План измеряется только в цифрах 999.99"); }
     else if (value < 0) { return ("План не может быть меньше 0"); }
     else return ('');
 }
 
- function valueIndicator(value) {
+function valueIndicator(value) {
     if (!/^\d{1,30}(?:,\d{3})*(?:\.\d{1,2})?$/.test(value)) { return ("Значение измеряется только в цифрах 999.99"); }
     else if (value < 0) { return ("Значение не может быть меньше 0"); }
     else return ('');
 }
 
- function modalPlanMonth(value) {
+function modalPlanMonth(value) {
     if (!/^(0|[1-9]\d*)$/.test(value)) { return ("Вводите только цифры от 0 до 12"); }
     else if (value < 0) { return ("Не может быть меньше 0"); }
     else if (value > 12) { return ("Не может быть больше 12"); }
     else return ('');
 }
 
- function intputChar(value) {
+function intputChar(value) {
     if (value !== null)
         if (value !== "")
             if (value.lenght <= 150)
@@ -78,14 +78,14 @@ async function modalPlan(value) {
     return ("Проверьте введённую строку, не более 150 символов")
 }
 
- function intputInt(value) {
+function intputInt(value) {
     if (!/^(0|[1-9]\d*)$/.test(value))
         return ('');
     else
         return ("Это не число")
 }
 
- function intputDec(value) {
+function intputDec(value) {
     if (!/^\d{1,30}(?:,\d{3})*(?:\.\d{1,2})?$/.test(value)) { return ("Значение измеряется только в цифрах 999.99"); }
     else return ('');
 }

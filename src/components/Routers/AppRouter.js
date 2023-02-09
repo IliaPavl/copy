@@ -2,8 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import RoleServise from '../../servise/funtionService/RoleServise';
 import LocalServise from '../../servise/httpServise/LocalServise';
-import { LOGIN_ROUTE } from '../../utils/const';
-import { authRoutes, publicRoutes } from "./routes";
+import { HOME_PAGE, LOGIN_ROUTE } from '../../utils/const';
+import { authRoutes, noVladelRoutes, publicRoutes } from "./routes";
 
 const AppRouter = () => {
     let [c, setC] = useState(false);
@@ -15,10 +15,38 @@ const AppRouter = () => {
             return false;
     }, [])
 
+    let [isData, setIsData] = useState();
     useEffect(() => {
-        setC(findC);
+        if (LocalServise.getUserName() !== "error")
+            setC(RoleServise.cheakRole());
+        else
+            setC(false);
 
-    }, [findC,navigate])
+        if (c === false) {
+            let routeValu = "/" + LocalServise.getLastPage().split('/')[3];
+            let routeValu2 = routeValu + "/:searchValue"
+            let v;
+            for (let i = 0; i < noVladelRoutes.length; i++) {
+                if (routeValu === noVladelRoutes[i].path || routeValu2 === noVladelRoutes[i].path) {
+                    v = true; 
+                    break;
+                }
+                else
+                    v = false;
+            }
+            setIsData(v);
+
+        }
+    }, [findC, navigate])
+
+    useEffect(() => {
+        if (isData !== null)
+            if (isData !== undefined)
+                if (isData === false) {
+                    navigate(HOME_PAGE)
+                    setIsData(true);
+                }
+    }, [isData])
 
     return (
         <Routes>

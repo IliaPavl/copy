@@ -20,6 +20,7 @@ export const SETTINGS_INTEGRATION = '/settings/integration'
 export const NEW_DATA = '/indicator_add_value'
 export const INDICATOR_LIST = '/indicator/list'
 export const INDICATOR_MEMBER = '/indicator/member'
+export const AMO_INTEGRATION = '/settings/integration/amo'
 
 //export const URL_BASE = 'http://77.74.35.5:30823'
 //export const URL_BASE = 'https://localhost:8080'

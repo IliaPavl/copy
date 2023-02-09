@@ -23,10 +23,10 @@ const PfoneGroupTrend = ({ ingroup, reload, stylesIn }) => {
     const handl = () => { setShowAccess(!showAccess) };
 
     async function saveChenge(links, redRange, greenRange, planRange, periodEnable, typeChart, idIndicator, direction, planMonthTrend) {
+
         const settings = { links: links, redRange: redRange, greenRange: greenRange, planRange: planRange, periodEnable: periodEnable, typeChart: typeChart, idIndicator: idIndicator, direction: direction, trendMonth: planMonthTrend };
         toast.promise(
             ResultHttpServise.changeSettins(settings).then((respons) => {
-                reload();
                 toast.success(respons.data)
                 const gr = group;
                 gr.linkMonitor.map(l =>
@@ -36,6 +36,7 @@ const PfoneGroupTrend = ({ ingroup, reload, stylesIn }) => {
                         l.userAccessList
                 )
                 setGroup(gr);
+                reload();
             }).catch((error) => { toast.error(error) }), { pending: "Please wait... ", })
         handl();
     }
@@ -78,11 +79,6 @@ const PfoneGroupTrend = ({ ingroup, reload, stylesIn }) => {
                                                 Дата
                                             </div>
                                         </th>
-                                        {/* <th>
-                                            <div className='tablePfoneUnits'>
-                                                Ед.изм.
-                                            </div>
-                                        </th> */}
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -115,16 +111,19 @@ const PfoneGroupTrend = ({ ingroup, reload, stylesIn }) => {
 
                                             <td onClick={() => goToLink(links.idResult)} id="date">{links.parseMaxDate}</td>
                                             {/* <td onClick={() => goToLink(links.idResult)} id="units">{links.typeResult}</td> */}
-                                            <td id="settings">
-                                                {/* <div className="notification-container ">
+                                            {group.admin === true ?
+                                                <td id="settings">
+                                                    {/* <div className="notification-container ">
                                                     <span className="notification-container__text_Gear "><RiSettings3Line onClick={() => handleShow()} className='chartSVG gearSVG' /></span>
                                                 </div> */}
-                                                <RiSettings3Line onClick={() => s(links)} className='chartSVG gearSVG' />
-                                            </td>
+                                                    <RiSettings3Line onClick={() => s(links)} className='chartSVG gearSVG' />
+                                                </td>
+                                                : <></>}
                                         </tr>
                                     )}
-                                    <ModalSettings show={showAccess} handleClose={handl} saveChenge={saveChenge} data={dataLinks} isAdmin={group.admin} />
-
+                                    {group.admin === true ?
+                                        <ModalSettings show={showAccess} handleClose={handl} saveChenge={saveChenge} data={dataLinks} isAdmin={group.admin} />
+                                        : <></>}
                                 </tbody>
                             </Table>
                             :

@@ -90,11 +90,6 @@ const GroupTrend = ({ ingroup, reload, stylesIn }) => {
                                                 Дата
                                             </div>
                                         </th>
-                                        {/* <th>
-                                            <div className='tablePfoneUnits'>
-                                                Ед.изм.
-                                            </div>
-                                        </th> */}
                                     </tr>
                                 </thead>
                                 <tbody className="table-light">
@@ -123,11 +118,17 @@ const GroupTrend = ({ ingroup, reload, stylesIn }) => {
                                             </td>
                                             <td onClick={() => goToLink(links.idResult)} id="date">{links.parseMaxDate}</td>
                                             {/* <td onClick={() => goToLink(links.idResult)} id="units">{links.typeResult}</td> */}
-                                            <td onClick={() => s(links)}> <RiSettings3Line onClick={() => handleShow()} className='chartSVG ' /></td>
+                                            {group.admin === true ?
+                                                <td onClick={() => s(links)}> <RiSettings3Line onClick={() => handleShow()} className='chartSVG ' /></td>
+                                                : <></>}
                                         </tr>
                                     )}
                                 </tbody>
-                                <ModalSettings show={showAccess} handleClose={handl} saveChenge={saveChenge} data={dataLinks} isAdmin={group.admin} />
+                                {group.admin === true ?
+                                    <ModalSettings show={showAccess} handleClose={handl} saveChenge={saveChenge} data={dataLinks} isAdmin={group.admin} /> :
+                                    <></>
+                                }
+
                             </Table>
                             :
                             <GroupTrend group={group.monitor} />

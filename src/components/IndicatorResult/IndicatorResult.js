@@ -60,7 +60,6 @@ const IndicatorResult = () => {
         setEnableType(value.trim())
     }
 
-
     let [types, setTypes] = useState([]);
 
     useEffect(() => {
@@ -71,15 +70,17 @@ const IndicatorResult = () => {
         //__________________________________________________________________________
         if (LocalServise.getUserName() !== "error")
             UserServise.bars(u).then((data) => {
-                if (data.isAdmin) {
                     let dataL = data.linkMonitors;
                     for (let i in dataL) {
                         if (u === dataL[i].idResult) {
                             ResultHttpServise.getIndicatorSettings(dataL[i].idResult).then((data2) => {
-                                types.forEach(type => {
-                                    if (type.id === data2.data.diagType_ID)
-                                        setEnableType(type.item);
-                                })
+                                for(let k=0;k<types.length;k++){
+                                    if (types[k].id === data2.data.diagType_ID)
+                                    {
+                                        setEnableType(types[k].item);
+                                        break;
+                                    }
+                                }
                             }).catch((error) => { toast.error(error) });
 
                             let h = [];
@@ -101,9 +102,6 @@ const IndicatorResult = () => {
                             break;
                         }
                     }
-                } else {
-                    // setLinks([]);
-                }
             }).catch(() => {
                 //setLinks([]);
             });
