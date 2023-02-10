@@ -23,18 +23,23 @@ const AppRouter = () => {
             setC(false);
 
         if (c === false) {
-            let routeValu = "/" + LocalServise.getLastPage().split('/')[3];
-            let routeValu2 = routeValu + "/:searchValue"
-            let v;
-            for (let i = 0; i < noVladelRoutes.length; i++) {
-                if (routeValu === noVladelRoutes[i].path || routeValu2 === noVladelRoutes[i].path) {
-                    v = true; 
-                    break;
+            if (LocalServise.getLastPage() !== null) {
+                let routeValu = "/" + LocalServise.getLastPage().split('/')[3];
+                let routeValu2 = routeValu + "/:searchValue"
+                let v;
+                for (let i = 0; i < noVladelRoutes.length; i++) {
+                    if (routeValu === noVladelRoutes[i].path || routeValu2 === noVladelRoutes[i].path) {
+                        v = true;
+                        break;
+                    }
+                    else
+                        v = false;
                 }
-                else
-                    v = false;
+                setIsData(v);
+            } else {
+                setIsData(false);
+                navigate(LOGIN_ROUTE)
             }
-            setIsData(v);
 
         }
     }, [findC, navigate])
@@ -43,7 +48,10 @@ const AppRouter = () => {
         if (isData !== null)
             if (isData !== undefined)
                 if (isData === false) {
-                    navigate(HOME_PAGE)
+                    if (LocalServise.getUserName() !== "error")
+                        navigate(HOME_PAGE)
+                    else
+                        navigate(LOGIN_ROUTE)
                     setIsData(true);
                 }
     }, [isData])
