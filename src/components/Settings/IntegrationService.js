@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Container, Form, InputGroup, Offcanvas, Row, Table } from 'react-bootstrap';
+import { Button, Card, Col, Container, Form, Row, Table } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import InputPatternService from '../../servise/funtionService/InputPatternService';
 import integrationService from "../../servise/httpServise/IntegrationService";
-import DropDownOutSucses from '../UI/DropDown/DropDownOutSucses';
-import Amo from './Amo';
-import amoButton from './amoButton';
 import OffcanvasIntegration from './OffcanvasIntegration';
 import './Settings.css';
 
@@ -36,7 +33,11 @@ const IntegrationSetting = () => {
         })
         integrationService.getIntegrationSettings().then(data => {
             setTypes(data.data.types);
-            setViews(data.data.jsonViews);
+            let obj = [
+                data.data.jsonViewExel,
+                data.data.integrationAmo
+            ];
+            setViews(obj);
         })
         if (window.innerWidth < 780)
             setIsPfone(true)
@@ -177,8 +178,13 @@ const IntegrationSetting = () => {
                 if (types[i].name === typeName) {
                     let d = [];
                     for (let data = 0; data < views.length; data++)
-                        if (views[data].id_type === types[i].type_id)
-                            d.push(views[data]);
+                    {
+                        if (views[data][0].id_type === types[i].type_id){
+                            
+                            d.push(views[data][0]);
+                        }
+                            
+                    }
                     setEViews(d);
                     setErrorStatrt(d);
                     setSource(types[i].type_id)
@@ -237,21 +243,6 @@ const IntegrationSetting = () => {
                 <Card.Header className='noBorder BlueBack CardHead'>
                     Настройки интеграций
                 </Card.Header>
-                {/* <div>
-                    <script
-                        className="amocrm_oauth"
-                        charSet="utf-8"
-                        data-client-id="8971ce16-0b0e-4a27-b2f0-5f0ea62bb5ea"
-                        data-title="Button"
-                        data-compact="false"
-                        data-class-name="className"
-                        data-color="default"
-                        data-state="state"
-                        data-error-callback="functionName"
-                        data-mode="popup"
-                        src="https://www.amocrm.ru/auth/button.js"
-                    ></script>
-                </div> */}
                 <Card.Body className='noBorder'>
                     <Col>
                         <Row>
@@ -327,23 +318,23 @@ const IntegrationSetting = () => {
                     </Col>
                 </Card.Body>
             </Card>
-            <OffcanvasIntegration 
-            show={show} 
-            onHide={handleClose} 
-            placement={'end'} 
-            isNewIntegr ={isNewIntegr} 
-            newIntegration={newIntegration}
-            types={types}
-            eViews={eViews}
-            save={save}
-            editData={editData}
-            isError={isError}
-            setName={setName}
-            setComment={setComment}
-            plus={plus}
-            enableType={enableType}
-            file={file}
-            />                                                    
+            <OffcanvasIntegration
+                show={show}
+                onHide={handleClose}
+                placement={'end'}
+                isNewIntegr={isNewIntegr}
+                newIntegration={newIntegration}
+                types={types}
+                eViews={eViews}
+                save={save}
+                editData={editData}
+                isError={isError}
+                setName={setName}
+                setComment={setComment}
+                plus={plus}
+                enableType={enableType}
+                file={file}
+            />
         </Container>
     );
 };

@@ -28,44 +28,14 @@ const OffcanvasIntegration = ({ file, enableType, show, onHide, placement, isNew
                             <div className="mt-2">
                                 <DropDownOutSucses values={types} setEnabledStatus={eT} enabledStatus={"не выбрано"} />
                             </div> : <></>}
-                        <InputGroup className="mt-2">
-                            <InputGroup.Text className='settingForm' >
-                                Название
-                            </InputGroup.Text>
-                            {newIntegration != null ?
-                                <Form.Control
-                                    defaultValue={newIntegration.viewName}
-                                    aria-describedby="basic-addon1"
-                                    onChange={(e) => { setName(e.target.value) }}
-                                    className={isError("name") === true ? "errorBorder" : ""}
-                                />
-                                : <Form.Control
-                                    aria-describedby="basic-addon1"
-                                    onChange={(e) => { setName(e.target.value) }}
-                                    className={isError("name") === true ? "errorBorder" : ""}
-                                />}
 
-                        </InputGroup>
-                        <InputGroup className='mt-2'>
-                            <InputGroup.Text className='settingForm'>
-                                Комментарий
-                            </InputGroup.Text>
-                            {newIntegration != null ?
-                                <Form.Control as="textarea"
-                                    defaultValue={newIntegration.testComment}
-                                    aria-describedby="basic-addon1"
-                                    onChange={(e) => { setComment(e.target.value) }}
-                                    className={isError("comment") === true ? "errorBorder" : ""}
-                                /> :
-                                <Form.Control as="textarea"
-                                    aria-describedby="basic-addon1"
-                                    onChange={(e) => { setComment(e.target.value) }}
-                                    className={isError("comment") === true ? "errorBorder" : ""}
-                                />}
-
-                        </InputGroup>
                         {val === 'amoCRM' ?
-                            <InputGroup className='mt-2'>
+                            <InputGroup className='mt-3'>
+                                <Form.Text >
+                                    <h5>
+                                        Подключи нашу интеграцию в amoCRM.
+                                    </h5>
+                                </Form.Text>
                                 <script
                                     className="amocrm_oauth"
                                     charSet="utf-8"
@@ -79,58 +49,99 @@ const OffcanvasIntegration = ({ file, enableType, show, onHide, placement, isNew
                                     data-mode="popup"
                                     src="https://www.amocrm.ru/auth/button.js"
                                 ></script>
-                            </InputGroup> : <></>}
+                                <Form.Text >
+                                    Нажмите на кнопку для подключения.
+                                </Form.Text>
+                            </InputGroup> : <>
+                                <InputGroup className="mt-2">
+                                    <InputGroup.Text className='settingForm' >
+                                        Название
+                                    </InputGroup.Text>
+                                    {newIntegration != null ?
+                                        <Form.Control
+                                            defaultValue={newIntegration.viewName}
+                                            aria-describedby="basic-addon1"
+                                            onChange={(e) => { setName(e.target.value) }}
+                                            className={isError("name") === true ? "errorBorder" : ""}
+                                        />
+                                        : <Form.Control
+                                            aria-describedby="basic-addon1"
+                                            onChange={(e) => { setName(e.target.value) }}
+                                            className={isError("name") === true ? "errorBorder" : ""}
+                                        />}
+
+                                </InputGroup>
+                                <InputGroup className='mt-2'>
+                                    <InputGroup.Text className='settingForm'>
+                                        Комментарий
+                                    </InputGroup.Text>
+                                    {newIntegration != null ?
+                                        <Form.Control as="textarea"
+                                            defaultValue={newIntegration.testComment}
+                                            aria-describedby="basic-addon1"
+                                            onChange={(e) => { setComment(e.target.value) }}
+                                            className={isError("comment") === true ? "errorBorder" : ""}
+                                        /> :
+                                        <Form.Control as="textarea"
+                                            aria-describedby="basic-addon1"
+                                            onChange={(e) => { setComment(e.target.value) }}
+                                            className={isError("comment") === true ? "errorBorder" : ""}
+                                        />}
+
+                                </InputGroup>
+                            </>}
 
                         {eViews !== null ?
                             eViews.map((data) => (
-                                data.addInfo === "OpenFile" ?
-                                    <>
-                                        {file !== "" ?
-                                            <>
-                                                <InputGroup key={plus()} className="mt-2">
-                                                    <Form.Label>Выбрвнный файл: {file}</Form.Label>
-                                                </InputGroup>
-                                                <InputGroup key={plus()} >
-                                                    <Form.Control type="file" className={isError(data.viewName) === true ? "errorBorder " : ""} onChange={(e) => editData(data, e.target.value)} />
-                                                </InputGroup>
-                                            </>
-                                            :
-                                            <>
-                                                <InputGroup key={plus()} className="mt-2">
-                                                    <Form.Control type="file" className={isError(data.viewName) === true ? "errorBorder " : ""} onChange={(e) => editData(data, e.target.value)} />
-                                                </InputGroup></>}
-                                    </>
+                                data.addInfo !== undefined ?
+                                    data.addInfo === "OpenFile" ?
+                                        <>
+                                            {file !== "" ?
+                                                <>
+                                                    <InputGroup key={plus()} className="mt-2">
+                                                        <Form.Label>Выбрвнный файл: {file}</Form.Label>
+                                                    </InputGroup>
+                                                    <InputGroup key={plus()} >
+                                                        <Form.Control type="file" className={isError(data.viewName) === true ? "errorBorder " : ""} onChange={(e) => editData(data, e.target.value)} />
+                                                    </InputGroup>
+                                                </>
+                                                :
+                                                <>
+                                                    <InputGroup key={plus()} className="mt-2">
+                                                        <Form.Control type="file" className={isError(data.viewName) === true ? "errorBorder " : ""} onChange={(e) => editData(data, e.target.value)} />
+                                                    </InputGroup></>}
+                                        </>
+                                        :
+                                        <>
+                                            <InputGroup key={plus()} className={isError(data.viewName) === true ? "errorBorder mt-2" : "mt-2"}>
+                                                <InputGroup.Text className={isError(data.viewName) === true ? "settingForm errorBorder" : ""}>
+                                                    {data.viewName}
+                                                </InputGroup.Text>
+                                                <Form.Control
+                                                    defaultValue={data.fullPath}
+                                                    aria-describedby="basic-addon1"
+                                                    onChange={(e) => editData(data, e.target.value)}
+                                                    className={isError(data.viewName) === true ? "errorBorder" : ""}
+                                                />
 
-                                    :
-                                    <>
-                                        <InputGroup key={plus()} className={isError(data.viewName) === true ? "errorBorder mt-2" : "mt-2"}>
-                                            <InputGroup.Text className={isError(data.viewName) === true ? "settingForm errorBorder" : ""}>
-                                                {data.viewName}
-                                            </InputGroup.Text>
-                                            <Form.Control
-                                                defaultValue={data.fullPath}
-                                                aria-describedby="basic-addon1"
-                                                onChange={(e) => editData(data, e.target.value)}
-                                                className={isError(data.viewName) === true ? "errorBorder" : ""}
-                                            />
-
-                                        </InputGroup>
-                                    </>
-
-                            )) : <></>}
+                                            </InputGroup>
+                                        </>
+                                    : <></>))
+                            : <></>}
                     </Form>
-                    <Card.Footer className='cardFooterContainer mt-2'>
-                        <div className='cardFooter'>
-                            {eViews !== null ?
-                                eViews.length !== 0 ?
-                                    <Button onClick={() => save()}>
-                                        Сохранить
-                                    </Button> : <Button disabled onClick={() => save()}>
-                                        Сохранить
-                                    </Button>
-                                : <></>}
-                        </div>
-                    </Card.Footer>
+                    {val !== 'amoCRM' ?
+                        <Card.Footer className='cardFooterContainer mt-2'>
+                            <div className='cardFooter'>
+                                {eViews !== null ?
+                                    eViews.length !== 0 ?
+                                        <Button onClick={() => save()}>
+                                            Сохранить
+                                        </Button> : <Button disabled onClick={() => save()}>
+                                            Сохранить
+                                        </Button>
+                                    : <></>}
+                            </div>
+                        </Card.Footer> : <></>}
                 </Card>
             </Offcanvas.Body>
         </Offcanvas>

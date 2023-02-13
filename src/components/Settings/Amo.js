@@ -27,20 +27,47 @@ const Amo = () => {
         console.log(urlData)
     }, [urlData])
 
+    let [answer, setAnswer] = useState("");
+    function testFunction() {
+        let jsonData = {
+            Link: urlData.ref,
+            Source_ID: "",
+            ClientAmo_secret: "0yM40qJllKsInxbFBzDAAbhzGILsbqiSDMmtL5G5MIYuLu6q62ArWGggXFeDVyQT",
+            Refresh: refresh,
+            ClientAmo_id: urlData.client_id,
+        }
+        let obj = {
+            id_integration: "",
+            source: 8,
+            viewName: name,
+            jsonData: JSON.stringify(jsonData),
+            function: zapros,
+            testComment: comment,
+            isOn: 0
+        }
+        toast.promise(
+            AmoHtttp.testFunction(obj).then((response) => {
+                toast.success("Успешный запрос")
+                console.info(response);
+                setAnswer(response.data);
+            }).catch((error) => { toast.error(error) }), { pending: "Please wait... ", })
+    }
     function testF() {
         toast.promise(
             AmoHtttp.testConnection(urlData).then((response) => {
                 let data = response.data.split(':');
                 if (data[0] === 'sucsess') {
-                    toast.success("Успешно")
+                    toast.success("Успешное подключение")
                     setRefresh(data[1]);
                 } else {
                     setRefresh('');
                 }
             }).catch((error) => { toast.error(error) }), { pending: "Please wait... ", })
     }
+
+    let [zapros,setZapros] =useState("");
+
     useEffect(() => {
-        console.info(refresh);
     }, [refresh])
 
     function save() {
@@ -48,23 +75,29 @@ const Amo = () => {
             let jsonData = {
                 Link: urlData.ref,
                 Source_ID: "",
-                Client_key: "0yM40qJllKsInxbFBzDAAbhzGILsbqiSDMmtL5G5MIYuLu6q62ArWGggXFeDVyQT",
+                ClientAmo_secret: "0yM40qJllKsInxbFBzDAAbhzGILsbqiSDMmtL5G5MIYuLu6q62ArWGggXFeDVyQT",
                 Refresh: refresh,
-                Client_id: urlData.client_id,
-            } 
+                ClientAmo_id: urlData.client_id,
+            }
             let obj = {
-                id_integration:"",
-                source:8,
+                id_integration: "",
+                source: 8,
                 viewName: name,
                 jsonData: JSON.stringify(jsonData),
-                testComment:comment,
-                isOn:0
+                testComment: comment,
+                isOn: 0
             }
             toast.promise(
-                AmoHtttp.saveAmo(obj).then((response) => {
-                    console.info("___")
-                    console.info(response)
-                    console.info("___")
+                AmoHtttp.saveAmo(obj).then((responce) => {
+                    if (responce.data === 1)
+                        toast.warning("Такое имя есть");
+                    else if (responce.data === 2)
+                        toast.error("Проверьте заполненные вами поля");
+                    else if (responce.data === 3)
+                        toast.error("У вас нету прав для это действия");
+                    else if (responce.data === 0)
+                        toast.success("Сохранено");
+
                 }).catch((error) => { toast.error(error) }), { pending: "Please wait... ", })
         }
     }
@@ -102,9 +135,36 @@ const Amo = () => {
                                 />
 
                             </InputGroup>
-                            <Button className="mt-2 settingForm" onClick={() => testF()}>
-                                Тест
+                            <Button className="m-2" onClick={() => testF()}>
+                                Тест подключения
                             </Button>
+                            {refresh !== '' ?
+                                <Button className="m-2" onClick={() => testFunction()}>
+                                    Тест запроса
+                                </Button> : <Button disabled='true' className="m-2" onClick={() => testFunction()}>
+                                    Тест запроса
+                                </Button>}
+                            <InputGroup className='mt-2'>
+                                <InputGroup.Text className='settingForm'>
+                                Запрос
+                                </InputGroup.Text>
+                                <Form.Control
+                                    aria-describedby="basic-addon1"
+                                    value={zapros}
+                                    defaultValue={""}
+                                    onChange={(e) => { setZapros(e.target.value) }}
+                                />
+                            </InputGroup>
+                            <InputGroup className='mt-2'>
+                                <InputGroup.Text className='settingForm'>
+                                    Результат запроса
+                                </InputGroup.Text>
+                                <Form.Control as="textarea"
+                                    aria-describedby="basic-addon1"
+                                    value={answer}
+                                    defaultValue={""}
+                                />
+                            </InputGroup>
                         </Col>
                     </Row>
                 </Card.Body>
