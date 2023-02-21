@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import integrationService from "../../servise/httpServise/IntegrationService";
 import IntegrationSelect from './Selects/IntegrationSelect';
 import MultipleSelect from './Selects/MultipleSelect';
-import DatetimeRangePicker from 'react-datetime-range-picker';
 const NewIndicator = () => {
     const [integrations, setIntegrations] = useState([]);
     let [enableIntegr, setEnableIntegr] = useState();
@@ -39,9 +38,9 @@ const NewIndicator = () => {
 
     async function setEnableIntegrF(e) {
         setEnableIntegr(e);
-        integrationService.getAmoData(e.id_integration).then((response)=>{
+        integrationService.getAmoData(e.id_integration).then((response) => {
             console.log(response)
-        }).catch((ex)=> console.log(ex));
+        }).catch((ex) => console.log(ex));
     }
 
     async function switchPiplene() {
@@ -127,8 +126,6 @@ const NewIndicator = () => {
                                                     Время расчёта
                                                 </Form.Label>
 
-                                                <DatetimeRangePicker
-                                                    onChange={e => setD(e.target.value)} />
 
                                                 <Form.Text className=' m-1 ' >
                                                     Выберите время когда будет произведён
