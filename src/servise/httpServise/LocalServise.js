@@ -1,4 +1,12 @@
-import { ACCESS_TOKEN, AUTH, LAST_PAGE, LOGIN_ROUTE, REFRESH_TOKEN, REMEMBER_MY, USERNAME } from "../../utils/const";
+import { ACCESS_TOKEN, AMO_INEGRATION_ID, AUTH, LAST_PAGE, LOGIN_ROUTE, REFRESH_TOKEN, REMEMBER_MY, USERNAME } from "../../utils/const";
+
+function setIdIntegrationAmo(id){
+    localStorage.setItem(AMO_INEGRATION_ID, id);
+}
+
+function getIdIntegrationAmo(){
+    return localStorage.getItem(AMO_INEGRATION_ID);
+}
 
  function saveTokens(data) {
     const { token, refreshToken } = data.data;
@@ -87,7 +95,9 @@ const LocalServise = {
     navigate,
     isLoginUser,
     saveUserName,
-    getUserName
+    getUserName,
+    setIdIntegrationAmo,
+    getIdIntegrationAmo
 };
 
 export default LocalServise;

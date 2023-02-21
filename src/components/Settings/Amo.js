@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Form, InputGroup, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AmoHtttp from '../../servise/httpServise/AmoHtttp';
+import LocalServise from '../../servise/httpServise/LocalServise';
+import { SETTINGS_INTEGRATION } from '../../utils/const';
+import integrationService from "../../servise/httpServise/IntegrationService";
 
 const Amo = () => {
     const constComment = "RM SYSTEM подключение к амо"
@@ -9,8 +13,8 @@ const Amo = () => {
     let [urlData, setUrlData] = useState({})
     let [name, setName] = useState(constName);
     let [comment, setComment] = useState(constComment)
-    let [test, setTest] = useState('')
     let [refresh, setRefresh] = useState('');
+    const navigate =useNavigate();
 
     useEffect(() => {
         let u = window.location.search.split("?");
@@ -22,6 +26,13 @@ const Amo = () => {
             platform: codes[3].split("=")[1],
             client_id: codes[4].split("=")[1]
         });
+        if (LocalServise.getIdIntegrationAmo() !== null) {
+            integrationService.getIntegrationOne(LocalServise.getIdIntegrationAmo()).then(data => {
+                setName(data.data.viewName);
+                setComment(data.data.testComment);
+            })
+        }
+
     }, [])
     useEffect(() => {
         console.log(urlData)
@@ -30,19 +41,18 @@ const Amo = () => {
     let [answer, setAnswer] = useState("");
     function testFunction() {
         let jsonData = {
-            Link: urlData.ref,
-            Source_ID: "",
             ClientAmo_secret: "0yM40qJllKsInxbFBzDAAbhzGILsbqiSDMmtL5G5MIYuLu6q62ArWGggXFeDVyQT",
             Refresh: refresh,
             ClientAmo_id: urlData.client_id,
         }
         let obj = {
-            id_integration: "",
+            id_integration: LocalServise.getIdIntegrationAmo(),
             source: 8,
             viewName: name,
             jsonData: JSON.stringify(jsonData),
             function: zapros,
             testComment: comment,
+            Link: urlData.ref,
             isOn: 0
         }
         toast.promise(
@@ -65,7 +75,7 @@ const Amo = () => {
             }).catch((error) => { toast.error(error) }), { pending: "Please wait... ", })
     }
 
-    let [zapros,setZapros] =useState("");
+    let [zapros, setZapros] = useState("");
 
     useEffect(() => {
     }, [refresh])
@@ -73,14 +83,13 @@ const Amo = () => {
     function save() {
         if (refresh !== '') {
             let jsonData = {
-                Link: urlData.ref,
-                Source_ID: "",
                 ClientAmo_secret: "0yM40qJllKsInxbFBzDAAbhzGILsbqiSDMmtL5G5MIYuLu6q62ArWGggXFeDVyQT",
                 Refresh: refresh,
                 ClientAmo_id: urlData.client_id,
+                Link: urlData.ref,
             }
             let obj = {
-                id_integration: "",
+                id_integration: LocalServise.getIdIntegrationAmo(),
                 source: 8,
                 viewName: name,
                 jsonData: JSON.stringify(jsonData),
@@ -97,7 +106,7 @@ const Amo = () => {
                         toast.error("У вас нету прав для это действия");
                     else if (responce.data === 0)
                         toast.success("Сохранено");
-
+                        setTimeout(() => { navigate(SETTINGS_INTEGRATION) }, 2000);
                 }).catch((error) => { toast.error(error) }), { pending: "Please wait... ", })
         }
     }
@@ -146,7 +155,7 @@ const Amo = () => {
                                 </Button>}
                             <InputGroup className='mt-2'>
                                 <InputGroup.Text className='settingForm'>
-                                Запрос
+                                    Запрос
                                 </InputGroup.Text>
                                 <Form.Control
                                     aria-describedby="basic-addon1"

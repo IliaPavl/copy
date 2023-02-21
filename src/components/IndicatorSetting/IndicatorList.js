@@ -3,11 +3,12 @@ import { Button, Card, Col, Container, Form, Row, Table } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import integrationService from "../../servise/httpServise/IntegrationService";
-import { INDICATOR_MEMBER } from '../../utils/const';
+import { INDICATOR_MEMBER, INEGTRATION_NEW } from '../../utils/const';
 
 const IndicatorList = () => {
     const [list, setList] = useState([]);
     let [isPfone, setIsPfone] = useState(false)
+    const navigate =useNavigate();
     window.onresize = function (event) {
         if (event.target.innerWidth < 780)
             setIsPfone(true)
@@ -24,7 +25,6 @@ const IndicatorList = () => {
             setIsPfone(false)
     }, [])
 
-    const navigate = useNavigate();
     let number = 1;
 
     function plus() {
@@ -32,7 +32,7 @@ const IndicatorList = () => {
         return number;
     }
     async function newIntegr() {
-
+        navigate(INEGTRATION_NEW);
     }
     async function switchValue(link) {
         setList(list.map(item =>
@@ -77,7 +77,7 @@ const IndicatorList = () => {
                 <Card.Body className='noBorder'>
                     <Col>
                         <Row>
-                            <Button onClick={() => newIntegr()} className='buttonIntegation m-2' disabled='true'>
+                            <Button onClick={() => newIntegr()} className='buttonIntegation m-2' >
                                 Новый показатель
                             </Button>
                             <Button className='buttonIntegation m-2' onClick={() => del()} disabled='true'>

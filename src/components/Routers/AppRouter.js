@@ -48,9 +48,7 @@ const AppRouter = () => {
         if (isData !== null)
             if (isData !== undefined)
                 if (isData === false) {
-                    if (LocalServise.getUserName() !== "error")
-                    navigate(HOME_PAGE)
-                    else
+                    if (LocalServise.getUserName() === "error")
                     navigate(LOGIN_ROUTE)
                     setIsData(true);
                 }

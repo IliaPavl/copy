@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Form, InputGroup, Offcanvas } from 'react-bootstrap';
+import LocalServise from '../../servise/httpServise/LocalServise';
 import DropDownOutSucses from '../UI/DropDown/DropDownOutSucses';
 import amoButton from './amoButton';
 import './Settings.css';
 
-const OffcanvasIntegration = ({ file, enableType, show, onHide, placement, isNewIntegr, newIntegration, types, eViews, plus, setComment, setName, isError, editData, save }) => {
+const OffcanvasIntegration = ({ id, editType, file, enableType, show, onHide, placement, isNewIntegr, newIntegration, types, eViews, plus, setComment, setName, isError, editData, save }) => {
     let [val, setVal] = useState('');
 
+    useEffect(() => { }, [newIntegration])
     async function eT(value) {
         setVal(value);
         enableType(value);
@@ -14,7 +16,14 @@ const OffcanvasIntegration = ({ file, enableType, show, onHide, placement, isNew
     useEffect(() => {
         if (show === true)
             amoButton.start();
+        console.info(eViews);
     }, [eViews])
+
+    useEffect(() => {
+        if (id !== null && id !== undefined && id !== "") {
+            LocalServise.setIdIntegrationAmo(id)
+        }
+    }, [id])
     return (
         <Offcanvas show={show} onHide={onHide} placement={'end'}>
             <Offcanvas.Header closeButton>
@@ -89,17 +98,42 @@ const OffcanvasIntegration = ({ file, enableType, show, onHide, placement, isNew
                                         />}
 
                                 </InputGroup>
+                                {editType === 'amoCRM' ?
+                                    <InputGroup className='mt-3'>
+                                        <Form.Text >
+                                            <h5>
+                                                Переподключите вашу интеграцию
+                                            </h5>
+                                        </Form.Text>
+                                        <script
+                                            className="amocrm_oauth"
+                                            charSet="utf-8"
+                                            data-client-id="8971ce16-0b0e-4a27-b2f0-5f0ea62bb5ea"
+                                            data-title="Button"
+                                            data-compact="false"
+                                            data-class-name="className"
+                                            data-color="default"
+                                            data-state="state"
+                                            data-error-callback="functionName"
+                                            data-mode="popup"
+                                            src="https://www.amocrm.ru/auth/button.js"
+                                        ></script>
+                                        <Form.Text >
+                                            Нажмите на кнопку для подключения.
+                                        </Form.Text>
+                                    </InputGroup>
+                                    : <></>}
                             </>}
 
-                        {eViews !== null ?
+                        {eViews !== null && eViews !== "" && eViews !== undefined ?
                             eViews.map((data) => (
-                                data.addInfo !== undefined ?
-                                    data.addInfo === "OpenFile" ?
+                                data.AddInfo !== undefined ?
+                                    data.AddInfo === "OpenFile" ?
                                         <>
                                             {file !== "" ?
                                                 <>
                                                     <InputGroup key={plus()} className="mt-2">
-                                                        <Form.Label>Выбрвнный файл: {file}</Form.Label>
+                                                        <Form.Label >Выбранный файл: {file}</Form.Label>
                                                     </InputGroup>
                                                     <InputGroup key={plus()} >
                                                         <Form.Control type="file" className={isError(data.viewName) === true ? "errorBorder " : ""} onChange={(e) => editData(data, e.target.value)} />
@@ -129,19 +163,14 @@ const OffcanvasIntegration = ({ file, enableType, show, onHide, placement, isNew
                                     : <></>))
                             : <></>}
                     </Form>
-                    {val !== 'amoCRM' ?
-                        <Card.Footer className='cardFooterContainer mt-2'>
-                            <div className='cardFooter'>
-                                {eViews !== null ?
-                                    eViews.length !== 0 ?
-                                        <Button onClick={() => save()}>
-                                            Сохранить
-                                        </Button> : <Button disabled onClick={() => save()}>
-                                            Сохранить
-                                        </Button>
-                                    : <></>}
-                            </div>
-                        </Card.Footer> : <></>}
+
+                    <Card.Footer className='cardFooterContainer mt-2'>
+                        <div className='cardFooter'>
+                            <Button onClick={() => save()}>
+                                Сохранить
+                            </Button>
+                        </div>
+                    </Card.Footer>
                 </Card>
             </Offcanvas.Body>
         </Offcanvas>

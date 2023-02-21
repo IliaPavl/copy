@@ -1,5 +1,5 @@
 .containerFirst {
-    background-color: white!important;
+    background-color: white !important;
     width: 110px;
     height: 38px;
     padding: 5px;
@@ -7,26 +7,49 @@
     margin: 5px;
     text-align: start;
 }
-.pading5{
+
+.selectSwitch {
+    height: 38px !important;
+    width: 88px!important;
+    
+}
+.switchColor{
+    background-color: white!important;
+}
+
+.selectSetting {
+    display: inline-block;
+    height: 38px !important;
+}
+
+.pading5 {
     padding: 5px;
 }
-.unit{
-    width: 80px!important;
+
+.unit {
+    width: 80px !important;
 }
-.unit_F{
-    width: 70px!important;
+
+.unit_F {
+    width: 70px !important;
 }
-.name{width: 500px!important;}
-.description{
-    width: 500px!important;
-    height: 105px!important;
+
+.name {
+    width: 500px !important;
 }
-.two_words{
-    padding: 10px!important;
-    margin: 3px!important;
+
+.description {
+    width: 500px !important;
+    height: 105px !important;
 }
+
+.two_words {
+    padding: 10px !important;
+    margin: 3px !important;
+}
+
 .containerFirst_P {
-    background-color: white!important;
+    background-color: white !important;
     width: 97px;
     height: 38px;
     padding-left: 4px;
@@ -35,19 +58,21 @@
     text-align: start;
     font-size: 14px;
 }
+
 .containerSecond_P {
-    background-color: white!important;
+    background-color: white !important;
     text-align: start;
     width: 210px;
     height: auto;
     padding: 10px;
     margin: 3px;
-    border: 1px solid rgb(117, 117, 117,0.225);
+    border: 1px solid rgb(117, 117, 117, 0.225);
     border-radius: 5px;
     font-size: 14px;
 }
-.modalInputFirst_P{
-    background-color: white!important;
+
+.modalInputFirst_P {
+    background-color: white !important;
     width: 23%;
     height: 38px;
     padding-left: 4px;
@@ -56,26 +81,27 @@
     text-align: start;
     font-size: 14px;
 }
-.modalInputSecond_P{
-    background-color: white!important;
+
+.modalInputSecond_P {
+    background-color: white !important;
     text-align: start;
     width: 72%;
     height: auto;
     padding: 10px;
     margin: 3px;
-    border: 1px solid rgb(117, 117, 117,0.225);
+    border: 1px solid rgb(117, 117, 117, 0.225);
     border-radius: 5px;
     font-size: 14px;
 }
 
 
 .containerSecond {
-    background-color: white!important;
+    background-color: white !important;
     text-align: start;
     width: 210px;
     height: auto;
     padding: 10px;
     margin: 3px;
-    border: 1px solid rgb(117, 117, 117,0.225);
+    border: 1px solid rgb(117, 117, 117, 0.225);
     border-radius: 5px;
 }

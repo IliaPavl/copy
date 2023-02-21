@@ -15,9 +15,8 @@ const Login = () => {
     const click = async (e) => {
         if (errorlogin === '' && errorPass === '') {
             e.preventDefault()
+            console.log(username+"|"+password);
             getResponse(username, password);
-            setUsername('')
-            setPassword('')
         } else { toast.warning("Проверьте введённые вами данные") }
     }
 
@@ -57,6 +56,7 @@ const Login = () => {
                             
                 <Form className="d-flex flex-column">
                     <Form.Control
+                        id='login'
                         className="mt-3"
                         placeholder="Введите логин ..."
                         onChange={e => isLogin(e.target.value)}
@@ -65,6 +65,7 @@ const Login = () => {
                         <span className='textError'>{errorlogin}</span>
                     </Form.Text>}
                     <Form.Control
+                        id='password'
                         className="mt-3"
                         placeholder="Введите пароль ..."
                         onChange={e => isPass(e.target.value)}

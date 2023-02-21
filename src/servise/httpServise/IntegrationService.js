@@ -8,7 +8,8 @@ import {
     URL_INEGTRATION_SET,
     URL_INEGTRATION_SETTINGS,
     URL_INDICATOR_LIST,
-    URL_INDICATOR_IND_MEMBER
+    URL_INDICATOR_IND_MEMBER,
+    URL_INDICATOR_NEW_INFO
 } from '../../utils/const';
 import api from "./api";
 
@@ -44,11 +45,11 @@ import api from "./api";
         id_integration: id,
         source: source,
         viewName: name,
-        json: views,
-        jsonData: "",
+        jsonData: views,
         testComment: comment,
         isOn: isOn
     }
+    console.info(integration)
     return api.post(URL_INEGTRATION_SET, integration, {
         headers: {
             'Content-Type': 'application/json',
@@ -94,6 +95,15 @@ import api from "./api";
     });
 }
 
+function getAmoData(id_member){
+    return api.get(URL_INDICATOR_NEW_INFO + "/" + id_member, {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`
+        }
+    });
+}
+
 const IntegrationSetting = {
     getIntegrationSettings,
     getIntegrationList,
@@ -102,7 +112,8 @@ const IntegrationSetting = {
     deleteIntegration,
     getIndicatorList,
     getIndicatorMemberList,
-    getIndicatorMember
+    getIndicatorMember,
+    getAmoData
 };
 
 export default IntegrationSetting;

@@ -21,6 +21,7 @@ export const NEW_DATA = '/indicator_add_value'
 export const INDICATOR_LIST = '/indicator/list'
 export const INDICATOR_MEMBER = '/indicator/member'
 export const AMO_INTEGRATION = '/settings/integration/amo'
+export const INEGTRATION_NEW = '/indicator/new'
 
 //export const URL_BASE = 'http://77.74.35.5:30823'
 //export const URL_BASE = 'https://localhost:8080'
@@ -57,18 +58,20 @@ export const URL_NEW_DATA = '/app/user/indicatorAddValue'
 export const URL_INDICATOR_LIST = 'app/user/indicator_setting/list'
 export const URL_INDICATOR_IND_MEMBER_LIST = 'app/user/indicator_setting/indMemberList'
 export const URL_INDICATOR_IND_MEMBER = 'app/user/indicator_setting/member'
-
+export const URL_INDICATOR_NEW_INFO = 'app/user/indicator_setting/new/info'
 
 
 
 export const URL_INEGTRATION_SETTINGS = '/app/user/integration/settings'
 export const URL_INEGTRATION_LIST = '/app/user/integration/list'
+export const URL_INEGTRATION_NEW = '/app/user/integration/new'
 export const URL_INEGTRATION_ONE = '/app/user/integration/one/'
 export const URL_INEGTRATION_SET = '/app/user/integration/set'
 export const URL_INEGTRATION_DELETE = '/app/user/integration/delete'
 export const URL_INEGTRATION_AMO_TEST = '/app/user/integration/settings/amo/test'
 export const URL_INEGTRATION_AMO_SAVE = '/app/user/integration/settings/amo/save'
 export const URL_INEGTRATION_AMO_TEST_FUNCTION = '/app/user/integration/settings/amo/testFunction'
+
 
 export const URL_EDIT_CLIENT = URL_BASE + '/app/client/edit'
 export const URL_ALL_CLIENTS = URL_BASE + '/app/client/all'
@@ -83,6 +86,7 @@ export const AUTH = 'auth'
 export const USERNAME = 'username'
 export const LAST_PAGE = 'lastPage'
 export const REMEMBER_MY = 'remembermy'
+export const AMO_INEGRATION_ID = 'idIntegration'
 
 export const ROLE_VLADELTC = 'Владелец'
 export const ROLE_USER = 'Пользователь'

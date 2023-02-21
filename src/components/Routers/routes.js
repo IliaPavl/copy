@@ -5,6 +5,7 @@ import CompanyLIst from "../../pages/Company/companyList";
 import Error from "../../pages/Errors/error";
 import IndicatorListPage from "../../pages/IndicatorSetting/IndicatorListPage";
 import IndicatorMemberPage from "../../pages/IndicatorSetting/IndicatorMemberPage";
+import NewIndicatorPage from "../../pages/IndicatorSetting/NewIndicatorPage";
 import NewDataPage from "../../pages/NewDataPage/NewDataPage";
 import TrendsPage from "../../pages/Trends/start";
 import activate from "../../pages/User/activateAccauntPage";
@@ -24,7 +25,8 @@ import {
     NEW_PASSWORD, SETTINGS, USER_ADD,
     USER_EDIT,
     USER_LIST,
-    USER_PROFILE
+    USER_PROFILE,
+    INEGTRATION_NEW
 } from "../../utils/const";
 import IndicatorResult from "../IndicatorResult/IndicatorResult";
 import SettingBack from "../Settings/SettingBack";
@@ -84,7 +86,10 @@ export const authRoutes = [
         path: AMO_INTEGRATION,
         Component: AmoPage
     },
-
+    {
+        path: INEGTRATION_NEW,
+        Component: NewIndicatorPage
+    },
 ]
 export const noVladelRoutes = [
     {

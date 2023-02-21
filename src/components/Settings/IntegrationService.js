@@ -8,6 +8,7 @@ import './Settings.css';
 
 const IntegrationSetting = () => {
     const [types, setTypes] = useState([]);
+    let [editType, setEditType] = useState("");
     let [name, setName] = useState('');
     let [comment, setComment] = useState('');
     let [eViews, setEViews] = useState([]);
@@ -99,7 +100,7 @@ const IntegrationSetting = () => {
 
     const [show, setShow] = useState(false);
 
-    const handleClose = () => { setEViews(null); setFile(""); setid(""); setIsOn(0); setSource(0); setName(""); setComment(""); setErrors([]); setShow(false) };
+    const handleClose = () => { setEditType(""); setNewIntegration(null); setEViews(null); setFile(""); setid(""); setIsOn(0); setSource(0); setName(""); setComment(""); setErrors([]); setShow(false) };
     const handleShow = () => setShow(true);
 
     async function newIntegr() {
@@ -110,25 +111,36 @@ const IntegrationSetting = () => {
     useEffect(() => {
     }, [show])
 
-    async function edit(id) {
+    async function edit(id, type) {
         setid(id);
         setIsNewInt(false);
         handleShow();
+        setEditType(type);
         integrationService.getIntegrationOne(id).then(data => {
+            console.log(data);
             setSource(data.data.source);
             setNewIntegration(data.data);
-            setEViews(data.data.json);
+            if (data.data.jsonData === "")
+                setEViews(null);
+            else
+                setEViews(JSON.parse(data.data.jsonData));
             setIsOn(data.data.isOn);
+            console.info(data.data);
             setName(data.data.viewName);
             setComment(data.data.testComment);
-            const f = data.data.json[0].fullPath.split("\\");
-            setFile(f[f.length - 1]);
+            if (data.data.jsonData !== "") {
+                let f = JSON.parse(data.data.jsonData);
+                console.info(f);
+                f = f[0].FullPath.split("\\");
+                console.info(f[f.length - 1]);
+                setFile(f[f.length - 1]);
+            }
             setErrorStatrt(data.data.json);
         })
     }
 
     function setErrorStatrt(json) {
-        if (json !== null) {
+        if (json !== null && json !== undefined && json !== "") {
             let err = [];
             err.push({ item: "name", error: false, text: "" })
             err.push({ item: "comment", error: false, text: "" })
@@ -177,13 +189,12 @@ const IntegrationSetting = () => {
             for (let i = 0; i < types.length; i++) {
                 if (types[i].name === typeName) {
                     let d = [];
-                    for (let data = 0; data < views.length; data++)
-                    {
-                        if (views[data][0].id_type === types[i].type_id){
-                            
+                    for (let data = 0; data < views.length; data++) {
+                        if (views[data][0].id_type === types[i].type_id) {
+
                             d.push(views[data][0]);
                         }
-                            
+
                     }
                     setEViews(d);
                     setErrorStatrt(d);
@@ -196,8 +207,8 @@ const IntegrationSetting = () => {
     function save() {
         let k = [];
         Object.assign(k, eViews)
-        let er1 = { fullPath: name, type: "CHR", viewName: "name" }
-        let er2 = { fullPath: comment, type: "CHR", viewName: "comment" }
+        let er1 = { FullPath: name, Type: "CHR", ViewName: "name" }
+        let er2 = { FullPath: comment, Type: "CHR", ViewName: "comment" }
         k.push(er1)
         k.push(er2)
         let err = false;
@@ -211,7 +222,9 @@ const IntegrationSetting = () => {
 
         if (err === false) {
             toast.promise(
-                integrationService.setIntegration(name, comment, eViews, id, source, isOn).then((responce) => {
+                integrationService.setIntegration(name, comment, JSON.stringify(eViews), id, source, isOn).then((responce) => {
+                    if (responce.data === -1)
+                        toast.error("Ошибка записи");
                     if (responce.data === 1)
                         toast.warning("Такое имя есть");
                     else if (responce.data === 2)
@@ -298,14 +311,14 @@ const IntegrationSetting = () => {
                                                             />}
                                                     </div>
                                                 </td>
-                                                <td onClick={() => edit(list.id_integration)}>
+                                                <td onClick={() => edit(list.id_integration, list.typeName)}>
                                                     {list.typeName}
 
                                                 </td>
-                                                <td onClick={() => edit(list.id_integration)}>
+                                                <td onClick={() => edit(list.id_integration, list.typeName)}>
                                                     {list.nameIntegration}
                                                 </td>
-                                                <td onClick={() => edit(list.id_integration)}>
+                                                <td onClick={() => edit(list.id_integration, list.typeName)}>
                                                     {list.comment}
                                                 </td>
                                             </tr>
@@ -319,6 +332,8 @@ const IntegrationSetting = () => {
                 </Card.Body>
             </Card>
             <OffcanvasIntegration
+                id={id}
+                editType={editType}
                 show={show}
                 onHide={handleClose}
                 placement={'end'}
