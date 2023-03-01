@@ -64,6 +64,7 @@ const Amo = () => {
     }
     function testF() {
         toast.promise(
+            refresh===''?
             AmoHtttp.testConnection(urlData).then((response) => {
                 let data = response.data.split(':');
                 if (data[0] === 'sucsess') {
@@ -72,7 +73,7 @@ const Amo = () => {
                 } else {
                     setRefresh('');
                 }
-            }).catch((error) => { toast.error(error) }), { pending: "Please wait... ", })
+            }).catch((error) => { toast.error(error) }):{}, { pending: "Please wait... ", })
     }
 
     let [zapros, setZapros] = useState("");
@@ -147,33 +148,6 @@ const Amo = () => {
                             <Button className="m-2" onClick={() => testF()}>
                                 Тест подключения
                             </Button>
-                            {refresh !== '' ?
-                                <Button className="m-2" onClick={() => testFunction()}>
-                                    Тест запроса
-                                </Button> : <Button disabled='true' className="m-2" onClick={() => testFunction()}>
-                                    Тест запроса
-                                </Button>}
-                            <InputGroup className='mt-2'>
-                                <InputGroup.Text className='settingForm'>
-                                    Запрос
-                                </InputGroup.Text>
-                                <Form.Control
-                                    aria-describedby="basic-addon1"
-                                    value={zapros}
-                                    defaultValue={""}
-                                    onChange={(e) => { setZapros(e.target.value) }}
-                                />
-                            </InputGroup>
-                            <InputGroup className='mt-2'>
-                                <InputGroup.Text className='settingForm'>
-                                    Результат запроса
-                                </InputGroup.Text>
-                                <Form.Control as="textarea"
-                                    aria-describedby="basic-addon1"
-                                    value={answer}
-                                    defaultValue={""}
-                                />
-                            </InputGroup>
                         </Col>
                     </Row>
                 </Card.Body>

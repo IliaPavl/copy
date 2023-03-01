@@ -16,8 +16,8 @@ const OffcanvasIntegration = ({ id, editType, file, enableType, show, onHide, pl
     useEffect(() => {
         if (show === true)
             amoButton.start();
-        console.info(eViews);
     }, [eViews])
+    
 
     useEffect(() => {
         if (id !== null && id !== undefined && id !== "") {

@@ -100,7 +100,7 @@ const IntegrationSetting = () => {
 
     const [show, setShow] = useState(false);
 
-    const handleClose = () => { setEditType(""); setNewIntegration(null); setEViews(null); setFile(""); setid(""); setIsOn(0); setSource(0); setName(""); setComment(""); setErrors([]); setShow(false) };
+    const handleClose = () => { setEditType(""); setEViews([]); setNewIntegration(null); setFile(""); setid(""); setIsOn(0); setSource(0); setName(""); setComment(""); setErrors([]); setShow(false) };
     const handleShow = () => setShow(true);
 
     async function newIntegr() {
@@ -117,23 +117,21 @@ const IntegrationSetting = () => {
         handleShow();
         setEditType(type);
         integrationService.getIntegrationOne(id).then(data => {
-            console.log(data);
             setSource(data.data.source);
             setNewIntegration(data.data);
             if (data.data.jsonData === "")
-                setEViews(null);
+                setEViews([]);
             else
                 setEViews(JSON.parse(data.data.jsonData));
-            setIsOn(data.data.isOn);
-            console.info(data.data);
-            setName(data.data.viewName);
+            setIsOn(data.data.isOn); setName(data.data.viewName);
             setComment(data.data.testComment);
             if (data.data.jsonData !== "") {
                 let f = JSON.parse(data.data.jsonData);
-                console.info(f);
-                f = f[0].FullPath.split("\\");
-                console.info(f[f.length - 1]);
-                setFile(f[f.length - 1]);
+                if (f !== null) {
+                    f = f[0].FullPath.split("\\");
+                    setFile(f[f.length - 1]);
+                } else
+                    setFile('');
             }
             setErrorStatrt(data.data.json);
         })
@@ -259,7 +257,7 @@ const IntegrationSetting = () => {
                 <Card.Body className='noBorder'>
                     <Col>
                         <Row>
-                            <Button onClick={() => newIntegr()} className='buttonIntegation m-2'>
+                            <Button onClick={() => newIntegr()} className='buttonIntegation m-2' >
                                 Новая интеграция
                             </Button>
                             <Button className='buttonIntegation m-2' onClick={() => del()}>

@@ -9,7 +9,8 @@ import {
     URL_INEGTRATION_SETTINGS,
     URL_INDICATOR_LIST,
     URL_INDICATOR_IND_MEMBER,
-    URL_INDICATOR_NEW_INFO
+    URL_INDICATOR_NEW_INFO,
+    URL_INDICATOR_NEW
 } from '../../utils/const';
 import api from "./api";
 
@@ -103,6 +104,14 @@ function getAmoData(id_member){
         }
     });
 }
+function newIngicator(json,id_member){
+    return api.post(URL_INDICATOR_NEW+ "/" + id_member, json, {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`
+        }
+    });
+}
 
 const IntegrationSetting = {
     getIntegrationSettings,
@@ -113,7 +122,8 @@ const IntegrationSetting = {
     getIndicatorList,
     getIndicatorMemberList,
     getIndicatorMember,
-    getAmoData
+    getAmoData,
+    newIngicator
 };
 
 export default IntegrationSetting;

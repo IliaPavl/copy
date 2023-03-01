@@ -157,7 +157,6 @@ function start() {
 
 function receiveOAuthMessage(event) {
   var oauth_scripts = document.querySelectorAll('.amocrm_oauth');
-  console.info("receive");
   oauth_scripts.forEach(function (oauth_script) {
     if (event.data.client_id && oauth_script.dataset.clientId && event.data.client_id === oauth_script.dataset.clientId) {
       oauth_script.dataset.error = event.data.error;

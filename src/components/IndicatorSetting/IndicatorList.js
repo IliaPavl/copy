@@ -80,7 +80,7 @@ const IndicatorList = () => {
                             <Button onClick={() => newIntegr()} className='buttonIntegation m-2' >
                                 Новый показатель
                             </Button>
-                            <Button className='buttonIntegation m-2' onClick={() => del()} disabled='true'>
+                            <Button className='buttonIntegation m-2' onClick={() => del()} disabled={true}>
                                 Удалить показатель
                             </Button>
                         </Row>

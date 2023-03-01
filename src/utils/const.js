@@ -22,7 +22,6 @@ export const INDICATOR_LIST = '/indicator/list'
 export const INDICATOR_MEMBER = '/indicator/member'
 export const AMO_INTEGRATION = '/settings/integration/amo'
 export const INEGTRATION_NEW = '/indicator/new'
-
 //export const URL_BASE = 'http://77.74.35.5:30823'
 //export const URL_BASE = 'https://localhost:8080'
 //export const URL_BASE = 'https://ts.hs.by:30823'
@@ -59,6 +58,7 @@ export const URL_INDICATOR_LIST = 'app/user/indicator_setting/list'
 export const URL_INDICATOR_IND_MEMBER_LIST = 'app/user/indicator_setting/indMemberList'
 export const URL_INDICATOR_IND_MEMBER = 'app/user/indicator_setting/member'
 export const URL_INDICATOR_NEW_INFO = 'app/user/indicator_setting/new/info'
+export const URL_INDICATOR_NEW = 'app/user/indicator_setting/new'
 
 
 
