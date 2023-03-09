@@ -3,6 +3,7 @@ import { Button, Card, Col, Container, Form, Row, Table } from 'react-bootstrap'
 import { toast } from 'react-toastify';
 import InputPatternService from '../../servise/funtionService/InputPatternService';
 import integrationService from "../../servise/httpServise/IntegrationService";
+import LocalServise from '../../servise/httpServise/LocalServise';
 import OffcanvasIntegration from './OffcanvasIntegration';
 import './Settings.css';
 
@@ -104,6 +105,7 @@ const IntegrationSetting = () => {
     const handleShow = () => setShow(true);
 
     async function newIntegr() {
+        LocalServise.setIdIntegrationAmo("");
         setIsNewInt(true);
         setNewIntegration(null);
         handleShow();

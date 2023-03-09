@@ -15,7 +15,6 @@ const Login = () => {
     const click = async (e) => {
         if (errorlogin === '' && errorPass === '') {
             e.preventDefault()
-            console.log(username+"|"+password);
             getResponse(username, password);
         } else { toast.warning("Проверьте введённые вами данные") }
     }

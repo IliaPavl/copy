@@ -61,7 +61,7 @@ const Amo = () => {
                 ClientAmo_secret: AMO_SECRET,
                 Refresh: refresh,
                 ClientAmo_id: urlData.client_id,
-                Link: urlData.ref,
+                Link: "https://"+urlData.ref,
             }
             let obj = {
                 id_integration: LocalServise.getIdIntegrationAmo(),
@@ -119,7 +119,7 @@ const Amo = () => {
                                 />
 
                             </InputGroup>
-                            <Button className="m-2" onClick={() => testF()}>
+                            <Button className="mt-2" onClick={() => testF()}>
                                 Тест подключения
                             </Button>
                         </Col>
