@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AmoHtttp from '../../servise/httpServise/AmoHtttp';
 import LocalServise from '../../servise/httpServise/LocalServise';
-import { SETTINGS_INTEGRATION } from '../../utils/const';
+import { AMO_SECRET, SETTINGS_INTEGRATION } from '../../utils/const';
 import integrationService from "../../servise/httpServise/IntegrationService";
 
 const Amo = () => {
-    const constComment = "RM SYSTEM подключение к амо"
-    const constName = "RM SYSTEM"
+    const constComment = "Focus подключение к амо"
+    const constName = "Focus"
     let [urlData, setUrlData] = useState({})
     let [name, setName] = useState(constName);
     let [comment, setComment] = useState(constComment)
@@ -38,30 +38,6 @@ const Amo = () => {
         console.log(urlData)
     }, [urlData])
 
-    let [answer, setAnswer] = useState("");
-    function testFunction() {
-        let jsonData = {
-            ClientAmo_secret: "0yM40qJllKsInxbFBzDAAbhzGILsbqiSDMmtL5G5MIYuLu6q62ArWGggXFeDVyQT",
-            Refresh: refresh,
-            ClientAmo_id: urlData.client_id,
-        }
-        let obj = {
-            id_integration: LocalServise.getIdIntegrationAmo(),
-            source: 8,
-            viewName: name,
-            jsonData: JSON.stringify(jsonData),
-            function: zapros,
-            testComment: comment,
-            Link: urlData.ref,
-            isOn: 0
-        }
-        toast.promise(
-            AmoHtttp.testFunction(obj).then((response) => {
-                toast.success("Успешный запрос")
-                console.info(response);
-                setAnswer(response.data);
-            }).catch((error) => { toast.error(error) }), { pending: "Please wait... ", })
-    }
     function testF() {
         toast.promise(
             refresh===''?
@@ -76,15 +52,13 @@ const Amo = () => {
             }).catch((error) => { toast.error(error) }):{}, { pending: "Please wait... ", })
     }
 
-    let [zapros, setZapros] = useState("");
-
     useEffect(() => {
     }, [refresh])
 
     function save() {
         if (refresh !== '') {
             let jsonData = {
-                ClientAmo_secret: "0yM40qJllKsInxbFBzDAAbhzGILsbqiSDMmtL5G5MIYuLu6q62ArWGggXFeDVyQT",
+                ClientAmo_secret: AMO_SECRET,
                 Refresh: refresh,
                 ClientAmo_id: urlData.client_id,
                 Link: urlData.ref,

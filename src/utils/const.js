@@ -22,10 +22,12 @@ export const INDICATOR_LIST = '/indicator/list'
 export const INDICATOR_MEMBER = '/indicator/member'
 export const AMO_INTEGRATION = '/settings/integration/amo'
 export const INEGTRATION_NEW = '/indicator/new'
-//export const URL_BASE = 'http://77.74.35.5:30823'
+
 //export const URL_BASE = 'https://localhost:8080'
-//export const URL_BASE = 'https://ts.hs.by:30823'
 export const URL_BASE = 'https://rmsys.info:8080'
+
+export const AMO_SECRET = "TmGlWbEkSD6rWEhSpj99BFpqOARiGOxK3Yf6InB7KsVBs7OeUiJuK1Bfcjzu86PW"
+export const AMO_ID ="dbba0587-f04a-4453-b5e9-6894ccca3089"
 
 export const URL_LOGIN = URL_BASE + '/app/login'
 export const URL_REGISTRATION_ROUTE = '/app/registration'

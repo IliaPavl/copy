@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Form, InputGroup, Offcanvas } from 'react-bootstrap';
 import LocalServise from '../../servise/httpServise/LocalServise';
+import { AMO_SECRET, AMO_ID } from '../../utils/const';
 import DropDownOutSucses from '../UI/DropDown/DropDownOutSucses';
 import amoButton from './amoButton';
 import './Settings.css';
@@ -48,7 +49,7 @@ const OffcanvasIntegration = ({ id, editType, file, enableType, show, onHide, pl
                                 <script
                                     className="amocrm_oauth"
                                     charSet="utf-8"
-                                    data-client-id="8971ce16-0b0e-4a27-b2f0-5f0ea62bb5ea"
+                                    data-client-id= {AMO_ID}
                                     data-title="Button"
                                     data-compact="false"
                                     data-class-name="className"
@@ -108,7 +109,7 @@ const OffcanvasIntegration = ({ id, editType, file, enableType, show, onHide, pl
                                         <script
                                             className="amocrm_oauth"
                                             charSet="utf-8"
-                                            data-client-id="8971ce16-0b0e-4a27-b2f0-5f0ea62bb5ea"
+                                            data-client-id={AMO_ID}
                                             data-title="Button"
                                             data-compact="false"
                                             data-class-name="className"
