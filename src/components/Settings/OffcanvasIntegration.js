@@ -4,9 +4,12 @@ import LocalServise from '../../servise/httpServise/LocalServise';
 import { AMO_SECRET, AMO_ID } from '../../utils/const';
 import DropDownOutSucses from '../UI/DropDown/DropDownOutSucses';
 import amoButton from './amoButton';
+import InputFile from './Inputs/InputFile';
+import InputPassword from './Inputs/InputPassword';
+import InputText from './Inputs/InputText';
 import './Settings.css';
 
-const OffcanvasIntegration = ({ id, editType, file, enableType, show, onHide, placement, isNewIntegr, newIntegration, types, eViews, plus, setComment, setName, isError, editData, save }) => {
+const OffcanvasIntegration = ({ testIntegration, id, editType, file, enableType, show, onHide, placement, isNewIntegr, newIntegration, types, eViews, plus, setComment, setName, isError, editData, save }) => {
     let [val, setVal] = useState('');
 
     useEffect(() => { }, [newIntegration])
@@ -17,8 +20,8 @@ const OffcanvasIntegration = ({ id, editType, file, enableType, show, onHide, pl
     useEffect(() => {
         if (show === true)
             amoButton.start();
-    }, [eViews])
-    
+    }, [eViews, val])
+
 
     useEffect(() => {
         if (id !== null && id !== undefined && id !== "") {
@@ -49,7 +52,7 @@ const OffcanvasIntegration = ({ id, editType, file, enableType, show, onHide, pl
                                 <script
                                     className="amocrm_oauth"
                                     charSet="utf-8"
-                                    data-client-id= {AMO_ID}
+                                    data-client-id={AMO_ID}
                                     data-title="Button"
                                     data-compact="false"
                                     data-class-name="className"
@@ -125,49 +128,68 @@ const OffcanvasIntegration = ({ id, editType, file, enableType, show, onHide, pl
                                     </InputGroup>
                                     : <></>}
                             </>}
-
                         {eViews !== null && eViews !== "" && eViews !== undefined ?
                             eViews.map((data) => (
-                                data.AddInfo !== undefined ?
-                                    data.AddInfo === "OpenFile" ?
-                                        <>
-                                            {file !== "" ?
+                                data.addInfo !== undefined && data.addInfo !== "" ?
+                                    <>
+                                        {data.addInfo === "OpenFile" ?
+                                            file !== "" ?
                                                 <>
                                                     <InputGroup key={plus()} className="mt-2">
                                                         <Form.Label >Выбранный файл: {file}</Form.Label>
                                                     </InputGroup>
-                                                    <InputGroup key={plus()} >
-                                                        <Form.Control type="file" className={isError(data.viewName) === true ? "errorBorder " : ""} onChange={(e) => editData(data, e.target.value)} />
-                                                    </InputGroup>
+                                                    <InputFile plus={plus} isError={isError} data={data} editData={editData} />
                                                 </>
                                                 :
-                                                <>
-                                                    <InputGroup key={plus()} className="mt-2">
-                                                        <Form.Control type="file" className={isError(data.viewName) === true ? "errorBorder " : ""} onChange={(e) => editData(data, e.target.value)} />
-                                                    </InputGroup></>}
-                                        </>
-                                        :
-                                        <>
-                                            <InputGroup key={plus()} className={isError(data.viewName) === true ? "errorBorder mt-2" : "mt-2"}>
-                                                <InputGroup.Text className={isError(data.viewName) === true ? "settingForm errorBorder" : ""}>
-                                                    {data.viewName}
-                                                </InputGroup.Text>
-                                                <Form.Control
-                                                    defaultValue={data.fullPath}
-                                                    aria-describedby="basic-addon1"
-                                                    onChange={(e) => editData(data, e.target.value)}
-                                                    className={isError(data.viewName) === true ? "errorBorder" : ""}
-                                                />
+                                                <div className="mt-2">
+                                                    <InputFile plus={plus} isError={isError} data={data} editData={editData} className="mt-2" />
+                                                </div>
 
-                                            </InputGroup>
-                                        </>
-                                    : <></>))
+                                            : <></>}
+                                        {console.log(data.Pwd)}
+                                        {data.addInfo === "Pass" ?
+                                            <InputPassword plus={plus} isError={isError} data={data} editData={editData} defaultValue={data.Pwd}>
+                                            </InputPassword>
+                                            : <></>}
+                                    </>
+                                    :
+                                    <>
+                                        {data.type === "CHR" ?
+                                            <>
+                                                {data.link !== undefined ?
+                                                    <InputText plus={plus} isError={isError} data={data} editData={editData} defaultValue={data.link}>
+                                                    </InputText> : <></>}
+                                                {data.usr !== null && data.usr !== undefined ?
+                                                    <InputText plus={plus} isError={isError} data={data} editData={editData} defaultValue={data.usr}>
+                                                    </InputText> : <></>}
+                                                {data.ref !== null && data.srvr !== undefined ?
+                                                    <InputText plus={plus} isError={isError} data={data} editData={editData} defaultValue={data.ref}>
+                                                    </InputText> : <></>}
+                                                {data.srvr !== null && data.srvr !== undefined ?
+                                                    <InputText plus={plus} isError={isError} data={data} editData={editData} defaultValue={data.srvr}>
+                                                    </InputText> : <></>}
+                                            </> : <></>}
+                                        {data.type === "SHR" ?
+                                            <>
+                                                <div className="mt-2">
+                                                    {data.viewName}
+                                                </div>
+
+                                            </> : <></>}
+                                    </>
+
+                            ))
                             : <></>}
                     </Form>
 
                     <Card.Footer className='cardFooterContainer mt-2'>
+                        <div className='cardFooterLeft'>
+                            <Button onClick={() => testIntegration()}>
+                                Тест
+                            </Button>
+                        </div>
                         <div className='cardFooter'>
-                            <Button onClick={() => save()}>
+                            <Button onClick={() => save()} >
                                 Сохранить
                             </Button>
                         </div>

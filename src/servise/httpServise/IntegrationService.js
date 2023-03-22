@@ -10,7 +10,8 @@ import {
     URL_INDICATOR_LIST,
     URL_INDICATOR_IND_MEMBER,
     URL_INDICATOR_NEW_INFO,
-    URL_INDICATOR_NEW
+    URL_INDICATOR_NEW,
+    URL_INEGTRATION_TEST
 } from '../../utils/const';
 import api from "./api";
 
@@ -112,12 +113,30 @@ function newIngicator(json,id_member){
         }
     });
 }
+function testIntegration(name, comment, views, id, source, isOn) {
+    let integration = {
+        id_integration: id,
+        source: source,
+        viewName: name,
+        jsonData: views,
+        testComment: comment,
+        isOn: isOn
+    }
+    console.info(integration)
+    return api.post(URL_INEGTRATION_TEST, integration, {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${AUTHRIZATION_WORD}_${localStorage.getItem(ACCESS_TOKEN)}`
+        }
+    });
+}
 
 const IntegrationSetting = {
     getIntegrationSettings,
     getIntegrationList,
     getIntegrationOne,
     setIntegration,
+    testIntegration,
     deleteIntegration,
     getIndicatorList,
     getIndicatorMemberList,

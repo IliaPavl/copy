@@ -37,7 +37,10 @@ const IntegrationSetting = () => {
             setTypes(data.data.types);
             let obj = [
                 data.data.jsonViewExel,
-                data.data.integrationAmo
+                data.data.jsonViewAmo,
+                data.data.jsonViewsBitrix,
+                data.data.jsonViews1CS,
+                data.data.jsonViewsGoogleSheets
             ];
             setViews(obj);
         })
@@ -68,7 +71,6 @@ const IntegrationSetting = () => {
                 : item
         ))
     }
-
     async function del() {
         let l = 0;
         for (let i = 0; i < list.length; i++) {
@@ -185,25 +187,62 @@ const IntegrationSetting = () => {
     }
 
     async function enableType(typeName) {
+        let isNull =true;
         if (typeName !== null)
-            for (let i = 0; i < types.length; i++) {
+            for (let i = 0; i < types.length; i++)
                 if (types[i].name === typeName) {
-                    let d = [];
+                    const id_type = types[i].type_id;
                     for (let data = 0; data < views.length; data++) {
-                        if (views[data][0].id_type === types[i].type_id) {
+                        if (views[data].length !== 0)
+                            if (views[data][0].id_type === id_type) {
+                                let d = [];
+                                for (let x = 0; x < views[data].length; x++)
+                                    d.push(views[data][x]);
 
-                            d.push(views[data][0]);
-                        }
-
+                                setEViews(d);
+                                setErrorStatrt(d);
+                                setSource(id_type)
+                                isNull=false;
+                            }
                     }
-                    setEViews(d);
-                    setErrorStatrt(d);
-                    setSource(types[i].type_id)
                     break;
                 }
-            }
+        if(isNull){
+            setEViews([])
+            setErrorStatrt([])
+        }
     }
 
+    function testIntegration() {
+        let k = [];
+        Object.assign(k, eViews)
+        let er1 = { FullPath: name, Type: "CHR", ViewName: "name" }
+        let er2 = { FullPath: comment, Type: "CHR", ViewName: "comment" }
+        k.push(er1)
+        k.push(er2)
+        let err = false;
+        let b = cheakError(k);
+        for (let k = 0; k < b.length; k++) {
+            if (b[k].error === true) {
+                err = true;
+                break;
+            }
+        }
+        if (err === false) {
+            toast.promise(
+                integrationService.testIntegration(name, comment, JSON.stringify(eViews), id, source, isOn).then((responce) => {
+                    if (responce.data === "Ok")
+                        toast.success("Результат теста: " + responce.data);
+                    else
+                        toast.error("Результат теста: " + responce.data);
+                }).catch((error) => {
+                    let message = error.request.responseText.split('"');
+                    toast.error(message[3]);
+                }), {
+                pending: "Тестирование... ",
+            })
+        }
+    }
     function save() {
         let k = [];
         Object.assign(k, eViews)
@@ -265,7 +304,6 @@ const IntegrationSetting = () => {
                             <Button className='buttonIntegation m-2' onClick={() => del()}>
                                 Удалить интеграции
                             </Button>
-
                         </Row>
                         <Row className={"scrollTable"}>
                             {list.length !== 0 ?
@@ -333,6 +371,7 @@ const IntegrationSetting = () => {
             </Card>
             <OffcanvasIntegration
                 id={id}
+                testIntegration={testIntegration}
                 editType={editType}
                 show={show}
                 onHide={handleClose}
