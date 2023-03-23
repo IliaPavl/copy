@@ -62,7 +62,6 @@ instance.interceptors.response.use(
         toast.error("Время сессии истекло, перезайдите в приложение!");
         console.info("Время сессии истекло, перезайдите в приложение!");
         LocalServise.logoutUser();
-
       }
     }
     if (err.response.status === 0) {

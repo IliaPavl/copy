@@ -42,6 +42,7 @@ const IntegrationSetting = () => {
                 data.data.jsonViews1CS,
                 data.data.jsonViewsGoogleSheets
             ];
+            console.log(obj);
             setViews(obj);
         })
         if (window.innerWidth < 780)

@@ -18,10 +18,11 @@ const OffcanvasIntegration = ({ testIntegration, id, editType, file, enableType,
         enableType(value);
     }
     useEffect(() => {
-        if (show === true)
-            amoButton.start();
-    }, [eViews, val])
-
+        if (show === true && Array.isArray(eViews)) {
+                amoButton.start();
+        }
+        console.log(eViews)
+    }, [eViews,val])
 
     useEffect(() => {
         if (id !== null && id !== undefined && id !== "") {
@@ -72,7 +73,7 @@ const OffcanvasIntegration = ({ testIntegration, id, editType, file, enableType,
                                     </InputGroup.Text>
                                     {newIntegration != null ?
                                         <Form.Control
-                                            defaultValue={newIntegration.viewName}
+                                            defaultValue={newIntegration.viewName !== undefined ? newIntegration.viewName : newIntegration.ViewName}
                                             aria-describedby="basic-addon1"
                                             onChange={(e) => { setName(e.target.value) }}
                                             className={isError("name") === true ? "errorBorder" : ""}
@@ -90,7 +91,7 @@ const OffcanvasIntegration = ({ testIntegration, id, editType, file, enableType,
                                     </InputGroup.Text>
                                     {newIntegration != null ?
                                         <Form.Control as="textarea"
-                                            defaultValue={newIntegration.testComment}
+                                            defaultValue={newIntegration.testComment !== undefined ? newIntegration.testComment : newIntegration.TestComment}
                                             aria-describedby="basic-addon1"
                                             onChange={(e) => { setComment(e.target.value) }}
                                             className={isError("comment") === true ? "errorBorder" : ""}
@@ -128,9 +129,9 @@ const OffcanvasIntegration = ({ testIntegration, id, editType, file, enableType,
                                     </InputGroup>
                                     : <></>}
                             </>}
-                        {eViews !== null && eViews !== "" && eViews !== undefined ?
+                        {eViews !== null && eViews !== "" && eViews !== undefined && editType !== 'amoCRM' ?
                             eViews.map((data) => (
-                                data.addInfo !== undefined && data.addInfo !== "" ?
+                                data.addInfo !== undefined && data.addInfo !== "" || data.AddInfo !== undefined && data.AddInfo !== "" ?
                                     <>
                                         {data.addInfo === "OpenFile" ?
                                             file !== "" ?
@@ -146,8 +147,25 @@ const OffcanvasIntegration = ({ testIntegration, id, editType, file, enableType,
                                                 </div>
 
                                             : <></>}
-                                        {console.log(data.Pwd)}
+                                        {data.AddInfo === "OpenFile" ?
+                                            file !== "" ?
+                                                <>
+                                                    <InputGroup key={plus()} className="mt-2">
+                                                        <Form.Label >Выбранный файл: {file}</Form.Label>
+                                                    </InputGroup>
+                                                    <InputFile plus={plus} isError={isError} data={data} editData={editData} />
+                                                </>
+                                                :
+                                                <div className="mt-2">
+                                                    <InputFile plus={plus} isError={isError} data={data} editData={editData} className="mt-2" />
+                                                </div>
+
+                                            : <></>}
                                         {data.addInfo === "Pass" ?
+                                            <InputPassword plus={plus} isError={isError} data={data} editData={editData} defaultValue={data.Pwd}>
+                                            </InputPassword>
+                                            : <></>}
+                                        {data.AddInfo === "Pass" ?
                                             <InputPassword plus={plus} isError={isError} data={data} editData={editData} defaultValue={data.Pwd}>
                                             </InputPassword>
                                             : <></>}
@@ -169,12 +187,32 @@ const OffcanvasIntegration = ({ testIntegration, id, editType, file, enableType,
                                                     <InputText plus={plus} isError={isError} data={data} editData={editData} defaultValue={data.srvr}>
                                                     </InputText> : <></>}
                                             </> : <></>}
-                                        {data.type === "SHR" ?
+                                        {data.Type === "CHR" ?
+                                            <>
+                                                {data.Link !== undefined ?
+                                                    <InputText plus={plus} isError={isError} data={data} editData={editData} defaultValue={data.Link}>
+                                                    </InputText> : <></>}
+                                                {data.Usr !== undefined && data.Usr !== null ?
+                                                    <InputText plus={plus} isError={isError} data={data} editData={editData} defaultValue={data.Usr}>
+                                                    </InputText> : <></>}
+                                                {data.Ref !== undefined && data.Ref !== null ?
+                                                    <InputText plus={plus} isError={isError} data={data} editData={editData} defaultValue={data.Ref}>
+                                                    </InputText> : <></>}
+                                                {data.Srvr !== undefined && data.Srvr !== null ?
+                                                    <InputText plus={plus} isError={isError} data={data} editData={editData} defaultValue={data.Srvr}>
+                                                    </InputText> : <></>}
+                                            </> : <></>}
+                                        {data.type === "SHR" || data.Type === "SHR" ?
                                             <>
                                                 <div className="mt-2">
                                                     {data.viewName}
                                                 </div>
-
+                                            </> : <></>}
+                                        {data.Type === "SHR" ?
+                                            <>
+                                                <div className="mt-2">
+                                                    {data.ViewName}
+                                                </div>
                                             </> : <></>}
                                     </>
 
