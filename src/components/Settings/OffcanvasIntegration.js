@@ -19,9 +19,11 @@ const OffcanvasIntegration = ({ testIntegration, id, editType, file, enableType,
     }
     useEffect(() => {
         if (show === true && Array.isArray(eViews)) {
+            if(eViews.length!==0 || val!=="не выбрано")
                 amoButton.start();
         }
-        console.log(eViews)
+        
+        console.log(val)
     }, [eViews,val])
 
     useEffect(() => {

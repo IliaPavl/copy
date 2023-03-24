@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Button, Row, Form } from 'react-bootstrap';
+import { Modal, Button, Row, Form, Card } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import integrationService from "../../servise/httpServise/IntegrationService";
 const ModalSettings = ({ show, handleClose, id_member }) => {
     let [info, setInfo] = useState();
@@ -7,9 +8,29 @@ const ModalSettings = ({ show, handleClose, id_member }) => {
         if (id_member !== undefined) {
             integrationService.getIndicatorMember(id_member).then(res => {
                 setInfo(res.data);
+                setTestValue(res.data.memTest)
+
             })
         }
     }, [id_member])
+
+    let [testValue, setTestValue] = useState("");
+    async function test() {
+        setTestValue("...");
+        toast.promise(
+            integrationService.testIndicator(id_member).then((response) => {
+                toast.success("Тест прошел успешно");
+                setTestValue("Результат теста: "+response.data);
+                console.log(response.data)
+            }).catch((error) => {
+                setTestValue("Последний верный расчёт: "+info.memTest);
+                let message = error.request.responseText.split('"');
+                toast.error(message[3]);
+            }), {
+            pending: "Please wait... ",
+        })
+    }
+    useEffect(() => {  }, [info,testValue])
 
     return (
         <Modal show={show} onHide={handleClose}>
@@ -54,17 +75,25 @@ const ModalSettings = ({ show, handleClose, id_member }) => {
                 </Row >
                 <Row className='mt-1'>
                     <div className='modalInputFirst_P'>Тестовое значение: </div>
-                    <Form.Control as="textarea" readOnly={true} className='modalInputSecond_P ' value={info !== undefined ? info.memTest : ''} />
+                    <Form.Control as="textarea" readOnly={true} className='modalInputSecond_P ' value={testValue} />
                     {/* <input type="text" readOnly={true} className='containerSecond_P ' value={info !== undefined ? info.memTest : ''}/> */}
                 </Row>
 
 
             </Modal.Body>
-            <Modal.Footer>
-                <Button variant="outline-danger" onClick={handleClose}>
-                    Закрыть
-                </Button>
-            </Modal.Footer>
+            <Card.Footer className='cardFooterContainer mt-2'>
+                <div className='cardFooterLeft'>
+                    <Button variant="warning" onClick={test}>
+                        Тест
+                    </Button>
+                </div>
+                <div className='cardFooter'>
+                    <Button variant="outline-danger" onClick={handleClose}>
+                        Закрыть
+                    </Button>
+                </div>
+            </Card.Footer>
+
         </Modal>
     );
 };

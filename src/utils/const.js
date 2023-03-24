@@ -60,6 +60,7 @@ export const URL_INDICATOR_LIST = 'app/user/indicator_setting/list'
 export const URL_INDICATOR_IND_MEMBER_LIST = 'app/user/indicator_setting/indMemberList'
 export const URL_INDICATOR_IND_MEMBER = 'app/user/indicator_setting/member'
 export const URL_INDICATOR_NEW_INFO = 'app/user/indicator_setting/new/info'
+export const URL_INDICATOR_TEST = 'app/user/indicator_setting/test_member'
 export const URL_INDICATOR_NEW = 'app/user/indicator_setting/new'
 
 
